@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load static %}
+
+{% include "includes/forms/errors.html" %}
+
+<main class="form-signin py-3">
+  <form method="post">
+    {% csrf_token %}
+
+    <img class="mb-3" src="{% static 'img/logo.png' %}" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">{% trans "Login" %}</h1>
+
+    {% include "includes/forms/fields.html" %}
+    <div class="checkbox my-3">
+      {{ form.remember_me }}
+      <label class="form-check-label" for="{{ form.remember_me.id_for_label }}">{% trans "Remember_me" %}</label>
+    </div>
+    <button class="btn w-25 mx-auto btn-primary" type="submit">{% trans "Login" %}</button>
+
+  </form>
+</main>

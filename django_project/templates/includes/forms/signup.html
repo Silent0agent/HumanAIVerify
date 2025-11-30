@@ -1,0 +1,16 @@
+{% load i18n %}
+{% load static %}
+
+{% include "includes/forms/errors.html" %}
+
+<main class="form-signin py-4">
+  <form method="post">
+    {% csrf_token %}
+
+    <img class="mb-3" src="{% static 'img/logo.png' %}" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">{% trans "Registration" %}</h1>
+    {% include "includes/forms/fields.html" %}
+    <button class="btn w-25 mx-auto mt-3 btn-primary" type="submit">{% trans "Registrate" %}</button>
+
+  </form>
+</main>

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  {% trans "Profile" %}
+{% endblock title %}
+
+{% block content %}
+  {% include "includes/messages.html" %}
+  {% include "includes/forms/profile.html" %}
+{% endblock content %}
