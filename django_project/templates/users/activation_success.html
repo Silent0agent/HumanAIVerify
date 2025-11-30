@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  {% trans 'Account_activation' %}
+{% endblock title %}
+
+{% block content %}
+  <h1>{% trans "Account_activated" %}!</h1>
+  <p>{% trans 'Your_account_has_been_activated' %}</p>
+  <a class="btn btn-primary mt-2" href="{% url 'users:login' %}">{% trans "Login" %}</a>
+{% endblock content %}

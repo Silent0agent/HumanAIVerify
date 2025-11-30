@@ -1,0 +1,41 @@
+image: python:3.11
+
+stages:
+  - dependencies-lint
+  - python-lint
+  - test
+
+sort-requirements:
+  stage: dependencies-lint
+  before_script:
+    - pip install -r requirements/test.txt
+  script:
+    - sort-requirements --check requirements/*.txt
+
+
+flake8:
+  stage: python-lint
+  image: registry.gitlab.com/pipeline-components/flake8:latest
+  before_script:
+    - pip install -r requirements/test.txt
+  script:
+    - flake8 --verbose
+
+black:
+  stage: python-lint
+  image: registry.gitlab.com/pipeline-components/black:latest
+  script:
+    - black --check --diff .
+
+
+django:
+  stage: test
+  script:
+    - pip install -r requirements/prod.txt
+    - pip install -r requirements/test.txt
+    - cd lyceum
+    - python3 manage.py makemigrations --check
+    - python3 manage.py test
+  only:
+    - merge_requests
+    - pushes

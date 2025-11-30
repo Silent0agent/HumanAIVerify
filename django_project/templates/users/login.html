@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+  {% trans "Login" %}
+{% endblock title %}
+
+{% block content %}
+  {% include "includes/messages.html" %}
+  {% include "includes/forms/login.html" %}
+
+  <p class="text-center mt-3">
+    <a class="hover-link text-muted" href="{% url 'users:reset-password' %}" role="button" aria-label="{% trans 'Password_recovery' %}">
+      {% trans "Forgot_password" %}
+    </a>
+  </p>
+  <p class="text-center mt-2">
+    <a class="hover-link fw-semibold" href="{% url 'users:signup' %}" role="button" aria-label="{% trans 'Registration' %}">
+      {% trans "No_account_registration_on_login" %}
+    </a>
+  </p>
+{% endblock content %}

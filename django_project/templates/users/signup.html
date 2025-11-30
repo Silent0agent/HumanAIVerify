@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+  {% trans "Registration" %}
+{% endblock title %}
+
+{% block content %}
+  {% include "includes/messages.html" %}
+  {% include "includes/forms/signup.html" %}
+
+  <p class="text-center">{% trans "You_will_recieve_link_with_activation_after_registration" %}</p>
+  <p class="text-center mt-1">
+    <span>{% trans "If_you_have_account_already" %},</span> <a class="hover-link fw-semibold" href="{% url 'users:login' %}">{% trans "login_here" %}</a>.
+  </p>
+{% endblock content %}

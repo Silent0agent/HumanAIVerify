@@ -1,0 +1,15 @@
+{% for hidden_field in form.hidden_fields %}{{ hidden_field }}{% endfor %}
+
+{% for field in form %}
+  {% if field.name != "remember_me" %}
+    <div class="form-floating w-25 mx-auto">
+      {{ field }}
+      <label for="{{ field.id_for_label }}">
+        {{ field.label }}
+        {% if field.field.required %}<span>*</span>{% endif %}
+      </label>
+      {% comment %} looks strange with help_text
+      {% if field.help_text %}<small id="{{ field.id_for_label }}-help">{{ field.help_text|safe }}</small>{% endif %} {% endcomment %}
+    </div>
+  {% endif %}
+{% endfor %}
