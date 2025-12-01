@@ -10,6 +10,34 @@ from django.urls import reverse
 User = auth.get_user_model()
 
 
+class LoginTests(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.user = User.objects.create_user(
+            username="testuser",
+            email="test@example.com",
+            password="password123",
+            is_active=True,
+        )
+
+    def test_login_with_username(self):
+        response = self.client.post(
+            reverse("users:login"),
+            {"username": "testuser", "password": "password123"},
+        )
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertTrue(response.wsgi_request.user.is_authenticated)
+
+    def test_login_with_email(self):
+        response = self.client.post(
+            reverse("users:login"),
+            {"username": "test@example.com", "password": "password123"},
+        )
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertTrue(response.wsgi_request.user.is_authenticated)
+
+
 class UserRegistrationTests(TestCase):
     @classmethod
     def setUpClass(cls):
