@@ -35,16 +35,13 @@ class UserProfileForm(core.forms.BootstrapFormMixin, forms.ModelForm):
 class SignUpForm(core.forms.BootstrapFormMixin, auth.forms.UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data.get(User.email.field.name)
-        username = self.cleaned_data.get(User.username.field.name)
-        if (
-            email
-            and User.objects.filter(email=email)
-            .exclude(username=username)
-            .exists()
-        ):
-            raise ValidationError(
-                _("User_with_this_email_already_exists"),
-            )
+
+        if email:
+            normalized_email = User.objects.normalize_email(email)
+            if User.objects.filter(email=normalized_email).exists():
+                raise ValidationError(
+                    _("User_with_this_email_already_exists"),
+                )
 
         return email
 
