@@ -1,3 +1,22 @@
+@font-face {
+    font-family: 'Days One'; /* Name you choose to use in your CSS */
+    src: url('../fonts/Days_One/DaysOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto'; /* Name you choose to use in your CSS */
+    src: url('../fonts/Roboto/Roboto-VariableFont_wdth\,wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Apply the font to elements */
+body {
+    font-family: 'Days One', sans-serif;
+}
+
 .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
