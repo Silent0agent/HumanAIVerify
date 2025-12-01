@@ -3,26 +3,74 @@ __all__ = ()
 import uuid
 
 from django.contrib.auth.models import AbstractUser, Group
-from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+import sorl.thumbnail
 
+import core.validators
 import users.managers
 
 
-class CustomUser(AbstractUser):
-    objects = users.managers.CustomUserManager()
-
+class AvatarFieldMixin(models.Model):
     def avatar_path(self, filename):
-        ext = filename.split(".")[-1]
-        return f"users/avatars/{uuid.uuid4()}.{ext}"
+        extension = filename.split(".")[-1]
+        return f"users/avatars/{uuid.uuid4()}.{extension}"
 
-    email = models.EmailField(unique=True)
-    avatar = models.ImageField(
+    avatar = sorl.thumbnail.ImageField(
         verbose_name=_("avatar"),
         upload_to=avatar_path,
         null=True,
         blank=True,
+        validators=[core.validators.FileSizeValidator(5 * 1024 * 1024)],
+    )
+
+    class Meta:
+        abstract = True
+
+    def get_avatar_x32(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.avatar,
+            "32x32",
+            crop="center",
+            upscale=True,
+            quality=99,
+        )
+
+    def get_avatar_x50(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.avatar,
+            "50x50",
+            crop="center",
+            upscale=True,
+            quality=99,
+        )
+
+    def get_avatar_x200(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.avatar,
+            "200x200",
+            upscale=False,
+            quality=99,
+        )
+
+    def avatar_tmb(self):
+        if self.avatar:
+            return mark_safe(
+                f"<img src='{self.get_avatar_x50().url}' "
+                f"width='50' height='50'/>",
+            )
+
+        return _("No_avatar")
+
+    avatar_tmb.short_description = _("avatar_preview")
+
+
+class CustomUser(AvatarFieldMixin, AbstractUser):
+    email = models.EmailField(
+        _("email"),
+        unique=True,
     )
     login_attempts_count = models.PositiveIntegerField(
         default=0,
@@ -37,6 +85,8 @@ class CustomUser(AbstractUser):
         null=True,
     )
 
+    objects = users.managers.CustomUserManager()
+
     class Meta:
         verbose_name = _("user")
         verbose_name_plural = _("users")
@@ -48,24 +98,15 @@ class CustomUser(AbstractUser):
         self._normalize_email_field()
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("users:user-detail", kwargs={"pk": self.pk})
+
     def clean(self):
         super().clean()
         self._normalize_email_field()
 
-        if self.email:
-            queryset = self.__class__.objects.filter(email=self.email)
-
-            if self.pk:
-                queryset = queryset.exclude(pk=self.pk)
-
-            if queryset.exists():
-                raise ValidationError(
-                    _("User_with_this_email_already_exists"),
-                )
-
     def _normalize_email_field(self):
-        if self.email:
-            self.email = self.__class__.objects.normalize_email(self.email)
+        self.email = self.__class__.objects.normalize_email(self.email)
 
 
 class GroupProxy(Group):

@@ -112,6 +112,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    "users.backends.EmailBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
 LOGIN_URL = reverse_lazy("users:login")
 LOGIN_REDIRECT_URL = reverse_lazy("users:profile")
 LOGOUT_REDIRECT_URL = reverse_lazy("users:logout")

@@ -11,8 +11,13 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, FormView, ListView, View
-from multi_form_view import MultiFormView
+from django.views.generic import (
+    DetailView,
+    FormView,
+    ListView,
+    UpdateView,
+    View,
+)
 
 import users.forms
 
@@ -48,6 +53,22 @@ class SignUpView(FormView):
         user = form.save(commit=False)
         user.is_active = settings.DEFAULT_USER_IS_ACTIVE
         user.save()
+
+        if not settings.DEFAULT_USER_IS_ACTIVE:
+            self._send_activation_email(user)
+            messages.warning(
+                self.request,
+                _("Need_to_activate_profile"),
+            )
+        else:
+            messages.success(
+                self.request,
+                _("Succesfully_registred"),
+            )
+
+        return super().form_valid(form)
+
+    def _send_activation_email(self, user):
         signer = signing.TimestampSigner()
         signed_username = signer.sign(user.username)
         activate_link = self.request.build_absolute_uri(
@@ -64,55 +85,22 @@ class SignUpView(FormView):
                 {"activate_link": activate_link},
             ),
             from_email=settings.EMAIL_HOST,
-            recipient_list=[form.cleaned_data["email"]],
+            recipient_list=[user.email],
         )
 
-        if settings.DEFAULT_USER_IS_ACTIVE:
-            messages.success(
-                self.request,
-                _("Succesfully_registred"),
-            )
-        else:
-            messages.warning(
-                self.request,
-                _("Need_to_activate_profile"),
-            )
 
-        return super().form_valid(form)
-
-
-class ProfileView(LoginRequiredMixin, MultiFormView):
+class ProfileView(LoginRequiredMixin, UpdateView):
+    form_class = users.forms.UserProfileForm
     template_name = "users/profile.html"
     success_url = reverse_lazy("users:profile")
-    form_classes = {
-        "profile_form": users.forms.UserProfileForm,
-    }
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["profile_form"] = self.forms["profile_form"]
-        return context
+    def get_object(self, queryset=None):
+        return self.request.user
 
-    def get_forms(self, **kwargs):
-        profile_form = users.forms.UserProfileForm(
-            self.request.POST or None,
-            self.request.FILES or None,
-            instance=self.request.user,
-        )
-
-        self.forms = {
-            "profile_form": profile_form,
-        }
-        return self.forms
-
-    def forms_valid(self, forms):
-        forms["profile_form"].save()
+    def form_valid(self, form):
+        messages.success(self.request, _("Settings_saved"))
         self.request.session.modified = True
-        messages.success(
-            self.request,
-            _("Settings_saved"),
-        )
-        return super().forms_valid(forms)
+        return super().form_valid(form)
 
 
 class LoginView(LoginView):
@@ -155,6 +143,8 @@ class UnlockAccountView(View):
             )
 
         user.is_active = True
+        user.login_attempts_count = 0
+        user.block_timestamp = None
         user.save()
 
         return render(request, self.template_name)
