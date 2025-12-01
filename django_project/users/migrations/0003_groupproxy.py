@@ -7,7 +7,6 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("auth", "0014_delete_userproxy"),
         ("users", "0002_alter_customuser_managers"),
     ]
 
