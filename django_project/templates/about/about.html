@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock extra_head %}
+
+{% block title %}
+  {% translate 'About' %}
+{% endblock title %}
+
+{% block content %}
+  <section class="hero-section">
+    <h2 class="text-white text-center mt-3 display-3">Who we are</h2>
+    {% comment %} <h2 class="text-white text-center mt-3 display-3">{% translate "about-header" %}</h2> {% endcomment %}
+    <div class="container-fluid">
+      <div class="row align-items-center hero-row">
+        <div class="col-md-6 order-1 order-md-1 d-flex flex-column justify-content-center px-5">
+          <h1 class="hero-title">
+            Changing the world through verifying content on using AI
+            {% comment %} {% translate "about-title" %} {% endcomment %}
+          </h1>
+          <p class="hero-text">
+            Founded 40 years ago on the simple idea of verifying content on using AI, HumanAiVerify offers groundbreaking technology that empowers everyone, everywhere to imagine, create, and bring any digital experience to life.
+            {% comment %} {% translate "about-text" %} {% endcomment %}
+          </p>
+        </div>
+
+        <div class="col-md-6 text-center order-2 order-md-2 px-4">
+          <img src="{% static 'img/about.png' %}" alt="{% translate 'Decorative logo' %}" class="img-fluid hero-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero-section">
+    <div class="container-fluid text-center mb-4">
+      <hr class="border-light mx-auto">
+      <h2 class="display-4 mb-0">The team</h2>
+      {% comment %} <h2 class="display-4 mb-0">{% translate "team-header" %}</h2> {% endcomment %}
+    </div>
+
+    <div class="container mx-auto col-7">
+      <div class="row g-0 team-row">
+
+        <div class="col-md-8 d-flex h-100">
+          <div class="img-overlay-wrapper w-100 h-100" tabindex="0" aria-label="Denis — Лид">
+            <img src="{% static 'img/team/denis.png' %}" alt="Denis">
+            <div class="img-caption">
+              <div class="caption-name">{% translate "Denis" %}</div>
+              <div class="caption-role">{% translate "Lead" %}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 d-flex flex-column h-100">
+          <div class="flex-fill d-flex align-items-center justify-content-center">
+            <div class="img-overlay-wrapper w-100 h-100" tabindex="0" aria-label="Egor — Бэкэнд">
+              <img src="{% static 'img/team/egor.jpg' %}" alt="Egor">
+              <div class="img-caption">
+                <div class="caption-name">{% translate "Egor" %}</div>
+                <div class="caption-role">{% translate "Backend" %}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-fill d-flex align-items-center justify-content-center">
+            <div class="img-overlay-wrapper w-100 h-100" tabindex="0" aria-label="Ivan — Фронтенд">
+              <img src="{% static 'img/team/ivan.jpg' %}" alt="Ivan">
+              <div class="img-caption">
+                <div class="caption-name">{% translate "Ivan" %}</div>
+                <div class="caption-role">{% translate "Frontend" %}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}

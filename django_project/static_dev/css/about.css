@@ -1,0 +1,58 @@
+/* static/css/about.css */
+.hero-row { min-height: 72vh; padding: 2rem 0; }
+.hero-title {
+  font-weight: 500;
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  line-height: 1.02;
+  margin-bottom: 1.25rem;
+  max-width: 46ch;
+}
+.hero-text { color: #dfe6ea; max-width: 46ch; font-size: 1.05rem; }
+.hero-img { max-height: 70vh; width: 100%; object-fit: contain; display: inline-block; }
+
+/* overlays for team images */
+.img-overlay-wrapper { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.img-overlay-wrapper img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.img-caption {
+  position: absolute;
+  left: .75rem;
+  bottom: .6rem;
+  padding: .35rem .6rem;
+  background: rgba(0,0,0,.6);
+  color: #fff;
+  border-radius: .25rem;
+  font-size: .95rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .18s ease, transform .18s ease;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.img-caption .caption-name { font-weight: 700; }
+.img-caption .caption-role { font-size: .85rem; opacity: .9; }
+
+/* show on hover / keyboard focus */
+.img-overlay-wrapper:hover .img-caption,
+.img-overlay-wrapper:focus-within .img-caption {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* touch devices — keep visible */
+@media (hover: none) {
+  .img-caption { opacity: 1; transform: none; }
+}
+
+/* team block height and responsive tweaks */
+.team-row { min-height: 60vh; }
+@media (max-width: 767.98px) {
+  .hero-row { padding: 2rem 0; }
+  .hero-title { text-align: left; }
+  .hero-img { max-height: 45vh; }
+  .team-row { min-height: 45vh; }
+  .img-caption { left: .5rem; bottom: .5rem; }
+}
