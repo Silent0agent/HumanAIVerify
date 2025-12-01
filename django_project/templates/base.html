@@ -22,7 +22,7 @@
     <link rel="icon" sizes="16x16" type="image/x-icon" href="{% static 'img/fav/favicon-16x16.ico' %}" />
     <link rel="apple-touch-icon" sizes="180x180" type="image/x-icon" href="{% static 'img/fav/apple-touch-icon.ico' %}" />
     <link rel="manifest" type="application/manifest+json" href="{% static 'img/fav/site.webmanifest' %}" />
-
+    {% block extra_head %}{% endblock extra_head %}
     <title>
       {% block title %}
       {% endblock title %}
