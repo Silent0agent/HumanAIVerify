@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "about.apps.AboutConfig",
     "core.apps.CoreConfig",
     "users.apps.UsersConfig",
+    "tasks.apps.TasksConfig",
     "django_cleanup.apps.CleanupConfig",
 ]
 
