@@ -2,11 +2,11 @@
 {% load i18n %}
 
 {% block title %}
-  {% trans 'Account_activation' %}
+  {% translate "Account_activation" %}
 {% endblock title %}
 
 {% block content %}
-  <h1>{% trans "Account_activated" %}!</h1>
-  <p>{% trans 'Your_account_has_been_activated' %}</p>
-  <a class="btn btn-primary mt-2" href="{% url 'users:login' %}">{% trans "Login" %}</a>
+  <h1>{% translate "Account_activated" %}!</h1>
+  <p>{% translate "Your_account_has_been_activated" %}</p>
+  <a class="btn btn-primary mt-2" href="{% url 'users:login' %}">{% translate "Login" %}</a>
 {% endblock content %}

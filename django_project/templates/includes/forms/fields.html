@@ -1,8 +1,7 @@
 {% for hidden_field in form.hidden_fields %}{{ hidden_field }}{% endfor %}
-
 {% for field in form %}
   {% if field.name != "remember_me" %}
-    <div class="form-floating w-25 mx-auto">
+    <div class="form-floating mx-auto w-75">
       {{ field }}
       <label for="{{ field.id_for_label }}">
         {{ field.label }}
