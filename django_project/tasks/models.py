@@ -6,21 +6,20 @@ from django.utils.translation import gettext_lazy as _
 
 
 class TextTask(models.Model):
-    """Модель текстового задания для проверки ИИ."""
-
     client = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
-        verbose_name=_("client"),
         related_name="text_tasks",
+        related_query_name="text_task",
+        verbose_name=_("client"),
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name=_("created at"),
+        verbose_name=_("created_at"),
     )
     updated_at = models.DateTimeField(
         auto_now=True,
-        verbose_name=_("updated at"),
+        verbose_name=_("updated_at"),
     )
     title = models.CharField(
         max_length=255,
@@ -31,8 +30,8 @@ class TextTask(models.Model):
     )
 
     class Meta:
-        verbose_name = _("text task")
-        verbose_name_plural = _("text tasks")
+        verbose_name = _("text_task")
+        verbose_name_plural = _("text_tasks")
         ordering = ["-created_at"]
 
     def __str__(self):
