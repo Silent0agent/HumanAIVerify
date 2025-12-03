@@ -1,24 +1,38 @@
 __all__ = ()
 
 from django import forms
-from django.contrib import auth
+import django.contrib.auth.forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 import core.forms
 
-User = auth.get_user_model()
+User = django.contrib.auth.get_user_model()
 
 
 class CustomAuthenticationForm(
     core.forms.BootstrapFormMixin,
-    auth.forms.AuthenticationForm,
+    django.contrib.auth.forms.AuthenticationForm,
 ):
     remember_me = forms.BooleanField(required=False)
     username = forms.CharField(
         label=_("username_or_email_label"),
         max_length=254,
     )
+
+
+class PasswordChangeForm(
+    core.forms.BootstrapFormMixin,
+    django.contrib.auth.forms.PasswordChangeForm,
+):
+    pass
+
+
+class PasswordResetForm(
+    core.forms.BootstrapFormMixin,
+    django.contrib.auth.forms.PasswordResetForm,
+):
+    pass
 
 
 class UserProfileForm(core.forms.BootstrapFormMixin, forms.ModelForm):
@@ -32,7 +46,9 @@ class UserProfileForm(core.forms.BootstrapFormMixin, forms.ModelForm):
         ]
 
 
-class SignUpForm(core.forms.BootstrapFormMixin, auth.forms.UserCreationForm):
+class SignUpForm(
+    core.forms.BootstrapFormMixin, django.contrib.auth.forms.UserCreationForm,
+):
     def clean_email(self):
         email = self.cleaned_data.get(User.email.field.name)
 
@@ -45,7 +61,7 @@ class SignUpForm(core.forms.BootstrapFormMixin, auth.forms.UserCreationForm):
 
         return email
 
-    class Meta(auth.forms.UserCreationForm.Meta):
+    class Meta(django.contrib.auth.forms.UserCreationForm.Meta):
         model = User
         fields = [
             User.email.field.name,

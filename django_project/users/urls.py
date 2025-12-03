@@ -35,43 +35,18 @@ urlpatterns = [
         name="unlock-account",
     ),
     path(
-        "user-detail/<int:pk>",
-        views.UserDetailView.as_view(),
-        name="user-detail",
-    ),
-    path(
-        "user-list/",
-        views.UserListView.as_view(),
-        name="user-list",
-    ),
-    path(
         "profile/",
         views.ProfileView.as_view(),
         name="profile",
     ),
     path(
         "change-password/",
-        django_views.PasswordChangeView.as_view(
-            template_name="users/password_change.html",
-            success_url=reverse_lazy("users:change-password-done"),
-        ),
+        views.PasswordChangeView.as_view(),
         name="change-password",
     ),
     path(
-        "change-password/done/",
-        django_views.PasswordChangeDoneView.as_view(
-            template_name="users/password_change_done.html",
-        ),
-        name="change-password-done",
-    ),
-    path(
         "reset-password/",
-        django_views.PasswordResetView.as_view(
-            template_name="users/password_reset.html",
-            email_template_name="users/password_reset_email.html",
-            subject_template_name="users/subjects/password_reset.txt",
-            success_url=reverse_lazy("users:password-reset-done"),
-        ),
+        views.PasswordResetView.as_view(),
         name="reset-password",
     ),
     path(
