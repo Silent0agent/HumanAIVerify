@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load static %}
 
@@ -7,7 +7,7 @@
 {% endblock extra_head %}
 
 {% block title %}
-  {% translate 'About' %}
+  {% translate "About" %}
 {% endblock title %}
 
 {% block content %}
@@ -28,7 +28,7 @@
         </div>
 
         <div class="col-md-6 text-center order-2 order-md-2 px-4">
-          <img src="{% static 'img/logo.png' %}" alt="{% translate 'Decorative logo' %}" class="img-fluid hero-img">
+          <img src="{% static 'img/logo.png' %}" class="img-fluid hero-img" height="1024" width="1024" alt="{% translate 'Decorative logo' %}">
         </div>
       </div>
     </div>
@@ -45,8 +45,8 @@
       <div class="row g-0 team-row">
 
         <div class="col-md-8 d-flex">
-          <div class="img-overlay-wrapper w-100 h-100" tabindex="0" aria-label="Denis — Лид">
-            <img src="{% static 'img/team/denis.png' %}" alt="Denis">
+          <div class="img-overlay-wrapper w-100 h-100" tabindex="0" aria-label="Denis — Lead">
+            <img src="{% static 'img/team/denis.png' %}" height="1024" width="960" alt="Denis">
             <div class="img-caption">
               <div class="caption-name">{% translate "Denis" %}</div>
               <div class="caption-role">{% translate "Lead" %}</div>
@@ -56,8 +56,8 @@
 
         <div class="col-md-4 d-flex flex-column">
           <div class="flex-fill d-flex align-items-center justify-content-center">
-            <div class="img-overlay-wrapper" tabindex="0" aria-label="Egor — Бэкэнд">
-              <img src="{% static 'img/team/egor.jpg' %}" alt="Egor">
+            <div class="img-overlay-wrapper" tabindex="0" aria-label="Egor — Backend">
+              <img src="{% static 'img/team/egor.jpg' %}" height="640" width="640" alt="Egor">
               <div class="img-caption">
                 <div class="caption-name">{% translate "Egor" %}</div>
                 <div class="caption-role">{% translate "Backend" %}</div>
@@ -66,8 +66,8 @@
           </div>
 
           <div class="flex-fill d-flex align-items-center justify-content-center">
-            <div class="img-overlay-wrapper" tabindex="0" aria-label="Ivan — Фронтенд">
-              <img src="{% static 'img/team/ivan.jpg' %}" alt="Ivan">
+            <div class="img-overlay-wrapper" tabindex="0" aria-label="Ivan — Frontend">
+              <img src="{% static 'img/team/ivan.jpg' %}" height="640" width="640" alt="Ivan">
               <div class="img-caption">
                 <div class="caption-name">{% translate "Ivan" %}</div>
                 <div class="caption-role">{% translate "Frontend" %}</div>

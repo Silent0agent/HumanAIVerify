@@ -71,4 +71,9 @@ urlpatterns = [
         ),
         name="password-reset-complete",
     ),
+    path(
+        "user-detail/<int:pk>",
+        views.UserDetailView.as_view(),
+        name="user-detail",
+    ),
 ]

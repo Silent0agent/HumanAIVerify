@@ -3,8 +3,6 @@ __all__ = ()
 from django.conf import settings
 from django.contrib import auth, messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-import django.contrib.auth.views
-from django.contrib.auth.views import LoginView
 from django.core import signing
 from django.core.mail import send_mail
 from django.http import HttpResponseNotFound, HttpResponseRedirect
@@ -13,6 +11,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
+    DetailView,
     FormView,
     UpdateView,
     View,
@@ -38,6 +37,28 @@ class ActivateUserView(View):
             )
 
         user.is_active = True
+        user.save()
+
+        return render(request, self.template_name)
+
+
+class UnlockAccountView(View):
+    template_name = "users/activation_success.html"
+
+    def get(self, request, signed_username):
+        signer = signing.TimestampSigner()
+
+        try:
+            username = signer.unsign(signed_username, max_age=3600 * 7)
+            user = User.objects.get(username=username)
+        except (signing.BadSignature, User.DoesNotExist):
+            return HttpResponseNotFound(
+                _("Invalid_or_expired_activation_link"),
+            )
+
+        user.is_active = True
+        user.login_attempts_count = 0
+        user.block_timestamp = None
         user.save()
 
         return render(request, self.template_name)
@@ -88,47 +109,7 @@ class SignUpView(FormView):
         )
 
 
-class ProfileView(LoginRequiredMixin, UpdateView):
-    form_class = users.forms.UserProfileForm
-    template_name = "users/profile.html"
-    success_url = reverse_lazy("users:profile")
-
-    def get_object(self, queryset=None):
-        return self.request.user
-
-    def form_valid(self, form):
-        messages.success(self.request, _("Settings_saved"))
-        self.request.session.modified = True
-        return super().form_valid(form)
-
-
-class PasswordChangeView(django.contrib.auth.views.PasswordChangeView):
-    form_class = users.forms.PasswordChangeForm
-    template_name = "users/password_change.html"
-    success_url = reverse_lazy("users:login")
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["user"] = self.request.user
-        return kwargs
-
-    def form_valid(self, form):
-        messages.success(self.request, _("password_changed"))
-        return super().form_valid(form)
-
-
-class PasswordResetView(django.contrib.auth.views.PasswordResetView):
-    form_class = users.forms.PasswordResetForm
-    template_name = "users/password_reset.html"
-    email_template_name = "users/password_reset_email.html"
-    subject_template_name = "users/subjects/password_reset.txt"
-    success_url = reverse_lazy("users:password-reset-done")
-
-    def form_valid(self, form):
-        return super().form_valid(form)
-
-
-class LoginView(LoginView):
+class LoginView(auth.views.LoginView):
     form_class = users.forms.CustomAuthenticationForm
     template_name = "users/login.html"
     success_url = reverse_lazy("users:profile")
@@ -153,23 +134,49 @@ class LogoutView(View):
         return HttpResponseRedirect(reverse("users:login"))
 
 
-class UnlockAccountView(View):
-    template_name = "users/activation_success.html"
+class PasswordChangeView(auth.views.PasswordChangeView):
+    form_class = users.forms.PasswordChangeForm
+    template_name = "users/password_change.html"
+    success_url = reverse_lazy("users:login")
 
-    def get(self, request, signed_username):
-        signer = signing.TimestampSigner()
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
 
-        try:
-            username = signer.unsign(signed_username, max_age=3600 * 7)
-            user = User.objects.get(username=username)
-        except (signing.BadSignature, User.DoesNotExist):
-            return HttpResponseNotFound(
-                _("Invalid_or_expired_activation_link"),
-            )
+    def form_valid(self, form):
+        messages.success(self.request, _("password_changed"))
+        return super().form_valid(form)
 
-        user.is_active = True
-        user.login_attempts_count = 0
-        user.block_timestamp = None
-        user.save()
 
-        return render(request, self.template_name)
+class PasswordResetView(auth.views.PasswordResetView):
+    form_class = users.forms.PasswordResetForm
+    template_name = "users/password_reset.html"
+    email_template_name = "users/password_reset_email.html"
+    subject_template_name = "users/subjects/password_reset.txt"
+    success_url = reverse_lazy("users:password-reset-done")
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+class ProfileView(LoginRequiredMixin, UpdateView):
+    form_class = users.forms.UserProfileForm
+    template_name = "users/profile.html"
+    success_url = reverse_lazy("users:profile")
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def form_valid(self, form):
+        messages.success(self.request, _("Settings_saved"))
+        self.request.session.modified = True
+        return super().form_valid(form)
+
+
+class UserDetailView(DetailView):
+    context_object_name = "user"
+    template_name = "users/user_detail.html"
+
+    def get_queryset(self):
+        return User.objects.public_information()

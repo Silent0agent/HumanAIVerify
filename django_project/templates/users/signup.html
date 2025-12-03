@@ -4,18 +4,18 @@
 
 {% block title %}
   {% translate "Signup" %}
-{% endblock %}
+{% endblock title %}
 
 {% block image %}
   <img class="mb-3" src="{% static 'img/logo.png' %}" alt="" width="72" height="57">
-{% endblock %}
+{% endblock image %}
 {% block head %}
   {% translate "Signup" %}
-{% endblock %}
+{% endblock head %}
 
 {% block buttons %}
   <button class="btn w-25 mx-auto mt-3 btn-primary" type="submit">{% translate "Signup" %}</button>
-{% endblock %}
+{% endblock buttons %}
 
 {% block extra-under-form %}
   <p class="text-center mt-3 mb-0">You will recieve link with activation after registration</p>
@@ -24,4 +24,4 @@
     <span>If you have account already,</span> <a class="purple-hover text-decoration-none" href="{% url 'users:login' %}">login here</a>.
     {% comment %} <span>{% translate "have_account_msg" %},</span> <a class="purple-hover text-decoration-none" href="{% url 'users:login' %}">{% translate "login_here_msg" %}</a>. {% endcomment %}
   </p>
-{% endblock %}
+{% endblock extra-under-form %}

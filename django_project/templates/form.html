@@ -7,10 +7,11 @@
   {% include "includes/forms/errors.html" %}
 
   <div class="col-md-6 col-lg-6 col-12 mx-auto mt-2">
-    <form method="post" enctype="multipart/form-data" class="card py-3" {% block form-action %}{% endblock %}>
+    <form method="post" enctype="multipart/form-data" class="card py-3" {% block form-action %}{% endblock form-action %}>
       {% csrf_token %}
       <div class="text-center mb-3">
-        {% block image %}{% endblock %}
+        {% block image %}
+        {% endblock image %}
         <h3>
           {% block head %}
           {% endblock head %}
@@ -19,12 +20,15 @@
 
       <div class="d-flex flex-column align-items-center">
         {% include "includes/forms/fields.html" %}
-        {% block extra-fields %}{% endblock %}
+        {% block extra-fields %}
+        {% endblock extra-fields %}
       </div>
 
-      {% block buttons %}{% endblock %}
+      {% block buttons %}
+      {% endblock buttons %}
     </form>
-    {% block extra-under-form %}{% endblock %}
+    {% block extra-under-form %}
+    {% endblock extra-under-form %}
   </div>
 
-{% endblock %}
+{% endblock content %}
