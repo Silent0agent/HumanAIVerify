@@ -1,6 +1,5 @@
 {% load static %}
 {% load i18n %}
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
   <head>
@@ -11,10 +10,8 @@
     <meta name="keywords"
           content="ai-content-verification, human-verification, text-check, content-verification, ai-detection, plagiarism-check, content-moderation, human-review, text-analysis, content-quality, artificial-intelligence, human-audit, ai-generated-content, content-authenticity, manual-verification, expert-review, content-validation">
     <meta name="theme-color" content="#712cf9" />
-
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-
     <link rel="icon" type="image/icon" href="{% static 'img/fav/favicon.ico' %}" sizes="96x96" />
     <link rel="shortcut icon" type="image/icon" href="{% static 'img/fav/favicon.ico' %}" />
     <link rel="icon" type="image/x-icon" href="{% static 'img/fav/favicon.ico' %}" />
@@ -29,17 +26,14 @@
       {% endblock title %}
     </title>
   </head>
-
   <body class="d-flex flex-column min-vh-100">
     {% include "includes/header.html" %}
-
     <main class="flex-grow-1">
       <div class="container mb-5">
         {% block content %}
         {% endblock content %}
       </div>
     </main>
-
     {% include "includes/footer.html" %}
     <script src="{% static 'js/color-modes.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js'%}" class="astro-vvvwv3sm"></script>

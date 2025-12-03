@@ -4,26 +4,26 @@
 
 {% block title %}
   {% translate "Login" %}
-{% endblock %}
+{% endblock title %}
 
 {% block image %}
   <img class="mb-2" src="{% static 'img/logo.png' %}" alt="" width="72" height="72">
-{% endblock %}
+{% endblock image %}
 {% block head %}
   {% translate "Login" %}
-{% endblock %}
+{% endblock head %}
 
 {% block extra-fields %}
   <div class="checkbox my-3">
     {{ form.remember_me }}
     <label class="form-check-label" for="{{ form.remember_me.id_for_label }}">{% translate "remember_me" %}</label>
   </div>
-{% endblock %}
+{% endblock extra-fields %}
 {% block buttons %}
   <div class="d-flex flex-column gap-2 mt-3 align-items-center justify-content-center ">
     <button type="submit" class="btn btn-primary btn-lg">{% translate "Login" %}</button>
   </div>
-{% endblock %}
+{% endblock buttons %}
 
 {% block extra-under-form %}
   <p class="text-center mt-3 mb-0">
@@ -36,4 +36,4 @@
       {% translate "No_account_registration_on_login" %}
     </a>
   </p>
-{% endblock %}
+{% endblock extra-under-form %}
