@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+  {% include "includes/messages.html" %}
+  {% include "includes/forms/errors.html" %}
+
+  <div class="col-md-6 col-lg-6 col-12 mx-auto mt-2">
+    <form method="post" enctype="multipart/form-data" class="card py-3" {% block form-action %}{% endblock %}>
+      {% csrf_token %}
+      <div class="text-center mb-3">
+        {% block image %}{% endblock %}
+        <h3>
+          {% block head %}
+          {% endblock head %}
+        </h3>
+      </div>
+
+      <div class="d-flex flex-column align-items-center">
+        {% include "includes/forms/fields.html" %}
+        {% block extra-fields %}{% endblock %}
+      </div>
+
+      {% block buttons %}{% endblock %}
+    </form>
+    {% block extra-under-form %}{% endblock %}
+  </div>
+
+{% endblock %}

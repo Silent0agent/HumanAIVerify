@@ -1,17 +1,27 @@
-{% extends "base.html" %}
+{% extends "form.html" %}
 {% load static %}
 {% load i18n %}
 
 {% block title %}
-  {% trans "Registration" %}
-{% endblock title %}
+  {% translate "Signup" %}
+{% endblock %}
 
-{% block content %}
-  {% include "includes/messages.html" %}
-  {% include "includes/forms/signup.html" %}
+{% block image %}
+  <img class="mb-3" src="{% static 'img/logo.png' %}" alt="" width="72" height="57">
+{% endblock %}
+{% block head %}
+  {% translate "Signup" %}
+{% endblock %}
 
-  <p class="text-center">{% trans "You_will_recieve_link_with_activation_after_registration" %}</p>
+{% block buttons %}
+  <button class="btn w-25 mx-auto mt-3 btn-primary" type="submit">{% translate "Signup" %}</button>
+{% endblock %}
+
+{% block extra-under-form %}
+  <p class="text-center mt-3 mb-0">You will recieve link with activation after registration</p>
+  {% comment %} <p class="text-center mb-0">{% translate "receive_link_after_registration_msg" %}</p> {% endcomment %}
   <p class="text-center mt-1">
-    <span>{% trans "If_you_have_account_already" %},</span> <a class="hover-link fw-semibold" href="{% url 'users:login' %}">{% trans "login_here" %}</a>.
+    <span>If you have account already,</span> <a class="purple-hover text-decoration-none" href="{% url 'users:login' %}">login here</a>.
+    {% comment %} <span>{% translate "have_account_msg" %},</span> <a class="purple-hover text-decoration-none" href="{% url 'users:login' %}">{% translate "login_here_msg" %}</a>. {% endcomment %}
   </p>
-{% endblock content %}
+{% endblock %}

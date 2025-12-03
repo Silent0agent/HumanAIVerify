@@ -3,6 +3,7 @@ __all__ = ()
 from django.conf import settings
 from django.contrib import auth, messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+import django.contrib.auth.views
 from django.contrib.auth.views import LoginView
 from django.core import signing
 from django.core.mail import send_mail
@@ -12,9 +13,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
-    DetailView,
     FormView,
-    ListView,
     UpdateView,
     View,
 )
@@ -103,6 +102,32 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
+class PasswordChangeView(django.contrib.auth.views.PasswordChangeView):
+    form_class = users.forms.PasswordChangeForm
+    template_name = "users/password_change.html"
+    success_url = reverse_lazy("users:login")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        messages.success(self.request, _("password_changed"))
+        return super().form_valid(form)
+
+
+class PasswordResetView(django.contrib.auth.views.PasswordResetView):
+    form_class = users.forms.PasswordResetForm
+    template_name = "users/password_reset.html"
+    email_template_name = "users/password_reset_email.html"
+    subject_template_name = "users/subjects/password_reset.txt"
+    success_url = reverse_lazy("users:password-reset-done")
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
 class LoginView(LoginView):
     form_class = users.forms.CustomAuthenticationForm
     template_name = "users/login.html"
@@ -148,19 +173,3 @@ class UnlockAccountView(View):
         user.save()
 
         return render(request, self.template_name)
-
-
-class UserDetailView(DetailView):
-    context_object_name = "user"
-    template_name = "users/user_detail.html"
-
-    def get_queryset(self):
-        return User.objects.public_information()
-
-
-class UserListView(LoginRequiredMixin, ListView):
-    context_object_name = "user_list"
-    template_name = "users/user_list.html"
-
-    def get_queryset(self):
-        return User.objects.public_information()
