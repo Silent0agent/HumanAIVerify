@@ -1,9 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
 {% load i18n %}
 {% block content %}
   <h1>{% trans "Profile" %}</h1>
-  {% if user.avatar %}
-    <img src="{{ user.avatar.url }}" alt="{% trans 'Avatar'} {{ user.username }}" width="150" height="150">
+  {% if request.user.avatar %}
+    {% thumbnail request.user.avatar "150x150" crop="center" upscale=True as avatar %}
+      <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
+    {% endthumbnail %}
+  {% else %}
+    <img src="{% static 'img/no_avatar.jpg' %}" alt="{% translate 'Avatar_not_found' %}" width="150" height="150" class="rounded-circle">
   {% endif %}
   <p>
     <strong>{% trans "Username" %}:</strong> {{ user.username }}
