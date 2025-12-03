@@ -22,7 +22,8 @@
     <link rel="icon" sizes="16x16" type="image/x-icon" href="{% static 'img/fav/favicon-16x16.ico' %}" />
     <link rel="apple-touch-icon" sizes="180x180" type="image/x-icon" href="{% static 'img/fav/apple-touch-icon.ico' %}" />
     <link rel="manifest" type="application/manifest+json" href="{% static 'img/fav/site.webmanifest' %}" />
-    {% block extra_head %}{% endblock extra_head %}
+    {% block extra_head %}
+    {% endblock extra_head %}
     <title>
       {% block title %}
       {% endblock title %}
@@ -30,7 +31,7 @@
   </head>
 
   <body class="d-flex flex-column min-vh-100">
-    {% comment %} {% include "includes/header.html" %} {% endcomment %}
+    {% include "includes/header.html" %}
 
     <main class="flex-grow-1">
       <div class="container mb-5">
@@ -39,7 +40,7 @@
       </div>
     </main>
 
-    {% comment %} {% include "includes/footer.html" %} {% endcomment %}
+    {% include "includes/footer.html" %}
     <script src="{% static 'js/color-modes.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js'%}" class="astro-vvvwv3sm"></script>
   </body>
