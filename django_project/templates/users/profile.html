@@ -1,11 +1,37 @@
-{% extends "base.html" %}
+{% extends "form.html" %}
+{% load static %}
+{% load thumbnail %}
 {% load i18n %}
 
 {% block title %}
-  {% trans "Profile" %}
+  {% translate "Profile" %}
 {% endblock title %}
 
-{% block content %}
-  {% include "includes/messages.html" %}
-  {% include "includes/forms/profile.html" %}
-{% endblock content %}
+{% block image %}
+  {% if request.user.avatar %}
+    {% thumbnail request.user.avatar "200x200" crop="center" upscale=True as avatar %}
+      <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
+    {% endthumbnail %}
+  {% else %}
+    <img src="{% static 'img/no_avatar.jpg' %}" alt="{% translate 'Avatar_not_found' %}" width="200" height="200" class="rounded-circle">
+  {% endif %}
+{% endblock image %}
+{% block head %}
+  {% translate "Profile" %} — {{ request.user.username }}
+{% endblock head %}
+
+{% block buttons %}
+  <div class="d-flex flex-column gap-2 mt-3 align-items-center justify-content-center ">
+    <button type="submit" class="btn btn-primary btn-lg">{% translate "Save" %}</button>
+    <a href="{% url 'users:change-password' %}" class="btn btn-outline-warning btn-lg">{% translate "Change_password" %}</a>
+  </div>
+{% endblock buttons %}
+
+{% block extra-under-form %}
+  <div class="mt-3 d-flex justify-content-center">
+    <form action="{% url 'users:logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-danger">{% translate 'Logout' %}</button>
+    </form>
+  </div>
+{% endblock extra-under-form %}

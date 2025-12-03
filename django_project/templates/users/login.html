@@ -1,23 +1,39 @@
-{% extends "base.html" %}
+{% extends "form.html" %}
 {% load static %}
 {% load i18n %}
 
 {% block title %}
-  {% trans "Login" %}
+  {% translate "Login" %}
 {% endblock title %}
 
-{% block content %}
-  {% include "includes/messages.html" %}
-  {% include "includes/forms/login.html" %}
+{% block image %}
+  <img class="mb-2" src="{% static 'img/logo.png' %}" alt="" width="72" height="72">
+{% endblock image %}
+{% block head %}
+  {% translate "Login" %}
+{% endblock head %}
 
-  <p class="text-center mt-3">
-    <a class="hover-link text-muted" href="{% url 'users:reset-password' %}" role="button" aria-label="{% trans 'Password_recovery' %}">
-      {% trans "Forgot_password" %}
+{% block extra-fields %}
+  <div class="checkbox my-3">
+    {{ form.remember_me }}
+    <label class="form-check-label" for="{{ form.remember_me.id_for_label }}">{% translate "remember_me" %}</label>
+  </div>
+{% endblock extra-fields %}
+{% block buttons %}
+  <div class="d-flex flex-column gap-2 mt-3 align-items-center justify-content-center ">
+    <button type="submit" class="btn btn-primary btn-lg">{% translate "Login" %}</button>
+  </div>
+{% endblock buttons %}
+
+{% block extra-under-form %}
+  <p class="text-center mt-3 mb-0">
+    <a class="purple-hover text-decoration-none" href="{% url 'users:reset-password' %}" role="button" aria-label="{% translate 'Password_recovery' %}">
+      {% translate "Forgot_password" %}
     </a>
   </p>
-  <p class="text-center mt-2">
-    <a class="hover-link fw-semibold" href="{% url 'users:signup' %}" role="button" aria-label="{% trans 'Registration' %}">
-      {% trans "No_account_registration_on_login" %}
+  <p class="text-center mb-0">
+    <a class="purple-hover text-decoration-none mb-0" href="{% url 'users:signup' %}" role="button" aria-label="{% translate 'Registration' %}">
+      {% translate "No_account_registration_on_login" %}
     </a>
   </p>
-{% endblock content %}
+{% endblock extra-under-form %}

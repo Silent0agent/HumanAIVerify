@@ -29,29 +29,12 @@ class AvatarFieldMixin(models.Model):
     class Meta:
         abstract = True
 
-    def get_avatar_x32(self):
-        return sorl.thumbnail.get_thumbnail(
-            self.avatar,
-            "32x32",
-            crop="center",
-            upscale=True,
-            quality=99,
-        )
-
     def get_avatar_x50(self):
         return sorl.thumbnail.get_thumbnail(
             self.avatar,
             "50x50",
             crop="center",
             upscale=True,
-            quality=99,
-        )
-
-    def get_avatar_x200(self):
-        return sorl.thumbnail.get_thumbnail(
-            self.avatar,
-            "200x200",
-            upscale=False,
             quality=99,
         )
 
