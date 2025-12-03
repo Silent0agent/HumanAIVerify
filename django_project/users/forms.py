@@ -47,7 +47,8 @@ class UserProfileForm(core.forms.BootstrapFormMixin, forms.ModelForm):
 
 
 class SignUpForm(
-    core.forms.BootstrapFormMixin, django.contrib.auth.forms.UserCreationForm,
+    core.forms.BootstrapFormMixin,
+    django.contrib.auth.forms.UserCreationForm,
 ):
     def clean_email(self):
         email = self.cleaned_data.get(User.email.field.name)
