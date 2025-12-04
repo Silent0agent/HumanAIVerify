@@ -2,19 +2,20 @@ __all__ = ()
 
 from django.urls import path
 
-from users import views
+import users.views
 
 app_name = "users"
 
 urlpatterns = [
     path(
         "profile/",
-        views.ProfileView.as_view(),
+        users.views.ProfileView.as_view(),
         name="profile",
     ),
     path(
         "user-detail/<int:pk>",
-        views.UserDetailView.as_view(),
+        users.views.UserDetailView.as_view(),
         name="user-detail",
     ),
+    path("set-role/", users.views.SetRoleView.as_view(), name="set-role"),
 ]

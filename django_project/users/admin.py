@@ -25,6 +25,7 @@ class CustomUserAdmin(auth.admin.UserAdmin):
     add_form = AdminUserCreationForm
 
     avatar_field = User.avatar.field.name
+    role_field = User.role.field.name
     email_field = User.email.field.name
     username_field = User.username.field.name
 
@@ -45,12 +46,12 @@ class CustomUserAdmin(auth.admin.UserAdmin):
         email_field,
         first_name_field,
         last_name_field,
+        role_field,
         avatar_tmb_method,
         is_staff_field,
     )
 
     readonly_fields = (
-        avatar_field,
         avatar_tmb_method,
         block_time_field,
         date_joined_field,
@@ -72,7 +73,12 @@ class CustomUserAdmin(auth.admin.UserAdmin):
         ),
         (
             _("Additional_information"),
-            {"fields": ((avatar_field, "avatar_tmb"),)},
+            {
+                "fields": (
+                    role_field,
+                    (avatar_field, "avatar_tmb"),
+                ),
+            },
         ),
     )
     add_fieldsets = (

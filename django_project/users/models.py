@@ -51,10 +51,21 @@ class AvatarFieldMixin(models.Model):
 
 
 class CustomUser(AvatarFieldMixin, AbstractUser):
+    class Role(models.TextChoices):
+        CUSTOMER = "customer", _("customer")
+        PERFORMER = "performer", _("performer")
+
     email = models.EmailField(
         _("email"),
         unique=True,
     )
+
+    role = models.CharField(
+        max_length=9,
+        choices=Role.choices,
+        default=Role.CUSTOMER,
+    )
+
     login_attempts_count = models.PositiveIntegerField(
         default=0,
         verbose_name=_("login_attempts_count"),

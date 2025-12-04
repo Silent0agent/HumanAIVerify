@@ -1,0 +1,28 @@
+<div class="dropdown">
+  <button class="btn btn-outline-primary btn-sm d-flex align-items-center"
+          type="button"
+          id="roleDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          style="height:33px">
+    <span class="me-2">👤</span>
+    <span class="d-none d-sm-inline">{{ user.get_role_display|title }}</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="roleDropdown">
+    {% for role_code, role_label in user.Role.choices %}
+      <li>
+        <form action="{% url 'users:set-role' %}" method="post" class="d-inline w-100">
+          {% csrf_token %}
+          <input type="hidden" name="role" value="{{ role_code }}">
+
+          <button type="submit" class="dropdown-item d-flex justify-content-between align-items-center">
+            <div>
+              <span>{{ role_label|title }}</span>
+            </div>
+            {% if user.role == role_code %}<span class="text-primary">✔</span>{% endif %}
+          </button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
