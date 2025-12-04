@@ -40,19 +40,20 @@ body {
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
-  background-color: #5822c6 !important;
+  background-color: #5822c6;
   border-color: #712cf9 !important;
 }
 .btn-outline-primary {
   border-color: #712cf9 !important;
-  border-width: 2px !important;
-  border-radius: 10% !important;
-  color: #712cf9 !important;
+  border-width: 2px;
+  border-radius: 10%;
+  color: #712cf9;
 }
 .btn-outline-primary:hover,
 .btn-outline-primary:focus,
 .btn-outline-primary:active {
-  background-color: #712cf9 !important;
+  color: white;
+  background-color: #712cf9;
 }
 .form-check-input:checked {
     background-color: #712cf9;

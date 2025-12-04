@@ -23,41 +23,43 @@
         <a href="{% url 'about:about' %}" class="nav-link px-2 fs-3 purple-hover">HumanAiVerify</a>
         {% comment %} <a href="{% url 'homepage:home' %}" class="nav-link px-2 fs-3 purple-hover">HumanAiVerify</a> {% endcomment %}
 
-        <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-5">
           {% if request.user.is_anonymous %}
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-1">
               <a href="{% url 'users:login' %}" class="btn btn-outline-primary btn-sm">{% translate "Login" %}</a>
               <a href="{% url 'users:signup' %}" class="btn btn-primary btn-sm">{% translate "Signup" %}</a>
             </div>
           {% else %}
-            <div class="d-flex gap-2">
-              <div class="dropdown text-end">
-                <a href="{% url 'users:profile' %}" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  {% if request.user.avatar %}
-                    {% thumbnail request.user.avatar "32x32" crop="center" upscale=True as avatar %}
-                      <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
-                    {% endthumbnail %}
-                  {% else %}
-                    <img src="{% static 'img/no_avatar.jpg' %}" alt="{% translate 'Avatar_not_found' %}" width="32" height="32" class="rounded-circle">
-                  {% endif %}
-                </a>
-                <ul class="dropdown-menu text-small">
-                  <li>
-                    <a class="dropdown-item" href="{% url 'users:profile' %}">{% translate "Profile" %}</a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <form action="{% url 'users:logout' %}" method="post" class="d-inline">
-                      {% csrf_token %}
-                      <button type="submit" class="dropdown-item text-danger border-0 bg-translateparent w-100 text-start">{% translate "Logout" %}</button>
-                    </form>
-                  </li>
-                </ul>
-              </div>
+            <div class="dropdown text-end">
+              <a href="{% url 'users:profile' %}" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                {% if request.user.avatar %}
+                  {% thumbnail request.user.avatar "32x32" crop="center" upscale=True as avatar %}
+                    <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
+                  {% endthumbnail %}
+                {% else %}
+                  <img src="{% static 'img/no_avatar.jpg' %}" alt="{% translate 'Avatar_not_found' %}" width="32" height="32" class="rounded-circle">
+                {% endif %}
+              </a>
+              <ul class="dropdown-menu text-small">
+                <li>
+                  <a class="dropdown-item" href="{% url 'users:profile' %}">{% translate "Profile" %}</a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <form action="{% url 'users:logout' %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="dropdown-item text-danger border-0 bg-translateparent w-100 text-start">{% translate "Logout" %}</button>
+                  </form>
+                </li>
+              </ul>
             </div>
           {% endif %}
+          <div class="d-flex align-items-center gap-1">
+            {% include "includes/languages-switcher.html" %}
+            {% include "includes/theme-switcher.html" %}
+          </div>
         </div>
       </div>
     </div>
