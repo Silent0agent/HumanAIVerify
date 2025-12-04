@@ -1,6 +1,6 @@
 # HumanAIVerify
 
-[![pipeline status](https://gitlab.crja72.ru/django/2025/autumn/course/projects/team-7/badges/main/pipeline.svg?key_text=lint%20%26%20tests)](https://gitlab.crja72.ru/django/2025/autumn/course/projects/team-7/-/commits/main)
+[![pipeline status](https://gitlab.crja72.ru/django/2025/autumn/course/projects/team-7/badges/develop/pipeline.svg?key_text=lint%20%26%20tests)](https://gitlab.crja72.ru/django/2025/autumn/course/projects/team-7/-/commits/develop)
 
 HumanAIVerify is a service for checking content for signs of AI by humans
 
@@ -182,6 +182,8 @@ python manage.py runserver
 ```
 
 ### After the server is started, the application will be available at the following addresses
+
+Site: <http://localhost:8000>
 
 Admin Panel: <http://localhost:8000/admin>
 
