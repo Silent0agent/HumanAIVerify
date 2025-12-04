@@ -23,7 +23,7 @@ class LoginTests(TestCase):
 
     def test_login_with_username(self):
         response = self.client.post(
-            reverse("users:login"),
+            reverse("auth:login"),
             {"username": "testuser", "password": "password123"},
         )
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
@@ -31,7 +31,7 @@ class LoginTests(TestCase):
 
     def test_login_with_email(self):
         response = self.client.post(
-            reverse("users:login"),
+            reverse("auth:login"),
             {"username": "test@example.com", "password": "password123"},
         )
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
@@ -42,7 +42,7 @@ class UserRegistrationTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.registration_url = reverse("users:signup")
+        cls.registration_url = reverse("auth:signup")
         cls.valid_user_data = {
             "username": "sample_user",
             "email": "sample@example.com",
@@ -56,7 +56,7 @@ class UserRegistrationTests(TestCase):
             self.registration_url,
             data=self.valid_user_data,
         )
-        self.assertRedirects(response, reverse("users:login"))
+        self.assertRedirects(response, reverse("auth:login"))
         self.assertTrue(
             User.objects.filter(
                 username=self.valid_user_data["username"],

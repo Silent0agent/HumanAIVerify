@@ -6,7 +6,7 @@ from django.urls import path, reverse_lazy
 from users import views
 
 
-app_name = "users"
+app_name = "auth"
 
 urlpatterns = [
     path(
@@ -35,11 +35,6 @@ urlpatterns = [
         name="unlock-account",
     ),
     path(
-        "profile/",
-        views.ProfileView.as_view(),
-        name="profile",
-    ),
-    path(
         "change-password/",
         views.PasswordChangeView.as_view(),
         name="change-password",
@@ -60,7 +55,7 @@ urlpatterns = [
         "reset-password/confirm/<uidb64>/<token>/",
         django_views.PasswordResetConfirmView.as_view(
             template_name="users/password_reset_confirm.html",
-            success_url=reverse_lazy("users:password-reset-complete"),
+            success_url=reverse_lazy("auth:password-reset-complete"),
         ),
         name="password-reset-confirm",
     ),
@@ -70,10 +65,5 @@ urlpatterns = [
             template_name="users/password_reset_complete.html",
         ),
         name="password-reset-complete",
-    ),
-    path(
-        "user-detail/<int:pk>",
-        views.UserDetailView.as_view(),
-        name="user-detail",
     ),
 ]
