@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core import signing
 from django.core.mail import send_mail
 from django.http import HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -175,3 +175,13 @@ class UserDetailView(django.views.generic.DetailView):
 
     def get_queryset(self):
         return User.objects.public_information()
+
+
+class SetRoleView(LoginRequiredMixin, django.views.generic.View):
+    def post(self, request, *args, **kwargs):
+        new_role = request.POST.get("role")
+        if new_role in User.Role.values and request.user.role != new_role:
+            request.user.role = new_role
+            request.user.save()
+
+        return redirect("homepage:index")

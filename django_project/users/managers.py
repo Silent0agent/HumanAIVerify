@@ -25,11 +25,14 @@ class CustomUserManager(UserManager):
         local_part = re.sub(r"\+.*", "", local_part)
         return f"{local_part}@{domain}"
 
+    def active(self):
+        return self.filter(is_active=True)
+
     def by_mail(self, email):
         return self.filter(email=email).first()
 
     def public_information(self):
-        return self.only(
+        return self.active().only(
             self.model.username.field.name,
             self.model.email.field.name,
             self.model.avatar.field.name,
