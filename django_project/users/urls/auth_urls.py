@@ -3,7 +3,7 @@ __all__ = ()
 from django.contrib.auth import views as django_views
 from django.urls import path, reverse_lazy
 
-from users import views
+import users.views
 
 
 app_name = "auth"
@@ -11,37 +11,37 @@ app_name = "auth"
 urlpatterns = [
     path(
         "login/",
-        views.LoginView.as_view(),
+        users.views.LoginView.as_view(),
         name="login",
     ),
     path(
         "logout/",
-        views.LogoutView.as_view(),
+        users.views.LogoutView.as_view(),
         name="logout",
     ),
     path(
         "signup/",
-        views.SignUpView.as_view(),
+        users.views.SignUpView.as_view(),
         name="signup",
     ),
     path(
         "activate/<signed_username>/",
-        views.ActivateUserView.as_view(),
+        users.views.ActivateUserView.as_view(),
         name="activate",
     ),
     path(
         "unlock-account/<signed_username>/",
-        views.UnlockAccountView.as_view(),
+        users.views.UnlockAccountView.as_view(),
         name="unlock-account",
     ),
     path(
         "change-password/",
-        views.PasswordChangeView.as_view(),
+        users.views.PasswordChangeView.as_view(),
         name="change-password",
     ),
     path(
         "reset-password/",
-        views.PasswordResetView.as_view(),
+        users.views.PasswordResetView.as_view(),
         name="reset-password",
     ),
     path(
