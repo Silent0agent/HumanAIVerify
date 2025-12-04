@@ -10,19 +10,14 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import (
-    DetailView,
-    FormView,
-    UpdateView,
-    View,
-)
+import django.views.generic
 
 import users.forms
 
 User = auth.get_user_model()
 
 
-class ActivateUserView(View):
+class ActivateUserView(django.views.generic.View):
     template_name = "users/activation_success.html"
 
     def get(self, request, signed_username):
@@ -42,7 +37,7 @@ class ActivateUserView(View):
         return render(request, self.template_name)
 
 
-class UnlockAccountView(View):
+class UnlockAccountView(django.views.generic.View):
     template_name = "users/activation_success.html"
 
     def get(self, request, signed_username):
@@ -64,10 +59,10 @@ class UnlockAccountView(View):
         return render(request, self.template_name)
 
 
-class SignUpView(FormView):
+class SignUpView(django.views.generic.FormView):
     form_class = users.forms.SignUpForm
     template_name = "users/signup.html"
-    success_url = reverse_lazy("users:login")
+    success_url = reverse_lazy("auth:login")
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -93,7 +88,7 @@ class SignUpView(FormView):
         signed_username = signer.sign(user.username)
         activate_link = self.request.build_absolute_uri(
             reverse(
-                "users:activate",
+                "auth:activate",
                 kwargs={"signed_username": signed_username},
             ),
         )
@@ -125,19 +120,19 @@ class LoginView(auth.views.LoginView):
         return super().form_valid(form)
 
 
-class LogoutView(View):
+class LogoutView(django.views.generic.View):
     http_method_names = ["post"]
 
     def post(self, request, *args, **kwargs):
         auth.logout(request)
         messages.info(request, _("Successful_logout"))
-        return HttpResponseRedirect(reverse("users:login"))
+        return HttpResponseRedirect(reverse("auth:login"))
 
 
 class PasswordChangeView(auth.views.PasswordChangeView):
     form_class = users.forms.PasswordChangeForm
     template_name = "users/password_change.html"
-    success_url = reverse_lazy("users:login")
+    success_url = reverse_lazy("auth:login")
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -154,13 +149,13 @@ class PasswordResetView(auth.views.PasswordResetView):
     template_name = "users/password_reset.html"
     email_template_name = "users/password_reset_email.html"
     subject_template_name = "users/subjects/password_reset.txt"
-    success_url = reverse_lazy("users:password-reset-done")
+    success_url = reverse_lazy("auth:password-reset-done")
 
     def form_valid(self, form):
         return super().form_valid(form)
 
 
-class ProfileView(LoginRequiredMixin, UpdateView):
+class ProfileView(LoginRequiredMixin, django.views.generic.UpdateView):
     form_class = users.forms.UserProfileForm
     template_name = "users/profile.html"
     success_url = reverse_lazy("users:profile")
@@ -174,7 +169,7 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class UserDetailView(DetailView):
+class UserDetailView(django.views.generic.DetailView):
     context_object_name = "user"
     template_name = "users/user_detail.html"
 

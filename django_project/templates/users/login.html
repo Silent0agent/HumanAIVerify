@@ -27,12 +27,12 @@
 
 {% block extra-under-form %}
   <p class="text-center mt-3 mb-0">
-    <a class="purple-hover text-decoration-none" href="{% url 'users:reset-password' %}" role="button" aria-label="{% translate 'Password_recovery' %}">
+    <a class="purple-hover text-decoration-none" href="{% url 'auth:reset-password' %}" role="button" aria-label="{% translate 'Password_recovery' %}">
       {% translate "Forgot_password" %}
     </a>
   </p>
   <p class="text-center mb-0">
-    <a class="purple-hover text-decoration-none mb-0" href="{% url 'users:signup' %}" role="button" aria-label="{% translate 'Registration' %}">
+    <a class="purple-hover text-decoration-none mb-0" href="{% url 'auth:signup' %}" role="button" aria-label="{% translate 'Registration' %}">
       {% translate "No_account_registration_on_login" %}
     </a>
   </p>

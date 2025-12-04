@@ -120,9 +120,9 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
-LOGIN_URL = reverse_lazy("users:login")
+LOGIN_URL = reverse_lazy("auth:login")
 LOGIN_REDIRECT_URL = reverse_lazy("users:profile")
-LOGOUT_REDIRECT_URL = reverse_lazy("users:logout")
+LOGOUT_REDIRECT_URL = reverse_lazy("auth:logout")
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR / "send_mail"
