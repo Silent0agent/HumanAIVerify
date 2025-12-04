@@ -1,6 +1,6 @@
 [flake8]
 inline-quotes = "
-application-import-names = about, core, homepage, tasks, users
+application-import-names = about, core, feedback, homepage, tasks, users
 import-order-style = google
 exclude =
     */migrations/
