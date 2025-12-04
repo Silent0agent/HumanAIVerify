@@ -28,7 +28,7 @@ class UserActivationTests(TestCase):
 
         response = self.client.get(
             reverse(
-                "users:activate",
+                "auth:activate",
                 kwargs={"signed_username": signed_username},
             ),
         )
@@ -40,7 +40,7 @@ class UserActivationTests(TestCase):
     def test_activation_with_invalid_signature(self):
         response = self.client.get(
             reverse(
-                "users:activate",
+                "auth:activate",
                 kwargs={"signed_username": "invalid_signature"},
             ),
         )
@@ -52,7 +52,7 @@ class UserActivationTests(TestCase):
 
         response = self.client.get(
             reverse(
-                "users:activate",
+                "auth:activate",
                 kwargs={"signed_username": expired_signature},
             ),
         )

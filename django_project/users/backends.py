@@ -70,7 +70,7 @@ class EmailBackend(auth.backends.ModelBackend):
 
         activate_link = request.build_absolute_uri(
             reverse(
-                "users:unlock-account",
+                "auth:unlock-account",
                 kwargs={"signed_username": signed_username},
             ),
         )
