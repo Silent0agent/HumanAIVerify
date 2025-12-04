@@ -1,20 +1,27 @@
 image: python:3.11
 
 stages:
-  - dependencies-lint
-  - python-lint
+  - lint:dependencies
+  - lint:frontend
+  - lint:python
   - test
 
 sort-requirements:
-  stage: dependencies-lint
+  stage: lint:dependencies
   before_script:
     - pip install -r requirements/test.txt
   script:
     - sort-requirements --check requirements/*.txt
 
+frontend:
+  stage: lint:frontend
+  before_script:
+    - pip install djlint
+  script:
+    - djlint . --check
 
 flake8:
-  stage: python-lint
+  stage: lint:python
   image: registry.gitlab.com/pipeline-components/flake8:latest
   before_script:
     - pip install -r requirements/test.txt
@@ -22,7 +29,7 @@ flake8:
     - flake8 --verbose
 
 black:
-  stage: python-lint
+  stage: lint:python
   image: registry.gitlab.com/pipeline-components/black:latest
   script:
     - black --check --diff .

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "sorl.thumbnail",
     "about.apps.AboutConfig",
     "core.apps.CoreConfig",
+    "feedback.apps.FeedbackConfig",
     "homepage.apps.HomepageConfig",
     "tasks.apps.TasksConfig",
     "users.apps.UsersConfig",
