@@ -1,13 +1,13 @@
 image: python:3.11
 
 stages:
-  - lint:deps
+  - lint:dependencies
   - lint:frontend
   - lint:python
   - test
 
 sort-requirements:
-  stage: lint:deps
+  stage: lint:dependencies
   before_script:
     - pip install -r requirements/test.txt
   script:
@@ -18,7 +18,7 @@ frontend:
   before_script:
     - pip install djlint
   script:
-    - djlint . --profile django --indent 2 --max-attribute-length 160 --max-line-length 160 --max-blank-lines 1 --use-gitignore --ignore T002 --check
+    - djlint . --check
 
 flake8:
   stage: lint:python
