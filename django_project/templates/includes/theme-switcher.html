@@ -1,45 +1,38 @@
-{% load static %}
-{% load i18n %}
+{% load static i18n %}
 
-<div class="dropdown bd-mode-toggle">
-  <button class="btn btn-outline-secondary py-2 d-flex align-items-center"
-          id="bd-theme"
+<div class="dropdown normalize-button">
+  <button id="themeDropdown"
+          class="btn btn-outline-secondary btn-sm d-flex align-items-center"
           type="button"
-          aria-expanded="false"
           data-bs-toggle="dropdown"
-          aria-label="Toggle theme (auto)"
-          style="height:33px">
-    <svg class="bi my-1 theme-icon-active" aria-hidden="true">
-      <use href="{% static 'img/logo.png' %}"></use>
-    </svg>
-    <span class="visually-hidden" id="bd-theme-text">{% translate "Change_theme" %}</span>
+          aria-expanded="false"
+          aria-label="{% trans "Toggle theme (auto)" %}">
+    <img src="{% static 'img/logo.png' %}" alt="{% trans "Theme" %}" width="18" height="18" class="me-2">
+    <span class="d-none d-sm-inline">{% trans "Theme" %}</span>
   </button>
-  <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
+
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
     <li>
       <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-        <svg class="bi me-2 opacity-50" aria-hidden="true">
-          <use href="{% static 'img/svg/sun-fill.svg' %}"></use>
-        </svg>
-        {% translate "Light" %}
-        <span class="bi ms-auto d-none mb-2" aria-hidden="true">✔</span>
+        <img src="{% static 'img/theme-switcher/light.svg' %}" width="18" height="18" class="me-2" alt="">
+        {% trans "Light" %}
+        <span class="ms-auto check d-none" aria-hidden="true">✔</span>
       </button>
     </li>
+
     <li>
       <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-        <svg class="bi me-2 opacity-50" aria-hidden="true">
-          <use href="{% static 'img/svg/moon-stars-fill.svg' %}"></use>
-        </svg>
-        {% translate "Dark" %}
-        <span class="bi ms-auto d-none mb-2" aria-hidden="true">✔</span>
+        <img src="{% static 'img/theme-switcher/dark.svg' %}" width="18" height="18" class="me-2" alt="">
+        {% trans "Dark" %}
+        <span class="ms-auto check d-none" aria-hidden="true">✔</span>
       </button>
     </li>
+
     <li>
-      <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-        <svg class="bi me-2 opacity-50" aria-hidden="true">
-          <use href="{% static 'img/svg/circle-half.svg' %}"></use>
-        </svg>
-        {% translate "Auto" %}
-        <span class="bi ms-auto d-none mb-2" aria-hidden="true">✔</span>
+      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="true">
+        <img src="{% static 'img/theme-switcher/auto.svg' %}" width="18" height="18" class="me-2" alt="">
+        {% trans "Auto" %}
+        <span class="ms-auto check d-none" aria-hidden="true">✔</span>
       </button>
     </li>
   </ul>
