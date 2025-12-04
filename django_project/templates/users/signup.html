@@ -21,7 +21,7 @@
   <p class="text-center mt-3 mb-0">You will recieve link with activation after registration</p>
   {% comment %} <p class="text-center mb-0">{% translate "receive_link_after_registration_msg" %}</p> {% endcomment %}
   <p class="text-center mt-1">
-    <span>If you have account already,</span> <a class="purple-hover text-decoration-none" href="{% url 'users:login' %}">login here</a>.
-    {% comment %} <span>{% translate "have_account_msg" %},</span> <a class="purple-hover text-decoration-none" href="{% url 'users:login' %}">{% translate "login_here_msg" %}</a>. {% endcomment %}
+    <span>If you have account already,</span> <a class="purple-hover text-decoration-none" href="{% url 'auth:login' %}">login here</a>.
+    {% comment %} <span>{% translate "have_account_msg" %},</span> <a class="purple-hover text-decoration-none" href="{% url 'auth:login' %}">{% translate "login_here_msg" %}</a>. {% endcomment %}
   </p>
 {% endblock extra-under-form %}
