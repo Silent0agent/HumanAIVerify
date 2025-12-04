@@ -6,12 +6,12 @@ import feedback.models
 
 
 class FieldPaths:
-    _author_field = feedback.models.Feedback.author.field.name
-    _mail_field = feedback.models.FeedbackUserProfile.mail.field.name
-    _name_field = feedback.models.FeedbackUserProfile.name.field.name
+    author_field = feedback.models.Feedback.author.field.name
+    mail_field = feedback.models.FeedbackUserProfile.mail.field.name
+    name_field = feedback.models.FeedbackUserProfile.name.field.name
 
-    FEEDBACK_AUTHOR_MAIL = f"{_author_field}__{_mail_field}"
-    FEEDBACK_AUTHOR_NAME = f"{_author_field}__{_name_field}"
+    FEEDBACK_AUTHOR_MAIL = f"{author_field}__{mail_field}"
+    FEEDBACK_AUTHOR_NAME = f"{author_field}__{name_field}"
 
 
 class FilesInline(admin.TabularInline):

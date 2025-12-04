@@ -61,7 +61,7 @@ class FeedbackView(MultiFormView):
         send_mail(
             _("feedback_mail_head"),
             text,
-            settings.EMAIL_HOST,
+            settings.DEFAULT_FROM_EMAIL,
             [mail],
             fail_silently=False,
         )
