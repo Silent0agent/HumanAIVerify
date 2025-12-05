@@ -7,7 +7,7 @@ from parameterized import parameterized
 User = auth.get_user_model()
 
 
-class EmailNormalizationTest(TestCase):
+class UserModelTests(TestCase):
     @parameterized.expand(
         [
             ("user@email.com", "user@email.com"),
@@ -19,6 +19,17 @@ class EmailNormalizationTest(TestCase):
         ],
     )
     def test_email_normalization(self, email, expected_normalized_email):
-        user = User(email=email)
+        user = User(username="normalization_test_user", email=email)
         user.save()
+
         self.assertEqual(user.email, expected_normalized_email)
+
+    def test_user_default_role_customer(self):
+        user = User.objects.create_user(
+            username="role_test_user",
+            email="role_test@email.com",
+            password="testpassword",
+            is_active=True,
+        )
+
+        self.assertEqual(user.role, User.Role.CUSTOMER)
