@@ -1,25 +1,28 @@
 __all__ = ()
 
+from datetime import timedelta
 from http import HTTPStatus
 
 from django.contrib import auth
 from django.core import signing
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
+from freezegun import freeze_time
 
 User = auth.get_user_model()
 
 
-class UserActivationTests(TestCase):
+class ActivationTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.signer = signing.TimestampSigner()
 
     def setUp(self):
-        self.user = User.objects.create(
-            username="test_user",
-            email="testuser@example.com",
+        self.user = User.objects.create_user(
+            username="testuser",
+            email="test@example.com",
             is_active=False,
         )
 
@@ -47,13 +50,13 @@ class UserActivationTests(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_activation_with_expired_signature(self):
-        signed_username = self.signer.sign(self.user.username)
-        expired_signature = f"{signed_username}:expired_part"
+        with freeze_time(timezone.now() - timedelta(hours=13)):
+            signed_username = self.signer.sign(self.user.username)
 
         response = self.client.get(
             reverse(
                 "auth:activate",
-                kwargs={"signed_username": expired_signature},
+                kwargs={"signed_username": signed_username},
             ),
         )
 
