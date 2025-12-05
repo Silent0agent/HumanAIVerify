@@ -121,8 +121,6 @@ class LoginView(auth.views.LoginView):
 
 
 class LogoutView(django.views.generic.View):
-    http_method_names = ["post"]
-
     def post(self, request, *args, **kwargs):
         auth.logout(request)
         messages.info(request, _("Successful_logout"))
@@ -133,11 +131,6 @@ class PasswordChangeView(auth.views.PasswordChangeView):
     form_class = users.forms.PasswordChangeForm
     template_name = "users/password_change.html"
     success_url = reverse_lazy("auth:login")
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["user"] = self.request.user
-        return kwargs
 
     def form_valid(self, form):
         messages.success(self.request, _("password_changed"))
@@ -150,9 +143,6 @@ class PasswordResetView(auth.views.PasswordResetView):
     email_template_name = "users/password_reset_email.html"
     subject_template_name = "users/subjects/password_reset.txt"
     success_url = reverse_lazy("auth:password-reset-done")
-
-    def form_valid(self, form):
-        return super().form_valid(form)
 
 
 class ProfileView(LoginRequiredMixin, django.views.generic.UpdateView):
@@ -170,7 +160,7 @@ class ProfileView(LoginRequiredMixin, django.views.generic.UpdateView):
 
 
 class UserDetailView(django.views.generic.DetailView):
-    context_object_name = "user"
+    context_object_name = "user_obj"
     template_name = "users/user_detail.html"
 
     def get_queryset(self):
