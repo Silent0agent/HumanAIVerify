@@ -38,7 +38,8 @@ class AuthRoutesTest(SimpleTestCase):
 
         resolver = resolve(url)
         self.assertEqual(
-            resolver.func.view_class, users.views.ActivateUserView,
+            resolver.func.view_class,
+            users.views.ActivateUserView,
         )
 
     def test_unlock_account(self):
@@ -50,7 +51,8 @@ class AuthRoutesTest(SimpleTestCase):
 
         resolver = resolve(url)
         self.assertEqual(
-            resolver.func.view_class, users.views.UnlockAccountView,
+            resolver.func.view_class,
+            users.views.UnlockAccountView,
         )
 
     def test_change_password(self):
@@ -59,7 +61,8 @@ class AuthRoutesTest(SimpleTestCase):
 
         resolver = resolve(url)
         self.assertEqual(
-            resolver.func.view_class, users.views.PasswordChangeView,
+            resolver.func.view_class,
+            users.views.PasswordChangeView,
         )
 
     def test_reset_password(self):
@@ -68,7 +71,8 @@ class AuthRoutesTest(SimpleTestCase):
 
         resolver = resolve(url)
         self.assertEqual(
-            resolver.func.view_class, users.views.PasswordResetView,
+            resolver.func.view_class,
+            users.views.PasswordResetView,
         )
 
     def test_password_reset_done(self):
@@ -77,7 +81,8 @@ class AuthRoutesTest(SimpleTestCase):
 
         resolver = resolve(url)
         self.assertEqual(
-            resolver.func.view_class, django_auth_views.PasswordResetDoneView,
+            resolver.func.view_class,
+            django_auth_views.PasswordResetDoneView,
         )
 
     def test_password_reset_confirm(self):
