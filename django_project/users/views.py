@@ -99,7 +99,7 @@ class SignUpView(django.views.generic.FormView):
                 "users/subjects/activation_email.txt",
                 {"activate_link": activate_link},
             ),
-            from_email=settings.EMAIL_HOST,
+            from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[user.email],
         )
 
