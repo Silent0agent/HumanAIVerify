@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <div class="container">
+    <h2>{% translate "Check_of_task" %}: {{ task.title }}</h2>
+    {% comment %} Check of task: {% endcomment %}
+
+    <div class="alert alert-info">
+      <p>
+        <strong>{% translate "text_of_task" %}:</strong>
+      </p>
+      {% comment %} <p><strong>Text of task:</strong></p> {% endcomment %}
+      <div class="text-content p-2 bg-light border">{{ task.content|linebreaks }}</div>
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <hr>
+      {% if form.instance.status == 'published' %}
+        <div class="alert alert-success">
+          {% translate "Check_already_published" %}
+          {% comment %} ✅ You've already sent the result to the client. Changes are not possible. {% endcomment %}
+        </div>
+        <a href="{% url 'homepage:index' %}" class="btn btn-secondary">{% translate "Return" %}</a>
+        {% comment %} <a href="{% url 'homepage:index' %}" class="btn btn-secondary">Return</a> {% endcomment %}
+      {% else %}
+        <div class="d-flex gap-2">
+          <button type="submit" name="action" value="save_draft" class="btn btn-secondary">
+            {% translate "Save_draft" %}
+            {% comment %} Save draft {% endcomment %}
+          </button>
+
+          <button type="submit" name="action" value="publish" class="btn btn-primary" onclick="return confirm('Вы уверены? После отправки изменить вердикт будет нельзя.');">
+            {% translate "Send_check" %}
+            {% comment %} Send check {% endcomment %}
+          </button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+{% endblock content %}
