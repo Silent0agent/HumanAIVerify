@@ -1,6 +1,9 @@
+__all__ = ()
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from .models import TextTask, TaskCheck
+
+from tasks.models import TaskCheck, TextTask
 
 
 class TextTaskForm(forms.ModelForm):
@@ -13,14 +16,14 @@ class TextTaskForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "placeholder": _("Enter task title"),
-                }
+                },
             ),
             "content": forms.Textarea(
                 attrs={
                     "class": "form-control",
                     "rows": 8,
                     "placeholder": _("Paste text for AI detection"),
-                }
+                },
             ),
         }
 
@@ -44,14 +47,14 @@ class TaskCheckForm(forms.ModelForm):
                     "max": 100,
                     "step": 0.1,
                     "placeholder": _("0-100%"),
-                }
+                },
             ),
             "comment": forms.Textarea(
                 attrs={
                     "class": "form-control",
                     "rows": 4,
                     "placeholder": _("Your comments (optional)"),
-                }
+                },
             ),
         }
 
@@ -68,4 +71,5 @@ class TaskCheckForm(forms.ModelForm):
         ai_score = self.cleaned_data["ai_score"]
         if ai_score < 0 or ai_score > 100:
             raise forms.ValidationError(_("Score must be between 0 and 100"))
+
         return ai_score
