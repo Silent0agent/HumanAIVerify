@@ -15,7 +15,7 @@ class PasswordChangeTests(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.password_change_url = reverse("auth:change-password")
-        cls.raw_user_password = "password123"
+        cls.raw_user_password = "S3cure_P@ssw0rd!"
         cls.new_password = "Pa$$word123"
 
     def setUp(self):

@@ -16,7 +16,7 @@ class LoginTests(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.login_url = reverse("auth:login")
-        cls.raw_user_password = "password123"
+        cls.raw_user_password = "S3cure_P@ssw0rd!"
         cls.user = User.objects.create_user(
             username="testuser",
             email="test@example.com",

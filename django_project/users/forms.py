@@ -10,7 +10,33 @@ import core.forms
 User = django.contrib.auth.get_user_model()
 
 
-class CustomAuthenticationForm(
+class SignUpForm(
+    core.forms.BootstrapFormMixin,
+    django.contrib.auth.forms.UserCreationForm,
+):
+    def clean_email(self):
+        email = self.cleaned_data.get(User.email.field.name)
+
+        if email:
+            normalized_email = User.objects.normalize_email(email)
+            if User.objects.filter(email=normalized_email).exists():
+                raise ValidationError(
+                    _("User_with_this_email_already_exists"),
+                )
+
+        return email
+
+    class Meta(django.contrib.auth.forms.UserCreationForm.Meta):
+        model = User
+        fields = [
+            User.email.field.name,
+            User.username.field.name,
+            "password1",
+            "password2",
+        ]
+
+
+class LoginForm(
     core.forms.BootstrapFormMixin,
     django.contrib.auth.forms.AuthenticationForm,
 ):
@@ -43,30 +69,4 @@ class UserProfileForm(core.forms.BootstrapFormMixin, forms.ModelForm):
             User.first_name.field.name,
             User.last_name.field.name,
             User.email.field.name,
-        ]
-
-
-class SignUpForm(
-    core.forms.BootstrapFormMixin,
-    django.contrib.auth.forms.UserCreationForm,
-):
-    def clean_email(self):
-        email = self.cleaned_data.get(User.email.field.name)
-
-        if email:
-            normalized_email = User.objects.normalize_email(email)
-            if User.objects.filter(email=normalized_email).exists():
-                raise ValidationError(
-                    _("User_with_this_email_already_exists"),
-                )
-
-        return email
-
-    class Meta(django.contrib.auth.forms.UserCreationForm.Meta):
-        model = User
-        fields = [
-            User.email.field.name,
-            User.username.field.name,
-            "password1",
-            "password2",
         ]
