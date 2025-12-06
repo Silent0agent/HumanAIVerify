@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from django.urls import reverse_lazy
@@ -18,7 +17,7 @@ env = environ.Env(
     DJANGO_EMAIL_HOST=(str, "smtp.mail.ru"),
     DJANGO_DEFAULT_FROM_EMAIL=(str, "webmaster@localhost"),
 )
-environ.Env.read_env(os.path.join(PROJECT_ROOT, ".env"))
+environ.Env.read_env(PROJECT_ROOT / ".env")
 
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
@@ -133,7 +132,6 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [
