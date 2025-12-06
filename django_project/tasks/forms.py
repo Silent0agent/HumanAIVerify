@@ -3,12 +3,13 @@ __all__ = ()
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from tasks.models import TaskCheck, TextTask
+import core.forms
+import tasks.models
 
 
-class TextTaskForm(forms.ModelForm):
+class TextTaskForm(core.forms.BootstrapFormMixin, forms.ModelForm):
     class Meta:
-        model = TextTask
+        model = tasks.models.TextTask
         fields = ["title", "content"]
 
         widgets = {
@@ -33,9 +34,9 @@ class TextTaskForm(forms.ModelForm):
         }
 
 
-class TaskCheckForm(forms.ModelForm):
+class TaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
     class Meta:
-        model = TaskCheck
+        model = tasks.models.TaskCheck
         fields = ["ai_score", "comment"]
 
         widgets = {
@@ -66,9 +67,12 @@ class TaskCheckForm(forms.ModelForm):
             "ai_score": _("Enter_percentage_from_0_to_100"),
         }
 
-    def clean_ai_score(self):
-        ai_score = self.cleaned_data["ai_score"]
-        if ai_score < 0 or ai_score > 100:
-            raise forms.ValidationError(_("Score_must_be_between_0_and_100"))
+    def clean(self):
+        instance = self.instance
+        if (
+            instance.pk
+            and instance.status == tasks.models.TaskCheck.Status.PUBLISHED
+        ):
+            raise forms.ValidationError(_("Check_already_published"))
 
-        return ai_score
+        return super().clean()
