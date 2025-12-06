@@ -13,6 +13,7 @@ urlpatterns = [
     path("auth/", include("django.contrib.auth.urls")),
     path("feedback/", include("feedback.urls")),
     path("users/", include("users.urls.users_urls")),
+    path("tasks/", include("tasks.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
 ]
 
