@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check Task</title>
+</head>
+<body>
+    <h1>Check Task: {{ task.title }}</h1>
+
+    <h3>Content:</h3>
+    <p>{{ task.content }}</p>
+
+    <hr>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Check</button>
+    </form>
+</body>
+</html>
