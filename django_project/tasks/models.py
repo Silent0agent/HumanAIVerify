@@ -82,7 +82,8 @@ class TaskCheck(models.Model):
         ordering = ["-created_at"]
         constraints = [
             models.UniqueConstraint(
-                fields=["task", "performer"], name="unique_task_performer",
+                fields=["task", "performer"],
+                name="unique_task_performer",
             ),
         ]
 
