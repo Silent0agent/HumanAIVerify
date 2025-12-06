@@ -1,15 +1,15 @@
 __all__ = ()
 from django.urls import path
 
-from tasks import views
+import tasks.views
 
 app_name = "tasks"
 
 urlpatterns = [
-    path("create/", views.TextTaskCreateView.as_view(), name="task-create"),
+    path("create/", tasks.views.TextTaskCreateView.as_view(), name="create"),
     path(
-        "task/<int:task_id>/check/",
-        views.TaskCheckCreateView.as_view(),
-        name="task-check",
+        "<int:task_id>/check/",
+        tasks.views.TaskCheckPerformView.as_view(),
+        name="check",
     ),
 ]

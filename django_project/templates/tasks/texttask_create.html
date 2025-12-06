@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create Task</title>
-</head>
-<body>
-    <h1>Create New Task</h1>
+{% extends "base.html" %}
+{% load i18n %}
 
-    {% if messages %}
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    {% endif %}
+{% block title %}
+  {% translate "Create_task" %}
+  {% comment %} Create task {% endcomment %}
+{% endblock title %}
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create Task</button>
-    </form>
-</body>
-</html>
+{% block content %}
+  <h1>{% translate Create_new_task %}</h1>
+  {% comment %} <h1>Create new task</h1> {% endcomment %}
+
+  {% if messages %}
+    {% for message in messages %}<p>{{ message }}</p>{% endfor %}
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% translate "Create_task" %}</button>
+    {% comment %} <button type="submit">Create task</button> {% endcomment %}
+  </form>
+{% endblock content %}

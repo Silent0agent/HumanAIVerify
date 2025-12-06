@@ -1,26 +1,26 @@
 __all__ = ()
 
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView
+from django.views.generic import CreateView, View
 
-from tasks.forms import TaskCheckForm, TextTaskForm
-from tasks.models import TaskCheck, TextTask
+import tasks.forms
+import tasks.models
+import users.mixins
 
 
-class TextTaskCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
-    model = TextTask
-    form_class = TextTaskForm
+class TextTaskCreateView(
+    LoginRequiredMixin,
+    users.mixins.CustomerRequiredMixin,
+    CreateView,
+):
+    model = tasks.models.TextTask
+    form_class = tasks.forms.TextTaskForm
     template_name = "tasks/texttask_create.html"
-
-    def test_func(self):
-        return self.request.user.role == "customer"
-
-    def handle_no_permission(self):
-        messages.error(self.request, _("Only_customers_can_create_tasks"))
-        return super().handle_no_permission()
+    success_url = reverse_lazy("homepage:index")
 
     def form_valid(self, form):
         form.instance.client = self.request.user
@@ -28,39 +28,58 @@ class TextTaskCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return super().form_valid(form)
 
 
-class TaskCheckCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
-    model = TaskCheck
-    form_class = TaskCheckForm
+class TaskCheckPerformView(
+    LoginRequiredMixin,
+    users.mixins.PerformerRequiredMixin,
+    View,
+):
     template_name = "tasks/taskcheck_create.html"
 
-    def test_func(self):
-        return self.request.user.role == "performer"
-
     def dispatch(self, request, *args, **kwargs):
-        self.task = get_object_or_404(TextTask, pk=kwargs["task_id"])
+        self.task = get_object_or_404(
+            tasks.models.TextTask,
+            pk=kwargs["task_id"],
+        )
+        self.check_obj = tasks.models.TaskCheck.objects.filter(
+            task=self.task,
+            performer=request.user,
+        ).first()
         return super().dispatch(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["task"] = self.task
-        return context
+    def get(self, request, *args, **kwargs):
+        form = tasks.forms.TaskCheckForm(instance=self.check_obj)
+        return render(
+            request,
+            self.template_name,
+            {"form": form, "task": self.task},
+        )
 
-    def handle_no_permission(self):
-        messages.error(self.request, _("Only_performers_can_check_tasks"))
-        return super().handle_no_permission()
+    def post(self, request, *args, **kwargs):
+        form = tasks.forms.TaskCheckForm(request.POST, instance=self.check_obj)
 
-    def form_valid(self, form):
-        if TaskCheck.objects.filter(
-            task=self.task,
-            performer=self.request.user,
-        ).exists():
-            messages.error(
-                self.request,
-                _("You_have_already_checked_this_task"),
-            )
-            return self.form_invalid(form)
+        if form.is_valid():
+            check = form.save(commit=False)
+            check.task = self.task
+            check.performer = request.user
+            action = request.POST.get("action")
 
-        form.instance.performer = self.request.user
-        form.instance.task = self.task
-        messages.success(self.request, _("Task_check_submitted"))
-        return super().form_valid(form)
+            if action == "publish":
+                check.status = tasks.models.TaskCheck.Status.PUBLISHED
+                message = _("Check_published")
+            else:
+                check.status = tasks.models.TaskCheck.Status.DRAFT
+                message = _("Draft_saved")
+
+            check.save()
+            messages.success(request, message)
+
+            if check.status == tasks.models.TaskCheck.Status.PUBLISHED:
+                return redirect("homepage:index")
+
+            return redirect(request.path)
+
+        return render(
+            request,
+            self.template_name,
+            {"form": form, "task": self.task},
+        )

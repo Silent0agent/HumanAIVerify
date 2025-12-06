@@ -1,7 +1,10 @@
 __all__ = ()
 
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.shortcuts import redirect
+from django.utils.translation import gettext_lazy as _
+
 
 User = auth.get_user_model()
 
@@ -19,7 +22,12 @@ class RoleRequiredMixin(UserPassesTestMixin):
         if not self.request.user.is_authenticated:
             return super().handle_no_permission()
 
-        return super().handle_no_permission()
+        messages.error(
+            self.request,
+            _("You_do_not_have_right_role_to_perform_this_action"),
+        )
+
+        return redirect("homepage:index")
 
 
 class CustomerRequiredMixin(RoleRequiredMixin):

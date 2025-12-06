@@ -49,6 +49,10 @@ class TextTask(models.Model):
 
 
 class TaskCheck(models.Model):
+    class Status(models.TextChoices):
+        DRAFT = "draft", _("draft")
+        PUBLISHED = "published", _("published")
+
     task = models.ForeignKey(
         TextTask,
         on_delete=models.CASCADE,
@@ -74,6 +78,16 @@ class TaskCheck(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name=_("created_at"),
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_("updated_at"),
+    )
+    status = models.CharField(
+        max_length=15,
+        choices=Status.choices,
+        default=Status.DRAFT,
+        verbose_name=_("status"),
     )
 
     class Meta:
