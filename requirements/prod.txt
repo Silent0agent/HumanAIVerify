@@ -2,6 +2,7 @@ django==5.2.7
 django-cleanup==9.0.0
 django-environ==0.12.0
 django-multi-form-view==2.0.1
+django-multiupload==0.6.1
 pillow==12.0.0
 six==1.17.0
 sorl-thumbnail==12.11.0
