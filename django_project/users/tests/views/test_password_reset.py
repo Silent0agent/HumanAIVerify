@@ -23,7 +23,7 @@ class PasswordResetTests(TestCase):
         self.user = User.objects.create_user(
             username="testuser",
             email="test@email.com",
-            password="password123",
+            password="S3cure_P@ssw0rd!",
             is_active=True,
         )
 

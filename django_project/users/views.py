@@ -105,7 +105,7 @@ class SignUpView(django.views.generic.FormView):
 
 
 class LoginView(auth.views.LoginView):
-    form_class = users.forms.CustomAuthenticationForm
+    form_class = users.forms.LoginForm
     template_name = "users/login.html"
     success_url = reverse_lazy("users:profile")
 
