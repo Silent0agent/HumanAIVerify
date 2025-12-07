@@ -2,7 +2,7 @@ image: python:3.11
 
 stages:
   - lint:dependencies
-  - lint:frontend
+  - lint:templates
   - lint:python
   - test
 
@@ -13,8 +13,8 @@ sort-requirements:
   script:
     - sort-requirements --check requirements/*.txt
 
-frontend:
-  stage: lint:frontend
+templates:
+  stage: lint:templates
   before_script:
     - pip install djlint
   script:
