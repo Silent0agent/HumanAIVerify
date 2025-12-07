@@ -29,9 +29,9 @@ class FeedbackIntegrationTests(TestCase):
 
     def setUp(self):
         self.valid_data = {
-            "name": "Test User",
-            "mail": "test@example.com",
-            "text": "This is a test feedback message.",
+            "author-name": "Test User",
+            "author-mail": "test@example.com",
+            "content-text": "This is a test feedback message.",
         }
 
     def test_feedback_page_status_code_ok(self):
@@ -94,8 +94,14 @@ class FeedbackIntegrationTests(TestCase):
         )
 
         created_feedback = feedback.models.Feedback.objects.first()
-        self.assertEqual(created_feedback.text, self.valid_data["text"])
-        self.assertEqual(created_feedback.author.name, self.valid_data["name"])
+        self.assertEqual(
+            created_feedback.text,
+            self.valid_data["content-text"],
+        )
+        self.assertEqual(
+            created_feedback.author.name,
+            self.valid_data["author-name"],
+        )
 
     def test_successful_submission_sends_email(self):
         self.client.post(
@@ -105,7 +111,7 @@ class FeedbackIntegrationTests(TestCase):
         )
 
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, [self.valid_data["mail"]])
+        self.assertEqual(mail.outbox[0].to, [self.valid_data["author-mail"]])
 
     def test_successful_submission_email_text(self):
         self.client.post(
@@ -114,11 +120,11 @@ class FeedbackIntegrationTests(TestCase):
             follow=True,
         )
 
-        self.assertIn(self.valid_data["text"], mail.outbox[0].body)
+        self.assertIn(self.valid_data["content-text"], mail.outbox[0].body)
 
     def test_invalid_submission_status_code_ok(self):
         invalid_data = self.valid_data.copy()
-        invalid_data["mail"] = "not-an-email"
+        invalid_data["author-mail"] = "not-an-email"
         response = self.client.post(self.url, data=invalid_data)
 
         self.assertEqual(response.status_code, 200)
@@ -127,7 +133,7 @@ class FeedbackIntegrationTests(TestCase):
         initial_feedback_count = feedback.models.Feedback.objects.count()
 
         invalid_data = self.valid_data.copy()
-        invalid_data["mail"] = "not-an-email"
+        invalid_data["author-mail"] = "not-an-email"
 
         self.client.post(self.url, data=invalid_data)
 
@@ -138,7 +144,7 @@ class FeedbackIntegrationTests(TestCase):
 
     def test_invalid_submission_form_errors(self):
         invalid_data = self.valid_data.copy()
-        invalid_data["mail"] = "not-an-email"
+        invalid_data["author-mail"] = "not-an-email"
 
         response = self.client.post(self.url, data=invalid_data)
 
@@ -157,7 +163,7 @@ class FeedbackIntegrationTests(TestCase):
         ]
 
         data = self.valid_data.copy()
-        data["files"] = files_to_upload
+        data["files-files"] = files_to_upload
 
         return self.client.post(self.url, data=data, follow=True)
 
