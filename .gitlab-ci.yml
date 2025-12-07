@@ -19,6 +19,8 @@ templates:
     - pip install djlint
   script:
     - djlint . --check
+    - |
+      ! grep -rEn '="[^"]*(\{%|\{\{)[^}"%]*"[^}"%]*' templates/
 
 flake8:
   stage: lint:python

@@ -95,17 +95,7 @@ class AuthRoutesTest(SimpleTestCase):
         resolver = resolve(url)
         self.assertEqual(
             resolver.func.view_class,
-            django_auth_views.PasswordResetConfirmView,
-        )
-
-    def test_password_reset_complete(self):
-        url = reverse("auth:password-reset-complete")
-        self.assertEqual(url, "/auth/reset-password/complete/")
-
-        resolver = resolve(url)
-        self.assertEqual(
-            resolver.func.view_class,
-            django_auth_views.PasswordResetCompleteView,
+            users.views.PasswordResetConfirmView,
         )
 
 

@@ -5,14 +5,14 @@
       {% for error in field.errors %}
         <div class="w-50 mx-auto alert alert-danger alert-dismissible fade show" role="alert">
           <span>{{ error|escape }}</span>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{% translate "Close" %}"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{% translate 'Close' %}"></button>
         </div>
       {% endfor %}
     {% endfor %}
     {% for error in form.non_field_errors %}
       <div class="w-50 mx-auto alert alert-danger alert-dismissible fade show" role="alert">
         <span>{{ error|escape }}</span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{% translate "Close" %}"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{% translate 'Close' %}"></button>
       </div>
     {% endfor %}
   </ul>
