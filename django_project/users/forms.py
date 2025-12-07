@@ -51,6 +51,9 @@ class UserProfileForm(core.forms.BootstrapFormMixin, forms.ModelForm):
             User.last_name.field.name,
             User.email.field.name,
         ]
+        widgets = {
+            User.avatar.field.name: forms.FileInput(),
+        }
 
 
 class SignUpForm(

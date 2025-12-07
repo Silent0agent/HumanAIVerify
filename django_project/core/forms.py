@@ -6,22 +6,21 @@ from django import forms
 class BootstrapFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if "avatar" in self.fields:
-            self.fields["avatar"].widget = forms.FileInput()
 
         for field in self.visible_fields():
             widget = field.field.widget
+            current_classes = widget.attrs.get("class", "")
 
-            widget.attrs.update(
-                {
-                    "placeholder": field.label,
-                    "class": "form-control",
-                },
-            )
+            if isinstance(widget, forms.CheckboxInput):
+                if "form-check-input" not in current_classes:
+                    widget.attrs["class"] = (
+                        current_classes + " form-check-input"
+                    ).strip()
+            else:
+                if "form-control" not in current_classes:
+                    widget.attrs["class"] = (
+                        current_classes + " form-control"
+                    ).strip()
 
-            if isinstance(field.field.widget, forms.CheckboxInput):
-                widget.attrs.update(
-                    {
-                        "class": "form-check-input",
-                    },
-                )
+            if not widget.attrs.get("placeholder"):
+                widget.attrs["placeholder"] = field.label
