@@ -96,8 +96,8 @@ class PasswordResetConfirmTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.password_reset_complete_url = reverse(
-            "auth:password-reset-complete",
+        cls.login_url = reverse(
+            "auth:login",
         )
         cls.user_old_password = "old_password"
         cls.user_new_password = "Pa$$word123"
@@ -151,7 +151,7 @@ class PasswordResetConfirmTests(TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
 
-    def test_password_reset_confirm_success_redirects_to_reset_complete(self):
+    def test_password_reset_confirm_success_redirects_to_login(self):
         url = self._get_reset_url(self.user)
         response_get = self.client.get(url, follow=True)
         target_url = response_get.request["PATH_INFO"]
@@ -164,7 +164,7 @@ class PasswordResetConfirmTests(TestCase):
             },
         )
 
-        self.assertRedirects(response, self.password_reset_complete_url)
+        self.assertRedirects(response, self.login_url)
 
     def test_reset_complete_template(self):
         url = self._get_reset_url(self.user)
@@ -180,7 +180,7 @@ class PasswordResetConfirmTests(TestCase):
             follow=True,
         )
 
-        self.assertTemplateUsed(response, "users/password_reset_complete.html")
+        self.assertTemplateUsed(response, "users/login.html")
 
     def test_password_reset_confirm_success_changes_password(self):
         url = self._get_reset_url(self.user)

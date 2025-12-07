@@ -80,29 +80,3 @@ class UserProfileForm(core.forms.BootstrapFormMixin, forms.ModelForm):
         widgets = {
             User.avatar.field.name: forms.FileInput(),
         }
-
-
-class SignUpForm(
-    core.forms.BootstrapFormMixin,
-    django.contrib.auth.forms.UserCreationForm,
-):
-    def clean_email(self):
-        email = self.cleaned_data.get(User.email.field.name)
-
-        if email:
-            normalized_email = User.objects.normalize_email(email)
-            if User.objects.filter(email=normalized_email).exists():
-                raise ValidationError(
-                    _("User_with_this_email_already_exists"),
-                )
-
-        return email
-
-    class Meta(django.contrib.auth.forms.UserCreationForm.Meta):
-        model = User
-        fields = [
-            User.email.field.name,
-            User.username.field.name,
-            "password1",
-            "password2",
-        ]
