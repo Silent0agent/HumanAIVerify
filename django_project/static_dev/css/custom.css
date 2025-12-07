@@ -81,6 +81,11 @@ body {
 .purple{
   color: #712cf9 !important;
 }
+.password-eye {
+  right: .75rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 .b-example-divider {
   width: 100%;
@@ -183,3 +188,15 @@ a.hover-link:hover {
   left: 5%;
   background-color: #e5e5e5;
 }
+
+.password-wrapper input.form-control {
+  padding-right: 3rem;
+}
+
+.password-toggle {
+  border: none;
+  background: transparent;
+  padding: 0.15rem;
+  line-height: 1;
+}
+.password-toggle:focus { outline: none; box-shadow: none; }

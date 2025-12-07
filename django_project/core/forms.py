@@ -6,6 +6,9 @@ from django import forms
 class BootstrapFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        if "avatar" in self.fields:
+            self.fields["avatar"].widget = forms.FileInput()
+
         for field in self.visible_fields():
             widget = field.field.widget
 
