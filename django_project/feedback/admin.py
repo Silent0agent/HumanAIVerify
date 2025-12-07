@@ -21,7 +21,7 @@ class FilesInline(admin.TabularInline):
 class FeedbackInline(admin.TabularInline):
     model = feedback.models.Feedback
     fields = (
-        feedback.models.Feedback.created_on.field.name,
+        feedback.models.Feedback.created_at.field.name,
         feedback.models.Feedback.status.field.name,
         feedback.models.Feedback.text.field.name,
     )
@@ -45,11 +45,11 @@ class FeedbackUserProfileAdmin(admin.ModelAdmin):
 @admin.register(feedback.models.Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
     list_display = (
-        feedback.models.Feedback.created_on.field.name,
+        feedback.models.Feedback.created_at.field.name,
         feedback.models.Feedback.author.field.name,
         feedback.models.Feedback.status.field.name,
     )
-    readonly_fields = (feedback.models.Feedback.created_on.field.name,)
+    readonly_fields = (feedback.models.Feedback.created_at.field.name,)
     list_editable = (feedback.models.Feedback.status.field.name,)
     search_fields = (
         feedback.models.Feedback.text.field.name,

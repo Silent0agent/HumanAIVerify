@@ -52,7 +52,7 @@ class FeedbackForm(core.forms.BootstrapFormMixin, forms.ModelForm):
             ),
         }
         exclude = [
-            feedback.models.Feedback.created_on.field.name,
+            feedback.models.Feedback.created_at.field.name,
         ]
         widgets = {
             feedback.models.Feedback.text.field.name: forms.Textarea(),
