@@ -49,9 +49,9 @@ class Feedback(models.Model):
         help_text=_("feedback_text_help_text"),
     )
 
-    created_on = models.DateTimeField(
+    created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name=_("date_created"),
+        verbose_name=_("created_at"),
     )
 
     status = models.CharField(
