@@ -20,11 +20,9 @@
           </ul>
         </div>
 
-        <a href="{% url 'about:about' %}" class="nav-link px-2 fs-3 purple-hover">HumanAiVerify</a>
-        {% comment %} <a href="{% url 'homepage:home' %}" class="nav-link px-2 fs-3 purple-hover">HumanAiVerify</a> {% endcomment %}
-
+        <a href="{% url 'homepage:index' %}" class="nav-link px-2 fs-3 purple-hover">HumanAIVerify</a>
         <div class="d-flex align-items-center gap-5">
-          {% if request.user.is_anonymous %}
+          {% if not request.user.is_authenticated %}
             <div class="d-flex gap-1">
               <a href="{% url 'auth:login' %}" class="btn btn-outline-primary btn-sm">{% translate "Login" %}</a>
               <a href="{% url 'auth:signup' %}" class="btn btn-primary btn-sm">{% translate "Signup" %}</a>
@@ -57,7 +55,9 @@
             </div>
           {% endif %}
           <div class="d-flex align-items-center gap-1">
-            {% include "includes/role-switcher.html" %}
+            {% if request.user.is_authenticated %}
+              {% include "includes/role-switcher.html" %}
+            {% endif %}
             {% include "includes/languages-switcher.html" %}
             {% include "includes/theme-switcher.html" %}
           </div>

@@ -1,4 +1,5 @@
-{% load static i18n %}
+{% load static %}
+{% load i18n %}
 
 <div class="dropdown normalize-button">
   <button id="themeDropdown"
@@ -6,8 +7,8 @@
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
-          aria-label="{% trans "Toggle theme (auto)" %}">
-    <img src="{% static 'img/logo.png' %}" alt="{% trans "Theme" %}" width="18" height="18" class="me-2">
+          aria-label="{% trans 'Toggle theme (auto)' %}">
+    <img src="{% static 'img/logo.png' %}" alt="{% trans 'Theme' %}" width="18" height="18" class="me-2">
     <span class="d-none d-sm-inline">{% trans "Theme" %}</span>
   </button>
 
