@@ -99,13 +99,13 @@ class SignUpView(django.views.generic.FormView):
                 "users/subjects/activation_email.txt",
                 {"activate_link": activate_link},
             ),
-            from_email=settings.EMAIL_HOST,
+            from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[user.email],
         )
 
 
 class LoginView(auth.views.LoginView):
-    form_class = users.forms.CustomAuthenticationForm
+    form_class = users.forms.LoginForm
     template_name = "users/login.html"
     success_url = reverse_lazy("users:profile")
 
@@ -121,8 +121,6 @@ class LoginView(auth.views.LoginView):
 
 
 class LogoutView(django.views.generic.View):
-    http_method_names = ["post"]
-
     def post(self, request, *args, **kwargs):
         auth.logout(request)
         messages.info(request, _("Successful_logout"))
@@ -133,11 +131,6 @@ class PasswordChangeView(auth.views.PasswordChangeView):
     form_class = users.forms.PasswordChangeForm
     template_name = "users/password_change.html"
     success_url = reverse_lazy("auth:login")
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["user"] = self.request.user
-        return kwargs
 
     def form_valid(self, form):
         messages.success(self.request, _("password_changed"))
@@ -177,7 +170,7 @@ class ProfileView(LoginRequiredMixin, django.views.generic.UpdateView):
 
 
 class UserDetailView(django.views.generic.DetailView):
-    context_object_name = "user"
+    context_object_name = "user_obj"
     template_name = "users/user_detail.html"
 
     def get_queryset(self):

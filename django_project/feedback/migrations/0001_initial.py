@@ -35,9 +35,9 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "created_on",
+                    "created_at",
                     models.DateTimeField(
-                        auto_now_add=True, verbose_name="date_created"
+                        auto_now_add=True, verbose_name="created_at"
                     ),
                 ),
                 (
@@ -113,7 +113,7 @@ class Migration(migrations.Migration):
                     models.FileField(
                         blank=True,
                         null=True,
-                        upload_to=feedback.models.FeedbackFile.upload_to,
+                        upload_to=feedback.models.FeedbackFile.file_path,
                         verbose_name="feedback_file",
                     ),
                 ),
