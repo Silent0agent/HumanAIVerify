@@ -35,9 +35,9 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "created_on",
+                    "created_at",
                     models.DateTimeField(
-                        auto_now_add=True, verbose_name="date_created"
+                        auto_now_add=True, verbose_name="created_at"
                     ),
                 ),
                 (
