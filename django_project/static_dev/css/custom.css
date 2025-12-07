@@ -183,3 +183,7 @@ a.hover-link:hover {
   left: 5%;
   background-color: #e5e5e5;
 }
+
+.ai-score-input {
+    width: 85px;
+}

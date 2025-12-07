@@ -36,7 +36,11 @@ class TextTask(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return self.title
+        task_title = self.title
+        if len(task_title) > 30:
+            return task_title[:30] + "..."
+
+        return task_title
 
     @property
     def ai_score(self):
@@ -102,4 +106,10 @@ class TaskCheck(models.Model):
         ]
 
     def __str__(self):
-        return f"Check_{self.id}"
+        task_title = self.task.title
+        if len(task_title) > 20:
+            task_title = task_title[:20] + "..."
+
+        return (
+            f"{self.task.title} | {self.performer.username} ({self.ai_score}%)"
+        )

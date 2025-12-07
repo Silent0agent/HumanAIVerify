@@ -16,6 +16,7 @@
 
     <form method="post">
       {% csrf_token %}
+      {{ form.media }}
       {{ form.as_p }}
       <hr>
       {% if form.instance.status == 'published' %}
