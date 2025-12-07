@@ -34,19 +34,26 @@ class TextTaskForm(core.forms.BootstrapFormMixin, forms.ModelForm):
         }
 
 
+class AiScoreWidget(forms.NumberInput):
+    template_name = "widgets/dual_range.html"
+
+    class Media:
+        js = ("js/dual_range_widget.js",)
+
+
 class TaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = tasks.models.TaskCheck
         fields = ["ai_score", "comment"]
 
         widgets = {
-            "ai_score": forms.NumberInput(
+            "ai_score": AiScoreWidget(
                 attrs={
                     "class": "form-control",
-                    "min": 0,
-                    "max": 100,
-                    "step": 0.1,
-                    "placeholder": _("0-100_percent"),
+                    "min": "0",
+                    "max": "100",
+                    "step": "0.1",
+                    "placeholder": "0",
                 },
             ),
             "comment": forms.Textarea(
