@@ -1,9 +1,9 @@
 __all__ = ()
 
+import uuid
 
 from django.conf import settings
 from django.db import models
-import django.utils.timezone
 from django.utils.translation import gettext_lazy as _
 
 
@@ -49,9 +49,9 @@ class Feedback(models.Model):
         help_text=_("feedback_text_help_text"),
     )
 
-    created_on = models.DateTimeField(
+    created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name=_("date_created"),
+        verbose_name=_("created_at"),
     )
 
     status = models.CharField(
@@ -71,11 +71,10 @@ class Feedback(models.Model):
 
 
 class FeedbackFile(models.Model):
-    def upload_to(self, filename):
-        return (
-            f"uploads/{self.feedback_id}/"
-            f"{django.utils.timezone.now()}_{filename}"
-        )
+    def file_path(self, filename):
+        extension = filename.split(".")[-1]
+        new_filename = f"{uuid.uuid4()}.{extension}"
+        return f"feedback/attachments/{self.feedback_id}/{new_filename}"
 
     feedback = models.ForeignKey(
         Feedback,
@@ -84,7 +83,7 @@ class FeedbackFile(models.Model):
         verbose_name=_("feedback"),
     )
     file = models.FileField(
-        upload_to=upload_to,
+        upload_to=file_path,
         null=True,
         blank=True,
         verbose_name=_("feedback_file"),

@@ -13,7 +13,7 @@ urlpatterns = [
         name="profile",
     ),
     path(
-        "user-detail/<int:pk>",
+        "user-detail/<int:pk>/",
         users.views.UserDetailView.as_view(),
         name="user-detail",
     ),

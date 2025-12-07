@@ -1,8 +1,8 @@
 __all__ = ()
 
 from django import forms
-from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from multiupload.fields import MultiFileField
 
 import core.forms
 import feedback.models
@@ -52,100 +52,34 @@ class FeedbackForm(core.forms.BootstrapFormMixin, forms.ModelForm):
             ),
         }
         exclude = [
-            feedback.models.Feedback.created_on.field.name,
+            feedback.models.Feedback.created_at.field.name,
         ]
         widgets = {
             feedback.models.Feedback.text.field.name: forms.Textarea(),
         }
 
 
-class MultipleFileInput(forms.ClearableFileInput):
-    allow_multiple_selected = True
-
-
-class MultipleFileField(forms.FileField):
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault("widget", MultipleFileInput())
-        super().__init__(*args, **kwargs)
-
-    def clean(self, data, initial=None):
-        if not data:
-            return []
-
-        if isinstance(data, (list, tuple)):
-            return [forms.FileField.clean(self, d, initial) for d in data]
-
-        return [forms.FileField.clean(self, data, initial)]
-
-
-class FeedbackFileForm(core.forms.BootstrapFormMixin, forms.ModelForm):
+class FeedbackFileForm(core.forms.BootstrapFormMixin, forms.Form):
     MAX_FILE_SIZE = 16 * 1024 * 1024
-    MAX_FILE_SIZE_MB = MAX_FILE_SIZE // (1024 * 1024)
 
-    file = MultipleFileField(
-        required=False,
+    files = MultiFileField(
+        min_num=0,
+        max_num=10,
+        max_file_size=MAX_FILE_SIZE,
         label=_("upload_files"),
         help_text=_("upload_files_help_text"),
+        required=False,
     )
 
-    class Meta:
-        model = feedback.models.FeedbackFile
-        fields = ("file",)
-        widgets = {
-            "file": MultipleFileInput(
-                attrs={
-                    "type": "file",
-                    "multiple": True,
-                },
-            ),
-        }
-
-    def clean(self):
-        cleaned_data = super().clean()
-        files = cleaned_data.get("file", [])
-
-        if files:
-            errors = []
-            valid_files = []
-
-            for uploaded_file in files:
-                if uploaded_file.size > self.MAX_FILE_SIZE:
-                    errors.append(
-                        ValidationError(
-                            _(
-                                "file_max_size_error",
-                            )
-                            % {
-                                "filename": uploaded_file.name,
-                                "max_size": self.MAX_FILE_SIZE_MB,
-                            },
-                        ),
-                    )
-                else:
-                    valid_files.append(uploaded_file)
-
-            if errors:
-                raise ValidationError({"file": errors})
-
-            cleaned_data["file"] = valid_files
-
-        return cleaned_data
-
-    def save(self, commit=True, feedback_instance=None):
-        if not feedback_instance:
-            return []
-
-        files = self.cleaned_data.get("file", [])
+    def save(self, feedback_instance):
+        files = self.cleaned_data.get("files", [])
         created_files = []
 
-        for uploaded_file in files:
-            feedback_file = feedback.models.FeedbackFile(
+        for each in files:
+            instance = feedback.models.FeedbackFile.objects.create(
                 feedback=feedback_instance,
-                file=uploaded_file,
+                file=each,
             )
-            if commit:
-                feedback_file.save()
-
-            created_files.append(feedback_file)
+            created_files.append(instance)
 
         return created_files

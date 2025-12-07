@@ -200,3 +200,7 @@ a.hover-link:hover {
   line-height: 1;
 }
 .password-toggle:focus { outline: none; box-shadow: none; }
+
+.ai-score-input {
+    width: 85px;
+}
