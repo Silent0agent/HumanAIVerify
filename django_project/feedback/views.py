@@ -3,68 +3,90 @@ __all__ = ()
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from multi_form_view import MultiFormView
+from django.views.generic import TemplateView
 
 import feedback.forms
 import feedback.models
 
 
-class FeedbackView(MultiFormView):
+class FeedbackView(TemplateView):
     template_name = "feedback/feedback.html"
-    form_classes = {
-        "author_form": feedback.forms.FeedbackUserProfileForm,
-        "content_form": feedback.forms.FeedbackForm,
-        "files_form": feedback.forms.FeedbackFileForm,
-    }
     success_url = reverse_lazy("feedback:feedback")
+
+    def get_forms_dict(self):
+        if self.request.method == "POST":
+            data = self.request.POST
+            files = self.request.FILES
+        else:
+            data = None
+            files = None
+
+        return {
+            "author_form": feedback.forms.FeedbackUserProfileForm(
+                data,
+                prefix="author",
+            ),
+            "content_form": feedback.forms.FeedbackForm(
+                data,
+                prefix="content",
+            ),
+            "files_form": feedback.forms.FeedbackFileForm(
+                data,
+                files,
+                prefix="files",
+            ),
+        }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["author_form"] = self.forms["author_form"]
-        context["content_form"] = self.forms["content_form"]
-        context["files_form"] = self.forms["files_form"]
+        context.update(self.get_forms_dict())
         return context
 
-    def get_forms(self, **kwargs):
-        author_form = feedback.forms.FeedbackUserProfileForm(
-            self.request.POST or None,
-        )
-        content_form = feedback.forms.FeedbackForm(self.request.POST or None)
-        files_form = feedback.forms.FeedbackFileForm(
-            self.request.POST or None,
-            self.request.FILES or None,
-        )
+    def post(self, request, *args, **kwargs):
+        forms = self.get_forms_dict()
 
-        self.forms = {
-            "author_form": author_form,
-            "content_form": content_form,
-            "files_form": files_form,
-        }
-        return self.forms
+        author_form = forms["author_form"]
+        content_form = forms["content_form"]
+        files_form = forms["files_form"]
 
-    def forms_valid(self, forms):
-        mail = forms["author_form"].cleaned_data["mail"]
-        name = forms["author_form"].cleaned_data["name"]
-        text = forms["content_form"].cleaned_data["text"]
-        author_profile, created = (
-            feedback.models.FeedbackUserProfile.objects.update_or_create(
-                mail=mail,
-                defaults={"name": name},
+        if all(form.is_valid() for form in forms.values()):
+            mail = author_form.cleaned_data["mail"]
+            name = author_form.cleaned_data["name"]
+            text = content_form.cleaned_data["text"]
+
+            author_profile, created = (
+                feedback.models.FeedbackUserProfile.objects.update_or_create(
+                    mail=mail,
+                    defaults={"name": name},
+                )
             )
-        )
-        feedback_item = forms["content_form"].save(commit=False)
-        feedback_item.author = author_profile
-        feedback_item.save()
-        forms["files_form"].save(feedback_instance=feedback_item)
-        send_mail(
-            _("feedback_mail_head"),
-            text,
-            settings.DEFAULT_FROM_EMAIL,
-            [mail],
-            fail_silently=False,
-        )
-        messages.success(self.request, _("success_feedback_form"))
 
-        return super().forms_valid(forms)
+            feedback_item = content_form.save(commit=False)
+            feedback_item.author = author_profile
+            feedback_item.save()
+
+            files_form.save(feedback_instance=feedback_item)
+
+            send_mail(
+                _("feedback_mail_head"),
+                text,
+                settings.DEFAULT_FROM_EMAIL,
+                [mail],
+                fail_silently=False,
+            )
+
+            messages.success(request, _("Success_feedback_form"))
+            return redirect(self.success_url)
+
+        return render(
+            request,
+            self.template_name,
+            {
+                "author_form": author_form,
+                "content_form": content_form,
+                "files_form": files_form,
+            },
+        )
