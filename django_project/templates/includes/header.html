@@ -20,8 +20,8 @@
           </ul>
         </div>
 
-        <a href="{% url 'about:about' %}" class="nav-link px-2 fs-3 purple-hover">HumanAiVerify</a>
-        {% comment %} <a href="{% url 'homepage:home' %}" class="nav-link px-2 fs-3 purple-hover">HumanAiVerify</a> {% endcomment %}
+        <a href="{% url 'homepage:index' %}" class="nav-link px-2 fs-3 purple-hover">HumanAIVerify</a>
+        {% comment %} <a href="{% url 'homepage:home' %}" class="nav-link px-2 fs-3 purple-hover">HumanAIVerify</a> {% endcomment %}
 
         <div class="d-flex align-items-center gap-5">
           {% if request.user.is_anonymous %}
@@ -57,7 +57,9 @@
             </div>
           {% endif %}
           <div class="d-flex align-items-center gap-1">
-            {% include "includes/role-switcher.html" %}
+            {% if not request.user.is_anonymous %}
+              {% include "includes/role-switcher.html" %}
+            {% endif %}
             {% include "includes/languages-switcher.html" %}
             {% include "includes/theme-switcher.html" %}
           </div>

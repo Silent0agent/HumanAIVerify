@@ -35,6 +35,13 @@ class PasswordResetForm(
     pass
 
 
+class PasswordResetConfirmForm(
+    core.forms.BootstrapFormMixin,
+    django.contrib.auth.forms.SetPasswordForm,
+):
+    pass
+
+
 class UserProfileForm(core.forms.BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = User
