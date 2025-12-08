@@ -5,6 +5,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+import tasks.managers
+
 
 class TextTask(models.Model):
     client = models.ForeignKey(
@@ -44,12 +46,7 @@ class TextTask(models.Model):
 
     @property
     def ai_score(self):
-        checks = self.checks.all()
-        if not checks.exists():
-            return None
-
-        total_score = sum(check.ai_score for check in checks)
-        return total_score / checks.count()
+        return self.checks.get_avg_ai_score()
 
 
 class TaskCheck(models.Model):
@@ -93,6 +90,8 @@ class TaskCheck(models.Model):
         default=Status.DRAFT,
         verbose_name=_("status"),
     )
+
+    objects = tasks.managers.TaskCheckManager()
 
     class Meta:
         verbose_name = _("task_check")
