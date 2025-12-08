@@ -1,0 +1,7 @@
+{% extends "admin/base_site.html" %}
+{% load tz_detect %}
+
+{% block extrahead %}
+  {{ block.super }}
+  {% tz_detect %}
+{% endblock extrahead %}

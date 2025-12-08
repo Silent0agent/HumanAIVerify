@@ -14,6 +14,7 @@ urlpatterns = [
     path("feedback/", include("feedback.urls")),
     path("users/", include("users.urls.users_urls")),
     path("tasks/", include("tasks.urls")),
+    path("tz_detect/", include("tz_detect.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
 ]
 
