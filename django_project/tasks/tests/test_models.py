@@ -42,13 +42,14 @@ class TextTaskModelTest(TestCase):
         self.assertEqual(str(self.task), self.task_title)
 
     def test_ai_score_none(self):
-        self.assertIsNone(self.task.ai_score)
+        self.assertAlmostEqual(self.task.ai_score, 0.0)
 
     def test_ai_score_calculation(self):
         TaskCheck.objects.create(
             task=self.task,
             performer=self.performer_user,
             ai_score=50.0,
+            status=TaskCheck.Status.PUBLISHED,
         )
         performer_2 = User.objects.create_user(
             username="performer2",
@@ -58,6 +59,7 @@ class TextTaskModelTest(TestCase):
             task=self.task,
             performer=performer_2,
             ai_score=100.0,
+            status=TaskCheck.Status.PUBLISHED,
         )
 
         self.assertAlmostEqual(self.task.ai_score, 75.0)

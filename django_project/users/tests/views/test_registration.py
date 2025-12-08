@@ -4,7 +4,7 @@ from http import HTTPStatus
 
 from django.contrib import auth
 from django.core import mail
-from django.test import TestCase
+from django.test import override_settings, TestCase
 from django.urls import reverse
 
 User = auth.get_user_model()
@@ -46,9 +46,42 @@ class RegistrationTests(TestCase):
             username=self.valid_user_data["username"],
         ).first()
         self.assertIsNotNone(user)
+
+    @override_settings(DEFAULT_USER_IS_ACTIVE=True)
+    def test_successful_registration_default_user_active(self):
+        self.client.post(
+            self.registration_url,
+            data=self.valid_user_data,
+        )
+        user = User.objects.filter(
+            username=self.valid_user_data["username"],
+        ).first()
+
+        self.assertTrue(user.is_active)
+
+    @override_settings(DEFAULT_USER_IS_ACTIVE=True)
+    def test_successful_registration_does_no_email_default_user_inactive(self):
+        self.client.post(
+            self.registration_url,
+            data=self.valid_user_data,
+        )
+
+        self.assertEqual(len(mail.outbox), 0)
+
+    @override_settings(DEFAULT_USER_IS_ACTIVE=False)
+    def test_successful_registration_default_user_inactive(self):
+        self.client.post(
+            self.registration_url,
+            data=self.valid_user_data,
+        )
+        user = User.objects.filter(
+            username=self.valid_user_data["username"],
+        ).first()
+
         self.assertFalse(user.is_active)
 
-    def test_successful_registration_sends_email(self):
+    @override_settings(DEFAULT_USER_IS_ACTIVE=False)
+    def test_successful_registration_sends_email_default_user_inactive(self):
         self.client.post(
             self.registration_url,
             data=self.valid_user_data,
