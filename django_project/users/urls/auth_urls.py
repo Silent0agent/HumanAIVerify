@@ -26,12 +26,18 @@ urlpatterns = [
     ),
     path(
         "activate/<signed_username>/",
-        users.views.ActivateUserView.as_view(),
+        users.views.SignedUserActionView.as_view(
+            max_age=3600 * 12,
+            reset_security_data=False,
+        ),
         name="activate",
     ),
     path(
         "unlock-account/<signed_username>/",
-        users.views.UnlockAccountView.as_view(),
+        users.views.SignedUserActionView.as_view(
+            max_age=3600 * 7,
+            reset_security_data=True,
+        ),
         name="unlock-account",
     ),
     path(
