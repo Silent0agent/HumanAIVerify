@@ -17,14 +17,16 @@ import users.forms
 User = auth.get_user_model()
 
 
-class ActivateUserView(django.views.generic.View):
+class SignedUserActionView(django.views.generic.View):
     template_name = "users/activation_success.html"
+    max_age = 3600 * 12
+    reset_security_data = False
 
     def get(self, request, signed_username):
         signer = signing.TimestampSigner()
 
         try:
-            username = signer.unsign(signed_username, max_age=3600 * 12)
+            username = signer.unsign(signed_username, max_age=self.max_age)
             user = User.objects.get(username=username)
         except (signing.BadSignature, User.DoesNotExist):
             return HttpResponseNotFound(
@@ -32,28 +34,11 @@ class ActivateUserView(django.views.generic.View):
             )
 
         user.is_active = True
-        user.save()
 
-        return render(request, self.template_name)
+        if self.reset_security_data:
+            user.login_attempts_count = 0
+            user.block_timestamp = None
 
-
-class UnlockAccountView(django.views.generic.View):
-    template_name = "users/activation_success.html"
-
-    def get(self, request, signed_username):
-        signer = signing.TimestampSigner()
-
-        try:
-            username = signer.unsign(signed_username, max_age=3600 * 7)
-            user = User.objects.get(username=username)
-        except (signing.BadSignature, User.DoesNotExist):
-            return HttpResponseNotFound(
-                _("Invalid_or_expired_activation_link"),
-            )
-
-        user.is_active = True
-        user.login_attempts_count = 0
-        user.block_timestamp = None
         user.save()
 
         return render(request, self.template_name)
