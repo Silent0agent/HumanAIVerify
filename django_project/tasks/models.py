@@ -5,36 +5,23 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+import core.models
+import tasks.fields
 import tasks.managers
 
 
-class TextTask(models.Model):
-    client = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.PROTECT,
-        related_name="text_tasks",
-        related_query_name="text_task",
-        verbose_name=_("client"),
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name=_("created_at"),
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name=_("updated_at"),
-    )
+class BaseTask(core.models.TimeStampedModel):
     title = models.CharField(
-        max_length=255,
         verbose_name=_("title"),
+        max_length=255,
     )
-    content = models.TextField(
-        verbose_name=_("content"),
+    description = models.TextField(
+        verbose_name=_("description"),
+        blank=True,
     )
 
     class Meta:
-        verbose_name = _("text_task")
-        verbose_name_plural = _("text_tasks")
+        abstract = True
         ordering = ["-created_at"]
 
     def __str__(self):
@@ -49,7 +36,18 @@ class TextTask(models.Model):
         return self.checks.get_avg_ai_score()
 
 
-class TaskCheck(models.Model):
+class TextTask(BaseTask):
+    client = tasks.fields.make_client_field("text")
+    content = models.TextField(
+        verbose_name=_("content"),
+    )
+
+    class Meta(BaseTask.Meta):
+        verbose_name = _("text_task")
+        verbose_name_plural = _("text_tasks")
+
+
+class TextTaskCheck(core.models.TimeStampedModel):
     class Status(models.TextChoices):
         DRAFT = "draft", _("draft")
         PUBLISHED = "published", _("published")
@@ -75,14 +73,6 @@ class TaskCheck(models.Model):
     comment = models.TextField(
         blank=True,
         verbose_name=_("comment"),
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name=_("created_at"),
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name=_("updated_at"),
     )
     status = models.CharField(
         max_length=15,
