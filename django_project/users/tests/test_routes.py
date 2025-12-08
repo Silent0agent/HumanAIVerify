@@ -39,7 +39,7 @@ class AuthRoutesTest(SimpleTestCase):
         resolver = resolve(url)
         self.assertEqual(
             resolver.func.view_class,
-            users.views.ActivateUserView,
+            users.views.SignedUserActionView,
         )
 
     def test_unlock_account(self):
@@ -52,7 +52,7 @@ class AuthRoutesTest(SimpleTestCase):
         resolver = resolve(url)
         self.assertEqual(
             resolver.func.view_class,
-            users.views.UnlockAccountView,
+            users.views.SignedUserActionView,
         )
 
     def test_change_password(self):
