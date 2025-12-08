@@ -19,11 +19,14 @@ class TextTaskAdmin(admin.ModelAdmin):
     created_at_field = text_task_model.created_at.field.name
     updated_at_field = text_task_model.updated_at.field.name
 
+    ai_score_property = "ai_score"
+
     list_display = (
         title_field,
         client_field,
+        ai_score_property,
         created_at_field,
-        created_at_field,
+        updated_at_field,
     )
     list_filter = (created_at_field,)
     search_fields = (
@@ -32,6 +35,7 @@ class TextTaskAdmin(admin.ModelAdmin):
         f"{client_field_object}__{client_email}",
     )
     readonly_fields = (
+        ai_score_property,
         text_task_model.created_at.field.name,
         text_task_model.updated_at.field.name,
     )
@@ -43,6 +47,7 @@ class TextTaskAdmin(admin.ModelAdmin):
                     client_field,
                     title_field,
                     content_field,
+                    ai_score_property,
                 ),
             },
         ),
@@ -53,7 +58,83 @@ class TextTaskAdmin(admin.ModelAdmin):
                     created_at_field,
                     updated_at_field,
                 ),
-                "classes": ("collapse",),
+            },
+        ),
+    )
+
+    @admin.display(description=_("Average AI Score"))
+    def ai_score(self, obj):
+        return obj.ai_score
+
+
+@admin.register(tasks.models.TaskCheck)
+class TaskCheckAdmin(admin.ModelAdmin):
+    task_check_model = tasks.models.TaskCheck
+
+    task_field = task_check_model.task.field.name
+    performer_field = task_check_model.performer.field.name
+    ai_score_field = task_check_model.ai_score.field.name
+    status_field = task_check_model.status.field.name
+    comment_field = task_check_model.comment.field.name
+    created_at_field = task_check_model.created_at.field.name
+    updated_at_field = task_check_model.updated_at.field.name
+
+    performer_email = (
+        task_check_model.performer.field.related_model.email.field.name
+    )
+    task_title = task_check_model.task.field.related_model.title.field.name
+
+    list_display = (
+        task_field,
+        performer_field,
+        ai_score_field,
+        status_field,
+        created_at_field,
+        updated_at_field,
+    )
+
+    list_filter = (
+        status_field,
+        created_at_field,
+        ai_score_field,
+    )
+
+    search_fields = (
+        f"{task_field}__{task_title}",
+        f"{performer_field}__{performer_email}",
+        comment_field,
+    )
+
+    readonly_fields = (
+        created_at_field,
+        updated_at_field,
+    )
+
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    task_field,
+                    performer_field,
+                    status_field,
+                    ai_score_field,
+                ),
+            },
+        ),
+        (
+            _("Content"),
+            {
+                "fields": (comment_field,),
+            },
+        ),
+        (
+            _("Timestamps"),
+            {
+                "fields": (
+                    created_at_field,
+                    updated_at_field,
+                ),
             },
         ),
     )
