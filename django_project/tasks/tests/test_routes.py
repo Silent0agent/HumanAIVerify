@@ -6,23 +6,23 @@ from django.urls import resolve, reverse
 import tasks.views
 
 
-class AuthRoutesTest(SimpleTestCase):
+class TasksRoutesTest(SimpleTestCase):
     def test_create(self):
-        url = reverse("tasks:create")
-        self.assertEqual(url, "/tasks/create/")
+        url = reverse("tasks:text-task-create")
+        self.assertEqual(url, "/tasks/text-task/create/")
 
         resolver = resolve(url)
         self.assertEqual(
             resolver.func.view_class,
-            tasks.views.TextTaskCreateView,
+            tasks.views.BaseTaskCreateView,
         )
 
     def test_check(self):
-        url = reverse("tasks:check", kwargs={"task_id": 1})
-        self.assertEqual(url, "/tasks/1/check/")
+        url = reverse("tasks:text-check-perform", kwargs={"task_id": 1})
+        self.assertEqual(url, "/tasks/text-task/1/check/")
 
         resolver = resolve(url)
         self.assertEqual(
             resolver.func.view_class,
-            tasks.views.TaskCheckPerformView,
+            tasks.views.BaseTaskCheckPerformView,
         )

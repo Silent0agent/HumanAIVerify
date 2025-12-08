@@ -16,6 +16,7 @@ class TextTaskAdmin(admin.ModelAdmin):
     client_field = client_field_object.name
     title_field = text_task_model.title.field.name
     content_field = text_task_model.content.field.name
+    description_field = text_task_model.description.field.name
     created_at_field = text_task_model.created_at.field.name
     updated_at_field = text_task_model.updated_at.field.name
 
@@ -32,6 +33,7 @@ class TextTaskAdmin(admin.ModelAdmin):
     search_fields = (
         title_field,
         content_field,
+        description_field,
         f"{client_field_object}__{client_email}",
     )
     readonly_fields = (
@@ -47,6 +49,7 @@ class TextTaskAdmin(admin.ModelAdmin):
                     client_field,
                     title_field,
                     content_field,
+                    description_field,
                     ai_score_property,
                 ),
             },
@@ -67,9 +70,9 @@ class TextTaskAdmin(admin.ModelAdmin):
         return obj.ai_score
 
 
-@admin.register(tasks.models.TaskCheck)
+@admin.register(tasks.models.TextTaskCheck)
 class TaskCheckAdmin(admin.ModelAdmin):
-    task_check_model = tasks.models.TaskCheck
+    task_check_model = tasks.models.TextTaskCheck
 
     task_field = task_check_model.task.field.name
     performer_field = task_check_model.performer.field.name

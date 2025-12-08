@@ -6,7 +6,7 @@ from django.db.models.deletion import ProtectedError
 from django.db.utils import IntegrityError
 from django.test import TestCase
 
-from tasks.models import TaskCheck, TextTask
+from tasks.models import TextTask, TextTaskCheck
 
 User = auth.get_user_model()
 
@@ -45,21 +45,21 @@ class TextTaskModelTest(TestCase):
         self.assertAlmostEqual(self.task.ai_score, 0.0)
 
     def test_ai_score_calculation(self):
-        TaskCheck.objects.create(
+        TextTaskCheck.objects.create(
             task=self.task,
             performer=self.performer_user,
             ai_score=50.0,
-            status=TaskCheck.Status.PUBLISHED,
+            status=TextTaskCheck.Status.PUBLISHED,
         )
         performer_2 = User.objects.create_user(
             username="performer2",
             email="example3@email.com",
         )
-        TaskCheck.objects.create(
+        TextTaskCheck.objects.create(
             task=self.task,
             performer=performer_2,
             ai_score=100.0,
-            status=TaskCheck.Status.PUBLISHED,
+            status=TextTaskCheck.Status.PUBLISHED,
         )
 
         self.assertAlmostEqual(self.task.ai_score, 75.0)
@@ -114,7 +114,7 @@ class TaskCheckModelTest(TestCase):
         cls.check_ai_score = 85.5
 
     def setUp(self):
-        self.check = TaskCheck.objects.create(
+        self.check = TextTaskCheck.objects.create(
             task=self.task,
             performer=self.performer_user,
             ai_score=self.check_ai_score,
@@ -126,7 +126,7 @@ class TaskCheckModelTest(TestCase):
         self.assertIsNotNone(self.task.updated_at)
 
     def test_check_default_status_draft(self):
-        self.assertEqual(self.check.status, TaskCheck.Status.DRAFT)
+        self.assertEqual(self.check.status, TextTaskCheck.Status.DRAFT)
 
     def test_check_str(self):
         self.assertEqual(
@@ -147,14 +147,14 @@ class TaskCheckModelTest(TestCase):
 
     def test_unique_constraint_task_and_performer(self):
         with self.assertRaises(IntegrityError):
-            TaskCheck.objects.create(
+            TextTaskCheck.objects.create(
                 task=self.task,
                 performer=self.performer_user,
                 ai_score=10.0,
             )
 
     def test_switch_status_to_published(self):
-        self.check.status = TaskCheck.Status.PUBLISHED
+        self.check.status = TextTaskCheck.Status.PUBLISHED
         self.check.full_clean()
         self.check.save()
         self.assertEqual(self.check.status, "published")
@@ -170,13 +170,13 @@ class TaskCheckModelTest(TestCase):
             password="password",
             email="example3@email.com",
         )
-        check_2 = TaskCheck.objects.create(
+        check_2 = TextTaskCheck.objects.create(
             task=self.task,
             performer=performer_user_2,
             ai_score=35.0,
             comment="Looks like human",
         )
-        checks = TaskCheck.objects.all()
+        checks = TextTaskCheck.objects.all()
         self.assertEqual(checks[0], check_2)
         self.assertEqual(checks[1], self.check)
 
@@ -186,15 +186,15 @@ class TaskCheckModelTest(TestCase):
             title="Task 2",
             content="Content 2",
         )
-        TaskCheck.objects.create(
+        TextTaskCheck.objects.create(
             task=task_2,
             performer=self.performer_user,
             ai_score=35.0,
             comment="Looks like human",
         )
-        self.assertEqual(TaskCheck.objects.count(), 2)
+        self.assertEqual(TextTaskCheck.objects.count(), 2)
         task_2.delete()
-        self.assertEqual(TaskCheck.objects.count(), 1)
+        self.assertEqual(TextTaskCheck.objects.count(), 1)
 
     def test_on_delete_performer_protect(self):
         performer_user_2 = User.objects.create_user(
@@ -202,7 +202,7 @@ class TaskCheckModelTest(TestCase):
             password="password",
             email="example3@email.com",
         )
-        TaskCheck.objects.create(
+        TextTaskCheck.objects.create(
             task=self.task,
             performer=performer_user_2,
             ai_score=35.0,

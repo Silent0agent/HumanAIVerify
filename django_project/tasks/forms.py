@@ -7,10 +7,9 @@ import core.forms
 import tasks.models
 
 
-class TextTaskForm(core.forms.BootstrapFormMixin, forms.ModelForm):
+class BaseTaskForm(core.forms.BootstrapFormMixin, forms.ModelForm):
     class Meta:
-        model = tasks.models.TextTask
-        fields = ["title", "content"]
+        fields = ["title", "description"]
 
         widgets = {
             "title": forms.TextInput(
@@ -19,6 +18,28 @@ class TextTaskForm(core.forms.BootstrapFormMixin, forms.ModelForm):
                     "placeholder": _("Enter_task_title"),
                 },
             ),
+            "description": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 3,
+                    "placeholder": _("Enter_task_description_optional"),
+                },
+            ),
+        }
+
+        labels = {
+            "title": _("Title"),
+            "description": _("Description"),
+        }
+
+
+class TextTaskForm(BaseTaskForm):
+    class Meta(BaseTaskForm.Meta):
+        model = tasks.models.TextTask
+        fields = BaseTaskForm.Meta.fields + ["content"]
+
+        widgets = {
+            **BaseTaskForm.Meta.widgets,
             "content": forms.Textarea(
                 attrs={
                     "class": "form-control",
@@ -29,7 +50,7 @@ class TextTaskForm(core.forms.BootstrapFormMixin, forms.ModelForm):
         }
 
         labels = {
-            "title": _("Title"),
+            **BaseTaskForm.Meta.labels,
             "content": _("Content"),
         }
 
@@ -41,9 +62,8 @@ class AiScoreWidget(forms.NumberInput):
         js = ("js/dual_range_widget.js",)
 
 
-class TaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
+class BaseTaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
     class Meta:
-        model = tasks.models.TaskCheck
         fields = ["ai_score", "comment"]
 
         widgets = {
@@ -78,8 +98,13 @@ class TaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
         instance = self.instance
         if (
             instance.pk
-            and instance.status == tasks.models.TaskCheck.Status.PUBLISHED
+            and instance.status == instance.__class__.Status.PUBLISHED
         ):
             raise forms.ValidationError(_("Check_already_published"))
 
         return super().clean()
+
+
+class TextTaskCheckForm(BaseTaskCheckForm):
+    class Meta(BaseTaskCheckForm.Meta):
+        model = tasks.models.TextTaskCheck
