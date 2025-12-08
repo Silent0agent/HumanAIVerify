@@ -1,14 +1,32 @@
 __all__ = ()
 
-import http
+from http import HTTPStatus
 
-import django.test
-import django.urls
+from django.test import SimpleTestCase, TestCase
+from django.urls import resolve, reverse
+
+import homepage.views
 
 
-class StaticUrlsTests(django.test.TestCase):
-    def test_endpoint(self):
-        response = django.test.Client().get(
-            django.urls.reverse("homepage:index"),
-        )
-        self.assertEqual(response.status_code, http.HTTPStatus.OK)
+class HomepageRoutesTest(SimpleTestCase):
+    def test_index(self):
+        url = reverse("homepage:index")
+        self.assertEqual(url, "/")
+
+        resolver = resolve(url)
+        self.assertEqual(resolver.func.view_class, homepage.views.IndexView)
+
+
+class HomepageViewsTests(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.index_url = reverse("homepage:index")
+
+    def test_index_status_code_ok(self):
+        response = self.client.get(self.index_url)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    def test_index_template(self):
+        self.client.get(self.index_url)
+        self.assertTemplateUsed("homepage/index.html")
