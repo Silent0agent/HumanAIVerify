@@ -5,7 +5,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-def make_client_field(prefix):
+def make_task_client_field(prefix):
     return models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,

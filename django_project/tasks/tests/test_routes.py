@@ -14,7 +14,7 @@ class TasksRoutesTest(SimpleTestCase):
         resolver = resolve(url)
         self.assertEqual(
             resolver.func.view_class,
-            tasks.views.BaseTaskCreateView,
+            tasks.views.TextTaskCreateView,
         )
 
     def test_check(self):
@@ -24,5 +24,5 @@ class TasksRoutesTest(SimpleTestCase):
         resolver = resolve(url)
         self.assertEqual(
             resolver.func.view_class,
-            tasks.views.BaseTaskCheckPerformView,
+            tasks.views.TextTaskCheckPerformView,
         )
