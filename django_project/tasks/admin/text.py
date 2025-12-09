@@ -23,7 +23,7 @@ class TextTaskAdmin(admin.ModelAdmin):
     ai_score_property = "ai_score"
 
     list_display = (
-        title_field,
+        "get_task_str",
         client_field,
         ai_score_property,
         created_at_field,
@@ -65,13 +65,17 @@ class TextTaskAdmin(admin.ModelAdmin):
         ),
     )
 
-    @admin.display(description=_("Average AI Score"))
+    @admin.display(description=_("Average_AI_Score"))
     def ai_score(self, obj):
         return obj.ai_score
 
+    @admin.display(description=_("Task"), ordering="title")
+    def get_task_str(self, obj):
+        return str(obj)
+
 
 @admin.register(tasks.models.TextTaskCheck)
-class TaskCheckAdmin(admin.ModelAdmin):
+class TextTaskCheckAdmin(admin.ModelAdmin):
     task_check_model = tasks.models.TextTaskCheck
 
     task_field = task_check_model.task.field.name
