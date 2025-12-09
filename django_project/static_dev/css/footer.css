@@ -14,7 +14,11 @@
 .logo-head {
   letter-spacing:1px;
 }
+
 @media (min-width: 576px) {
   .border-sm-start { border-left: 1px solid #495057; }
   .ps-sm-3 { padding-left: 1rem !important; }
+}
+@media (max-width: 767.98px) {
+  .watermark { font-size: clamp(16px, 7vw, 120px); }
 }
