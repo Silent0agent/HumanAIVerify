@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.password-toggle').forEach(btn => {
+  document.querySelectorAll('.password-eye').forEach(btn => {
     btn.addEventListener('click', function () {
-      const wrapper = btn.closest('.password-wrapper');
-      if (!wrapper) return;
-      
       const input = wrapper.querySelector('input');
       const iconShow = btn.querySelector('.icon-show');
       const iconHide = btn.querySelector('.icon-hide');

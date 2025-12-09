@@ -5,21 +5,21 @@
   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 {% endblock extra_head %}
 
-<footer class="py-5">
+<footer class="py-md--5">
   <hr class="border-light mb-5">
   <div class="container">
     <div class="row gy-4 align-items-start">
       <div class="col-12 col-md-4">
-        <div class="d-flex align-items-start gap-3 mb-3">
+        <div class="d-flex align-items-start gap-3 mb-md-3">
           <div class="flex-shrink-0">
             <img src="{% static 'img/logo.png' %}" alt="Logo" width="28" height="28" class="img-fluid logo-img">
             <span class="text-uppercase fw-normal fs-5 logo-head">HUMANAIVERIFY</span>
           </div>
         </div>
-        <div class="fs-5 fw-normal mt-1 roboto">Spot AI, everywhere you work</div>
+        <div class="fs-5 fw-normal mt-md-1 roboto">Spot AI, everywhere you work</div>
 
-        <div class="small text-muted mt-5 pt-3">
-          ©
+        <div class="small text-muted mt-md-5 pt-3">
+          <a class="text-decoration-none text-muted" href="https://www.youtube.com/watch?v=6mhmcwmgWbA">©</a>
           <span id="display-year" data-server-date-iso="{% now 'c' %}">{% now 'Y' %}</span>
           HumanAIVerify, Inc
         </div>
@@ -27,62 +27,60 @@
 
       <div class="col-12 col-md-8">
         <div class="border rounded links-box p-3 p-md-4">
-
-          <div class="row">
-
+          <div class="row roboto">
             <div class="col-12 col-sm-4">
-              <div class="fw-medium mb-2 roboto fs-5">Products</div>
+              <div class="fw-medium mb-2 fs-5">Products</div>
               <ul class="list-unstyled mb-0">
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#">Superhuman Go</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#">Superhuman Go</a>
                 </li>
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#">Grammarly</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#">Grammarly</a>
                 </li>
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#">Coda</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#">Coda</a>
                 </li>
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#">Superhuman Mail</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#">Superhuman Mail</a>
                 </li>
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#">Agent Store</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#">Agent Store</a>
                 </li>
               </ul>
             </div>
 
-            <div class="col-12 col-sm-4 border-sm-start ps-sm-3">
-              <div class="fw-medium mb-2 roboto fs-5">Company</div>
+            <div class="col-12 col-sm-4 border-sm-start mt-4 mt-sm-0">
+              <div class="fw-medium mb-2 fs-5">Company</div>
               <ul class="list-unstyled mb-0">
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="{% url 'feedback:feedback' %}">{% translate 'Contact' %}</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="{% url 'feedback:feedback' %}">{% translate 'Contact' %}</a>
                 </li>
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#">Help Center</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#">Help Center</a>
                 </li>
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#">Careers ↗</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#">Careers ↗</a>
                 </li>
               </ul>
             </div>
 
-            <div class="col-12 col-sm-4 border-sm-start ps-sm-3">
-              <div class="fw-medium mb-2 roboto fs-5">Legal</div>
+            <div class="col-12 col-sm-4 border-sm-start mt-4 mt-sm-0">
+              <div class="fw-medium mb-2 fs-5">Legal</div>
               <ul class="list-unstyled mb-0">
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#">Terms</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#">Terms</a>
                 </li>
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#">Privacy Policy ↗</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#">Privacy Policy ↗</a>
                 </li>
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#">Trust</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#">Trust</a>
                 </li>
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#">Customer Business Agreement</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#">Customer Business Agreement</a>
                 </li>
                 <li>
-                  <a class="text-muted text-decoration-none d-block py-1 roboto fs-5 purple-hover" href="#" aria-label="Your Privacy Choices">Your Privacy Choices</a>
+                  <a class="text-muted text-decoration-none d-block py-md-1 fs-5 purple-hover" href="#" aria-label="Your Privacy Choices">Your Privacy Choices</a>
                 </li>
               </ul>
             </div>
@@ -94,7 +92,7 @@
     </div>
   </div>
 
-  <div class="w-100 text-center py-4">
+  <div class="w-100 text-center my-4">
     <div class="text-uppercase watermark">HUMANAIVERIFY</div>
   </div>
 </footer>
