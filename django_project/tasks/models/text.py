@@ -8,36 +8,11 @@ from django.utils.translation import gettext_lazy as _
 import core.models
 import tasks.fields
 import tasks.managers
-
-
-class BaseTask(core.models.TimeStampedModel):
-    title = models.CharField(
-        verbose_name=_("title"),
-        max_length=255,
-    )
-    description = models.TextField(
-        verbose_name=_("description"),
-        blank=True,
-    )
-
-    class Meta:
-        abstract = True
-        ordering = ["-created_at"]
-
-    def __str__(self):
-        task_title = self.title
-        if len(task_title) > 30:
-            return task_title[:30] + "..."
-
-        return task_title
-
-    @property
-    def ai_score(self):
-        return self.checks.get_avg_ai_score()
+from tasks.models.base import BaseTask
 
 
 class TextTask(BaseTask):
-    client = tasks.fields.make_client_field("text")
+    client = tasks.fields.make_task_client_field("text")
     content = models.TextField(
         verbose_name=_("content"),
     )
