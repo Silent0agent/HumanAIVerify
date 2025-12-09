@@ -4,7 +4,6 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 import core.forms
-import tasks.models
 
 
 class BaseTaskForm(core.forms.BootstrapFormMixin, forms.ModelForm):
@@ -30,28 +29,6 @@ class BaseTaskForm(core.forms.BootstrapFormMixin, forms.ModelForm):
         labels = {
             "title": _("Title"),
             "description": _("Description"),
-        }
-
-
-class TextTaskForm(BaseTaskForm):
-    class Meta(BaseTaskForm.Meta):
-        model = tasks.models.TextTask
-        fields = BaseTaskForm.Meta.fields + ["content"]
-
-        widgets = {
-            **BaseTaskForm.Meta.widgets,
-            "content": forms.Textarea(
-                attrs={
-                    "class": "form-control",
-                    "rows": 8,
-                    "placeholder": _("Paste_text_for_AI_detection"),
-                },
-            ),
-        }
-
-        labels = {
-            **BaseTaskForm.Meta.labels,
-            "content": _("Content"),
         }
 
 
@@ -103,8 +80,3 @@ class BaseTaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
             raise forms.ValidationError(_("Check_already_published"))
 
         return super().clean()
-
-
-class TextTaskCheckForm(BaseTaskCheckForm):
-    class Meta(BaseTaskCheckForm.Meta):
-        model = tasks.models.TextTaskCheck
