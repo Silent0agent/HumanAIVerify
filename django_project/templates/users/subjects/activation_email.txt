@@ -1,8 +1,7 @@
 {% load i18n %}
 
 {% translate "Hello" %},
-
-{% translate 'To_activate_account_follow_the_link' %}:
+{% translate 'activate_link_text' %}:
 {{ activate_link }}
 
-{% translate 'Ignore_this_email_if_have_not_registred' %}.
+{% translate 'ignore_activate_link_text' %}.

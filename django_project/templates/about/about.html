@@ -11,69 +11,61 @@
 {% endblock title %}
 
 {% block content %}
-  <section class="hero-section">
-    <h2 class="text-white text-center mt-3 display-3">Who we are</h2>
-    {% comment %} <h2 class="text-white text-center mt-3 display-3">{% translate "about-header" %}</h2> {% endcomment %}
+  <section>
+    <h2 class="text-white text-center mt-3 display-3 d-md-block d-none">{% translate "about-header" %}</h2>
     <div class="container-fluid">
-      <div class="row align-items-center hero-row">
+      <div class="row align-items-center p-5">
         <div class="col-md-6 order-1 order-md-1 d-flex flex-column justify-content-center px-5">
-          <h1 class="hero-title">
-            Changing the world through verifying content on using AI
-            {% comment %} {% translate "about-title" %} {% endcomment %}
+          <h1 class="display-4 mb-3 lh-1">
+            {% translate "about-title" %}
           </h1>
-          <p class="hero-text text-muted">
-            HumanAIVerify was established to tackle the defining challenge of the digital age: preserving the value of human expression. We believe that no algorithm can grasp context and nuance quite like a human can. Our platform connects a community of expert testers to help businesses and creators verify authenticity where machines fail.
-            {% comment %} {% translate "about-text" %} {% endcomment %}
+          <p class="fs-5 text-muted">
+            {% translate "about-text" %}
           </p>
         </div>
 
-        <div class="col-md-6 text-center order-2 order-md-2 px-4">
-          <img src="{% static 'img/logo.png' %}" class="img-fluid hero-img" height="1024" width="1024" alt="{% translate 'Decorative logo' %}">
+        <div class="col-md-6 text-center order-2 px-4 d-md-block d-none">
+          <img src="{% static 'img/logo.png' %}" height="auto" width="auto" class="img-fluid" alt="{% translate 'Logo' %}">
         </div>
       </div>
     </div>
   </section>
 
-  <section class="hero-section">
+  <section>
     <div class="container-fluid text-center mb-4">
       <hr class="border-light mx-auto">
-      <h2 class="display-4 mb-0">The team</h2>
-      {% comment %} <h2 class="display-4 mb-0">{% translate "team-header" %}</h2> {% endcomment %}
+      <h2 class="display-4 mb-0">{% translate "team-header" %}</h2>
     </div>
 
     <div class="container mx-auto col-7">
       <div class="row g-0 team-row">
 
         <div class="col-md-8 d-flex">
-          <div class="img-overlay-wrapper w-100 h-100" tabindex="0" aria-label="Denis — Lead">
-            <img src="{% static 'img/team/denis.png' %}" height="1024" width="960" alt="Denis">
+          <div class="img-overlay-wrapper mb-sm-2">
+            <img src="{% static 'img/team/denis.png' %}" height="auto" width="auto" class="w-100 h-100" alt="{% translate "Denis" %}">
             <div class="img-caption">
-              <div class="caption-name">{% translate "Denis" %}</div>
-              <div class="caption-role">{% translate "Lead" %}</div>
+              <div class="fs-5">{% translate "Denis" %}</div>
+              <div class="opacity-75">{% translate "Lead" %}</div>
             </div>
           </div>
         </div>
 
         <div class="col-md-4 d-flex flex-column">
-          <div class="flex-fill d-flex align-items-center justify-content-center">
-            <div class="img-overlay-wrapper" tabindex="0" aria-label="Egor — Backend">
-              <img src="{% static 'img/team/egor.jpg' %}" height="640" width="640" alt="Egor">
+            <div class="img-overlay-wrapper mb-sm-2">
+              <img src="{% static 'img/team/egor.jpg' %}" height="auto" width="auto"  class="w-100 h-100" alt="{% translate "Egor" %}">
               <div class="img-caption">
-                <div class="caption-name">{% translate "Egor" %}</div>
-                <div class="caption-role">{% translate "Backend" %}</div>
+                <div class="fs-5">{% translate "Egor" %}</div>
+                <div class="opacity-75">{% translate "Backend" %}</div>
               </div>
             </div>
-          </div>
 
-          <div class="flex-fill d-flex align-items-center justify-content-center">
-            <div class="img-overlay-wrapper" tabindex="0" aria-label="Ivan — Frontend">
-              <img src="{% static 'img/team/ivan.jpg' %}" height="640" width="640" alt="Ivan">
+            <div class="img-overlay-wrapper mb-sm-2">
+              <img src="{% static 'img/team/ivan.jpg' %}" height="auto" width="auto"  class="w-100 h-100" alt="{% translate "Ivan" %}">
               <div class="img-caption">
-                <div class="caption-name">{% translate "Ivan" %}</div>
-                <div class="caption-role">{% translate "Frontend" %}</div>
+                <div class="fs-5">{% translate "Ivan" %}</div>
+                <div class="opacity-75">{% translate "Frontend" %}</div>
               </div>
             </div>
-          </div>
         </div>
 
       </div>
