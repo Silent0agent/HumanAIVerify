@@ -6,6 +6,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+import core.models
+
 
 class StatusChoices(models.TextChoices):
     RECEIVED = "received", _("received")
@@ -34,7 +36,7 @@ class FeedbackUserProfile(models.Model):
         return self.mail
 
 
-class Feedback(models.Model):
+class Feedback(core.models.TimeStampedModel):
     author = models.ForeignKey(
         FeedbackUserProfile,
         on_delete=models.SET_NULL,
@@ -47,11 +49,6 @@ class Feedback(models.Model):
     text = models.TextField(
         _("feedback_text"),
         help_text=_("feedback_text_help_text"),
-    )
-
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name=_("created_at"),
     )
 
     status = models.CharField(
@@ -94,7 +91,7 @@ class FeedbackFile(models.Model):
         verbose_name_plural = _("feedback_file_plural")
 
     def __str__(self):
-        return f"Id {self.id}"
+        return self.feedback.__str__()
 
 
 class StatusLog(models.Model):
