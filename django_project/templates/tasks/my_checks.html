@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Checks</title>
+</head>
+<body>
+    <h1>My Checks</h1>
+
+    <h2>Completed Checks</h2>
+    {% if object_list %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>AI Score</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for check in object_list %}
+                <tr>
+                    <td>{{ check.task.title }}</td>
+                    <td>{{ check.ai_score }}%</td>
+                    <td>{{ check.get_status_display }}</td>
+                    <td>{{ check.created_at|date:"d.m.Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You haven't checked any tasks yet.</p>
+    {% endif %}
+
+    <h2>Available Tasks</h2>
+    {% if available_tasks %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Created</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in available_tasks %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
+                    <td>
+                        <a href="{% url 'tasks:text-check-perform' task.id %}">
+                            Check this task
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No available tasks for checking.</p>
+    {% endif %}
+</body>
+</html>
