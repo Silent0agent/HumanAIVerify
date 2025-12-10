@@ -2,6 +2,7 @@ __all__ = ()
 
 import tasks.forms
 import tasks.models
+from tasks.views.base import BaseMyChecksListView, BaseMyTasksListView
 from tasks.views.base import BaseTaskCheckPerformView, BaseTaskCreateView
 
 
@@ -15,3 +16,12 @@ class TextTaskCheckPerformView(BaseTaskCheckPerformView):
     check_model = tasks.models.TextTaskCheck
     form_class = tasks.forms.TextTaskCheckForm
     template_name = "tasks/text_check_perform.html"
+
+
+class MyTextTasksListView(BaseMyTasksListView):
+    model = tasks.models.TextTask
+
+
+class MyTextChecksListView(BaseMyChecksListView):
+    check_model = tasks.models.TextTaskCheck
+    task_model = tasks.models.TextTask

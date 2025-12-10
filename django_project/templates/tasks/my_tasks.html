@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Tasks</title>
+</head>
+<body>
+    <h1>My Tasks</h1>
+
+    {% if tasks %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Created</th>
+                    <th>AI Score</th>
+                    <th>Checks Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
+                    <td>
+                        {% if task.ai_score %}
+                            {{ task.ai_score|floatformat:1 }}%
+                        {% else %}
+                            Not checked
+                        {% endif %}
+                    </td>
+                    <td>{{ task.checks.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have no tasks yet.</p>
+    {% endif %}
+</body>
+</html>
