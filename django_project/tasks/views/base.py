@@ -6,7 +6,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, View
+from django.views.generic import CreateView, ListView, View
 
 import users.mixins
 
@@ -112,3 +112,42 @@ class BaseTaskCheckPerformView(
             self.template_name,
             {"form": form, "task": self.task},
         )
+
+
+class BaseMyTasksListView(
+    LoginRequiredMixin,
+    users.mixins.CustomerRequiredMixin,
+    ListView,
+):
+    model = None
+    template_name = "tasks/my_tasks.html"
+    context_object_name = "tasks"
+
+    def get_queryset(self):
+        return self.model.objects.filter(client=self.request.user)
+
+
+class BaseMyChecksListView(
+    LoginRequiredMixin,
+    users.mixins.PerformerRequiredMixin,
+    ListView,
+):
+    check_model = None
+    task_model = None
+    template_name = "tasks/my_checks.html"
+
+    def get_queryset(self):
+        return self.check_model.objects.filter(performer=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        completed_task_ids = self.check_model.objects.filter(
+            performer=self.request.user,
+        ).values_list("task_id", flat=True)
+
+        context["available_tasks"] = self.task_model.objects.exclude(
+            id__in=completed_task_ids,
+        )
+
+        return context
