@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  {% translate "My_text_tasks" %}
+{% endblock title %}
+
+{% block content %}
+  <h1>{% translate "My_text_tasks" %}</h1>
+  {% comment %} <h1>My Tasks</h1> {% endcomment %}
+  <a href="{% url 'tasks:text-task-create' %}">{% translate "Create_text_task" %}</a>
+  {% if tasks %}
+    <table>
+      <thead>
+        <tr>
+          <th>{% translate "Title" %}</th>
+          {% comment %} <th>Title</th> {% endcomment %}
+          <th>{% translate "Created_at" %}</th>
+          {% comment %} <th>Created</th> {% endcomment %}
+          <th>{% translate "AI_score" %}</th>
+          {% comment %} <th>AI Score</th> {% endcomment %}
+          <th>{% translate "Checks_count" %}</th>
+          {% comment %} <th>Checks Count</th> {% endcomment %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in tasks %}
+          <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
+            <td>
+              {% if task.ai_score %}
+                {{ task.ai_score|floatformat:1 }}%
+              {% else %}
+                {% translate "Not_checked" %}
+                {% comment %} Not checked {% endcomment %}
+              {% endif %}
+            </td>
+            <td>{{ task.checks.count }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>{% translate "You_have_no_text_tasks" %}.</p>
+    {% comment %} <p>You have no tasks yet</p> {% endcomment %}
+  {% endif %}
+{% endblock content %}
