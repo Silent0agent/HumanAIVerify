@@ -1,9 +1,23 @@
 __all__ = (
-    "BaseTaskCreateView",
+    "BaseMyChecksListView",
+    "BaseMyTasksListView",
     "BaseTaskCheckPerformView",
-    "TextTaskCreateView",
+    "BaseTaskCreateView",
+    "MyTextChecksListView",
+    "MyTextTasksListView",
     "TextTaskCheckPerformView",
+    "TextTaskCreateView",
 )
 
-from tasks.views.base import BaseTaskCheckPerformView, BaseTaskCreateView
-from tasks.views.text import TextTaskCheckPerformView, TextTaskCreateView
+from tasks.views.base import (
+    BaseMyChecksListView,
+    BaseMyTasksListView,
+    BaseTaskCheckPerformView,
+    BaseTaskCreateView,
+)
+from tasks.views.text import (
+    MyTextChecksListView,
+    MyTextTasksListView,
+    TextTaskCheckPerformView,
+    TextTaskCreateView,
+)
