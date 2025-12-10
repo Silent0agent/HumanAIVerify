@@ -33,7 +33,7 @@
             {% comment %} Save draft {% endcomment %}
           </button>
 
-          <button type="submit" name="action" value="publish" class="btn btn-primary" onclick="return confirm('Вы уверены? После отправки изменить вердикт будет нельзя.');">
+          <button type="submit" name="action" value="publish" class="btn btn-primary" onclick="return confirm('{% translate "Are_you_sure_action_irreversible"|escapejs %}');">
             {% translate "Send_check" %}
             {% comment %} Send check {% endcomment %}
           </button>
