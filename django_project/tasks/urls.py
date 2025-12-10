@@ -27,4 +27,9 @@ urlpatterns = [
         tasks.views.MyTextChecksListView.as_view(),
         name="my-checks",
     ),
+    path(
+        "text-task/<int:pk>/",
+        tasks.views.TextTaskDetailView.as_view(),
+        name="text-task-detail",
+    ),
 ]

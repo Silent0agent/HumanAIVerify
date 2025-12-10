@@ -2,11 +2,11 @@ __all__ = ()
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView, View
+from django.views.generic import CreateView, DetailView, ListView, View
 
 import users.mixins
 
@@ -150,4 +150,26 @@ class BaseMyChecksListView(
             id__in=completed_task_ids,
         )
 
+        return context
+
+
+class BaseTaskDetailView(
+    LoginRequiredMixin,
+    users.mixins.CustomerRequiredMixin,
+    DetailView,
+):
+    model = None
+    template_name = "tasks/task_detail.html"
+    context_object_name = "task"
+
+    def get_object(self, queryset=None):
+        task = super().get_object(queryset)
+        if task.client != self.request.user:
+            raise PermissionDenied(_("You_are_not_the_owner_of_this_task"))
+
+        return task
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["checks"] = self.object.checks.all()
         return context
