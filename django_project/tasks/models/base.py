@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 import core.models
+import tasks.managers
 
 
 class BaseTask(core.models.TimeStampedModel):
@@ -15,6 +16,8 @@ class BaseTask(core.models.TimeStampedModel):
         verbose_name=_("description"),
         blank=True,
     )
+
+    objects = tasks.managers.TaskQuerySet.as_manager()
 
     class Meta:
         abstract = True
@@ -29,4 +32,7 @@ class BaseTask(core.models.TimeStampedModel):
 
     @property
     def ai_score(self):
+        if hasattr(self, "_avg_ai_score"):
+            return self._avg_ai_score
+
         return self.checks.get_avg_ai_score()
