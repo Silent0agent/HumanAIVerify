@@ -28,7 +28,7 @@ cd team-7
 
 ### 3. Create a virtual environment
 
-linux/macOS:
+Linux/macOS:
 
 ```bash
 python3 -m venv venv
@@ -42,7 +42,7 @@ python -m venv venv
 
 ### 4. Activate the virtual environment
 
-linux/macOS:
+Linux/macOS:
 
 ```bash
 source venv/bin/activate
@@ -86,7 +86,7 @@ pip install -r requirements/test.txt
 
 ### 6. Copy the configuration template and edit the file.env to suit your needs
 
-linux/macOS:
+Linux/macOS:
 
 ```bash
 cp .env.example .env
@@ -106,7 +106,7 @@ cd django_project
 
 ### 8. Apply database migrations
 
-linux/macOS:
+Linux/macOS:
 
 ```bash
 python3 manage.py migrate
@@ -141,7 +141,7 @@ django-admin compilemessages
 
 ### 10. When running in prod mode, collect static
 
-linux/macOS:
+Linux/macOS:
 
 ```bash
 python3 manage.py collectstatic
@@ -155,7 +155,7 @@ python manage.py collectstatic
 
 ### 11. Create superuser (optional)
 
-linux/macOS:
+Linux/macOS:
 
 ```bash
 python3 manage.py createsuperuser
@@ -169,7 +169,7 @@ python manage.py createsuperuser
 
 ### 12. Run server
 
-linux/macOS:
+Linux/macOS:
 
 ```bash
 python3 manage.py runserver
