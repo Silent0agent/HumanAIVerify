@@ -18,13 +18,13 @@ urlpatterns = [
         name="text-check-perform",
     ),
     path(
-        "my-tasks/",
+        "my-text-tasks/",
         tasks.views.MyTextTasksListView.as_view(),
-        name="my-tasks",
+        name="my-text-tasks",
     ),
     path(
-        "my-checks/",
+        "my-text-checks/",
         tasks.views.MyTextChecksListView.as_view(),
-        name="my-checks",
+        name="my-text-checks",
     ),
 ]
