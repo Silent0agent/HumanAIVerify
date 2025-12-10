@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  {% translate "My Checks" %}
+{% endblock title %}
+
+{% block content %}
+  <h2>{% translate "Available_tasks" %}</h2>
+  {% comment %} <h2>Available tasks</h2> {% endcomment %}
+  {% if available_tasks %}
+    <table>
+      <thead>
+        <tr>
+          <th>{% translate "Task" %}</th>
+          {% comment %} <th>Task</th> {% endcomment %}
+          <th>{% translate "Created_at" %}</th>
+          {% comment %} <th>Created</th> {% endcomment %}
+          <th>{% translate "Action" %}</th>
+          {% comment %} <th>Action</th> {% endcomment %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in available_tasks %}
+          <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
+            <td>
+              <a href="{% url 'tasks:text-check-perform' task.id %}">
+                {% translate "Check_this_task" %}
+                {% comment %} Check this task {% endcomment %}
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>{% translate "No_tasks_to_check" %}.</p>
+    {% comment %} <p>No available tasks for checking.</p> {% endcomment %}
+  {% endif %}
+
+  <h2>{% translate "Completed_checks" %}</h2>
+  {% comment %} <h2>Completed Checks</h2> {% endcomment %}
+  {% if object_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>{% translate "Task" %}</th>
+          {% comment %} <th>Task</th> {% endcomment %}
+          <th>{% translate "AI_score" %}</th>
+          {% comment %} <th>AI Score</th> {% endcomment %}
+          <th>{% translate "Status" %}</th>
+          {% comment %} <th>Status</th> {% endcomment %}
+          <th>{% translate "Created_at" %}</th>
+          {% comment %} <th>Created</th> {% endcomment %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for check in object_list %}
+          <tr>
+            <td>{{ check.task.title }}</td>
+            <td>{{ check.ai_score }}%</td>
+            <td>{{ check.get_status_display }}</td>
+            <td>{{ check.created_at|date:"d.m.Y H:i" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>{% translate "You_have_no_checks" %}.</p>
+    {% comment %} <p>You haven't checked any tasks yet.</p> {% endcomment %}
+  {% endif %}
+{% endblock content %}
