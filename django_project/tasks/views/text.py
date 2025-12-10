@@ -20,8 +20,11 @@ class TextTaskCheckPerformView(BaseTaskCheckPerformView):
 
 class MyTextTasksListView(BaseMyTasksListView):
     model = tasks.models.TextTask
+    check_model = tasks.models.TextTaskCheck
+    template_name = "tasks/my_text_tasks.html"
 
 
 class MyTextChecksListView(BaseMyChecksListView):
-    check_model = tasks.models.TextTaskCheck
+    model = tasks.models.TextTaskCheck
     task_model = tasks.models.TextTask
+    template_name = "tasks/my_text_checks.html"
