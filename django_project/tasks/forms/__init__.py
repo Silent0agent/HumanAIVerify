@@ -1,9 +1,12 @@
 __all__ = (
-    "BaseTaskCheckForm",
     "BaseTaskForm",
-    "TextTaskCheckForm",
+    "BaseTaskCheckForm",
     "TextTaskForm",
+    "TextTaskCheckForm",
+    "ImageTaskForm",
+    "ImageTaskCheckForm",
 )
 
 from tasks.forms.base import BaseTaskCheckForm, BaseTaskForm
+from tasks.forms.image import ImageTaskCheckForm, ImageTaskForm
 from tasks.forms.text import TextTaskCheckForm, TextTaskForm
