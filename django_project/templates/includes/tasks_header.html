@@ -1,0 +1,35 @@
+{% load i18n %}
+
+{% with request.resolver_match.view_name as view_name %}
+  <header class="py-3 mb-4 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-around">
+        <div class="d-flex align-items-center">
+          <ul class="nav mb-0">
+            {% if request.user.is_authenticated %}
+              {% if request.user.role == 'customer' %}
+                <li class="nav-item ">
+                  <a href="{% url 'tasks:my-text-tasks' %}"
+                     class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "Text_tasks" %}</a>
+                </li>
+                <li class="nav-item ">
+                  <a href="{% url 'tasks:my-image-tasks' %}"
+                     class="nav-link px-2 {% if view_name == 'tasks:my-image-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "Image_tasks" %}</a>
+                </li>
+              {% elif request.user.role == 'performer' %}
+                <li class="nav-item ">
+                  <a href="{% url 'tasks:my-text-checks' %}"
+                     class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "Text_checks" %}</a>
+                </li>
+                <li class="nav-item ">
+                  <a href="{% url 'tasks:my-image-checks' %}"
+                     class="nav-link px-2 {% if view_name == 'tasks:my-image-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "Image_checks" %}</a>
+                </li>
+              {% endif %}
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endwith %}

@@ -9,18 +9,18 @@
         <div class="d-flex align-items-center">
           <ul class="nav mb-0">
             <li class="nav-item ">
-              <a href="{% url 'about:about' %}" class="nav-link px-2 {% if view_name == 'about:about' %}link-secondary active disabled-link{% else %}purple{% endif %}">{% translate "About" %}</a>
+              <a href="{% url 'about:about' %}" class="nav-link px-2 {% if view_name == 'about:about' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "About" %}</a>
             </li>
             {% if request.user.is_authenticated %}
               {% if request.user.role == 'customer' %}
                 <li class="nav-item ">
                   <a href="{% url 'tasks:my-text-tasks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled-link{% else %}purple{% endif %}">{% translate "My_tasks" %}</a>
+                     class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "My_tasks" %}</a>
                 </li>
               {% elif request.user.role == 'performer' %}
                 <li class="nav-item ">
                   <a href="{% url 'tasks:my-text-checks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled-link{% else %}purple{% endif %}">{% translate "My_checks" %}</a>
+                     class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "My_checks" %}</a>
                 </li>
               {% endif %}
             {% endif %}
@@ -45,7 +45,7 @@
               <a href="{% url 'users:profile' %}" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 {% if request.user.avatar %}
                   {% thumbnail request.user.avatar "32x32" crop="center" upscale=True as avatar %}
-                    <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
+                    <img src="{{ avatar.url }}" alt="{% translate 'Avatar' %}" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
                   {% endthumbnail %}
                 {% else %}
                   <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'Avatar_not_found' %}" width="32" height="32" class="rounded-circle">
