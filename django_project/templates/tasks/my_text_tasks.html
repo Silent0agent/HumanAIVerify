@@ -26,7 +26,9 @@
       <tbody>
         {% for task in tasks %}
           <tr>
-            <td>{{ task.title }}</td>
+            <td>
+              <a href="{% url 'tasks:text-task-detail' task.id %}">{{ task.title }}</a>
+            </td>
             <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
             <td>
               {% if task.ai_score %}
@@ -36,7 +38,7 @@
                 {% comment %} Not checked {% endcomment %}
               {% endif %}
             </td>
-            <td>{{ task.checks.count }}</td>
+            <td>{{ task.checks_count }}</td>
           </tr>
         {% endfor %}
       </tbody>
