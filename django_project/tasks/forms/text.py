@@ -12,23 +12,18 @@ class TextTaskForm(BaseTaskForm):
         model = tasks.models.TextTask
         fields = BaseTaskForm.Meta.fields + ["content"]
 
-        widgets = {
-            **BaseTaskForm.Meta.widgets,
-            "content": forms.Textarea(
-                attrs={
-                    "class": "form-control",
-                    "rows": 8,
-                    "placeholder": _("Paste_text_for_AI_detection"),
-                },
-            ),
-        }
-
         labels = {
             **BaseTaskForm.Meta.labels,
-            "content": _("Content"),
+            "content": _("Content") + " *",
         }
 
 
 class TextTaskCheckForm(BaseTaskCheckForm):
+    highlighted_content = forms.CharField(
+        widget=forms.HiddenInput,
+        required=False,
+    )
+
     class Meta(BaseTaskCheckForm.Meta):
         model = tasks.models.TextTaskCheck
+        fields = BaseTaskCheckForm.Meta.fields + ["highlighted_content"]

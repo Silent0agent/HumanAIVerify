@@ -78,7 +78,7 @@ class FeedbackView(TemplateView):
                 fail_silently=False,
             )
 
-            messages.success(request, _("Success_feedback_form"))
+            messages.success(request, _("success_feedback_form"))
             return redirect(self.success_url)
 
         return render(

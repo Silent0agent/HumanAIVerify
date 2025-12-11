@@ -2,11 +2,11 @@
 {% load i18n %}
 
 {% block title %}
-  {% translate "My Checks" %}
+  {% translate "my_checks" %}
 {% endblock title %}
 
 {% block content %}
-  <h2>{% translate "Available_tasks" %}</h2>
+  <h2>{% translate "available_tasks" %}</h2>
   {% comment %} <h2>Available tasks</h2> {% endcomment %}
   {% if available_tasks %}
     <table>
@@ -14,7 +14,11 @@
         <tr>
           <th>{% translate "Task" %}</th>
           {% comment %} <th>Task</th> {% endcomment %}
+<<<<<<< HEAD
           <th>{% translate "Created_at" %}</th>
+=======
+          <th>{% translate "updated_at" %}</th>
+>>>>>>> 179c09c (fix: tests, migrations, lint, highlighting text, models & forms logic)
           {% comment %} <th>Created</th> {% endcomment %}
           <th>{% translate "Action" %}</th>
           {% comment %} <th>Action</th> {% endcomment %}
@@ -27,7 +31,7 @@
             <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
             <td>
               <a href="{% url 'tasks:text-check-perform' task.id %}">
-                {% translate "Check_this_task" %}
+                {% translate "check_this_task" %}
                 {% comment %} Check this task {% endcomment %}
               </a>
             </td>
@@ -36,11 +40,11 @@
       </tbody>
     </table>
   {% else %}
-    <p>{% translate "No_tasks_to_check" %}.</p>
+    <p>{% translate "no_tasks_to_check" %}.</p>
     {% comment %} <p>No available tasks for checking.</p> {% endcomment %}
   {% endif %}
 
-  <h2>{% translate "Completed_checks" %}</h2>
+  <h2>{% translate "completed_checks" %}</h2>
   {% comment %} <h2>Completed Checks</h2> {% endcomment %}
   {% if checks %}
     <table>
@@ -54,7 +58,11 @@
           {% comment %} <th>AI Score</th> {% endcomment %}
           <th>{% translate "Status" %}</th>
           {% comment %} <th>Status</th> {% endcomment %}
+<<<<<<< HEAD
           <th>{% translate "Updated_at" %}</th>
+=======
+          <th>{% translate "created_at" %}</th>
+>>>>>>> 179c09c (fix: tests, migrations, lint, highlighting text, models & forms logic)
           {% comment %} <th>Created</th> {% endcomment %}
         </tr>
       </thead>
@@ -71,7 +79,7 @@
       </tbody>
     </table>
   {% else %}
-    <p>{% translate "You_have_no_checks" %}.</p>
+    <p>{% translate "no_checks_made" %}.</p>
     {% comment %} <p>You haven't checked any tasks yet.</p> {% endcomment %}
   {% endif %}
 {% endblock content %}

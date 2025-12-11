@@ -10,22 +10,6 @@ class BaseTaskForm(core.forms.BootstrapFormMixin, forms.ModelForm):
     class Meta:
         fields = ["title", "description"]
 
-        widgets = {
-            "title": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": _("Enter_task_title"),
-                },
-            ),
-            "description": forms.Textarea(
-                attrs={
-                    "class": "form-control",
-                    "rows": 3,
-                    "placeholder": _("Enter_task_description_optional"),
-                },
-            ),
-        }
-
         labels = {
             "title": _("Title"),
             "description": _("Description"),
@@ -57,7 +41,7 @@ class BaseTaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "rows": 4,
-                    "placeholder": _("Your_comments_optional"),
+                    "placeholder": _("your_comments_optional"),
                 },
             ),
         }
@@ -68,7 +52,7 @@ class BaseTaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
         }
 
         help_texts = {
-            "ai_score": _("Enter_percentage_from_0_to_100"),
+            "ai_score": _("enter_ai_percentage"),
         }
 
     def clean(self):
@@ -77,6 +61,6 @@ class BaseTaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
             instance.pk
             and instance.status == instance.__class__.Status.PUBLISHED
         ):
-            raise forms.ValidationError(_("Check_already_published"))
+            raise forms.ValidationError(_("check_already_published"))
 
         return super().clean()

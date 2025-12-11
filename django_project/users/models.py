@@ -45,7 +45,7 @@ class AvatarFieldMixin(models.Model):
                 f"width='50' height='50'/>",
             )
 
-        return _("No_avatar")
+        return _("no_avatar")
 
     avatar_tmb.short_description = _("avatar_preview")
 
