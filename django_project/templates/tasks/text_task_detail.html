@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  <title>{{ task.title }}</title>
+{% endblock title %}
+
+{% block content %}
+  <h1>{{ task.title }}</h1>
+
+  <div class="task-info">
+    {% translate "Task_information" %}
+    {% comment %} <h2>Task Information</h2> {% endcomment %}
+    <p>
+      <strong>{% translate "Created_at" %}:</strong>
+      {{ task.created_at|date:"d.m.Y H:i" }}
+    </p>
+    {% comment %} <p><strong>Created:</strong> {{ task.created_at|date:"d.m.Y H:i" }}</p> {% endcomment %}
+    {% if task.description %}
+      <p>
+        <strong>{% translate "Description" %}:</strong> {{ task.description }}
+      </p>
+      {% comment %} <p><strong>Description:</strong> {{ task.description }}</p> {% endcomment %}
+    {% endif %}
+
+    <p>
+      <strong>{% translate "Content" %}:</strong>
+    </p>
+    {% comment %} <p><strong>Content:</strong></p> {% endcomment %}
+    <div class="content-box">{{ task.content|linebreaks }}</div>
+
+    <p>
+      <strong>{% translate "AI_score" %}:</strong>
+      {% comment %} <strong>AI Score:</strong> {% endcomment %}
+      {% if task.ai_score %}
+        {{ task.ai_score|floatformat:1 }}%
+      {% else %}
+        {% translate "Not_evaluated" %}
+        {% comment %} Not evaluated yet {% endcomment %}
+      {% endif %}
+    </p>
+
+    <p>
+      <strong>{% translate "Total_checks" %}:</strong> {{ task.checks_count }}
+    </p>
+    {% comment %} <p><strong>Total Checks:</strong> {{ checks.count }}</p> {% endcomment %}
+  </div>
+
+  <div class="checks-list">
+    <h2>{% translate "Checks" %}</h2>
+    {% comment %} <h2>Checks</h2> {% endcomment %}
+
+    {% if task.checks.all %}
+      <table>
+        <thead>
+          <tr>
+            <th>{% translate "Performer" %}</th>
+            {% comment %} <th>Performer</th> {% endcomment %}
+            <th>{% translate "AI_score" %}</th>
+            {% comment %} <th>AI Score</th> {% endcomment %}
+            <th>{% translate "Comment" %}</th>
+            {% comment %} <th>Comment</th> {% endcomment %}
+            <th>{% translate "Published_at" %}</th>
+            {% comment %} <th>Created</th> {% endcomment %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for check in task.checks.all %}
+            <tr>
+              <td>{{ check.performer.username }}</td>
+              <td>{{ check.ai_score }}%</td>
+              <td>
+                {% if check.comment %}
+                  {{ check.comment|truncatechars:100 }}
+                {% else %}
+                  {% translate "No_comment" %}
+                  {% comment %} No comment {% endcomment %}
+                {% endif %}
+              </td>
+              <td>{{ check.updated_at|date:"d.m.Y H:i" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>{% translate "No_checks_yet" %}.</p>
+      {% comment %} <p>No checks yet.</p> {% endcomment %}
+    {% endif %}
+  </div>
+
+  <a href="{% url 'tasks:my-text-tasks' %}">{% translate "Back_to_my_tasks" %}</a>
+  {% comment %} <a href="{% url 'tasks:my-text-tasks' %}">Back to My Tasks</a> {% endcomment %}
+{% endblock content %}
