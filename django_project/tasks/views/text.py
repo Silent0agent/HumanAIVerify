@@ -2,9 +2,13 @@ __all__ = ()
 
 import tasks.forms
 import tasks.models
-from tasks.views.base import BaseMyChecksListView, BaseMyTasksListView
-from tasks.views.base import BaseTaskCheckPerformView, BaseTaskCreateView
-from tasks.views.base import BaseTaskDetailView
+from tasks.views.base import (
+    BaseMyChecksListView,
+    BaseMyTasksListView,
+    BaseTaskCheckPerformView,
+    BaseTaskCreateView,
+    BaseTaskDetailView,
+)
 
 
 class TextTaskCreateView(BaseTaskCreateView):
@@ -16,22 +20,22 @@ class TextTaskCheckPerformView(BaseTaskCheckPerformView):
     task_model = tasks.models.TextTask
     check_model = tasks.models.TextTaskCheck
     form_class = tasks.forms.TextTaskCheckForm
-    template_name = "tasks/text_check_perform.html"
+    template_name = "tasks/text/text_check_perform.html"
 
 
 class MyTextTasksListView(BaseMyTasksListView):
     model = tasks.models.TextTask
     check_model = tasks.models.TextTaskCheck
-    template_name = "tasks/my_text_tasks.html"
+    template_name = "tasks/text/my_text_tasks.html"
 
 
 class MyTextChecksListView(BaseMyChecksListView):
     model = tasks.models.TextTaskCheck
     task_model = tasks.models.TextTask
-    template_name = "tasks/my_text_checks.html"
+    template_name = "tasks/text/my_text_checks.html"
 
 
 class TextTaskDetailView(BaseTaskDetailView):
     model = tasks.models.TextTask
     check_model = tasks.models.TextTaskCheck
-    template_name = "tasks/text_task_detail.html"
+    template_name = "tasks/text/text_task_detail.html"

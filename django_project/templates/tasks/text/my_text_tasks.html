@@ -6,6 +6,7 @@
 {% endblock title %}
 
 {% block content %}
+  {% include "includes/tasks_header.html" %}
   <h1>{% translate "My_text_tasks" %}</h1>
   {% comment %} <h1>My Tasks</h1> {% endcomment %}
   <a href="{% url 'tasks:text-task-create' %}">{% translate "Create_text_task" %}</a>
