@@ -6,6 +6,7 @@
 {% endblock title %}
 
 {% block content %}
+  {% include "includes/tasks_header.html" %}
   <h2>{% translate "Available_tasks" %}</h2>
   {% comment %} <h2>Available tasks</h2> {% endcomment %}
   {% if available_tasks %}
@@ -26,7 +27,7 @@
             <td>{{ task.title }}</td>
             <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
             <td>
-              <a href="{% url 'tasks:text-check-perform' task.id %}">
+              <a href="{% url 'tasks:image-check-perform' task.id %}">
                 {% translate "Check_this_task" %}
                 {% comment %} Check this task {% endcomment %}
               </a>
@@ -62,7 +63,9 @@
         {% for check in checks %}
           <tr>
             <td>{{ check.task.client.username }}</td>
-            <td><a href="{% url 'tasks:text-check-perform' check.task.id %}">{{ check.task.title }}</a></td>
+            <td>
+              <a href="{% url 'tasks:image-check-perform' check.task.id %}">{{ check.task.title }}</a>
+            </td>
             <td>{{ check.ai_score }}%</td>
             <td>{{ check.get_status_display }}</td>
             <td>{{ check.updated_at|date:"d.m.Y H:i" }}</td>
