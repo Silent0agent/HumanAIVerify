@@ -42,7 +42,7 @@ class TextTaskModelTest(TestCase):
         self.assertEqual(str(self.task), self.task_title)
 
     def test_ai_score_none(self):
-        self.assertAlmostEqual(self.task.ai_score, 0.0)
+        self.assertAlmostEqual(self.task.ai_score, None)
 
     def test_ai_score_calculation(self):
         TextTaskCheck.objects.create(

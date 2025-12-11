@@ -120,11 +120,18 @@ class BaseMyTasksListView(
     ListView,
 ):
     model = None
-    template_name = "tasks/my_tasks.html"
+    check_model = None
     context_object_name = "tasks"
+    template_name = None
 
     def get_queryset(self):
-        return self.model.objects.filter(client=self.request.user)
+        user = self.request.user
+
+        return (
+            self.model.objects.by_client(user)
+            .with_avg_ai_score(self.check_model)
+            .prefetch_checks(self.check_model)
+        )
 
 
 class BaseMyChecksListView(
@@ -132,22 +139,22 @@ class BaseMyChecksListView(
     users.mixins.PerformerRequiredMixin,
     ListView,
 ):
-    check_model = None
+    model = None
     task_model = None
-    template_name = "tasks/my_checks.html"
+    context_object_name = "checks"
+    template_name = None
 
     def get_queryset(self):
-        return self.check_model.objects.filter(performer=self.request.user)
+        return self.model.objects.by_performer(self.request.user).with_task()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        completed_task_ids = self.check_model.objects.filter(
-            performer=self.request.user,
-        ).values_list("task_id", flat=True)
-
-        context["available_tasks"] = self.task_model.objects.exclude(
-            id__in=completed_task_ids,
+        context["available_tasks"] = (
+            self.task_model.objects.available_for_performer(
+                user=self.request.user,
+                check_model=self.model,
+            ),
         )
 
         return context
