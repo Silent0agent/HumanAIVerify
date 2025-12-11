@@ -102,9 +102,10 @@ class TextTaskCheckPerformTests(TestCase):
             content="Some content",
         )
         cls.valid_check_data = {
+            "action": "publish",
             "ai_score": 75.0,
             "comment": "My comment",
-            "action": "publish",
+            "highlighted_content": "Some content",
         }
 
         cls.url = reverse(

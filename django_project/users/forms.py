@@ -21,7 +21,7 @@ class SignUpForm(
             normalized_email = User.objects.normalize_email(email)
             if User.objects.filter(email=normalized_email).exists():
                 raise ValidationError(
-                    _("User_with_this_email_already_exists"),
+                    _("user_with_email_already_exists"),
                 )
 
         return email

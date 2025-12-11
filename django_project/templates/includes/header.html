@@ -13,9 +13,18 @@
             </li>
             {% if request.user.is_authenticated %}
               {% if request.user.role == 'customer' %}
+<<<<<<< HEAD
                 <li class="nav-item ">
                   <a href="{% url 'tasks:my-text-tasks' %}"
                      class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled-link{% else %}purple{% endif %}">{% translate "My_tasks" %}</a>
+=======
+              <li class="nav-item ">
+                <a href="{% url 'tasks:my-text-tasks' %}" class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled-link{% else %}purple{% endif %}">{% translate "my_tasks" %}</a>
+              </li>
+                {% elif request.user.role == 'performer' %}
+                <li class="nav-item ">
+                 <a href="{% url 'tasks:my-text-checks' %}" class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled-link{% else %}purple{% endif %}">{% translate "my_checks" %}</a>
+>>>>>>> 179c09c (fix: tests, migrations, lint, highlighting text, models & forms logic)
                 </li>
               {% elif request.user.role == 'performer' %}
                 <li class="nav-item ">

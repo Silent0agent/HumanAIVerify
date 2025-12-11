@@ -185,7 +185,12 @@ class BaseTaskDetailView(
 
     def get_object(self, queryset=None):
         task = super().get_object(queryset)
+<<<<<<< HEAD
         if task.client_id != self.request.user.id:
             raise PermissionDenied(_("You_are_not_the_owner_of_this_task"))
+=======
+        if task.client != self.request.user:
+            raise PermissionDenied(_("not_owner_of_task"))
+>>>>>>> 179c09c (fix: tests, migrations, lint, highlighting text, models & forms logic)
 
         return task

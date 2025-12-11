@@ -65,11 +65,11 @@ class TextTaskAdmin(admin.ModelAdmin):
         ),
     )
 
-    @admin.display(description=_("Average_AI_Score"))
+    @admin.display(description=_("average_AI_Score"))
     def ai_score(self, obj):
         return obj.ai_score
 
-    @admin.display(description=_("Task"), ordering="title")
+    @admin.display(description=_("task"), ordering="title")
     def get_task_str(self, obj):
         return str(obj)
 
@@ -145,3 +145,14 @@ class TextTaskCheckAdmin(admin.ModelAdmin):
             },
         ),
     )
+<<<<<<< HEAD
+=======
+
+    class Media:
+        css = {"all": ("css/highlight-text.css",)}
+
+    @admin.display(description=_("annotated_text"))
+    def annotated_content_html(self, obj):
+        html = obj.annotated_content
+        return mark_safe(f'<div class="haiv-annotated">{html}</div>')
+>>>>>>> 179c09c (fix: tests, migrations, lint, highlighting text, models & forms logic)
