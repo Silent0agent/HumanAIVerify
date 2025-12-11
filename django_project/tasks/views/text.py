@@ -28,8 +28,10 @@ class MyTextTasksListView(BaseMyTasksListView):
 class MyTextChecksListView(BaseMyChecksListView):
     model = tasks.models.TextTaskCheck
     task_model = tasks.models.TextTask
+    template_name = "tasks/my_text_checks.html"
 
 
 class TextTaskDetailView(BaseTaskDetailView):
     model = tasks.models.TextTask
-    template_name = "tasks/my_text_checks.html"
+    check_model = tasks.models.TextTaskCheck
+    template_name = "tasks/text_task_detail.html"
