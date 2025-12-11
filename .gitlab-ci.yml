@@ -36,7 +36,6 @@ black:
   script:
     - black --check --diff .
 
-
 django:
   stage: test
   script:
