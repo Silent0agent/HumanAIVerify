@@ -8,6 +8,11 @@ app_name = "tasks"
 
 urlpatterns = [
     path(
+        "text-task/<int:pk>/",
+        tasks.views.TextTaskDetailView.as_view(),
+        name="text-task-detail",
+    ),
+    path(
         "text-task/create/",
         tasks.views.TextTaskCreateView.as_view(),
         name="text-task-create",
@@ -26,10 +31,5 @@ urlpatterns = [
         "my-text-checks/",
         tasks.views.MyTextChecksListView.as_view(),
         name="my-text-checks",
-    ),
-    path(
-        "text-task/<int:pk>/",
-        tasks.views.TextTaskDetailView.as_view(),
-        name="text-task-detail",
     ),
 ]
