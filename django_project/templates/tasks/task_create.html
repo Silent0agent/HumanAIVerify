@@ -10,10 +10,6 @@
   <h1>{% translate Create_new_task %}</h1>
   {% comment %} <h1>Create new task</h1> {% endcomment %}
 
-  {% if messages %}
-    {% for message in messages %}<p>{{ message }}</p>{% endfor %}
-  {% endif %}
-
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
