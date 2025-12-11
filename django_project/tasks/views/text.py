@@ -4,6 +4,7 @@ import tasks.forms
 import tasks.models
 from tasks.views.base import BaseMyChecksListView, BaseMyTasksListView
 from tasks.views.base import BaseTaskCheckPerformView, BaseTaskCreateView
+from tasks.views.base import BaseTaskDetailView
 
 
 class TextTaskCreateView(BaseTaskCreateView):
@@ -27,4 +28,8 @@ class MyTextTasksListView(BaseMyTasksListView):
 class MyTextChecksListView(BaseMyChecksListView):
     model = tasks.models.TextTaskCheck
     task_model = tasks.models.TextTask
+
+
+class TextTaskDetailView(BaseTaskDetailView):
+    model = tasks.models.TextTask
     template_name = "tasks/my_text_checks.html"
