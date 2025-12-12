@@ -220,7 +220,6 @@ CKEDITOR_5_CONFIGS = {
                 "superscript",
                 "highlight",
                 "|",
-                "codeBlock",
                 "bulletedList",
                 "numberedList",
                 "todoList",
