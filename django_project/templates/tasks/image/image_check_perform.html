@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <div class="container">
+    <h2>{% translate "Check_of_task" %}: {{ task.title }}</h2>
+    {% comment %} Check of task: {% endcomment %}
+
+    <div class="alert alert-info">
+      <p>
+        <strong>{% translate "Image_of_task" %}:</strong>
+      </p>
+      {% comment %} <p><strong>Image of task:</strong></p> {% endcomment %}
+      <img src="{{ task.image.url }}" alt="{% translate 'Image_of_task' %}" width="{{ task.image.width }}" height="{{ task.image.height }}">
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.media }}
+      {{ form.as_p }}
+      <hr>
+      {% if form.instance.status == 'published' %}
+        <div class="alert alert-success">
+          {% translate "Check_already_published" %}
+          {% comment %} ✅ You've already sent the result to the client. Changes are not possible. {% endcomment %}
+        </div>
+        <a href="{% url 'tasks:my-image-checks' %}" class="btn btn-secondary">{% translate "Return" %}</a>
+        {% comment %} <a href="{% url 'homepage:index' %}" class="btn btn-secondary">Return</a> {% endcomment %}
+      {% else %}
+        <div class="d-flex gap-2">
+          <button type="submit" name="action" value="save_draft" class="btn btn-secondary">
+            {% translate "Save_draft" %}
+            {% comment %} Save draft {% endcomment %}
+          </button>
+
+          <button type="submit"
+                  name="action"
+                  value="publish"
+                  class="btn btn-primary"
+                  data-confirm-message="{% translate 'Are_you_sure_action_irreversible'|escapejs %}"
+                  onclick="return confirm(this.getAttribute('data-confirm-message'));">
+            {% translate "Send_check" %}
+            {% comment %} Send check {% endcomment %}
+          </button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+{% endblock content %}
