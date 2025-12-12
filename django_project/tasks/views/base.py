@@ -25,7 +25,7 @@ class BaseTaskCreateView(
 
     def form_valid(self, form):
         form.instance.client = self.request.user
-        messages.success(self.request, _("Task_created_successfully"))
+        messages.success(self.request, _("task_create_success"))
         return super().form_valid(form)
 
 
@@ -53,7 +53,13 @@ class BaseTaskCheckPerformView(
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class(instance=self.check_obj)
+        if "form_attrs" in kwargs:
+            form = self.form_class(
+                instance=self.check_obj,
+                **kwargs["form_attrs"],
+            )
+        else:
+            form = self.form_class(instance=self.check_obj)
 
         return render(
             request,
@@ -68,14 +74,18 @@ class BaseTaskCheckPerformView(
             check = form.save(commit=False)
             check.task = self.task
             check.performer = request.user
+            if "check_fields" in kwargs:
+                for field, val in kwargs["check_fields"].items():
+                    setattr(check, field, val)
+
             action = request.POST.get("action")
 
             if action == "publish":
                 check.status = self.check_model.Status.PUBLISHED
-                message = _("Check_published")
+                message = _("check_published")
             else:
                 check.status = self.check_model.Status.DRAFT
-                message = _("Draft_saved")
+                message = _("draft_saved")
 
             check.save()
             messages.success(request, message)
@@ -186,6 +196,6 @@ class BaseTaskDetailView(
     def get_object(self, queryset=None):
         task = super().get_object(queryset)
         if task.client_id != self.request.user.id:
-            raise PermissionDenied(_("You_are_not_the_owner_of_this_task"))
+            raise PermissionDenied(_("not_owner_of_task"))
 
         return task
