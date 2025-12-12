@@ -53,7 +53,10 @@ class BaseTaskCheckPerformView(
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class(instance=self.check_obj, **kwargs["form_attrs"])
+        if "form_attrs" in kwargs:
+            form = self.form_class(instance=self.check_obj, **kwargs["form_attrs"])
+        else:
+            form = self.form_class(instance=self.check_obj)
 
         return render(
             request,
@@ -68,8 +71,9 @@ class BaseTaskCheckPerformView(
             check = form.save(commit=False)
             check.task = self.task
             check.performer = request.user
-            for field, val in kwargs["check_fields"].items():
-                setattr(check, field, val)
+            if "check_fields" in kwargs:
+                for field, val in kwargs["check_fields"].items():
+                    setattr(check, field, val)
 
             action = request.POST.get("action")
 
