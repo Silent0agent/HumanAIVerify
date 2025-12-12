@@ -9,10 +9,10 @@
   <h1>{{ task.title }}</h1>
 
   <div class="task-info">
-    {% translate "Task_information" %}
+    {% translate "task_information" %}
     {% comment %} <h2>Task Information</h2> {% endcomment %}
     <p>
-      <strong>{% translate "Created_at" %}:</strong>
+      <strong>{% translate "created_at" %}:</strong>
       {{ task.created_at|date:"d.m.Y H:i" }}
     </p>
     {% comment %} <p><strong>Created:</strong> {{ task.created_at|date:"d.m.Y H:i" }}</p> {% endcomment %}
@@ -35,13 +35,13 @@
       {% if task.ai_score %}
         {{ task.ai_score|floatformat:1 }}%
       {% else %}
-        {% translate "Not_evaluated" %}
+        {% translate "not_evaluated" %}
         {% comment %} Not evaluated yet {% endcomment %}
       {% endif %}
     </p>
 
     <p>
-      <strong>{% translate "Total_checks" %}:</strong> {{ task.checks_count }}
+      <strong>{% translate "total_checks" %}:</strong> {{ task.checks_count }}
     </p>
     {% comment %} <p><strong>Total Checks:</strong> {{ checks.count }}</p> {% endcomment %}
   </div>
@@ -60,7 +60,7 @@
             {% comment %} <th>AI Score</th> {% endcomment %}
             <th>{% translate "Comment" %}</th>
             {% comment %} <th>Comment</th> {% endcomment %}
-            <th>{% translate "Published_at" %}</th>
+            <th>{% translate "published_at" %}</th>
             {% comment %} <th>Created</th> {% endcomment %}
           </tr>
         </thead>
@@ -73,7 +73,7 @@
                 {% if check.comment %}
                   {{ check.comment|truncatechars:100 }}
                 {% else %}
-                  {% translate "No_comment" %}
+                  {% translate "no_comment" %}
                   {% comment %} No comment {% endcomment %}
                 {% endif %}
               </td>

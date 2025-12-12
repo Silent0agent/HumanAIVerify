@@ -1,6 +1,7 @@
 __all__ = ()
 
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 import tasks.models
@@ -78,6 +79,7 @@ class TextTaskAdmin(admin.ModelAdmin):
 class TextTaskCheckAdmin(admin.ModelAdmin):
     task_check_model = tasks.models.TextTaskCheck
 
+    annotated_content = task_check_model.annotated_content.field.name
     task_field = task_check_model.task.field.name
     performer_field = task_check_model.performer.field.name
     ai_score_field = task_check_model.ai_score.field.name
@@ -109,12 +111,14 @@ class TextTaskCheckAdmin(admin.ModelAdmin):
     search_fields = (
         f"{task_field}__{task_title}",
         f"{performer_field}__{performer_email}",
+        annotated_content,
         comment_field,
     )
 
     readonly_fields = (
         created_at_field,
         updated_at_field,
+        "annotated_content_html",
     )
 
     fieldsets = (
@@ -132,7 +136,7 @@ class TextTaskCheckAdmin(admin.ModelAdmin):
         (
             _("Content"),
             {
-                "fields": (comment_field,),
+                "fields": ("annotated_content_html", comment_field),
             },
         ),
         (
@@ -145,8 +149,6 @@ class TextTaskCheckAdmin(admin.ModelAdmin):
             },
         ),
     )
-<<<<<<< HEAD
-=======
 
     class Media:
         css = {"all": ("css/highlight-text.css",)}
@@ -155,4 +157,3 @@ class TextTaskCheckAdmin(admin.ModelAdmin):
     def annotated_content_html(self, obj):
         html = obj.annotated_content
         return mark_safe(f'<div class="haiv-annotated">{html}</div>')
->>>>>>> 179c09c (fix: tests, migrations, lint, highlighting text, models & forms logic)
