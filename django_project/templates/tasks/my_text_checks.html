@@ -62,7 +62,9 @@
         {% for check in checks %}
           <tr>
             <td>{{ check.task.client.username }}</td>
-            <td><a href="{% url 'tasks:text-check-perform' check.task.id %}">{{ check.task.title }}</a></td>
+            <td>
+              <a href="{% url 'tasks:text-check-perform' check.task.id %}">{{ check.task.title }}</a>
+            </td>
             <td>{{ check.ai_score }}%</td>
             <td>{{ check.get_status_display }}</td>
             <td>{{ check.updated_at|date:"d.m.Y H:i" }}</td>

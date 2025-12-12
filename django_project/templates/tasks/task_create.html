@@ -13,7 +13,9 @@
   {% translate "create_task" %}
 {% endblock head %}
 
-{% block col-card-md %}11{% endblock col-card-md %}
+{% block col-card-md %}
+  11
+{% endblock col-card-md %}
 
 {% block form_fields %}
   {% for field in form %}
@@ -26,9 +28,7 @@
         </label>
       </div>
     {% elif forloop.last %}
-      <div class="form-floating my-3 mx-auto col-11 roboto">
-        {{ field }}
-      </div>
+      <div class="form-floating my-3 mx-auto col-11 roboto">{{ field }}</div>
     {% else %}
       <div class="form-floating my-3 mx-auto col-8">
         {{ field }}
@@ -39,7 +39,7 @@
       </div>
     {% endif %}
   {% endfor %}
-    
+
 {% endblock form_fields %}
 
 {% block buttons %}

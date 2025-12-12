@@ -9,63 +9,70 @@
   <h1>{{ task.title }}</h1>
 
   <div class="task-info">
-      <h2>Task Information</h2>
-      <p><strong>Created:</strong> {{ task.created_at|date:"d.m.Y H:i" }}</p>
+    <h2>Task Information</h2>
+    <p>
+      <strong>Created:</strong> {{ task.created_at|date:"d.m.Y H:i" }}
+    </p>
 
-      {% if task.description %}
-          <p><strong>Description:</strong> {{ task.description }}</p>
-      {% endif %}
-
-      <p><strong>Content:</strong></p>
-      <div class="content-box">
-          {{ task.content|linebreaks }}
-      </div>
-
-      <p><strong>AI Score:</strong>
-          {% if task.ai_score %}
-              {{ task.ai_score|floatformat:1 }}%
-          {% else %}
-              Not evaluated yet
-          {% endif %}
+    {% if task.description %}
+      <p>
+        <strong>Description:</strong> {{ task.description }}
       </p>
+    {% endif %}
 
-      <p><strong>Total Checks:</strong> {{ checks.count }}</p>
+    <p>
+      <strong>Content:</strong>
+    </p>
+    <div class="content-box">{{ task.content|linebreaks }}</div>
+
+    <p>
+      <strong>AI Score:</strong>
+      {% if task.ai_score %}
+        {{ task.ai_score|floatformat:1 }}%
+      {% else %}
+        Not evaluated yet
+      {% endif %}
+    </p>
+
+    <p>
+      <strong>Total Checks:</strong> {{ checks.count }}
+    </p>
   </div>
 
   <div class="checks-list">
     <h2>Checks</h2>
 
     {% if checks %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Performer</th>
-                    <th>AI Score</th>
-                    <th>Status</th>
-                    <th>Comment</th>
-                    <th>Created</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for check in checks %}
-                <tr>
-                    <td>{{ check.performer.username }}</td>
-                    <td>{{ check.ai_score }}%</td>
-                    <td>{{ check.get_status_display }}</td>
-                    <td>
-                        {% if check.comment %}
-                            {{ check.comment|truncatechars:100 }}
-                        {% else %}
-                            No comment
-                        {% endif %}
-                    </td>
-                    <td>{{ check.created_at|date:"d.m.Y H:i" }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Performer</th>
+            <th>AI Score</th>
+            <th>Status</th>
+            <th>Comment</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for check in checks %}
+            <tr>
+              <td>{{ check.performer.username }}</td>
+              <td>{{ check.ai_score }}%</td>
+              <td>{{ check.get_status_display }}</td>
+              <td>
+                {% if check.comment %}
+                  {{ check.comment|truncatechars:100 }}
+                {% else %}
+                  No comment
+                {% endif %}
+              </td>
+              <td>{{ check.created_at|date:"d.m.Y H:i" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     {% else %}
-        <p>No checks yet.</p>
+      <p>No checks yet.</p>
     {% endif %}
   </div>
 

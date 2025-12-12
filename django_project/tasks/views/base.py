@@ -54,7 +54,10 @@ class BaseTaskCheckPerformView(
 
     def get(self, request, *args, **kwargs):
         if "form_attrs" in kwargs:
-            form = self.form_class(instance=self.check_obj, **kwargs["form_attrs"])
+            form = self.form_class(
+                instance=self.check_obj,
+                **kwargs["form_attrs"],
+            )
         else:
             form = self.form_class(instance=self.check_obj)
 
