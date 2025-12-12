@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_ckeditor_5.fields import CKEditor5Field
 
 import core.models
 import tasks.fields
@@ -13,12 +14,8 @@ from tasks.models.base import BaseTask
 
 class TextTask(BaseTask):
     client = tasks.fields.make_task_client_field("text")
-<<<<<<< HEAD
-    content = models.TextField(
-=======
     content = CKEditor5Field(
         config_name="create_text_task_content",
->>>>>>> 179c09c (fix: tests, migrations, lint, highlighting text, models & forms logic)
         verbose_name=_("content"),
     )
 
@@ -32,13 +29,10 @@ class TextTaskCheck(core.models.TimeStampedModel):
         DRAFT = "draft", _("draft")
         PUBLISHED = "published", _("published")
 
-<<<<<<< HEAD
-=======
     annotated_content = models.TextField(
         blank=True,
         verbose_name=_("annotated_content"),
     )
->>>>>>> 179c09c (fix: tests, migrations, lint, highlighting text, models & forms logic)
     task = models.ForeignKey(
         TextTask,
         on_delete=models.CASCADE,

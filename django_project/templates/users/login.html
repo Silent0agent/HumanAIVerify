@@ -6,19 +6,16 @@
   {% translate "Login" %}
 {% endblock title %}
 
-{% block image %}
-  <img class="mb-2" src="{% static 'img/logo.png' %}" alt="" width="72" height="72">
-{% endblock image %}
 {% block head %}
   {% translate "Login" %}
 {% endblock head %}
 
-{% block extra-fields %}
+{% block extra_fields %}
   <div class="checkbox my-3">
     {{ form.remember_me }}
     <label class="form-check-label" for="{{ form.remember_me.id_for_label }}">{% translate "remember_me" %}</label>
   </div>
-{% endblock extra-fields %}
+{% endblock extra_fields %}
 {% block buttons %}
   <div class="d-flex flex-column gap-2 mt-3 align-items-center justify-content-center ">
     <button type="submit" class="btn btn-primary btn-lg">{% translate "Login" %}</button>
@@ -27,13 +24,13 @@
 
 {% block extra-under-form %}
   <p class="text-center mt-3 mb-0">
-    <a class="purple-hover text-decoration-none" href="{% url 'auth:reset-password' %}" role="button" aria-label="{% translate 'Password_recovery' %}">
-      {% translate "Forgot_password" %}
+    <a class="purple-hover text-decoration-none" href="{% url 'auth:reset-password' %}" role="button" aria-label="{% translate 'password_recovery' %}">
+      {% translate "forgot_password" %}
     </a>
   </p>
   <p class="text-center mb-0">
-    <a class="purple-hover text-decoration-none mb-0" href="{% url 'auth:signup' %}" role="button" aria-label="{% translate 'Registration' %}">
-      {% translate "No_account_registration_on_login" %}
+    <a class="purple-hover text-decoration-none mb-0" href="{% url 'auth:signup' %}" role="button" aria-label="{% translate 'Signup' %}">
+      {% translate "create_account" %}
     </a>
   </p>
 {% endblock extra-under-form %}

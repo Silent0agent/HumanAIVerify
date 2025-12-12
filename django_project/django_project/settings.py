@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.forms",
+    "django_ckeditor_5",
     "sorl.thumbnail",
     "tz_detect",
     "about.apps.AboutConfig",
@@ -158,8 +159,6 @@ MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-<<<<<<< HEAD
-=======
 
 CUSTOM_COLOR_PALETTE = [
     {"color": "hsl(4, 90%, 58%)", "label": "Red"},
@@ -186,6 +185,24 @@ CKEDITOR_5_CONFIGS = {
             "|",
             "blockQuote",
         ],
+        "image": {
+            "toolbar": [
+                "imageTextAlternative",
+                "imageStyle:inline",
+                "imageStyle:block",
+                "imageStyle:side",
+                "imageStyle:alignLeft",
+                "imageStyle:alignCenter",
+                "imageStyle:alignRight",
+            ],
+            "styles": [
+                "full",
+                "side",
+                "alignLeft",
+                "alignRight",
+                "alignCenter",
+            ],
+        },
         "toolbar": {
             "items": [
                 "heading",
@@ -265,4 +282,3 @@ CKEDITOR_5_CONFIGS = {
         },
     },
 }
->>>>>>> 179c09c (fix: tests, migrations, lint, highlighting text, models & forms logic)

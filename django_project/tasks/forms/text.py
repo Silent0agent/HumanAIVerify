@@ -26,4 +26,4 @@ class TextTaskCheckForm(BaseTaskCheckForm):
 
     class Meta(BaseTaskCheckForm.Meta):
         model = tasks.models.TextTaskCheck
-        fields = BaseTaskCheckForm.Meta.fields + ["highlighted_content"]
+        fields = ["highlighted_content"] + BaseTaskCheckForm.Meta.fields
