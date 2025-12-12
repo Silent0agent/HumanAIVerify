@@ -30,7 +30,7 @@ class SignedUserActionView(django.views.generic.View):
             user = User.objects.get(username=username)
         except (signing.BadSignature, User.DoesNotExist):
             return HttpResponseNotFound(
-                _("Invalid_or_expired_activation_link"),
+                _("invalid_or_expired_activation_link"),
             )
 
         user.is_active = True
@@ -58,12 +58,12 @@ class SignUpView(django.views.generic.FormView):
             self._send_activation_email(user)
             messages.warning(
                 self.request,
-                _("Need_to_activate_profile"),
+                _("need_to_activate_profile"),
             )
         else:
             messages.success(
                 self.request,
-                _("Succesfully_registred"),
+                _("signup_success"),
             )
 
         return super().form_valid(form)
@@ -79,7 +79,7 @@ class SignUpView(django.views.generic.FormView):
         )
 
         send_mail(
-            subject=_("Profile_activation"),
+            subject=_("profile_activation"),
             message=render_to_string(
                 "users/subjects/activation_email.txt",
                 {"activate_link": activate_link},
@@ -108,7 +108,7 @@ class LoginView(auth.views.LoginView):
 class LogoutView(django.views.generic.View):
     def post(self, request, *args, **kwargs):
         auth.logout(request)
-        messages.info(request, _("Successful_logout"))
+        messages.info(request, _("logout_success"))
         return HttpResponseRedirect(reverse("auth:login"))
 
 
@@ -149,7 +149,7 @@ class ProfileView(LoginRequiredMixin, django.views.generic.UpdateView):
         return self.request.user
 
     def form_valid(self, form):
-        messages.success(self.request, _("Settings_saved"))
+        messages.success(self.request, _("settings_saved"))
         self.request.session.modified = True
         return super().form_valid(form)
 

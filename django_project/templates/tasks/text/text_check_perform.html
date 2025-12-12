@@ -1,35 +1,43 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n static %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/highlight-text.css' %}">
+{% endblock extra_head %}
 
 {% block content %}
   <div class="container">
-    <h2>{% translate "Check_of_task" %}: {{ task.title }}</h2>
-    {% comment %} Check of task: {% endcomment %}
+    <h2>{% translate "task_check" %}: {{ task.title }}</h2>
 
-    <div class="alert alert-info">
-      <p>
-        <strong>{% translate "Text_of_task" %}:</strong>
-      </p>
-      {% comment %} <p><strong>Text of task:</strong></p> {% endcomment %}
-      <div class="text-content p-2 bg-light border">{{ task.content|linebreaks }}</div>
+    <div class="card text-start my-3 p-3 mx-auto col-11 roboto">
+      <div id="task-content-container" aria-label="Task content" data-original-html="{{ task.content|escapejs }}">
+        {% if form.instance and form.instance.annotated_content %}
+          {{ form.instance.annotated_content|safe }}
+        {% else %}
+          {{ task.content|safe }}
+        {% endif %}
+      </div>
     </div>
 
     <form method="post">
       {% csrf_token %}
       {{ form.media }}
+
+      <input type="hidden"
+             name="highlighted_content"
+             id="highlighted_content"
+             value="{% if form.instance and form.instance.annotated_content %}{{ form.instance.annotated_content|escapejs }}{% else %}{{ task.content|escapejs }}{% endif %}">
+
       {{ form.as_p }}
+
       <hr>
       {% if form.instance.status == 'published' %}
-        <div class="alert alert-success">
-          {% translate "Check_already_published" %}
-          {% comment %} ✅ You've already sent the result to the client. Changes are not possible. {% endcomment %}
-        </div>
-        <a href="{% url 'tasks:my-image-checks' %}" class="btn btn-secondary">{% translate "Return" %}</a>
-        {% comment %} <a href="{% url 'homepage:index' %}" class="btn btn-secondary">Return</a> {% endcomment %}
+        <div class="alert alert-success">{% translate "task_check_already_published" %}</div>
+        <a href="{% url 'homepage:index' %}" class="btn btn-secondary">{% translate "Return" %}</a>
       {% else %}
         <div class="d-flex gap-2">
           <button type="submit" name="action" value="save_draft" class="btn btn-secondary">
-            {% translate "Save_draft" %}
+            {% translate "save_draft" %}
             {% comment %} Save draft {% endcomment %}
           </button>
 
@@ -37,13 +45,15 @@
                   name="action"
                   value="publish"
                   class="btn btn-primary"
-                  data-confirm-message="{% translate 'Are_you_sure_action_irreversible'|escapejs %}"
+                  data-confirm-message="{% translate 'action_irreversible_send_check'|escapejs %}"
                   onclick="return confirm(this.getAttribute('data-confirm-message'));">
-            {% translate "Send_check" %}
+            {% translate "send_check" %}
             {% comment %} Send check {% endcomment %}
           </button>
         </div>
       {% endif %}
     </form>
   </div>
+
+  <script src="{% static 'js/highlith-text.js' %}"></script>
 {% endblock content %}

@@ -62,7 +62,7 @@ class CustomUserAdmin(auth.admin.UserAdmin):
 
     fieldsets = auth.admin.UserAdmin.fieldsets + (
         (
-            _("Security_Profile"),
+            _("security_Profile"),
             {
                 "fields": (
                     login_attempts_count_field,
@@ -72,7 +72,7 @@ class CustomUserAdmin(auth.admin.UserAdmin):
             },
         ),
         (
-            _("Additional_information"),
+            _("additional_information"),
             {
                 "fields": (
                     role_field,
