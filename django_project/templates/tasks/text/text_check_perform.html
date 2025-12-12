@@ -24,9 +24,9 @@
       {{ form.media }}
 
       <input type="hidden"
-            name="highlighted_content"
-            id="highlighted_content"
-            value="{% if form.instance and form.instance.annotated_content %}{{ form.instance.annotated_content|escapejs }}{% else %}{{ task.content|escapejs }}{% endif %}">
+             name="highlighted_content"
+             id="highlighted_content"
+             value="{% if form.instance and form.instance.annotated_content %}{{ form.instance.annotated_content|escapejs }}{% else %}{{ task.content|escapejs }}{% endif %}">
 
       {{ form.as_p }}
 
@@ -41,7 +41,12 @@
             {% comment %} Save draft {% endcomment %}
           </button>
 
-          <button type="submit" name="action" value="publish" class="btn btn-primary" onclick="return confirm('{% translate "action_irreversible_send_check"|escapejs %}');">
+          <button type="submit"
+                  name="action"
+                  value="publish"
+                  class="btn btn-primary"
+                  data-confirm-message="{% translate 'action_irreversible_send_check'|escapejs %}"
+                  onclick="return confirm(this.getAttribute('data-confirm-message'));">
             {% translate "send_check" %}
             {% comment %} Send check {% endcomment %}
           </button>
