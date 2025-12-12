@@ -2,6 +2,7 @@ __all__ = ()
 
 import uuid
 
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 import sorl.thumbnail
 
@@ -25,6 +26,26 @@ class ImageTask(BaseTask):
     class Meta(BaseTask.Meta):
         verbose_name = _("image_task")
         verbose_name_plural = _("image_tasks")
+
+    def get_image_x150(self):
+        return sorl.thumbnail.get_thumbnail(
+            self.image,
+            "150x150",
+            crop="center",
+            upscale=True,
+            quality=99,
+        )
+
+    def image_tmb(self):
+        if self.image:
+            return mark_safe(
+                f"<img src='{self.get_image_x150().url}' "
+                f"width='50' height='50'/>",
+            )
+
+        return _("No_image")
+
+    image_tmb.short_description = _("image_preview")
 
 
 class ImageTaskCheck(BaseTaskCheck):
