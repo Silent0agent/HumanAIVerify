@@ -27,11 +27,11 @@
   </div>
 {% endblock buttons %}
 
-{% block extra-under-form %}
+{% block extra_under_form %}
   <div class="mt-3 d-flex justify-content-center">
     <form action="{% url 'auth:logout' %}" method="post">
       {% csrf_token %}
       <button type="submit" class="btn btn-outline-danger">{% translate 'Logout' %}</button>
     </form>
   </div>
-{% endblock extra-under-form %}
+{% endblock extra_under_form %}

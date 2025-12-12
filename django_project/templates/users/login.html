@@ -22,7 +22,7 @@
   </div>
 {% endblock buttons %}
 
-{% block extra-under-form %}
+{% block extra_under_form %}
   <p class="text-center mt-3 mb-0">
     <a class="purple-hover text-decoration-none" href="{% url 'auth:reset-password' %}" role="button" aria-label="{% translate 'password_recovery' %}">
       {% translate "forgot_password" %}
@@ -33,4 +33,4 @@
       {% translate "create_account" %}
     </a>
   </p>
-{% endblock extra-under-form %}
+{% endblock extra_under_form %}

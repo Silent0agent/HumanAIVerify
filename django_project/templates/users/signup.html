@@ -14,9 +14,9 @@
   <button class="btn w-25 mx-auto mt-3 btn-primary" type="submit">{% translate "Signup" %}</button>
 {% endblock buttons %}
 
-{% block extra-under-form %}
+{% block extra_under_form %}
   <p class="text-center mb-0">{% translate "receive_link_after_signup" %}</p>
   <p class="text-center mt-1">
     <span>{% translate "signup_have_account_already" %},</span> <a class="purple-hover text-decoration-none" href="{% url 'auth:login' %}">{% translate "login_here" %}</a>.
   </p>
-{% endblock extra-under-form %}
+{% endblock extra_under_form %}
