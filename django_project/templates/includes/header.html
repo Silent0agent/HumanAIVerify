@@ -2,9 +2,9 @@
 {% load thumbnail %}
 {% load i18n %}
 
-{% block extra-head %}
+{% block extra_head %}
   <link rel="stylesheet" href="{% static 'css/header.css' %}">
-{% endblock extra-head %}
+{% endblock extra_head %}
 
 {% with request.resolver_match.view_name as view_name %}
   <header class="py-3 mb-4 border-bottom">
