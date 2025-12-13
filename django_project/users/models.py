@@ -21,8 +21,8 @@ class AvatarFieldMixin(models.Model):
     avatar = sorl.thumbnail.ImageField(
         verbose_name=_("avatar"),
         upload_to=avatar_path,
-        null=True,
         blank=True,
+        null=True,
         validators=[core.validators.FileSizeValidator(5 * 1024 * 1024)],
     )
 
@@ -61,14 +61,15 @@ class CustomUser(AvatarFieldMixin, AbstractUser):
     )
 
     role = models.CharField(
+        verbose_name=_("role"),
         max_length=9,
-        choices=Role.choices,
         default=Role.CUSTOMER,
+        choices=Role.choices,
     )
 
     login_attempts_count = models.PositiveIntegerField(
-        default=0,
         verbose_name=_("login_attempts_count"),
+        default=0,
     )
     block_timestamp = models.DateTimeField(
         verbose_name=_("blocking_timestamp"),

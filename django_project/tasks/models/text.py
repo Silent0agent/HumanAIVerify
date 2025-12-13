@@ -11,8 +11,8 @@ from tasks.models.base import BaseTask, BaseTaskCheck
 class TextTask(BaseTask):
     client = tasks.fields.make_task_client_field("text")
     content = CKEditor5Field(
-        config_name="create_text_task_content",
         verbose_name=_("content"),
+        config_name="create_text_task_content",
     )
 
     class Meta(BaseTask.Meta):
@@ -24,8 +24,8 @@ class TextTaskCheck(BaseTaskCheck):
     task = tasks.fields.make_check_task_field(TextTask)
     performer = tasks.fields.make_check_performer_field("text")
     annotated_content = models.TextField(
-        blank=True,
         verbose_name=_("annotated_content"),
+        blank=True,
     )
 
     class Meta(BaseTaskCheck.Meta):

@@ -1,53 +1,143 @@
 __all__ = ()
 
 from django.contrib import admin
+from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
+
+import core.paginators
+
+
+class BaseCheckInline(admin.TabularInline):
+    extra = 0
+    show_change_link = True
+    can_delete = False
+    classes = ("collapse",)
+
+    def __init__(self, parent_model, admin_site):
+        super().__init__(parent_model, admin_site)
+
+        self.created_at = self.model.created_at.field.name
+        self.ai_score = self.model.ai_score.field.name
+        self.status = self.model.status.field.name
+
+        self.performer = self.model.performer.field.name
+        self.performer_model = self.model.performer.field.related_model
+        self.performer_email = self.performer_model.email.field.name
+        self.performer_email_lookup = (
+            f"{self.performer}__{self.performer_email}"
+        )
+        self.performer_username = self.performer_model.username.field.name
+        self.performer_username_lookup = (
+            f"{self.performer}__{self.performer_username}"
+        )
+
+        self.task = self.model.task.field.name
+        self.task_model = self.model.task.field.related_model
+        self.task_title = self.task_model.title.field.name
+        self.task_title_lookup = f"{self.task}__{self.task_title}"
+
+        self.performer_method = "get_performer_email"
+
+        fields_list = (
+            self.created_at,
+            self.performer_method,
+            self.ai_score,
+            self.status,
+        )
+
+        self.readonly_fields = fields_list
+        self.fields = fields_list
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return (
+            qs.with_performer()
+            .with_task()
+            .only(
+                self.created_at,
+                self.performer_email_lookup,
+                self.ai_score,
+                self.status,
+                self.task_title_lookup,
+                self.performer_username_lookup,
+            )
+        )
+
+    @admin.display(description=_("Performer"), empty_value="-")
+    def get_performer_email(self, obj):
+        user = getattr(obj, self.model.performer.field.name)
+        return user.email if user else None
 
 
 class BaseTaskAdmin(admin.ModelAdmin):
     unique_content_field = None
     content_display_method = None
+    check_model = None
+    check_inline_class = None
+
+    paginator = core.paginators.CountOptimizedPaginator
+    show_full_result_count = False
 
     def __init__(self, model, admin_site):
+        if self.check_model is None or self.unique_content_field is None:
+            raise ImproperlyConfigured(
+                _("task_admin_improperly_configured")
+                % {
+                    "class_name": self.__class__.__name__,
+                },
+            )
+
+        if self.check_inline_class:
+            self.inlines = (self.check_inline_class,)
+
         super().__init__(model, admin_site)
 
-        client = self.model.client.field.name
-        title = self.model.title.field.name
-        desc = self.model.description.field.name
-        created_at = self.model.created_at.field.name
-        updated_at = self.model.updated_at.field.name
+        self.title = self.model.title.field.name
+        self.description = self.model.description.field.name
+        self.created_at = self.model.created_at.field.name
+        self.updated_at = self.model.updated_at.field.name
 
-        content_name = self.unique_content_field.name
+        self.client = self.model.client.field.name
+        self.client_model = self.model.client.field.related_model
+        self.client_email = self.client_model.email.field.name
+        self.client_email_lookup = f"{self.client}__{self.client_email}"
+
+        self.content_name = self.unique_content_field.name
 
         ai_score_method = "ai_score_display"
         get_task_str_method = "get_task_str"
 
-        detail_content_fields = (content_name,)
-        readonly_tuple = (ai_score_method, created_at, updated_at)
+        detail_content_fields = (self.content_name,)
+        readonly_tuple = (
+            ai_score_method,
+            self.created_at,
+            self.updated_at,
+            self.client,
+        )
 
         list_display_tuple = (
             get_task_str_method,
-            client,
+            self.client,
             ai_score_method,
-            created_at,
+            self.created_at,
         )
 
         if self.content_display_method:
             readonly_tuple += (self.content_display_method,)
             list_display_tuple += (self.content_display_method,)
-            detail_content_fields = (content_name, self.content_display_method)
+            detail_content_fields = (
+                self.content_name,
+                self.content_display_method,
+            )
 
         self.list_display = list_display_tuple
 
-        self.list_filter = (created_at,)
-
-        client_model = self.model.client.field.related_model
-        client_email = client_model.email.field.name
+        self.list_filter = (self.created_at,)
 
         self.search_fields = (
-            title,
-            desc,
-            client_email,
+            self.title,
+            self.description,
+            self.client_email_lookup,
         )
 
         self.readonly_fields = readonly_tuple
@@ -57,10 +147,10 @@ class BaseTaskAdmin(admin.ModelAdmin):
                 None,
                 {
                     "fields": (
-                        client,
-                        title,
+                        self.client,
+                        self.title,
                         detail_content_fields,
-                        desc,
+                        self.description,
                         ai_score_method,
                     ),
                 },
@@ -68,10 +158,38 @@ class BaseTaskAdmin(admin.ModelAdmin):
             (
                 _("Timestamps"),
                 {
-                    "fields": (created_at, updated_at),
+                    "fields": (self.created_at, self.updated_at),
                 },
             ),
         )
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        current_url = request.resolver_match.url_name
+
+        opts = self.model._meta
+        changelist_url_name = f"{opts.app_label}_{opts.model_name}_changelist"
+        qs = qs.with_client()
+
+        if current_url == changelist_url_name:
+            if self.check_model:
+                qs = qs.with_avg_ai_score(self.check_model)
+
+            fields_to_load = (
+                self.title,
+                self.client_email_lookup,
+                self.created_at,
+            )
+
+            if self.content_display_method:
+                fields_to_load += (self.unique_content_field.name,)
+
+            return qs.only(*fields_to_load)
+
+        if self.check_model:
+            return qs.with_avg_ai_score(self.check_model)
+
+        return qs
 
     @admin.display(description=_("Average_AI_Score"))
     def ai_score_display(self, obj):
@@ -89,69 +207,106 @@ class BaseTaskAdmin(admin.ModelAdmin):
 class BaseCheckAdmin(admin.ModelAdmin):
     unique_content_field = None
 
+    paginator = core.paginators.CountOptimizedPaginator
+    show_full_result_count = False
+
     def __init__(self, model, admin_site):
         super().__init__(model, admin_site)
 
-        task = self.model.task.field.name
-        performer = self.model.performer.field.name
-        ai_score = self.model.ai_score.field.name
-        status = self.model.status.field.name
-        comment = self.model.comment.field.name
-        created_at = self.model.created_at.field.name
-        updated_at = self.model.updated_at.field.name
+        self.ai_score = self.model.ai_score.field.name
+        self.status = self.model.status.field.name
+        self.comment = self.model.comment.field.name
+        self.created_at = self.model.created_at.field.name
+        self.updated_at = self.model.updated_at.field.name
+
+        self.performer = self.model.performer.field.name
+        self.performer_model = self.model.performer.field.related_model
+        self.performer_email = self.performer_model.email.field.name
+        self.performer_email_lookup = (
+            f"{self.performer}__{self.performer_email}"
+        )
+        self.performer_username = self.performer_model.username.field.name
+        self.performer_username_lookup = (
+            f"{self.performer}__{self.performer_username}"
+        )
+
+        self.task = self.model.task.field.name
+        self.task_model = self.model.task.field.related_model
+        self.task_title = self.task_model.title.field.name
+        self.task_title_lookup = f"{self.task}__{self.task_title}"
 
         unique_fields_tuple = ()
         if self.unique_content_field:
             unique_fields_tuple = (self.unique_content_field.name,)
 
-        task_model = self.model.task.field.related_model
-        task_title = task_model.title.field.name
-        performer_model = self.model.performer.field.related_model
-        performer_email = performer_model.email.field.name
-
         self.list_display = (
-            task,
-            performer,
-            ai_score,
-            status,
-            created_at,
-            updated_at,
+            self.task,
+            self.performer,
+            self.ai_score,
+            self.status,
+            self.created_at,
+            self.updated_at,
         )
 
-        self.list_filter = (status, created_at, ai_score)
+        self.list_filter = (self.status, self.created_at)
 
-        search_tuple = (
-            f"{task}__{task_title}",
-            f"{performer}__{performer_email}",
-            comment,
+        self.search_fields = (
+            self.task_title_lookup,
+            self.performer_email_lookup,
+            self.comment,
         )
 
-        self.search_fields = search_tuple
-
-        self.readonly_fields = (created_at, updated_at)
+        self.readonly_fields = (
+            self.created_at,
+            self.updated_at,
+            self.task,
+            self.performer,
+        )
 
         self.fieldsets = (
             (
                 None,
                 {
                     "fields": (
-                        task,
-                        performer,
-                        status,
-                        ai_score,
+                        self.task,
+                        self.performer,
+                        self.status,
+                        self.ai_score,
                     ),
                 },
             ),
             (
                 _("Content"),
                 {
-                    "fields": unique_fields_tuple + (comment,),
+                    "fields": unique_fields_tuple + (self.comment,),
                 },
             ),
             (
                 _("Timestamps"),
                 {
-                    "fields": (created_at, updated_at),
+                    "fields": (self.created_at, self.updated_at),
                 },
             ),
         )
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+
+        current_url = request.resolver_match.url_name
+        opts = self.model._meta
+        changelist_url_name = f"{opts.app_label}_{opts.model_name}_changelist"
+        qs = qs.with_task().with_performer()
+
+        if current_url == changelist_url_name:
+            fields_to_load = (
+                self.ai_score,
+                self.status,
+                self.created_at,
+                self.updated_at,
+                self.task_title_lookup,
+                self.performer_email_lookup,
+                self.performer_username_lookup,
+            )
+            return qs.only(*fields_to_load)
+
+        return qs
