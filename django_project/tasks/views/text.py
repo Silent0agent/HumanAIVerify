@@ -9,6 +9,7 @@ from tasks.views.base import (
     BaseTaskCreateView,
     BaseTaskDetailView,
 )
+from tasks.views.base import BaseTaskCheckDetailView
 
 
 class TextTaskCreateView(BaseTaskCreateView):
@@ -66,3 +67,7 @@ class TextTaskDetailView(BaseTaskDetailView):
     model = tasks.models.TextTask
     check_model = tasks.models.TextTaskCheck
     template_name = "tasks/text/text_task_detail.html"
+
+
+class TextTaskCheckDetailView(BaseTaskCheckDetailView):
+    model = tasks.models.TextTaskCheck
