@@ -11,21 +11,18 @@ class TaskQuerySet(models.QuerySet):
         return self.select_related(self.model.client.field.name)
 
     def with_avg_ai_score(self, check_model):
-        task_fk_field = check_model.task.field
-        checks_lookup_name = task_fk_field.related_query_name()
-
-        ai_score_field_name = check_model.ai_score.field.name
-        status_field_name = check_model.status.field.name
-
-        ai_score_path = f"{checks_lookup_name}__{ai_score_field_name}"
-        status_path = f"{checks_lookup_name}__{status_field_name}"
-
-        published_status = check_model.Status.PUBLISHED
+        task_qs = check_model.objects.filter(
+            task=models.OuterRef("id"),
+            status=check_model.Status.PUBLISHED,
+        ).values("task")
+        avg_ai_score_qs = task_qs.annotate(
+            avg_score=models.Avg(check_model.ai_score.field.name),
+        ).values("avg_score")
 
         return self.annotate(
-            _avg_ai_score=models.Avg(
-                ai_score_path,
-                filter=models.Q((status_path, published_status)),
+            _avg_ai_score=models.Subquery(
+                avg_ai_score_qs,
+                output_field=models.FloatField(),
             ),
         )
 
@@ -78,6 +75,9 @@ class TaskQuerySet(models.QuerySet):
 class CheckQuerySet(models.QuerySet):
     def by_performer(self, user):
         return self.filter(performer=user)
+
+    def with_performer(self):
+        return self.select_related(self.model.performer.field.name)
 
     def with_task(self):
         return self.select_related(self.model.task.field.name)

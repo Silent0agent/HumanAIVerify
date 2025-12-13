@@ -2,6 +2,7 @@ __all__ = ()
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
 import core.models
@@ -25,11 +26,7 @@ class BaseTask(core.models.TimeStampedModel):
         ordering = ["-created_at"]
 
     def __str__(self):
-        task_title = self.title
-        if len(task_title) > 30:
-            return task_title[:30] + "..."
-
-        return task_title
+        return Truncator(self.title).chars(30)
 
     @property
     def ai_score(self):
@@ -45,18 +42,18 @@ class BaseTaskCheck(core.models.TimeStampedModel):
         PUBLISHED = "published", _("published")
 
     ai_score = models.FloatField(
-        validators=[MinValueValidator(0.0), MaxValueValidator(100.0)],
         verbose_name=_("ai_score"),
+        validators=[MinValueValidator(0.0), MaxValueValidator(100.0)],
     )
     comment = models.TextField(
-        blank=True,
         verbose_name=_("comment"),
+        blank=True,
     )
     status = models.CharField(
-        max_length=15,
-        choices=Status.choices,
-        default=Status.DRAFT,
         verbose_name=_("status"),
+        max_length=15,
+        default=Status.DRAFT,
+        choices=Status.choices,
     )
 
     objects = tasks.managers.TaskCheckManager()
@@ -72,10 +69,5 @@ class BaseTaskCheck(core.models.TimeStampedModel):
         ]
 
     def __str__(self):
-        task_title = self.task.title
-        if len(task_title) > 20:
-            task_title = task_title[:20] + "..."
-
-        return (
-            f"{self.task.title} | {self.performer.username} ({self.ai_score}%)"
-        )
+        task_title = Truncator(self.task.title).chars(20)
+        return f"{task_title} | {self.performer.username} ({self.ai_score}%)"
