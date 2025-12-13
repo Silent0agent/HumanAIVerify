@@ -1,6 +1,7 @@
 __all__ = (
     "MyTextChecksListView",
     "MyTextTasksListView",
+    "TextTaskCheckDetailView",
     "TextTaskCheckPerformView",
     "TextTaskCreateView",
     "TextTaskDetailView",
@@ -33,6 +34,7 @@ from tasks.views.image import (
 from tasks.views.text import (
     MyTextChecksListView,
     MyTextTasksListView,
+    TextTaskCheckDetailView,
     TextTaskCheckPerformView,
     TextTaskCreateView,
     TextTaskDetailView,

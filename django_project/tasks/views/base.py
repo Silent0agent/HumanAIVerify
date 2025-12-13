@@ -199,3 +199,23 @@ class BaseTaskDetailView(
             raise PermissionDenied(_("not_owner_of_task"))
 
         return task
+
+
+class BaseTaskCheckDetailView(LoginRequiredMixin, DetailView):
+    model = None  # check_model
+    template_name = "tasks/task_check_detail.html"
+    context_object_name = "check"
+    pk_url_kwarg = "check_id"
+
+    def get_object(self, queryset=None):
+        check = super().get_object(queryset)
+
+        if (
+            self.request.user != check.task.client
+            and self.request.user != check.performer
+        ):
+            raise PermissionDenied(
+                _("You_dont_have_permission_to_view_this_check"),
+            )
+
+        return check

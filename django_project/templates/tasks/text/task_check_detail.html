@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  <title>
+    {% blocktranslate with task_title=check.task.title|truncatechars:30 %}
+      Check_for_task_{{ task_title }}
+    {% endblocktranslate %}
+  </title>
+{% endblock title %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="mb-0">{% translate "Check_details" %}</h2>
+      </div>
+
+      <div class="card-body">
+        <div class="mb-4">
+          <h3>{% translate "Task_information" %}</h3>
+          <p>
+            <strong>{% translate "Title" %}:</strong> {{ check.task.title }}
+          </p>
+          <p>
+            <strong>{% translate "Created_at" %}:</strong>
+            {{ check.task.created_at|date:"d.m.Y H:i" }}
+          </p>
+
+          {% if check.task.description %}
+            <p>
+              <strong>{% translate "Description" %}:</strong>
+              {{ check.task.description }}
+            </p>
+          {% endif %}
+        </div>
+
+        <hr>
+
+        <div class="mb-4">
+          <h3>{% translate "Task_content" %}</h3>
+          <div class="bg-light p-3 rounded">{{ check.task.content|linebreaks }}</div>
+        </div>
+
+        <hr>
+
+        <div class="mb-4">
+          <h3>{% translate "Check_information" %}</h3>
+
+          <div class="row">
+            <div class="col-md-6">
+              <p>
+                <strong>{% translate "Performer" %}:</strong>
+                {{ check.performer.username }}
+              </p>
+              <p>
+                <strong>{% translate "Status" %}:</strong>
+                <span class="badge {% if check.status == 'published' %}bg-success{% else %}bg-secondary{% endif %}">{{ check.get_status_display }}</span>
+              </p>
+            </div>
+
+            <div class="col-md-6">
+              <p>
+                <strong>{% translate "AI_score" %}:</strong>
+                <span class="fs-4 fw-bold">{{ check.ai_score }}%</span>
+              </p>
+              <p>
+                <strong>{% translate "Checked_at" %}:</strong>
+                {{ check.created_at|date:"d.m.Y H:i" }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h3>{% translate "Performers_comment" %}</h3>
+          <div class="bg-light p-3 rounded">
+            {% if check.comment %}
+              {{ check.comment|linebreaks }}
+            {% else %}
+              <p class="text-muted mb-0">{% translate "No_comment_provided" %}</p>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          {% if check.task.client == request.user %}
+            <a href="{% url 'tasks:text-task-detail' check.task.id %}" class="btn btn-secondary">{% translate "Back_to_task" %}</a>
+          {% endif %}
+
+          {% if check.performer == request.user %}
+            <a href="{% url 'tasks:my-text-checks' %}" class="btn btn-secondary">{% translate "Back_to_my_checks" %}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
