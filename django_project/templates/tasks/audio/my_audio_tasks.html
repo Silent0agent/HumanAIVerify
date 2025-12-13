@@ -2,24 +2,25 @@
 {% load i18n %}
 
 {% block title %}
-  {% translate "my_text_tasks" %}
+  {% translate "My_audio_tasks" %}
 {% endblock title %}
 
 {% block content %}
-  <h1>{% translate "my_text_tasks" %}</h1>
+  {% include "includes/tasks_header.html" %}
+  <h1>{% translate "My_audio_tasks" %}</h1>
   {% comment %} <h1>My Tasks</h1> {% endcomment %}
-  <a href="{% url 'tasks:text-task-create' %}">{% translate "create_text_task" %}</a>
+  <a href="{% url 'tasks:audio-task-create' %}">{% translate "Create_audio_task" %}</a>
   {% if tasks %}
     <table>
       <thead>
         <tr>
           <th>{% translate "Title" %}</th>
           {% comment %} <th>Title</th> {% endcomment %}
-          <th>{% translate "created_at" %}</th>
+          <th>{% translate "Created_at" %}</th>
           {% comment %} <th>Created</th> {% endcomment %}
           <th>{% translate "AI_score" %}</th>
           {% comment %} <th>AI Score</th> {% endcomment %}
-          <th>{% translate "checks_count" %}</th>
+          <th>{% translate "Checks_count" %}</th>
           {% comment %} <th>Checks Count</th> {% endcomment %}
         </tr>
       </thead>
@@ -27,14 +28,14 @@
         {% for task in tasks %}
           <tr>
             <td>
-              <a href="{% url 'tasks:text-task-detail' task.id %}">{{ task.title }}</a>
+              <a href="{% url 'tasks:audio-task-detail' task.id %}">{{ task.title }}</a>
             </td>
             <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
             <td>
               {% if task.ai_score %}
                 {{ task.ai_score|floatformat:1 }}%
               {% else %}
-                {% translate "not_checked" %}
+                {% translate "Not_checked" %}
                 {% comment %} Not checked {% endcomment %}
               {% endif %}
             </td>
@@ -44,7 +45,7 @@
       </tbody>
     </table>
   {% else %}
-    <p>{% translate "no_text_tasks_made" %}.</p>
+    <p>{% translate "You_have_no_audio_tasks" %}.</p>
     {% comment %} <p>You have no tasks yet</p> {% endcomment %}
   {% endif %}
 {% endblock content %}
