@@ -9,10 +9,10 @@
   <h1>{{ task.title }}</h1>
 
   <div class="task-info">
-    {% translate "task_information" %}
+    {% translate "Task_information" %}
     {% comment %} <h2>Task Information</h2> {% endcomment %}
     <p>
-      <strong>{% translate "created_at" %}:</strong>
+      <strong>{% translate "Created_at" %}:</strong>
       {{ task.created_at|date:"d.m.Y H:i" }}
     </p>
     {% comment %} <p><strong>Created:</strong> {{ task.created_at|date:"d.m.Y H:i" }}</p> {% endcomment %}
@@ -24,24 +24,25 @@
     {% endif %}
 
     <p>
-      <strong>{% translate "Content" %}:</strong>
+      <strong>{% translate "Audio" %}:</strong>
     </p>
-    {% comment %} <p><strong>Content:</strong></p> {% endcomment %}
-    <div class="content-box">{{ task.content|linebreaks }}</div>
-
+    <audio controls>
+      <source src="{{ task.audio.url }}" type="audio/mpeg">
+      {% translate "audio_not_supported_browser" %}
+    </audio>
     <p>
       <strong>{% translate "AI_score" %}:</strong>
       {% comment %} <strong>AI Score:</strong> {% endcomment %}
       {% if task.ai_score %}
         {{ task.ai_score|floatformat:1 }}%
       {% else %}
-        {% translate "not_evaluated" %}
+        {% translate "Not_evaluated" %}
         {% comment %} Not evaluated yet {% endcomment %}
       {% endif %}
     </p>
 
     <p>
-      <strong>{% translate "total_checks" %}:</strong> {{ task.checks_count }}
+      <strong>{% translate "Total_checks" %}:</strong> {{ task.checks_count }}
     </p>
     {% comment %} <p><strong>Total Checks:</strong> {{ checks.count }}</p> {% endcomment %}
   </div>
@@ -60,7 +61,7 @@
             {% comment %} <th>AI Score</th> {% endcomment %}
             <th>{% translate "Comment" %}</th>
             {% comment %} <th>Comment</th> {% endcomment %}
-            <th>{% translate "published_at" %}</th>
+            <th>{% translate "Published_at" %}</th>
             {% comment %} <th>Created</th> {% endcomment %}
           </tr>
         </thead>
@@ -73,7 +74,7 @@
                 {% if check.comment %}
                   {{ check.comment|truncatechars:100 }}
                 {% else %}
-                  {% translate "no_comment" %}
+                  {% translate "No_comment" %}
                   {% comment %} No comment {% endcomment %}
                 {% endif %}
               </td>
@@ -88,6 +89,6 @@
     {% endif %}
   </div>
 
-  <a href="{% url 'tasks:my-text-tasks' %}">{% translate "Back_to_my_tasks" %}</a>
-  {% comment %} <a href="{% url 'tasks:my-text-tasks' %}">Back to My Tasks</a> {% endcomment %}
+  <a href="{% url 'tasks:my-audio-tasks' %}">{% translate "Back_to_my_tasks" %}</a>
+  {% comment %} <a href="{% url 'tasks:my-audio-tasks' %}">Back to My Tasks</a> {% endcomment %}
 {% endblock content %}
