@@ -19,26 +19,25 @@ class BaseTaskAdmin(admin.ModelAdmin):
 
         content_name = self.unique_content_field.name
 
-        list_content_col = self.content_display_method or content_name
-
         ai_score_method = "ai_score_display"
         get_task_str_method = "get_task_str"
 
         detail_content_fields = (content_name,)
         readonly_tuple = (ai_score_method, created_at, updated_at)
 
-        if self.content_display_method:
-            readonly_tuple += (self.content_display_method,)
-            detail_content_fields = (content_name, self.content_display_method)
-
-        self.list_display = (
+        list_display_tuple = (
             get_task_str_method,
             client,
             ai_score_method,
-            list_content_col,
             created_at,
-            updated_at,
         )
+
+        if self.content_display_method:
+            readonly_tuple += (self.content_display_method,)
+            list_display_tuple += (self.content_display_method,)
+            detail_content_fields = (content_name, self.content_display_method)
+
+        self.list_display = list_display_tuple
 
         self.list_filter = (created_at,)
 
@@ -77,12 +76,9 @@ class BaseTaskAdmin(admin.ModelAdmin):
     @admin.display(description=_("Average_AI_Score"))
     def ai_score_display(self, obj):
         value = obj.ai_score
-
-        # Если значение None, пустая строка или False -> возвращаем текст
         if value is None:
             return _("No_checks")
 
-        # Можно добавить форматирование
         return f"{value}%"
 
     @admin.display(description=_("Task"), ordering="title")

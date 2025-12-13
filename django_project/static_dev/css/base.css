@@ -80,3 +80,7 @@ body {
 .ai-score-input {
     width: 85px;
 }
+
+.audio {
+  width: 100%;
+}
