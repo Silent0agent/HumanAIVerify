@@ -60,12 +60,10 @@ class FeedbackForm(core.forms.BootstrapFormMixin, forms.ModelForm):
 
 
 class FeedbackFileForm(core.forms.BootstrapFormMixin, forms.Form):
-    MAX_FILE_SIZE = 16 * 1024 * 1024
-
     files = MultiFileField(
         min_num=0,
         max_num=10,
-        max_file_size=MAX_FILE_SIZE,
+        max_file_size=16 * 1024 * 1024,
         label=_("upload_files"),
         help_text=_("upload_files_help_text"),
         required=False,
