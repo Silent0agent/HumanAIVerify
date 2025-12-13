@@ -37,10 +37,16 @@ class FeedbackModelTests(TestCase):
 class FeedbackStringRepresentationTests(TestCase):
     @parameterized.expand(
         [
-            ("Short text", "Short text..."),
-            ("123456789012", "123456789012..."),
-            ("1234567890123", "123456789012..."),
-            ("A very long text message", "A very long ..."),
+            ("Short text", "Short text"),
+            ("123456789012", "123456789012"),
+            (
+                "1234567890123456789012345678901",
+                "12345678901234567890123456789…",
+            ),
+            (
+                "A very very very long text message",
+                "A very very very long text me…",
+            ),
         ],
     )
     def test_feedback_str_truncation(self, text, expected_str):
