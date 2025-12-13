@@ -4,9 +4,11 @@ import uuid
 
 from django.conf import settings
 from django.db import models
+from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
 import core.models
+import core.validators
 
 
 class StatusChoices(models.TextChoices):
@@ -17,14 +19,14 @@ class StatusChoices(models.TextChoices):
 
 class FeedbackUserProfile(models.Model):
     name = models.CharField(
-        _("name"),
+        verbose_name=_("name"),
         max_length=150,
-        help_text=_("max_symbols_help_text"),
         blank=True,
         null=True,
+        help_text=_("max_symbols_help_text"),
     )
     mail = models.EmailField(
-        _("email"),
+        verbose_name=_("email"),
         help_text=_("email_help_text"),
     )
 
@@ -40,10 +42,11 @@ class Feedback(core.models.TimeStampedModel):
     author = models.ForeignKey(
         FeedbackUserProfile,
         on_delete=models.SET_NULL,
-        verbose_name=_("author"),
         related_name="feedbacks",
-        null=True,
+        related_query_name="feedback",
+        verbose_name=_("author"),
         blank=True,
+        null=True,
     )
 
     text = models.TextField(
@@ -53,10 +56,10 @@ class Feedback(core.models.TimeStampedModel):
 
     status = models.CharField(
         verbose_name=_("feedback_status"),
-        help_text=_("status_help_text"),
         max_length=11,
-        choices=StatusChoices,
         default=StatusChoices.RECEIVED,
+        choices=StatusChoices,
+        help_text=_("status_help_text"),
     )
 
     class Meta:
@@ -64,7 +67,7 @@ class Feedback(core.models.TimeStampedModel):
         verbose_name_plural = _("feedback_plural")
 
     def __str__(self):
-        return f"{self.text[:12]}..."
+        return Truncator(self.text).chars(30)
 
 
 class FeedbackFile(models.Model):
@@ -77,13 +80,15 @@ class FeedbackFile(models.Model):
         Feedback,
         on_delete=models.CASCADE,
         related_name="files",
+        related_query_name="file",
         verbose_name=_("feedback"),
     )
     file = models.FileField(
-        upload_to=file_path,
-        null=True,
-        blank=True,
         verbose_name=_("feedback_file"),
+        upload_to=file_path,
+        blank=True,
+        null=True,
+        validators=[core.validators.FileSizeValidator(16 * 1024 * 1024)],
     )
 
     class Meta:
@@ -98,30 +103,34 @@ class StatusLog(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
-        null=True,
+        related_name="feedback_status_logs",
+        related_query_name="feedback_status_log",
         verbose_name=_("user"),
+        null=True,
     )
     feedback = models.ForeignKey(
         Feedback,
-        verbose_name=_("feedback"),
         on_delete=models.SET_NULL,
+        related_name="status_logs",
+        related_query_name="status_log",
+        verbose_name=_("feedback"),
         null=True,
     )
     timestamp = models.TimeField(
-        auto_now_add=True,
         verbose_name=_("time"),
+        auto_now_add=True,
     )
     status_from = models.CharField(
+        verbose_name=_("status_from"),
+        max_length=11,
         choices=StatusChoices,
         db_column="from",
-        max_length=11,
-        verbose_name=_("status_from"),
     )
     status_to = models.CharField(
+        verbose_name=_("status_to"),
+        max_length=11,
         choices=StatusChoices,
         db_column="to",
-        max_length=11,
-        verbose_name=_("status_to"),
     )
 
     class Meta:
