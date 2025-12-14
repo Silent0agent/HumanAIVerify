@@ -2,6 +2,10 @@
 {% load thumbnail %}
 {% load i18n %}
 
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
+{% endblock extra_head %}
+
 {% with request.resolver_match.view_name as view_name %}
   <header class="py-3 mb-4 border-bottom">
     <div class="container">
@@ -15,12 +19,12 @@
               {% if request.user.role == 'customer' %}
                 <li class="nav-item ">
                   <a href="{% url 'tasks:user-text-tasks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:user-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "My_tasks" %}</a>
+                     class="nav-link px-2 {% if view_name == 'tasks:user-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "my_tasks" %}</a>
                 </li>
               {% elif request.user.role == 'performer' %}
                 <li class="nav-item ">
                   <a href="{% url 'tasks:user-text-checks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:user-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "My_checks" %}</a>
+                     class="nav-link px-2 {% if view_name == 'tasks:user-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "my_checks" %}</a>
                 </li>
               {% endif %}
             {% endif %}
@@ -79,3 +83,5 @@
     </div>
   </header>
 {% endwith %}
+
+<script src="{% static 'js/header-scroll.js' %}"></script>

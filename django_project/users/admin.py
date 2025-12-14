@@ -6,6 +6,7 @@ from django.contrib.auth.admin import GroupAdmin
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 
+import core.paginators
 from users.models import GroupProxy
 
 User = auth.get_user_model()
@@ -22,6 +23,9 @@ class AdminUserCreationForm(auth.forms.UserCreationForm):
 
 @admin.register(User)
 class CustomUserAdmin(auth.admin.UserAdmin):
+    paginator = core.paginators.CountOptimizedPaginator
+    show_full_result_count = False
+
     add_form = AdminUserCreationForm
 
     avatar_field = User.avatar.field.name
@@ -62,7 +66,7 @@ class CustomUserAdmin(auth.admin.UserAdmin):
 
     fieldsets = auth.admin.UserAdmin.fieldsets + (
         (
-            _("Security_Profile"),
+            _("Security_profile"),
             {
                 "fields": (
                     login_attempts_count_field,

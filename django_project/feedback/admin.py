@@ -1,7 +1,9 @@
 __all__ = ()
 
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
+import core.paginators
 import feedback.models
 
 
@@ -17,20 +19,36 @@ class FieldPaths:
 class FilesInline(admin.TabularInline):
     model = feedback.models.FeedbackFile
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.select_related(self.model.feedback.field.name)
+
 
 class FeedbackInline(admin.TabularInline):
     model = feedback.models.Feedback
-    fields = (
-        feedback.models.Feedback.created_at.field.name,
-        feedback.models.Feedback.status.field.name,
-        feedback.models.Feedback.text.field.name,
-    )
-    readonly_fields = fields
     can_delete = False
+    extra = 0
+
+    def __init__(self, parent_model, admin_site):
+        super().__init__(parent_model, admin_site)
+        created_at = self.model.created_at.field.name
+        status = self.model.status.field.name
+
+        str_method = self.get_feedback_str.__name__
+
+        self.fields = (created_at, status, str_method)
+        self.readonly_fields = (created_at, str_method)
+
+    @admin.display(description=_("Text"))
+    def get_feedback_str(self, obj):
+        return str(obj)
 
 
 @admin.register(feedback.models.FeedbackUserProfile)
 class FeedbackUserProfileAdmin(admin.ModelAdmin):
+    paginator = core.paginators.CountOptimizedPaginator
+    show_full_result_count = False
+
     list_display = (
         feedback.models.FeedbackUserProfile.mail.field.name,
         feedback.models.FeedbackUserProfile.name.field.name,
@@ -39,11 +57,14 @@ class FeedbackUserProfileAdmin(admin.ModelAdmin):
         feedback.models.FeedbackUserProfile.mail.field.name,
         feedback.models.FeedbackUserProfile.name.field.name,
     )
-    inlines = [FeedbackInline]
+    inlines = (FeedbackInline,)
 
 
 @admin.register(feedback.models.Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
+    paginator = core.paginators.CountOptimizedPaginator
+    show_full_result_count = False
+
     list_display = (
         feedback.models.Feedback.created_at.field.name,
         feedback.models.Feedback.author.field.name,
@@ -58,21 +79,38 @@ class FeedbackAdmin(admin.ModelAdmin):
     )
     inlines = (FilesInline,)
 
+    def get_queryset(self, request):
+        return (
+            super()
+            .get_queryset(request)
+            .select_related(feedback.models.Feedback.author.field.name)
+        )
+
     def save_model(self, request, obj, form, change):
-        field = feedback.models.Feedback.status.field.name
-        if field in form.changed_data:
+        super().save_model(request, obj, form, change)
+
+        status_field = feedback.models.Feedback.status.field
+        field_name = status_field.name
+
+        if field_name in form.changed_data:
+            if change:
+                status_from = form.initial.get(field_name)
+            else:
+                status_from = status_field.get_default()
+
             feedback.models.StatusLog(
                 user=request.user,
                 feedback=obj,
-                status_from=form.initial["status"],
-                status_to=form.cleaned_data["status"],
+                status_from=status_from,
+                status_to=obj.status,
             ).save()
-
-        super().save_model(request, obj, form, change)
 
 
 @admin.register(feedback.models.StatusLog)
 class StatusLogAdmin(admin.ModelAdmin):
+    paginator = core.paginators.CountOptimizedPaginator
+    show_full_result_count = False
+
     list_display = (
         feedback.models.StatusLog.user.field.name,
         feedback.models.StatusLog.timestamp.field.name,
@@ -83,3 +121,13 @@ class StatusLogAdmin(admin.ModelAdmin):
     readonly_fields = [
         field.name for field in feedback.models.StatusLog._meta.fields
     ]
+
+    def get_queryset(self, request):
+        return (
+            super()
+            .get_queryset(request)
+            .select_related(
+                self.model.user.field.name,
+                self.model.feedback.field.name,
+            )
+        )

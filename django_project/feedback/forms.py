@@ -27,10 +27,10 @@ class FeedbackUserProfileForm(core.forms.BootstrapFormMixin, forms.ModelForm):
         }
         help_texts = {
             feedback_user_profile_name_field: _(
-                "enter_name",
+                "Enter_name",
             ),
             feedback_user_profile_mail_field: _(
-                "enter_email",
+                "Enter_email",
             ),
         }
         widgets = {
@@ -44,11 +44,11 @@ class FeedbackForm(core.forms.BootstrapFormMixin, forms.ModelForm):
         model = feedback.models.Feedback
         fields = (feedback.models.Feedback.text.field.name,)
         labels = {
-            feedback.models.Feedback.text.field.name: _("feedback_text"),
+            feedback.models.Feedback.text.field.name: _("Feedback_text"),
         }
         help_texts = {
             feedback.models.Feedback.text.field.name: _(
-                "enter_feedback_text",
+                "Enter_feedback_text",
             ),
         }
         exclude = [
@@ -60,14 +60,12 @@ class FeedbackForm(core.forms.BootstrapFormMixin, forms.ModelForm):
 
 
 class FeedbackFileForm(core.forms.BootstrapFormMixin, forms.Form):
-    MAX_FILE_SIZE = 16 * 1024 * 1024
-
     files = MultiFileField(
         min_num=0,
         max_num=10,
-        max_file_size=MAX_FILE_SIZE,
-        label=_("upload_files"),
-        help_text=_("upload_files_help_text"),
+        max_file_size=16 * 1024 * 1024,
+        label=_("Upload_files"),
+        help_text=_("Upload_files_help_text"),
         required=False,
     )
 

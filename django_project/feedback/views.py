@@ -71,7 +71,7 @@ class FeedbackView(TemplateView):
             files_form.save(feedback_instance=feedback_item)
 
             send_mail(
-                _("feedback_mail_head"),
+                _("Feedback_mail_head"),
                 text,
                 settings.DEFAULT_FROM_EMAIL,
                 [mail],
