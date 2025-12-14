@@ -53,10 +53,6 @@
                 <strong>{% translate "Performer" %}:</strong>
                 {{ check.performer.username }}
               </p>
-              <p>
-                <strong>{% translate "Status" %}:</strong>
-                <span class="badge {% if check.status == 'published' %}bg-success{% else %}bg-secondary{% endif %}">{{ check.get_status_display }}</span>
-              </p>
             </div>
 
             <div class="col-md-6">
@@ -66,7 +62,7 @@
               </p>
               <p>
                 <strong>{% translate "Checked_at" %}:</strong>
-                {{ check.created_at|date:"d.m.Y H:i" }}
+                {{ check.updated_at|date:"d.m.Y H:i" }}
               </p>
             </div>
           </div>
@@ -84,11 +80,11 @@
         </div>
 
         <div class="d-flex gap-2">
-          {% if check.task.client == request.user %}
+          {% if request.user.role == "customer" %}
             <a href="{% url 'tasks:text-task-detail' check.task.id %}" class="btn btn-secondary">{% translate "Back_to_task" %}</a>
           {% endif %}
 
-          {% if check.performer == request.user %}
+          {% if request.user.role == "performer" %}
             <a href="{% url 'tasks:my-text-checks' %}" class="btn btn-secondary">{% translate "Back_to_my_checks" %}</a>
           {% endif %}
         </div>

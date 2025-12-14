@@ -79,6 +79,9 @@ class CheckQuerySet(models.QuerySet):
     def by_performer(self, user):
         return self.filter(performer=user)
 
+    def with_performer(self):
+        return self.select_related(self.model.performer.field.name)
+
     def with_task(self):
         return self.select_related(self.model.task.field.name)
 
