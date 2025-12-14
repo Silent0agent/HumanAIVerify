@@ -82,10 +82,10 @@ class BaseTaskCheckPerformView(
 
             if action == "publish":
                 check.status = self.check_model.Status.PUBLISHED
-                message = _("check_published")
+                message = _("Check_published")
             else:
                 check.status = self.check_model.Status.DRAFT
-                message = _("draft_saved")
+                message = _("Draft_saved")
 
             check.save()
             messages.success(request, message)
@@ -216,7 +216,7 @@ class BaseTaskCheckDetailView(LoginRequiredMixin, DetailView):
             and self.request.user != check.performer
         ):
             raise PermissionDenied(
-                _("You_have_no_permission_to_view_check"),
+                _("Not_viewer_of_check"),
             )
 
         return check

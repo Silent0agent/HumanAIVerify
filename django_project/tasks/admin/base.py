@@ -36,7 +36,7 @@ class BaseCheckInline(admin.TabularInline):
         self.task_title = self.task_model.title.field.name
         self.task_title_lookup = f"{self.task}__{self.task_title}"
 
-        self.performer_method = "get_performer_email"
+        self.performer_method = self.get_performer_email.__name__
 
         fields_list = (
             self.created_at,
@@ -81,7 +81,7 @@ class BaseTaskAdmin(admin.ModelAdmin):
     def __init__(self, model, admin_site):
         if self.check_model is None or self.unique_content_field is None:
             raise ImproperlyConfigured(
-                _("task_admin_improperly_configured")
+                _("Error_task_admin_improperly_configured")
                 % {
                     "class_name": self.__class__.__name__,
                 },
@@ -104,8 +104,8 @@ class BaseTaskAdmin(admin.ModelAdmin):
 
         self.content_name = self.unique_content_field.name
 
-        ai_score_method = "ai_score_display"
-        get_task_str_method = "get_task_str"
+        ai_score_method = self.ai_score_display.__name__
+        get_task_str_method = self.get_task_str.__name__
 
         detail_content_fields = (self.content_name,)
         readonly_tuple = (
