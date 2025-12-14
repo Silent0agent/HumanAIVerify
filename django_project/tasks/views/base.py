@@ -92,7 +92,7 @@ class BaseTaskCheckPerformView(
         )
 
 
-class BaseMyTasksListView(
+class BaseUserTasksListView(
     LoginRequiredMixin,
     users.mixins.CustomerRequiredMixin,
     ListView,
@@ -112,7 +112,7 @@ class BaseMyTasksListView(
         )
 
 
-class BaseMyChecksListView(
+class BaseUserChecksListView(
     LoginRequiredMixin,
     users.mixins.PerformerRequiredMixin,
     ListView,

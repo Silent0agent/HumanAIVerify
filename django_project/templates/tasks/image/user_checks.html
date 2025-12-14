@@ -1,0 +1,34 @@
+{% extends "tasks/base/user_checks.html" %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block title %}
+  {% translate "my_text_checks" %}
+{% endblock title %}
+
+{% block task_content %}
+  {% thumbnail task.image "70x70" crop="center" upscale=True as image %}
+    <img src="{{ image.url }}" alt="{% translate 'Image' %}" width="{{ image.width }}" height="{{ image.height }}">
+  {% endthumbnail %}
+{% endblock task_content %}
+
+{% block available_task_title %}
+  {% if available_tasks %}
+    <a class="text-decoration-none purple-hover" href="{% url 'tasks:image-check-perform' task.id %}">
+      {% translate "check_task" %}
+    </a>
+  {% endif %}
+{% endblock available_task_title %}
+{% block completed_task_title %}
+  {% if completed_tasks %}
+    <a class="text-decoration-none purple-hover" href="{% url 'tasks:image-check-perform' task.id %}">{{ task.title }}</a>
+  {% endif %}
+{% endblock completed_task_title %}
+
+{% block no_tasks %}
+  {% translate "no_image_tasks" %}
+{% endblock no_tasks %}
+
+{% block no_checks %}
+  {% translate "no_image_checks" %}
+{% endblock no_checks %}

@@ -1,0 +1,15 @@
+{% extends "tasks/base/task_detail.html" %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block title %}
+  {{ task.title }}
+{% endblock title %}
+
+{% block image %}
+  <img class="float-start mx-3" src="{{ task.image.url }}" alt="{% translate 'Image_of_task' %}" width="500" height="500">
+{% endblock image %}
+
+{% block back_to_user_tasks %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:user-image-tasks' %}">{% translate "Back_to_my_tasks" %}</a>
+{% endblock back_to_user_tasks %}

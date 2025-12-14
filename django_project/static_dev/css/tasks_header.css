@@ -1,0 +1,10 @@
+#miniTabsIndicator>div {
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg, #712cf9, #431081);
+    border-radius: 4px;
+    transition: transform .18s cubic-bezier(.2, .9, .2, 1), width .18s cubic-bezier(.2, .9, .2, 1), opacity .12s;
+    will-change: transform, width;
+    opacity: 0;
+    transform: translateX(0);
+}

@@ -1,39 +1,39 @@
 __all__ = (
-    "BaseMyChecksListView",
-    "BaseMyTasksListView",
+    "BaseUserChecksListView",
+    "BaseUserTasksListView",
     "BaseTaskCheckPerformView",
     "BaseTaskCreateView",
     "BaseTaskDetailView",
-    "MyTextChecksListView",
-    "MyTextTasksListView",
+    "UserTextChecksListView",
+    "UserTextTasksListView",
     "TextTaskCheckPerformView",
     "TextTaskCreateView",
     "TextTaskDetailView",
-    "MyImageChecksListView",
-    "MyImageTasksListView",
+    "UserImageChecksListView",
+    "UserImageTasksListView",
     "ImageTaskCheckPerformView",
     "ImageTaskCreateView",
     "ImageTaskDetailView",
 )
 
 from tasks.views.base import (
-    BaseMyChecksListView,
-    BaseMyTasksListView,
     BaseTaskCheckPerformView,
     BaseTaskCreateView,
     BaseTaskDetailView,
+    BaseUserChecksListView,
+    BaseUserTasksListView,
 )
 from tasks.views.image import (
     ImageTaskCheckPerformView,
     ImageTaskCreateView,
     ImageTaskDetailView,
-    MyImageChecksListView,
-    MyImageTasksListView,
+    UserImageChecksListView,
+    UserImageTasksListView,
 )
 from tasks.views.text import (
-    MyTextChecksListView,
-    MyTextTasksListView,
     TextTaskCheckPerformView,
     TextTaskCreateView,
     TextTaskDetailView,
+    UserTextChecksListView,
+    UserTextTasksListView,
 )

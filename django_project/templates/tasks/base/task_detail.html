@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <h2 class="text-center mb-3">{{ task.title }}</h2>
+
+  <div>
+    {% block image %}{% endblock image %}
+    <p>{% translate "Created_at" %}: {{ task.created_at|date:"d.m.Y" }}</p>
+    <p>{% translate 'Description' %}: {% if task.description %}{{ task.description }}{% else %}{% translate 'no_task_description' %}{% endif %}</p>
+    <p>{% translate "AI_score" %}:
+      {% if task.ai_score %}
+        {{ task.ai_score|floatformat:1 }}%
+      {% else %}
+        {% translate "Not_evaluated" %}
+      {% endif %}
+    </p>
+    <p>{% translate "Total_checks" %}: {{ task.checks_count }}</p>
+    {% block back_to_user_tasks %}{% endblock back_to_user_tasks %}
+  </div>
+
+  {% if task.checks.all %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th class="fw-medium">#</th>
+          <th class="fw-medium">{% translate "Performer" %}</th>
+          <th class="fw-medium">{% translate "AI_score" %}</th>
+          <th class="fw-medium">{% translate "Comment" %}</th>
+          <th class="fw-medium">{% translate "Published_at" %}</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for check in task.checks.all %}
+          <tr>
+            <td class="align-middle">
+              <span>{{ forloop.counter }}</span>
+            </td>
+            <td class="align-middle">
+              <span>{{ check.performer.username }}</span>
+            </td>
+            <td class="align-middle">
+              <span>{{ check.ai_score }}</span>
+            </td>
+            <td class="align-middle">
+              <span>
+                {% if check.comment %}
+                  {{ check.comment|truncatechars:100 }}
+                {% else %}
+                  {% translate "No_comment" %}
+                {% endif %}
+              </span>
+            </td>
+            <td class="align-middle">
+              <span>{{ check.updated_at|date:"d.m.Y" }}</span>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>{% translate "No_checks_yet" %}.</p>
+  {% endif %}
+{% endblock content %}

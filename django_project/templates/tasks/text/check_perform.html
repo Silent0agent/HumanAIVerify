@@ -1,0 +1,11 @@
+{% extends 'tasks/base/check_perform.html' %}
+{% load i18n %}
+
+{% block task %}
+    <div class="alert alert-info">
+      <p>
+        <strong>{% translate "task_text" %}:</strong>
+      </p>
+      <div class="text-content p-2 bg-light border">{{ task.content|linebreaks }}</div>
+    </div>
+{% endblock task %}

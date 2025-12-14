@@ -23,14 +23,14 @@ urlpatterns = [
         name="text-check-perform",
     ),
     path(
-        "my-text-tasks/",
-        tasks.views.MyTextTasksListView.as_view(),
-        name="my-text-tasks",
+        "user-text-tasks/",
+        tasks.views.UserTextTasksListView.as_view(),
+        name="user-text-tasks",
     ),
     path(
-        "my-text-checks/",
-        tasks.views.MyTextChecksListView.as_view(),
-        name="my-text-checks",
+        "user-text-checks/",
+        tasks.views.UserTextChecksListView.as_view(),
+        name="user-text-checks",
     ),
     path(
         "image-task/<int:pk>/",
@@ -48,13 +48,13 @@ urlpatterns = [
         name="image-check-perform",
     ),
     path(
-        "my-image-tasks/",
-        tasks.views.MyImageTasksListView.as_view(),
-        name="my-image-tasks",
+        "user-image-tasks/",
+        tasks.views.UserImageTasksListView.as_view(),
+        name="user-image-tasks",
     ),
     path(
-        "my-image-checks/",
-        tasks.views.MyImageChecksListView.as_view(),
-        name="my-image-checks",
+        "user-image-checks/",
+        tasks.views.UserImageChecksListView.as_view(),
+        name="user-image-checks",
     ),
 ]

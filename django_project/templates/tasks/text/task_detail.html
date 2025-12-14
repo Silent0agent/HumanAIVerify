@@ -1,0 +1,11 @@
+{% extends "tasks/base/task_detail.html" %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block title %}
+  {{ task.title }}
+{% endblock title %}
+
+{% block back_to_user_tasks %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:user-text-tasks' %}">{% translate "Back_to_my_tasks" %}</a>
+{% endblock back_to_user_tasks %}

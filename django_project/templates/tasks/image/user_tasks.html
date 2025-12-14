@@ -1,0 +1,21 @@
+{% extends "tasks/base/user_tasks.html" %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block title %}
+  {% translate "my_image_tasks" %}
+{% endblock title %}
+
+{% block task_title %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:image-task-detail' task.id %}">{{ task.title }}</a>
+{% endblock task_title %}
+
+{% block task_content %}
+  {% thumbnail task.image "70x70" crop="center" upscale=True as image %}
+    <img src="{{ image.url }}" alt="{% translate 'Image' %}" width="{{ image.width }}" height="{{ image.height }}">
+  {% endthumbnail %}
+{% endblock task_content %}
+
+{% block no_tasks %}
+  {% translate "no_image_tasks" %}
+{% endblock no_tasks %}
