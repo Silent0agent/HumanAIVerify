@@ -24,7 +24,7 @@ class RoleRequiredMixin(UserPassesTestMixin):
 
         messages.error(
             self.request,
-            _("user_ot_have_role"),
+            _("User_have_wrong_role"),
         )
 
         return redirect("homepage:index")

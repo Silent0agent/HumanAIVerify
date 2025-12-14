@@ -30,7 +30,7 @@ class SignedUserActionView(django.views.generic.View):
             user = User.objects.get(username=username)
         except (signing.BadSignature, User.DoesNotExist):
             return HttpResponseNotFound(
-                _("invalid_or_expired_activation_link"),
+                _("Invalid_or_expired_activation_link"),
             )
 
         user.is_active = True
@@ -58,12 +58,12 @@ class SignUpView(django.views.generic.FormView):
             self._send_activation_email(user)
             messages.warning(
                 self.request,
-                _("need_to_activate_profile"),
+                _("Need_to_activate_profile"),
             )
         else:
             messages.success(
                 self.request,
-                _("signup_success"),
+                _("Signup_success"),
             )
 
         return super().form_valid(form)
@@ -79,7 +79,7 @@ class SignUpView(django.views.generic.FormView):
         )
 
         send_mail(
-            subject=_("profile_activation"),
+            subject=_("Profile_activation"),
             message=render_to_string(
                 "users/subjects/activation_email.txt",
                 {"activate_link": activate_link},
@@ -108,7 +108,7 @@ class LoginView(auth.views.LoginView):
 class LogoutView(django.views.generic.View):
     def post(self, request, *args, **kwargs):
         auth.logout(request)
-        messages.info(request, _("logout_success"))
+        messages.info(request, _("Logout_success"))
         return HttpResponseRedirect(reverse("auth:login"))
 
 
@@ -118,7 +118,7 @@ class PasswordChangeView(auth.views.PasswordChangeView):
     success_url = reverse_lazy("auth:login")
 
     def form_valid(self, form):
-        messages.success(self.request, _("password_changed"))
+        messages.success(self.request, _("Password_changed"))
         return super().form_valid(form)
 
 
@@ -128,7 +128,7 @@ class PasswordResetConfirmView(auth.views.PasswordResetConfirmView):
     success_url = reverse_lazy("auth:login")
 
     def form_valid(self, form):
-        messages.success(self.request, _("password_reset"))
+        messages.success(self.request, _("Password_reset"))
         return super().form_valid(form)
 
 
@@ -149,7 +149,7 @@ class ProfileView(LoginRequiredMixin, django.views.generic.UpdateView):
         return self.request.user
 
     def form_valid(self, form):
-        messages.success(self.request, _("settings_saved"))
+        messages.success(self.request, _("Settings_saved"))
         self.request.session.modified = True
         return super().form_valid(form)
 
