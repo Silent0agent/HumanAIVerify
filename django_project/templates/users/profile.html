@@ -13,7 +13,7 @@
       <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
     {% endthumbnail %}
   {% else %}
-    <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'Avatar_not_found' %}" width="200" height="200" class="rounded-circle">
+    <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'avatar_not_found' %}" width="200" height="200" class="rounded-circle">
   {% endif %}
 {% endblock image %}
 {% block head %}
@@ -23,15 +23,15 @@
 {% block buttons %}
   <div class="d-flex flex-column gap-2 mt-3 align-items-center justify-content-center ">
     <button type="submit" class="btn btn-primary btn-lg">{% translate "Save" %}</button>
-    <a href="{% url 'auth:change-password' %}" class="btn btn-outline-warning btn-lg">{% translate "Change_password" %}</a>
+    <a href="{% url 'auth:change-password' %}" class="btn btn-outline-warning btn-lg">{% translate "change_password" %}</a>
   </div>
 {% endblock buttons %}
 
-{% block extra-under-form %}
+{% block extra_under_form %}
   <div class="mt-3 d-flex justify-content-center">
     <form action="{% url 'auth:logout' %}" method="post">
       {% csrf_token %}
       <button type="submit" class="btn btn-outline-danger">{% translate 'Logout' %}</button>
     </form>
   </div>
-{% endblock extra-under-form %}
+{% endblock extra_under_form %}

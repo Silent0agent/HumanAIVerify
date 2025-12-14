@@ -25,7 +25,7 @@ class BaseTaskCreateView(
 
     def form_valid(self, form):
         form.instance.client = self.request.user
-        messages.success(self.request, _("Task_created_successfully"))
+        messages.success(self.request, _("Task_create_success"))
         return super().form_valid(form)
 
 
@@ -53,7 +53,13 @@ class BaseTaskCheckPerformView(
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class(instance=self.check_obj)
+        if "form_attrs" in kwargs:
+            form = self.form_class(
+                instance=self.check_obj,
+                **kwargs["form_attrs"],
+            )
+        else:
+            form = self.form_class(instance=self.check_obj)
 
         return render(
             request,
@@ -68,6 +74,10 @@ class BaseTaskCheckPerformView(
             check = form.save(commit=False)
             check.task = self.task
             check.performer = request.user
+            if "check_fields" in kwargs:
+                for field, val in kwargs["check_fields"].items():
+                    setattr(check, field, val)
+
             action = request.POST.get("action")
 
             if action == "publish":
@@ -123,7 +133,7 @@ class BaseUserChecksListView(
     template_name = None
 
     def get_queryset(self):
-        all_needed_models_qs = self.model.objects.with_task().with_task_client(
+        all_needed_models_qs = self.model.objects.with_task_client(
             self.task_model,
         )
         task_title = (
@@ -171,8 +181,8 @@ class BaseTaskDetailView(
 ):
     model = None
     check_model = None
-    template_name = "tasks/task_detail.html"
     context_object_name = "task"
+    template_name = None
 
     def get_queryset(self):
         return (
@@ -186,6 +196,35 @@ class BaseTaskDetailView(
     def get_object(self, queryset=None):
         task = super().get_object(queryset)
         if task.client_id != self.request.user.id:
-            raise PermissionDenied(_("You_are_not_the_owner_of_this_task"))
+            raise PermissionDenied(_("Not_owner_of_task"))
 
         return task
+
+
+class BaseTaskCheckDetailView(LoginRequiredMixin, DetailView):
+    model = None
+    task_model = None
+    context_object_name = "check"
+    pk_url_kwarg = "check_id"
+    template_name = None
+
+    def get_object(self, queryset=None):
+        check = super().get_object(queryset)
+
+        if (
+            self.request.user != check.task.client
+            and self.request.user != check.performer
+        ):
+            raise PermissionDenied(
+                _("Not_viewer_of_check"),
+            )
+
+        return check
+
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .with_task_client(self.task_model)
+            .with_performer()
+        )

@@ -7,4 +7,4 @@ from django.utils.translation import gettext_lazy as _
 class FeedbackConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "feedback"
-    verbose_name = _("feedback_app_name")
+    verbose_name = _("Feedback_app_name")

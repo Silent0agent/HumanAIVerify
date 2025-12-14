@@ -13,7 +13,6 @@ class ImageTaskForm(BaseTaskForm):
         fields = BaseTaskForm.Meta.fields + ["image"]
 
         widgets = {
-            **BaseTaskForm.Meta.widgets,
             "image": forms.FileInput(
                 attrs={
                     "class": "form-control",

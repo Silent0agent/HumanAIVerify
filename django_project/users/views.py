@@ -63,7 +63,7 @@ class SignUpView(django.views.generic.FormView):
         else:
             messages.success(
                 self.request,
-                _("Succesfully_registred"),
+                _("Signup_success"),
             )
 
         return super().form_valid(form)
@@ -108,7 +108,7 @@ class LoginView(auth.views.LoginView):
 class LogoutView(django.views.generic.View):
     def post(self, request, *args, **kwargs):
         auth.logout(request)
-        messages.info(request, _("Successful_logout"))
+        messages.info(request, _("Logout_success"))
         return HttpResponseRedirect(reverse("auth:login"))
 
 
@@ -118,7 +118,7 @@ class PasswordChangeView(auth.views.PasswordChangeView):
     success_url = reverse_lazy("auth:login")
 
     def form_valid(self, form):
-        messages.success(self.request, _("password_changed"))
+        messages.success(self.request, _("Password_changed"))
         return super().form_valid(form)
 
 
@@ -128,7 +128,7 @@ class PasswordResetConfirmView(auth.views.PasswordResetConfirmView):
     success_url = reverse_lazy("auth:login")
 
     def form_valid(self, form):
-        messages.success(self.request, _("password_reset"))
+        messages.success(self.request, _("Password_reset"))
         return super().form_valid(form)
 
 

@@ -1,19 +1,49 @@
-{% extends "base.html" %}
+{% extends "form.html" %}
+{% load static %}
 {% load i18n %}
 
+{% block extra_head %}
+  {{ form.media }}
+{% endblock extra_head %}
 {% block title %}
-  {% translate "Create_task" %}
-  {% comment %} Create task {% endcomment %}
+  {% translate "create_task" %}
 {% endblock title %}
 
-{% block content %}
-  <h1>{% translate Create_new_task %}</h1>
-  {% comment %} <h1>Create new task</h1> {% endcomment %}
+{% block head %}
+  {% translate "create_task" %}
+{% endblock head %}
 
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% translate "Create_task" %}</button>
-    {% comment %} <button type="submit">Create task</button> {% endcomment %}
-  </form>
-{% endblock content %}
+{% block col-card-md %}
+  11
+{% endblock col-card-md %}
+
+{% block form_fields %}
+  {% for field in form %}
+    {% if forloop.first %}
+      <div class="form-floating my-3 mx-auto col-4">
+        {{ field }}
+        <label for="{{ field.id_for_label }}">
+          {{ field.label }}
+          {% if field.field.required %}<span>*</span>{% endif %}
+        </label>
+      </div>
+    {% elif forloop.last %}
+      <div class="form-floating my-3 mx-auto col-11 roboto">{{ field }}</div>
+    {% else %}
+      <div class="form-floating my-3 mx-auto col-8">
+        {{ field }}
+        <label for="{{ field.id_for_label }}">
+          {{ field.label }}
+          {% if field.field.required %}<span>*</span>{% endif %}
+        </label>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+{% endblock form_fields %}
+
+{% block buttons %}
+  <div class="d-flex flex-column gap-2 mt-3 align-items-center justify-content-center ">
+    <button type="submit" class="btn btn-primary btn-lg">{% translate "Create" %}</button>
+  </div>
+{% endblock buttons %}

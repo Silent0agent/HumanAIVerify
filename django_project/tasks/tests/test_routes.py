@@ -9,7 +9,7 @@ import tasks.views
 class TasksRoutesTest(SimpleTestCase):
     def test_create(self):
         url = reverse("tasks:text-task-create")
-        self.assertEqual(url, "/tasks/text-task/create/")
+        self.assertEqual(url, "/tasks/text/create/")
 
         resolver = resolve(url)
         self.assertEqual(
@@ -19,7 +19,7 @@ class TasksRoutesTest(SimpleTestCase):
 
     def test_check(self):
         url = reverse("tasks:text-check-perform", kwargs={"task_id": 1})
-        self.assertEqual(url, "/tasks/text-task/1/check/")
+        self.assertEqual(url, "/tasks/text/1/check/")
 
         resolver = resolve(url)
         self.assertEqual(
