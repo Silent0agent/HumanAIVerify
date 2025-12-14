@@ -23,11 +23,11 @@ class FeedbackUserProfile(models.Model):
         max_length=150,
         blank=True,
         null=True,
-        help_text=_("max_symbols_help_text"),
+        help_text=_("Max_symbols_help_text"),
     )
     mail = models.EmailField(
         verbose_name=_("email"),
-        help_text=_("email_help_text"),
+        help_text=_("Email_help_text"),
     )
 
     class Meta:
@@ -51,7 +51,7 @@ class Feedback(core.models.TimeStampedModel):
 
     text = models.TextField(
         _("feedback_text"),
-        help_text=_("feedback_text_help_text"),
+        help_text=_("Feedback_text_help_text"),
     )
 
     status = models.CharField(
@@ -59,7 +59,7 @@ class Feedback(core.models.TimeStampedModel):
         max_length=11,
         default=StatusChoices.RECEIVED,
         choices=StatusChoices,
-        help_text=_("status_help_text"),
+        help_text=_("Status_help_text"),
     )
 
     class Meta:
