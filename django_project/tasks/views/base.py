@@ -109,8 +109,8 @@ class BaseMyTasksListView(
 ):
     model = None
     check_model = None
-    context_object_name = "tasks"
     template_name = None
+    context_object_name = "tasks"
 
     def get_queryset(self):
         user = self.request.user
@@ -129,8 +129,8 @@ class BaseMyChecksListView(
 ):
     model = None
     task_model = None
-    context_object_name = "checks"
     template_name = None
+    context_object_name = "checks"
 
     def get_queryset(self):
         all_needed_models_qs = self.model.objects.with_task_client(
@@ -181,8 +181,9 @@ class BaseTaskDetailView(
 ):
     model = None
     check_model = None
-    context_object_name = "task"
     template_name = None
+    pk_url_kwarg = "task_id"
+    context_object_name = "task"
 
     def get_queryset(self):
         return (
@@ -204,9 +205,9 @@ class BaseTaskDetailView(
 class BaseTaskCheckDetailView(LoginRequiredMixin, DetailView):
     model = None
     task_model = None
-    context_object_name = "check"
-    pk_url_kwarg = "check_id"
     template_name = None
+    pk_url_kwarg = "check_id"
+    context_object_name = "check"
 
     def get_object(self, queryset=None):
         check = super().get_object(queryset)

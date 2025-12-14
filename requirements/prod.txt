@@ -1,4 +1,5 @@
 Django==5.2.7
+bleach==6.3.0
 django-ckeditor-5==0.2.18
 django-cleanup==9.0.0
 django-environ==0.12.0
@@ -6,3 +7,4 @@ django-multiupload==0.6.1
 django-tz-detect==0.5.0
 pillow==12.0.0
 sorl-thumbnail==12.11.0
+tinycss2==1.5.1
