@@ -6,17 +6,17 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("", include("homepage.urls")),
-    path("about/", include("about.urls")),
     path("admin/", admin.site.urls),
+    path("ckeditor5/", include("django_ckeditor_5.urls")),
+    path("tz_detect/", include("tz_detect.urls")),
+    path("i18n/", include("django.conf.urls.i18n")),
     path("auth/", include("users.urls.auth_urls")),
     path("auth/", include("django.contrib.auth.urls")),
-    path("ckeditor5/", include("django_ckeditor_5.urls")),
+    path("about/", include("about.urls")),
     path("feedback/", include("feedback.urls")),
     path("users/", include("users.urls.users_urls")),
     path("tasks/", include("tasks.urls")),
-    path("tz_detect/", include("tz_detect.urls")),
-    path("i18n/", include("django.conf.urls.i18n")),
+    path("", include("homepage.urls")),
 ]
 
 if settings.DEBUG:

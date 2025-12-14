@@ -43,7 +43,7 @@ class ImageTask(BaseTask):
                 f"width='50' height='50'/>",
             )
 
-        return _("no_image")
+        return _("No_image")
 
     image_tmb.short_description = _("image_preview")
 
