@@ -41,18 +41,18 @@ class BaseTaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "rows": 4,
-                    "placeholder": _("your_comments_optional"),
+                    "placeholder": _("Your_comment_is_optional"),
                 },
             ),
         }
 
         labels = {
             "ai_score": _("AI_Probability_percent"),
-            "comment": _("Comments"),
+            "comment": _("Comment"),
         }
 
         help_texts = {
-            "ai_score": _("enter_ai_percentage"),
+            "ai_score": _("Enter_ai_percentage"),
         }
 
     def clean(self):
@@ -61,6 +61,6 @@ class BaseTaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
             instance.pk
             and instance.status == instance.__class__.Status.PUBLISHED
         ):
-            raise forms.ValidationError(_("check_already_published"))
+            raise forms.ValidationError(_("Error_check_already_published"))
 
         return super().clean()
