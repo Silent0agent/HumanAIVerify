@@ -25,7 +25,7 @@ class BaseTaskCreateView(
 
     def form_valid(self, form):
         form.instance.client = self.request.user
-        messages.success(self.request, _("task_create_success"))
+        messages.success(self.request, _("Task_create_success"))
         return super().form_valid(form)
 
 
@@ -133,7 +133,7 @@ class BaseMyChecksListView(
     template_name = None
 
     def get_queryset(self):
-        all_needed_models_qs = self.model.objects.with_task().with_task_client(
+        all_needed_models_qs = self.model.objects.with_task_client(
             self.task_model,
         )
         task_title = (
@@ -181,8 +181,8 @@ class BaseTaskDetailView(
 ):
     model = None
     check_model = None
-    template_name = "tasks/task_detail.html"
     context_object_name = "task"
+    template_name = None
 
     def get_queryset(self):
         return (
@@ -196,16 +196,17 @@ class BaseTaskDetailView(
     def get_object(self, queryset=None):
         task = super().get_object(queryset)
         if task.client_id != self.request.user.id:
-            raise PermissionDenied(_("not_owner_of_task"))
+            raise PermissionDenied(_("Not_owner_of_task"))
 
         return task
 
 
 class BaseTaskCheckDetailView(LoginRequiredMixin, DetailView):
-    model = None  # check_model
-    template_name = "tasks/task_check_detail.html"
+    model = None
+    task_model = None
     context_object_name = "check"
     pk_url_kwarg = "check_id"
+    template_name = None
 
     def get_object(self, queryset=None):
         check = super().get_object(queryset)
@@ -215,7 +216,15 @@ class BaseTaskCheckDetailView(LoginRequiredMixin, DetailView):
             and self.request.user != check.performer
         ):
             raise PermissionDenied(
-                _("You_dont_have_permission_to_view_this_check"),
+                _("You_have_no_permission_to_view_check"),
             )
 
         return check
+
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .with_task_client(self.task_model)
+            .with_performer()
+        )
