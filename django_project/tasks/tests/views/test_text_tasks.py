@@ -121,7 +121,7 @@ class TextTaskCheckPerformTests(TestCase):
 
     def test_template_used(self):
         response = self.client.get(self.url)
-        self.assertTemplateUsed(response, "tasks/text/text_check_perform.html")
+        self.assertTemplateUsed(response, "tasks/text/check_perform.html")
 
     def test_post_valid_status_code_found(self):
         response = self.client.post(self.url, self.valid_check_data)

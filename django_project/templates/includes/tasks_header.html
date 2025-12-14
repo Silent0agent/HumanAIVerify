@@ -1,35 +1,68 @@
-{% load i18n %}
+{% load static i18n %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/tasks_header.css' %}">
+{% endblock extra_head %}
 
 {% with request.resolver_match.view_name as view_name %}
-  <header class="py-3 mb-4 border-bottom">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-around">
-        <div class="d-flex align-items-center">
-          <ul class="nav mb-0">
-            {% if request.user.is_authenticated %}
-              {% if request.user.role == 'customer' %}
-                <li class="nav-item ">
-                  <a href="{% url 'tasks:my-text-tasks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "Text_tasks" %}</a>
-                </li>
-                <li class="nav-item ">
-                  <a href="{% url 'tasks:my-image-tasks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-image-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "Image_tasks" %}</a>
-                </li>
-              {% elif request.user.role == 'performer' %}
-                <li class="nav-item ">
-                  <a href="{% url 'tasks:my-text-checks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "Text_checks" %}</a>
-                </li>
-                <li class="nav-item ">
-                  <a href="{% url 'tasks:my-image-checks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-image-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "Image_checks" %}</a>
-                </li>
-              {% endif %}
-            {% endif %}
-          </ul>
-        </div>
+<nav class="bg-transparent mb-3">
+  <div class="container col-6 mx-auto">
+    <div class="d-flex gap-5 mx-auto py-2 align-items-center justify-content-between">
+      <ul id="miniTabs" class="nav d-flex gap-3 mb-0">
+        {% if request.user.role == "customer" %}
+          <li class="nav-item">
+            <a href="{% url 'tasks:user-text-tasks' %}"
+               class="nav-link px-3 py-2 d-flex align-items-center {% if view_name == 'tasks:user-text-tasks' %}purple{% endif %}"
+               data-tab="text-tasks"
+               data-create-url="{% url 'tasks:text-task-create' %}">
+              <span class="me-2">{% translate "text_tasks" %}</span>
+              <span class="badge text-bg-secondary fw-light">{{ counts.text_tasks|default:"99" }}</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{% url 'tasks:user-image-tasks' %}"
+               class="nav-link px-3 py-2 d-flex align-items-center {% if view_name == 'tasks:user-image-tasks' %}purple{% endif %}"
+               data-tab="image-tasks"
+               data-create-url="{% url 'tasks:image-task-create' %}">
+              <span class="me-2">{% translate "image_tasks" %}</span>
+              <span class="badge text-bg-secondary fw-light">{{ counts.image_tasks|default:"99" }}</span>
+            </a>
+          </li>
+
+        {% elif request.user.role == "performer" %}
+          <li class="nav-item">
+            <a href="{% url 'tasks:user-text-checks' %}"
+               class="nav-link px-3 py-2 d-flex align-items-center {% if view_name == 'tasks:user-text-checks' %}purple{% endif %}"
+               data-tab="text-checks">
+              <span class="me-2">{% translate "text_checks" %}</span>
+              <span class="badge text-bg-secondary fw-light">{{ counts.text_checks|default:"99" }}</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{% url 'tasks:user-image-checks' %}"
+               class="nav-link px-3 py-2 d-flex align-items-center {% if view_name == 'tasks:user-image-checks' %}purple{% endif %}"
+               data-tab="image-checks">
+              <span class="me-2">{% translate "image_checks" %}</span>
+              <span class="badge text-bg-secondary fw-light">{{ counts.image_checks|default:"99" }}</span>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+
+      <div class="d-flex align-items-center gap-2">
+        {% if request.user.role == "customer" %}
+          <a id="createBtn" href="#" class="btn btn-primary">{% translate "Create" %}</a>
+        {% endif %}
       </div>
     </div>
-  </header>
+
+    <div class="position-relative">
+      <div id="miniTabsIndicator" class="position-absolute"></div>
+    </div>
+  </div>
+</nav>
+
+<script src="{% static 'js/tasks_header.js' %}"></script>
 {% endwith %}

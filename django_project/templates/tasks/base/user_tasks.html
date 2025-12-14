@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+  {% include "includes/tasks_header.html" %}
+  {% if tasks %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th class="fw-medium">#</th>
+          <th class="fw-medium">{% translate "Title" %}</th>
+          <th class="fw-medium">{% translate "Content" %}</th>
+          <th class="fw-medium">{% translate "created_at" %}</th>
+          <th class="fw-medium">{% translate "AI_score" %}</th>
+          <th class="fw-medium">{% translate "checks_count" %}</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for task in tasks %}
+          <tr>
+            <td class="align-middle">
+              <span>{{ forloop.counter }}</span>
+            </td>
+            <td class="align-middle">
+              {% block task_title %}{% endblock task_title %}
+            </td>
+            <td class="align-middle">
+              {% block task_content %}{% endblock task_content %}
+            </td>
+            <td class="align-middle">{{ task.created_at|date:"d.m.Y" }}</td>
+            <td class="align-middle">
+              {% if task.ai_score %}
+                {{ task.ai_score|floatformat:1 }}%
+              {% else %}
+                <span title="{% translate 'not_checked' %}">?</span>
+              {% endif %}
+            </td>
+            <td class="align-middle">{{ task.checks_count }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="text-center">{% block no_tasks %}{% endblock no_tasks %}</p>
+  {% endif %}
+{% endblock content %}

@@ -3,11 +3,11 @@ __all__ = ()
 import tasks.forms
 import tasks.models
 from tasks.views.base import (
-    BaseMyChecksListView,
-    BaseMyTasksListView,
     BaseTaskCheckPerformView,
     BaseTaskCreateView,
     BaseTaskDetailView,
+    BaseUserChecksListView,
+    BaseUserTasksListView,
 )
 
 
@@ -20,22 +20,22 @@ class ImageTaskCheckPerformView(BaseTaskCheckPerformView):
     task_model = tasks.models.ImageTask
     check_model = tasks.models.ImageTaskCheck
     form_class = tasks.forms.ImageTaskCheckForm
-    template_name = "tasks/image/image_check_perform.html"
+    template_name = "tasks/image/check_perform.html"
 
 
-class MyImageTasksListView(BaseMyTasksListView):
+class UserImageTasksListView(BaseUserTasksListView):
     model = tasks.models.ImageTask
     check_model = tasks.models.ImageTaskCheck
-    template_name = "tasks/image/my_image_tasks.html"
+    template_name = "tasks/image/user_tasks.html"
 
 
-class MyImageChecksListView(BaseMyChecksListView):
+class UserImageChecksListView(BaseUserChecksListView):
     model = tasks.models.ImageTaskCheck
     task_model = tasks.models.ImageTask
-    template_name = "tasks/image/my_image_checks.html"
+    template_name = "tasks/image/user_checks.html"
 
 
 class ImageTaskDetailView(BaseTaskDetailView):
     model = tasks.models.ImageTask
     check_model = tasks.models.ImageTaskCheck
-    template_name = "tasks/image/image_task_detail.html"
+    template_name = "tasks/image/task_detail.html"

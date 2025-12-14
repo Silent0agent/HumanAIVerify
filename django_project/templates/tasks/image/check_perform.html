@@ -1,0 +1,11 @@
+{% extends 'tasks/base/check_perform.html' %}
+{% load i18n %}
+
+{% block task %}
+    <div class="alert alert-info">
+      <p>
+        <strong>{% translate "task_image" %}:</strong>
+      </p>
+      <img src="{{ task.image.url }}" alt="{% translate 'task_image' %}" width="{{ task.image.width }}" height="{{ task.image.height }}">
+    </div>
+{% endblock task %}

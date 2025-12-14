@@ -14,13 +14,13 @@
             {% if request.user.is_authenticated %}
               {% if request.user.role == 'customer' %}
                 <li class="nav-item ">
-                  <a href="{% url 'tasks:my-text-tasks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "My_tasks" %}</a>
+                  <a href="{% url 'tasks:user-text-tasks' %}"
+                     class="nav-link px-2 {% if view_name == 'tasks:user-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "My_tasks" %}</a>
                 </li>
               {% elif request.user.role == 'performer' %}
                 <li class="nav-item ">
-                  <a href="{% url 'tasks:my-text-checks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "My_checks" %}</a>
+                  <a href="{% url 'tasks:user-text-checks' %}"
+                     class="nav-link px-2 {% if view_name == 'tasks:user-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "My_checks" %}</a>
                 </li>
               {% endif %}
             {% endif %}
