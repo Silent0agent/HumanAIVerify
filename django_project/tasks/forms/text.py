@@ -10,11 +10,11 @@ import tasks.models
 class TextTaskForm(BaseTaskForm):
     class Meta(BaseTaskForm.Meta):
         model = tasks.models.TextTask
-        fields = BaseTaskForm.Meta.fields + ["content"]
+        fields = BaseTaskForm.Meta.fields + [model.content.field.name]
 
         labels = {
             **BaseTaskForm.Meta.labels,
-            "content": _("Content") + " *",
+            model.content.field.name: _("Content") + " *",
         }
 
 

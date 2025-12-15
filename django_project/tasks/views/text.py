@@ -1,5 +1,6 @@
 __all__ = ()
 
+import core.utils
 import tasks.forms
 import tasks.models
 from tasks.views.base import (
@@ -24,29 +25,32 @@ class TextTaskCheckPerformView(BaseTaskCheckPerformView):
     template_name = "tasks/text/text_check_perform.html"
 
     def get(self, request, *args, **kwargs):
+        initial_content = self.task.content
         if self.check_obj and self.check_obj.annotated_content:
-            initial_annotated = self.check_obj.annotated_content
-        else:
-            initial_annotated = self.task.content
+            initial_content = self.check_obj.annotated_content
 
         return super().get(
             request,
             form_attrs={
                 "initial": {
+                    "highlighted_content": initial_content,
                     "content": self.task.content,
-                    "highlighted_content": initial_annotated,
                 },
             },
         )
 
     def post(self, request, *args, **kwargs):
+        raw_html = request.POST.get("highlighted_content")
+
+        if raw_html:
+            final_content = core.utils.sanitize_html(raw_html)
+        else:
+            final_content = self.task.content
+
         return super().post(
             request,
             check_fields={
-                "annotated_content": request.POST.getlist(
-                    "highlighted_content",
-                )[0]
-                or self.task.content,
+                "annotated_content": final_content,
             },
         )
 
@@ -72,4 +76,4 @@ class TextTaskDetailView(BaseTaskDetailView):
 class TextTaskCheckDetailView(BaseTaskCheckDetailView):
     model = tasks.models.TextTaskCheck
     task_model = tasks.models.TextTask
-    template_name = "tasks/text/task_check_detail.html"
+    template_name = "tasks/text/check_detail.html"

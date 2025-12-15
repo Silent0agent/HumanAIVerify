@@ -1,11 +1,11 @@
 __all__ = ()
 
-from django.contrib.auth import get_user_model
+from django.contrib import auth
 from django.test import TestCase
 
 import users.forms
 
-User = get_user_model()
+User = auth.get_user_model()
 
 
 class SignUpFormTests(TestCase):
