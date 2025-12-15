@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getActiveLink() {
-        // 1) серверная подсветка
         const byServer = tabs.querySelector('.nav-link.purple');
         if (byServer) return byServer;
 
@@ -41,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!link) { bar.style.opacity = '0'; return; }
 
         const linkRect = link.getBoundingClientRect();
-        const wrapRect = tabs.getBoundingClientRect();
+        const wrapRect = indicatorWrap.getBoundingClientRect();
 
         const left = linkRect.left - wrapRect.left;
         const width = Math.max(8, linkRect.width);

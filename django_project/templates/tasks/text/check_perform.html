@@ -2,10 +2,20 @@
 {% load i18n %}
 
 {% block task %}
-    <div class="alert alert-info">
-      <p>
-        <strong>{% translate "task_text" %}:</strong>
-      </p>
-      <div class="text-content p-2 bg-light border">{{ task.content|linebreaks }}</div>
+    <div class="card text-start my-3 p-3 mx-auto col-11 roboto">
+      <div id="task-content-container" aria-label="Task content" data-original-html="{{ task.content|escapejs }}">
+        {% if form.instance and form.instance.annotated_content %}
+          {{ form.instance.annotated_content|safe }}
+        {% else %}
+          {{ task.content|safe }}
+        {% endif %}
+      </div>
     </div>
 {% endblock task %}
+
+{% block input %}
+  <input type="hidden"
+        name="highlighted_content"
+        id="highlighted_content"
+        value="{% if form.instance and form.instance.annotated_content %}{{ form.instance.annotated_content|escapejs }}{% else %}{{ task.content|escapejs }}{% endif %}">
+{% endblock input %}

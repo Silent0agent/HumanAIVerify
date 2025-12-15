@@ -4,7 +4,7 @@
 {% load static %}
 
 {% block title %}
-  {% translate "my_text_tasks" %}
+  {% translate "user_text_tasks" %}
 {% endblock title %}
 
 {% block task_title %}
@@ -12,7 +12,7 @@
 {% endblock task_title %}
 
 {% block task_content %}
-  {{ task.content|truncatechars:5 }}
+  {{ task.content|safe|truncatechars_html:25 }}
 {% endblock task_content %}
 
 {% block no_tasks %}

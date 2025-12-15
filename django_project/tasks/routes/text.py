@@ -20,13 +20,13 @@ urlpatterns = [
     ),
     path(
         "my/",
-        tasks.views.MyTextTasksListView.as_view(),
-        name="my-text-tasks",
+        tasks.views.UserTextTasksListView.as_view(),
+        name="user-text-tasks",
     ),
     path(
         "my-checks/",
-        tasks.views.MyTextChecksListView.as_view(),
-        name="my-text-checks",
+        tasks.views.UserTextChecksListView.as_view(),
+        name="user-text-checks",
     ),
     path(
         "check/<int:check_id>/",

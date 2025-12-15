@@ -1,0 +1,35 @@
+{% extends "tasks/base/user_checks.html" %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block title %}
+  {% translate "user_audio_checks" %}
+{% endblock title %}
+
+{% block task_content %}
+  <audio class="mx-auto mb-3" controls>
+    <source src="{{ task.audio.url }}" type="audio/mpeg">
+    {% translate "audio_not_supported_browser" %}
+  </audio>
+{% endblock task_content %}
+
+{% block available_task_title %}
+  {% if available_tasks %}
+    <a class="text-decoration-none purple-hover" href="{% url 'tasks:audio-check-perform' task.id %}">
+      {% translate "check_task" %}
+    </a>
+  {% endif %}
+{% endblock available_task_title %}
+{% block completed_task_title %}
+  {% if completed_tasks %}
+    <a class="text-decoration-none purple-hover" href="{% url 'tasks:audio-check-perform' task.id %}">{{ task.title }}</a>
+  {% endif %}
+{% endblock completed_task_title %}
+
+{% block no_tasks %}
+  {% translate "no_audio_tasks" %}
+{% endblock no_tasks %}
+
+{% block no_checks %}
+  {% translate "no_audio_checks" %}
+{% endblock no_checks %}

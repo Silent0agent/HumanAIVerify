@@ -3,11 +3,11 @@
 {% load i18n %}
 
 {% block title %}
-  {% translate "my_image_checks" %}
+  {% translate "user_image_checks" %}
 {% endblock title %}
 
 {% block task_content %}
-  {{ task.content|truncatechars:5 }}
+  {{ task.content|safe|truncatechars_html:25 }}
 {% endblock task_content %}
 
 {% block available_task_title %}

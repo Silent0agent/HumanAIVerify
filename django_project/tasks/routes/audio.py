@@ -20,12 +20,12 @@ urlpatterns = [
     ),
     path(
         "my/",
-        tasks.views.MyAudioTasksListView.as_view(),
-        name="my-audio-tasks",
+        tasks.views.UserAudioTasksListView.as_view(),
+        name="user-audio-tasks",
     ),
     path(
         "my-checks/",
-        tasks.views.MyAudioChecksListView.as_view(),
-        name="my-audio-checks",
+        tasks.views.UserAudioChecksListView.as_view(),
+        name="user-audio-checks",
     ),
 ]

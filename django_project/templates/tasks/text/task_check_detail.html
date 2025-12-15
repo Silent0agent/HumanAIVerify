@@ -85,7 +85,7 @@
           {% endif %}
 
           {% if request.user.role == "performer" %}
-            <a href="{% url 'tasks:my-text-checks' %}" class="btn btn-secondary">{% translate "Back_to_my_checks" %}</a>
+            <a href="{% url 'tasks:my-text-checks' %}" class="btn btn-secondary">{% translate "Back_to_user_checks" %}</a>
           {% endif %}
         </div>
       </div>

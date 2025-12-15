@@ -5,7 +5,9 @@
   <h2 class="text-center mb-3">{{ task.title }}</h2>
 
   <div>
-    {% block image %}{% endblock image %}
+    <div class="card mx-3 p-1 mb-2 d-inline-block float-start">
+      {% block task_content %}{% endblock task_content %}
+    </div>
     <p>{% translate "Created_at" %}: {{ task.created_at|date:"d.m.Y" }}</p>
     <p>{% translate 'Description' %}: {% if task.description %}{{ task.description }}{% else %}{% translate 'no_task_description' %}{% endif %}</p>
     <p>{% translate "AI_score" %}:
@@ -28,6 +30,7 @@
           <th class="fw-medium">{% translate "AI_score" %}</th>
           <th class="fw-medium">{% translate "Comment" %}</th>
           <th class="fw-medium">{% translate "Published_at" %}</th>
+          <th class="fw-medium">{% translate "Actions" %}</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
@@ -53,6 +56,9 @@
             </td>
             <td class="align-middle">
               <span>{{ check.updated_at|date:"d.m.Y" }}</span>
+            </td>
+            <td class="align-middle">
+              {% block view_details %}{% endblock view_details %}
             </td>
           </tr>
         {% endfor %}
