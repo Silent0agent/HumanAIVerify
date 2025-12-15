@@ -4,7 +4,6 @@ from django.contrib import auth, messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, View
 
@@ -20,7 +19,6 @@ class BaseTaskCreateView(
 ):
     model = None
     form_class = None
-    success_url = reverse_lazy("homepage:index")
     template_name = "tasks/task_create.html"
 
     def form_valid(self, form):
@@ -83,17 +81,16 @@ class BaseTaskCheckPerformView(
             if action == "publish":
                 check.status = self.check_model.Status.PUBLISHED
                 message = _("Check_published")
-            else:
+                check.save()
+                messages.success(request, message)
+                return redirect(check)
+
+            if action == "save_draft":
                 check.status = self.check_model.Status.DRAFT
                 message = _("Draft_saved")
-
-            check.save()
-            messages.success(request, message)
-
-            if check.status == self.check_model.Status.PUBLISHED:
-                return redirect("homepage:index")
-
-            return redirect(request.path)
+                check.save()
+                messages.success(request, message)
+                return redirect(request.path)
 
         return render(
             request,
