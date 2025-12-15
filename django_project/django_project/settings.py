@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import bleach
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 import environ
@@ -281,3 +282,66 @@ CKEDITOR_5_CONFIGS = {
         },
     },
 }
+
+BLEACH_ALLOWED_TAGS = list(bleach.sanitizer.ALLOWED_TAGS) + [
+    "p",
+    "div",
+    "span",
+    "br",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "b",
+    "i",
+    "strong",
+    "em",
+    "u",
+    "img",
+    "blockquote",
+    "ul",
+    "ol",
+    "li",
+]
+
+BLEACH_ALLOWED_ATTRIBUTES = {
+    "*": ["style"],
+    "span": ["class"],
+    "a": ["href", "title", "target"],
+    "img": ["src", "alt", "width", "height"],
+}
+
+BLEACH_ALLOWED_CSS_PROPERTIES = [
+    "color",
+    "background-color",
+    "font-family",
+    "font-size",
+    "font-weight",
+    "font-style",
+    "text-decoration",
+    "text-align",
+    "vertical-align",
+    "width",
+    "height",
+    "min-width",
+    "max-width",
+    "margin",
+    "margin-top",
+    "margin-bottom",
+    "margin-left",
+    "margin-right",
+    "padding",
+    "padding-top",
+    "padding-bottom",
+    "padding-left",
+    "padding-right",
+    "border",
+    "border-width",
+    "border-style",
+    "border-color",
+    "float",
+]
+
+BLEACH_STRIP = True

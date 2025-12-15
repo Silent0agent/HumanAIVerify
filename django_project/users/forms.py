@@ -1,18 +1,18 @@
 __all__ = ()
 
 from django import forms
-import django.contrib.auth.forms
+from django.contrib import auth
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 import core.forms
 
-User = django.contrib.auth.get_user_model()
+User = auth.get_user_model()
 
 
 class SignUpForm(
     core.forms.BootstrapFormMixin,
-    django.contrib.auth.forms.UserCreationForm,
+    auth.forms.UserCreationForm,
 ):
     def clean_email(self):
         email = self.cleaned_data.get(User.email.field.name)
@@ -26,7 +26,7 @@ class SignUpForm(
 
         return email
 
-    class Meta(django.contrib.auth.forms.UserCreationForm.Meta):
+    class Meta(auth.forms.UserCreationForm.Meta):
         model = User
         fields = [
             User.email.field.name,
@@ -38,7 +38,7 @@ class SignUpForm(
 
 class LoginForm(
     core.forms.BootstrapFormMixin,
-    django.contrib.auth.forms.AuthenticationForm,
+    auth.forms.AuthenticationForm,
 ):
     remember_me = forms.BooleanField(required=False)
     username = forms.CharField(
@@ -49,21 +49,21 @@ class LoginForm(
 
 class PasswordChangeForm(
     core.forms.BootstrapFormMixin,
-    django.contrib.auth.forms.PasswordChangeForm,
+    auth.forms.PasswordChangeForm,
 ):
     pass
 
 
 class PasswordResetForm(
     core.forms.BootstrapFormMixin,
-    django.contrib.auth.forms.PasswordResetForm,
+    auth.forms.PasswordResetForm,
 ):
     pass
 
 
 class PasswordResetConfirmForm(
     core.forms.BootstrapFormMixin,
-    django.contrib.auth.forms.SetPasswordForm,
+    auth.forms.SetPasswordForm,
 ):
     pass
 

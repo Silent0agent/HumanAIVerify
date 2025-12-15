@@ -11,7 +11,7 @@ class AudioTaskForm(BaseTaskForm):
     class Meta(BaseTaskForm.Meta):
         model = tasks.models.AudioTask
 
-        audio_field = tasks.models.AudioTask.audio.field.name
+        audio_field = model.audio.field.name
 
         fields = BaseTaskForm.Meta.fields + [
             audio_field,

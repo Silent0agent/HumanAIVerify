@@ -10,10 +10,10 @@ import tasks.models
 class ImageTaskForm(BaseTaskForm):
     class Meta(BaseTaskForm.Meta):
         model = tasks.models.ImageTask
-        fields = BaseTaskForm.Meta.fields + ["image"]
+        fields = BaseTaskForm.Meta.fields + [model.image.field.name]
 
         widgets = {
-            "image": forms.FileInput(
+            model.image.field.name: forms.FileInput(
                 attrs={
                     "class": "form-control",
                     "accept": "image/*",
@@ -23,7 +23,7 @@ class ImageTaskForm(BaseTaskForm):
 
         labels = {
             **BaseTaskForm.Meta.labels,
-            "image": _("Image"),
+            model.image.field.name: _("Image"),
         }
 
 
