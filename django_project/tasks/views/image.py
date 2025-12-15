@@ -12,22 +12,21 @@ from tasks.views.base import (
 )
 
 
+class MyImageTasksListView(BaseMyTasksListView):
+    model = tasks.models.ImageTask
+    check_model = tasks.models.ImageTaskCheck
+    template_name = "tasks/image/my_image_tasks.html"
+
+
 class ImageTaskCreateView(BaseTaskCreateView):
     model = tasks.models.ImageTask
     form_class = tasks.forms.ImageTaskForm
 
 
-class ImageTaskCheckPerformView(BaseTaskCheckPerformView):
-    task_model = tasks.models.ImageTask
-    check_model = tasks.models.ImageTaskCheck
-    form_class = tasks.forms.ImageTaskCheckForm
-    template_name = "tasks/image/image_check_perform.html"
-
-
-class MyImageTasksListView(BaseMyTasksListView):
+class ImageTaskDetailView(BaseTaskDetailView):
     model = tasks.models.ImageTask
     check_model = tasks.models.ImageTaskCheck
-    template_name = "tasks/image/my_image_tasks.html"
+    template_name = "tasks/image/image_task_detail.html"
 
 
 class MyImageChecksListView(BaseMyChecksListView):
@@ -36,10 +35,11 @@ class MyImageChecksListView(BaseMyChecksListView):
     template_name = "tasks/image/my_image_checks.html"
 
 
-class ImageTaskDetailView(BaseTaskDetailView):
-    model = tasks.models.ImageTask
+class ImageTaskCheckPerformView(BaseTaskCheckPerformView):
+    task_model = tasks.models.ImageTask
     check_model = tasks.models.ImageTaskCheck
-    template_name = "tasks/image/image_task_detail.html"
+    form_class = tasks.forms.ImageTaskCheckForm
+    template_name = "tasks/image/image_check_perform.html"
 
 
 class ImageTaskCheckDetailView(BaseTaskCheckDetailView):
