@@ -18,6 +18,7 @@ templates:
   before_script:
     - pip install djlint
   script:
+    - cd django_project
     - djlint . --check
     - |
       ! grep -rEn '="[^"]*(\{%|\{\{)[^}"%]*"[^}"%]*' templates/

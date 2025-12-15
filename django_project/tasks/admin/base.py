@@ -104,8 +104,14 @@ class BaseTaskAdmin(admin.ModelAdmin):
 
         self.content_name = self.unique_content_field.name
 
+        def get_task_str_wrapper(obj):
+            return str(obj)
+
+        get_task_str_wrapper.admin_order_field = self.title
+        get_task_str_wrapper.short_description = _("Task")
+
         ai_score_method = self.ai_score_display.__name__
-        get_task_str_method = self.get_task_str.__name__
+        get_task_str_method = get_task_str_wrapper
 
         detail_content_fields = (self.content_name,)
         readonly_tuple = (
@@ -198,10 +204,6 @@ class BaseTaskAdmin(admin.ModelAdmin):
             return _("No_checks")
 
         return f"{value}%"
-
-    @admin.display(description=_("Task"), ordering="title")
-    def get_task_str(self, obj):
-        return str(obj)
 
 
 class BaseCheckAdmin(admin.ModelAdmin):
