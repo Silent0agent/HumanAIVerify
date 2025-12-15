@@ -104,8 +104,14 @@ class BaseTaskAdmin(admin.ModelAdmin):
 
         self.content_name = self.unique_content_field.name
 
+        def get_task_str_wrapper(obj):
+            return str(obj)
+
+        get_task_str_wrapper.admin_order_field = self.title
+        get_task_str_wrapper.short_description = _("Task")
+
         ai_score_method = self.ai_score_display.__name__
-        get_task_str_method = self.get_task_str.__name__
+        get_task_str_method = get_task_str_wrapper
 
         detail_content_fields = (self.content_name,)
         readonly_tuple = (
@@ -199,13 +205,10 @@ class BaseTaskAdmin(admin.ModelAdmin):
 
         return f"{value}%"
 
-    @admin.display(description=_("Task"), ordering="title")
-    def get_task_str(self, obj):
-        return str(obj)
-
 
 class BaseCheckAdmin(admin.ModelAdmin):
     unique_content_field = None
+    content_display_method = None
 
     paginator = core.paginators.CountOptimizedPaginator
     show_full_result_count = False
@@ -235,10 +238,6 @@ class BaseCheckAdmin(admin.ModelAdmin):
         self.task_title = self.task_model.title.field.name
         self.task_title_lookup = f"{self.task}__{self.task_title}"
 
-        unique_fields_tuple = ()
-        if self.unique_content_field:
-            unique_fields_tuple = (self.unique_content_field.name,)
-
         self.list_display = (
             self.task,
             self.performer,
@@ -256,12 +255,28 @@ class BaseCheckAdmin(admin.ModelAdmin):
             self.comment,
         )
 
-        self.readonly_fields = (
+        readonly_tuple = (
             self.created_at,
             self.updated_at,
             self.task,
             self.performer,
         )
+
+        if self.content_display_method:
+            readonly_tuple += (self.content_display_method,)
+            content_field_to_show = self.content_display_method
+        elif self.unique_content_field:
+            content_field_to_show = self.unique_content_field.name
+        else:
+            content_field_to_show = None
+
+        self.readonly_fields = readonly_tuple
+
+        content_fieldset_fields = (self.comment,)
+        if content_field_to_show:
+            content_fieldset_fields = (
+                content_field_to_show,
+            ) + content_fieldset_fields
 
         self.fieldsets = (
             (
@@ -278,7 +293,7 @@ class BaseCheckAdmin(admin.ModelAdmin):
             (
                 _("Content"),
                 {
-                    "fields": unique_fields_tuple + (self.comment,),
+                    "fields": content_fieldset_fields,
                 },
             ),
             (

@@ -4,13 +4,33 @@ from django.contrib import auth, messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, View
 
 import users.mixins
 
 User = auth.get_user_model()
+
+
+class BaseMyTasksListView(
+    LoginRequiredMixin,
+    users.mixins.CustomerRequiredMixin,
+    ListView,
+):
+    model = None
+    check_model = None
+    template_name = None
+    context_object_name = "tasks"
+
+    def get_queryset(self):
+        queryset = self.model.objects.by_client(self.request.user)
+        queryset = queryset.with_avg_ai_score(
+            self.check_model,
+        ).with_checks_count(self.check_model)
+
+        created_at_field = self.model.created_at.field.name
+
+        return queryset.order_by(f"-{created_at_field}")
 
 
 class BaseTaskCreateView(
@@ -20,13 +40,92 @@ class BaseTaskCreateView(
 ):
     model = None
     form_class = None
-    success_url = reverse_lazy("homepage:index")
     template_name = "tasks/task_create.html"
 
     def form_valid(self, form):
         form.instance.client = self.request.user
         messages.success(self.request, _("Task_create_success"))
         return super().form_valid(form)
+
+
+class BaseTaskDetailView(
+    LoginRequiredMixin,
+    users.mixins.CustomerRequiredMixin,
+    DetailView,
+):
+    model = None
+    check_model = None
+    template_name = None
+    pk_url_kwarg = "task_id"
+    context_object_name = "task"
+
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .prefetch_checks_with_performers(self.check_model)
+            .with_checks_count(self.check_model)
+            .with_avg_ai_score(self.check_model)
+        )
+
+    def get_object(self, queryset=None):
+        task = super().get_object(queryset)
+        if task.client_id != self.request.user.id:
+            raise PermissionDenied(_("Not_owner_of_task"))
+
+        return task
+
+
+class BaseMyChecksListView(
+    LoginRequiredMixin,
+    users.mixins.PerformerRequiredMixin,
+    ListView,
+):
+    model = None
+    task_model = None
+    template_name = None
+    context_object_name = "checks"
+
+    def get_queryset(self):
+        all_needed_models_qs = self.model.objects.with_task_client(
+            self.task_model,
+        )
+        task_title = (
+            f"{self.model.task.field.name}__"
+            f"{self.task_model.title.field.name}"
+        )
+        task_client_username = (
+            f"{self.model.task.field.name}__"
+            f"{self.task_model.client.field.name}__{User.username.field.name}"
+        )
+
+        return all_needed_models_qs.by_performer(self.request.user).only(
+            task_title,
+            task_client_username,
+            self.model.ai_score.field.name,
+            self.model.status.field.name,
+            self.model.updated_at.field.name,
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        client_username = (
+            f"{self.task_model.client.field.name}__{User.username.field.name}"
+        )
+        all_needed_models_qs = self.task_model.objects.with_client()
+
+        context[
+            "available_tasks"
+        ] = all_needed_models_qs.available_for_performer(
+            user=self.request.user,
+            check_model=self.model,
+        ).only(
+            self.task_model.title.field.name,
+            self.model.created_at.field.name,
+            client_username,
+        )
+
+        return context
 
 
 class BaseTaskCheckPerformView(
@@ -83,17 +182,16 @@ class BaseTaskCheckPerformView(
             if action == "publish":
                 check.status = self.check_model.Status.PUBLISHED
                 message = _("Check_published")
-            else:
+                check.save()
+                messages.success(request, message)
+                return redirect(check)
+
+            if action == "save_draft":
                 check.status = self.check_model.Status.DRAFT
                 message = _("Draft_saved")
-
-            check.save()
-            messages.success(request, message)
-
-            if check.status == self.check_model.Status.PUBLISHED:
-                return redirect("homepage:index")
-
-            return redirect(request.path)
+                check.save()
+                messages.success(request, message)
+                return redirect(request.path)
 
         return render(
             request,
@@ -102,111 +200,12 @@ class BaseTaskCheckPerformView(
         )
 
 
-class BaseUserTasksListView(
-    LoginRequiredMixin,
-    users.mixins.CustomerRequiredMixin,
-    ListView,
-):
-    model = None
-    check_model = None
-    context_object_name = "tasks"
-    template_name = None
-
-    def get_queryset(self):
-        user = self.request.user
-
-        return (
-            self.model.objects.by_client(user)
-            .with_avg_ai_score(self.check_model)
-            .with_checks_count(self.check_model)
-        )
-
-
-class BaseUserChecksListView(
-    LoginRequiredMixin,
-    users.mixins.PerformerRequiredMixin,
-    ListView,
-):
-    model = None
-    task_model = None
-    context_object_name = "checks"
-    template_name = None
-
-    def get_queryset(self):
-        all_needed_models_qs = self.model.objects.with_task_client(
-            self.task_model,
-        )
-        task_title = (
-            f"{self.model.task.field.name}__"
-            f"{self.task_model.title.field.name}"
-        )
-        task_client_username = (
-            f"{self.model.task.field.name}__"
-            f"{self.task_model.client.field.name}__{User.username.field.name}"
-        )
-
-        return all_needed_models_qs.by_performer(self.request.user).only(
-            task_title,
-            task_client_username,
-            self.model.ai_score.field.name,
-            self.model.status.field.name,
-            self.model.updated_at.field.name,
-        )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        client_username = (
-            f"{self.task_model.client.field.name}__{User.username.field.name}"
-        )
-        all_needed_models_qs = self.task_model.objects.with_client()
-
-        context[
-            "available_tasks"
-        ] = all_needed_models_qs.available_for_performer(
-            user=self.request.user,
-            check_model=self.model,
-        ).only(
-            self.task_model.title.field.name,
-            self.model.created_at.field.name,
-            client_username,
-        )
-
-        return context
-
-
-class BaseTaskDetailView(
-    LoginRequiredMixin,
-    users.mixins.CustomerRequiredMixin,
-    DetailView,
-):
-    model = None
-    check_model = None
-    context_object_name = "task"
-    template_name = None
-
-    def get_queryset(self):
-        return (
-            super()
-            .get_queryset()
-            .prefetch_checks_with_performers(self.check_model)
-            .with_checks_count(self.check_model)
-            .with_avg_ai_score(self.check_model)
-        )
-
-    def get_object(self, queryset=None):
-        task = super().get_object(queryset)
-        if task.client_id != self.request.user.id:
-            raise PermissionDenied(_("Not_owner_of_task"))
-
-        return task
-
-
 class BaseTaskCheckDetailView(LoginRequiredMixin, DetailView):
     model = None
     task_model = None
-    context_object_name = "check"
-    pk_url_kwarg = "check_id"
     template_name = None
+    pk_url_kwarg = "check_id"
+    context_object_name = "check"
 
     def get_object(self, queryset=None):
         check = super().get_object(queryset)

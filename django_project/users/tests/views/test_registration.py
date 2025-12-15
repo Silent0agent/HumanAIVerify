@@ -60,7 +60,7 @@ class RegistrationTests(TestCase):
         self.assertTrue(user.is_active)
 
     @override_settings(DEFAULT_USER_IS_ACTIVE=True)
-    def test_successful_registration_does_no_email_default_user_inactive(self):
+    def test_successful_registration_send_no_email_default_user_inactive(self):
         self.client.post(
             self.registration_url,
             data=self.valid_user_data,
@@ -123,7 +123,7 @@ class RegistrationTests(TestCase):
 
         self.assertFalse(User.objects.filter(username="testuser").exists())
 
-    def test_registration_duplicate_email_forme_rror(self):
+    def test_registration_duplicate_email_form_error(self):
         User.objects.create_user(
             username="existing",
             email=self.valid_user_data["email"],

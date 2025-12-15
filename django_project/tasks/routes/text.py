@@ -4,9 +4,9 @@ import tasks.views
 
 urlpatterns = [
     path(
-        "<int:pk>/",
-        tasks.views.TextTaskDetailView.as_view(),
-        name="text-task-detail",
+        "my/",
+        tasks.views.MyTextTasksListView.as_view(),
+        name="my-text-tasks",
     ),
     path(
         "create/",
@@ -14,19 +14,19 @@ urlpatterns = [
         name="text-task-create",
     ),
     path(
-        "<int:task_id>/check/",
-        tasks.views.TextTaskCheckPerformView.as_view(),
-        name="text-check-perform",
-    ),
-    path(
-        "my/",
-        tasks.views.UserTextTasksListView.as_view(),
-        name="user-text-tasks",
+        "<int:task_id>/",
+        tasks.views.TextTaskDetailView.as_view(),
+        name="text-task-detail",
     ),
     path(
         "my-checks/",
-        tasks.views.UserTextChecksListView.as_view(),
-        name="user-text-checks",
+        tasks.views.MyTextChecksListView.as_view(),
+        name="my-text-checks",
+    ),
+    path(
+        "<int:task_id>/check/",
+        tasks.views.TextTaskCheckPerformView.as_view(),
+        name="text-check-perform",
     ),
     path(
         "check/<int:check_id>/",

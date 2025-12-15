@@ -60,7 +60,7 @@ class BaseTaskCheck(core.models.TimeStampedModel):
 
     class Meta:
         abstract = True
-        ordering = ["-created_at"]
+        ordering = ["-updated_at"]
         constraints = [
             models.UniqueConstraint(
                 fields=["task", "performer"],

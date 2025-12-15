@@ -2,6 +2,7 @@ __all__ = ()
 
 import uuid
 
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 import sorl.thumbnail
@@ -26,6 +27,9 @@ class ImageTask(BaseTask):
     class Meta(BaseTask.Meta):
         verbose_name = _("image_task")
         verbose_name_plural = _("image_tasks")
+
+    def get_absolute_url(self):
+        return reverse("tasks:image-task-detail", kwargs={"task_id": self.pk})
 
     def get_image_x150(self):
         return sorl.thumbnail.get_thumbnail(
@@ -55,3 +59,9 @@ class ImageTaskCheck(BaseTaskCheck):
     class Meta(BaseTaskCheck.Meta):
         verbose_name = _("image_task_check")
         verbose_name_plural = _("image_task_checks")
+
+    def get_absolute_url(self):
+        return reverse(
+            "tasks:image-check-detail",
+            kwargs={"check_id": self.pk},
+        )
