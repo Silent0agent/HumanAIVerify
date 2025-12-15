@@ -12,6 +12,27 @@ import users.mixins
 User = auth.get_user_model()
 
 
+class BaseMyTasksListView(
+    LoginRequiredMixin,
+    users.mixins.CustomerRequiredMixin,
+    ListView,
+):
+    model = None
+    check_model = None
+    template_name = None
+    context_object_name = "tasks"
+
+    def get_queryset(self):
+        queryset = self.model.objects.by_client(self.request.user)
+        queryset = queryset.with_avg_ai_score(
+            self.check_model,
+        ).with_checks_count(self.check_model)
+
+        created_at_field = self.model.created_at.field.name
+
+        return queryset.order_by(f"-{created_at_field}")
+
+
 class BaseTaskCreateView(
     LoginRequiredMixin,
     users.mixins.CustomerRequiredMixin,
@@ -25,6 +46,86 @@ class BaseTaskCreateView(
         form.instance.client = self.request.user
         messages.success(self.request, _("Task_create_success"))
         return super().form_valid(form)
+
+
+class BaseTaskDetailView(
+    LoginRequiredMixin,
+    users.mixins.CustomerRequiredMixin,
+    DetailView,
+):
+    model = None
+    check_model = None
+    template_name = None
+    pk_url_kwarg = "task_id"
+    context_object_name = "task"
+
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .prefetch_checks_with_performers(self.check_model)
+            .with_checks_count(self.check_model)
+            .with_avg_ai_score(self.check_model)
+        )
+
+    def get_object(self, queryset=None):
+        task = super().get_object(queryset)
+        if task.client_id != self.request.user.id:
+            raise PermissionDenied(_("Not_owner_of_task"))
+
+        return task
+
+
+class BaseMyChecksListView(
+    LoginRequiredMixin,
+    users.mixins.PerformerRequiredMixin,
+    ListView,
+):
+    model = None
+    task_model = None
+    template_name = None
+    context_object_name = "checks"
+
+    def get_queryset(self):
+        all_needed_models_qs = self.model.objects.with_task_client(
+            self.task_model,
+        )
+        task_title = (
+            f"{self.model.task.field.name}__"
+            f"{self.task_model.title.field.name}"
+        )
+        task_client_username = (
+            f"{self.model.task.field.name}__"
+            f"{self.task_model.client.field.name}__{User.username.field.name}"
+        )
+
+        return all_needed_models_qs.by_performer(self.request.user).only(
+            task_title,
+            task_client_username,
+            self.model.ai_score.field.name,
+            self.model.status.field.name,
+            self.model.updated_at.field.name,
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        client_username = (
+            f"{self.task_model.client.field.name}__{User.username.field.name}"
+        )
+        all_needed_models_qs = self.task_model.objects.with_client()
+
+        context[
+            "available_tasks"
+        ] = all_needed_models_qs.available_for_performer(
+            user=self.request.user,
+            check_model=self.model,
+        ).only(
+            self.task_model.title.field.name,
+            self.model.created_at.field.name,
+            client_username,
+        )
+
+        return context
 
 
 class BaseTaskCheckPerformView(
@@ -97,106 +198,6 @@ class BaseTaskCheckPerformView(
             self.template_name,
             {"form": form, "task": self.task},
         )
-
-
-class BaseMyTasksListView(
-    LoginRequiredMixin,
-    users.mixins.CustomerRequiredMixin,
-    ListView,
-):
-    model = None
-    check_model = None
-    template_name = None
-    context_object_name = "tasks"
-
-    def get_queryset(self):
-        user = self.request.user
-
-        return (
-            self.model.objects.by_client(user)
-            .with_avg_ai_score(self.check_model)
-            .with_checks_count(self.check_model)
-        )
-
-
-class BaseMyChecksListView(
-    LoginRequiredMixin,
-    users.mixins.PerformerRequiredMixin,
-    ListView,
-):
-    model = None
-    task_model = None
-    template_name = None
-    context_object_name = "checks"
-
-    def get_queryset(self):
-        all_needed_models_qs = self.model.objects.with_task_client(
-            self.task_model,
-        )
-        task_title = (
-            f"{self.model.task.field.name}__"
-            f"{self.task_model.title.field.name}"
-        )
-        task_client_username = (
-            f"{self.model.task.field.name}__"
-            f"{self.task_model.client.field.name}__{User.username.field.name}"
-        )
-
-        return all_needed_models_qs.by_performer(self.request.user).only(
-            task_title,
-            task_client_username,
-            self.model.ai_score.field.name,
-            self.model.status.field.name,
-            self.model.updated_at.field.name,
-        )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        client_username = (
-            f"{self.task_model.client.field.name}__{User.username.field.name}"
-        )
-        all_needed_models_qs = self.task_model.objects.with_client()
-
-        context[
-            "available_tasks"
-        ] = all_needed_models_qs.available_for_performer(
-            user=self.request.user,
-            check_model=self.model,
-        ).only(
-            self.task_model.title.field.name,
-            self.model.created_at.field.name,
-            client_username,
-        )
-
-        return context
-
-
-class BaseTaskDetailView(
-    LoginRequiredMixin,
-    users.mixins.CustomerRequiredMixin,
-    DetailView,
-):
-    model = None
-    check_model = None
-    template_name = None
-    pk_url_kwarg = "task_id"
-    context_object_name = "task"
-
-    def get_queryset(self):
-        return (
-            super()
-            .get_queryset()
-            .prefetch_checks_with_performers(self.check_model)
-            .with_checks_count(self.check_model)
-            .with_avg_ai_score(self.check_model)
-        )
-
-    def get_object(self, queryset=None):
-        task = super().get_object(queryset)
-        if task.client_id != self.request.user.id:
-            raise PermissionDenied(_("Not_owner_of_task"))
-
-        return task
 
 
 class BaseTaskCheckDetailView(LoginRequiredMixin, DetailView):

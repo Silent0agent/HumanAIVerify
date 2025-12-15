@@ -86,14 +86,20 @@ class TestHelpers:
             self.assertAlmostEqual(self.task.ai_score, 75.0)
 
         def test_ordering_by_created_at_field(self):
-            new_task = self.model.objects.create(
-                client=self.customer,
-                title="Test title",
+            task_kwargs = {
+                self.model.client.field.name: self.customer,
+                self.model.title.field.name: "Test title",
+                **self.get_task_data(),
+            }
+            new_task = self.model.objects.create(**task_kwargs)
+            self.model.objects.filter(id=new_task.id).update(
                 created_at=self.task.created_at + timedelta(seconds=10),
             )
-            tasks = self.model.objects.all()
-            self.assertEqual(tasks[0], new_task)
-            self.assertEqual(tasks[1], self.task)
+            tasks = list(self.model.objects.all())
+
+            self.assertEqual(tasks[0].id, new_task.id)
+            self.assertEqual(tasks[1].id, self.task.id)
+            self.assertGreater(tasks[0].created_at, tasks[1].created_at)
 
         def test_on_delete_client_protect(self):
             new_customer = User.objects.create_user(
@@ -183,7 +189,7 @@ class TestHelpers:
             with self.assertRaises(ValidationError):
                 self.check.full_clean()
 
-        def test_ordering_by_created_at_field(self):
+        def test_ordering_by_updated_at_field(self):
             new_performer = User.objects.create_user(
                 username="performer_2",
                 password="password",
@@ -194,16 +200,23 @@ class TestHelpers:
                 performer=new_performer,
                 ai_score=35.0,
                 comment="Looks like human",
-                created_at=self.check.created_at + timedelta(seconds=10),
             )
-            checks = self.model.objects.all()
-            self.assertEqual(checks[0], new_check)
-            self.assertEqual(checks[1], self.check)
+
+            self.model.objects.filter(id=self.check.id).update(
+                updated_at=new_check.updated_at + timedelta(seconds=10),
+            )
+
+            checks = list(self.model.objects.all())
+
+            self.assertEqual(checks[0].id, self.check.id)
+            self.assertEqual(checks[1].id, new_check.id)
+            self.assertGreater(checks[0].updated_at, checks[1].updated_at)
 
         def test_on_delete_task_cascade(self):
             new_task = self.task_model.objects.create(
                 client=self.customer,
                 title="Task 2",
+                **self.get_task_data(),
             )
             self.model.objects.create(
                 task=new_task,
