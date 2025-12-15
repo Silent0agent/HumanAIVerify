@@ -2,5 +2,5 @@
 {% load i18n %}
 
 {% block task_content %}
-  <p>{{ check.task.content|safe }}</p>
+  <img src="{{ check.task.image.url }}" alt="{% translate 'task_image' %}" width="460" height="auto">
 {% endblock task_content %}

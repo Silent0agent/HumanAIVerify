@@ -3,11 +3,12 @@ __all__ = ()
 import tasks.forms
 import tasks.models
 from tasks.views.base import (
-    BaseUserChecksListView,
-    BaseUserTasksListView,
+    BaseTaskCheckDetailView,
     BaseTaskCheckPerformView,
     BaseTaskCreateView,
     BaseTaskDetailView,
+    BaseUserChecksListView,
+    BaseUserTasksListView,
 )
 
 
@@ -39,3 +40,9 @@ class AudioTaskDetailView(BaseTaskDetailView):
     model = tasks.models.AudioTask
     check_model = tasks.models.AudioTaskCheck
     template_name = "tasks/audio/task_detail.html"
+
+
+class AudioTaskCheckDetailView(BaseTaskCheckDetailView):
+    model = tasks.models.AudioTaskCheck
+    task_model = tasks.models.AudioTask
+    template_name = "tasks/audio/task_check_detail.html"

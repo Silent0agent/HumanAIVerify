@@ -12,6 +12,7 @@
         <tr>
           <th class="fw-medium">#</th>
           <th class="fw-medium">{% translate "Title" %}</th>
+          <th class="fw-medium">{% translate "Client" %}</th>
           <th class="fw-medium">{% translate "Content" %}</th>
           <th class="fw-medium">{% translate "created_at" %}</th>
           <th class="fw-medium">{% translate "Action" %}</th>
@@ -27,6 +28,9 @@
               <span>{{ task.title }}</span>
             </td>
             <td class="align-middle">
+              <span>{{ task.client.username }}</span>
+            </td>
+            <td class="align-middle">
               {% block task_content %}{% endblock task_content %}
             </td>
             <td class="align-middle">{{ task.created_at|date:"d.m.Y" }}</td>
@@ -38,18 +42,20 @@
       </tbody>
     </table>
   {% else %}
-    <p>{% block no_tasks %}{% endblock no_tasks %}</p>
+    <p class="text-center">{% block no_tasks %}{% endblock no_tasks %}</p>
   {% endif %}
 
   <h2 class="text-center">{% translate "completed_tasks" %}</h2>
-  {% if completed_tasks %}
+  {% if checks %}
     <table class="table table-hover">
       <thead>
         <tr>
           <th class="fw-medium">#</th>
-          <th class="fw-medium">{% translate "Client" %}</th>
           <th class="fw-medium">{% translate "Title" %}</th>
+          <th class="fw-medium">{% translate "Client" %}</th>
+          <th class="fw-medium">{% translate "Content" %}</th>
           <th class="fw-medium">{% translate "updated_at" %}</th>
+          <th class="fw-medium">{% translate "Status" %}</th>
           <th class="fw-medium">{% translate "AI_score" %}</th>
         </tr>
       </thead>
@@ -59,12 +65,16 @@
             <td class="align-middle">
               <span>{{ forloop.counter }}</span>
             </td>
-            <td class="align-middle">{{ check.task.client.username }}</td>
             <td class="align-middle">
               {% block completed_task_title %}{% endblock completed_task_title %}
             </td>
+            <td class="align-middle">{{ check.task.client.username }}</td>
+            <td class="align-middle">
+              {% block completed_task_content %}{% endblock completed_task_content %}
+            </td>
             <td class="align-middle">{{ check.task.updated_at|date:"d.m.Y" }}</td>
-            <td class="align-middle">{{ check.task.ai_score }}</td>
+            <td>{{ check.get_status_display }}</td>
+            <td class="align-middle">{{ check.task.ai_score|default:"?" }}</td>
           </tr>
         {% endfor %}
       </tbody>

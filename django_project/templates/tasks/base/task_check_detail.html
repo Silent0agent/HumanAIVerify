@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  {% translate "Task_check" %}: {{ check.task.title }}
+{% endblock title %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="text-center">{% translate "Check_details" %}: {{ check.task.title }}</h2>
+
+    <div class="card my-4">
+      <div class="card-header">
+        <h3 class="mb-0">{% translate "Task_information" %}</h3>
+      </div>
+      <div class="card-body">
+        <p>{% translate "Created_at" %}: {{ check.task.created_at|date:"d.m.Y H:i" }}</p>
+        {% if check.task.description %}
+          <p>{% translate "Description" %}: {{ check.task.description }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="card my-4">
+      <div class="card-header">
+        <h3 class="mb-0">{% translate "Task_content" %}</h3>
+      </div>
+      <div class="card-body">
+        {% block task_content %}{% endblock task_content %}
+      </div>
+    </div>
+    <div class="card my-4">
+      <div class="card-header">
+        <h3 class="mb-0">{% translate "Check_information" %}</h3>
+      </div>
+      <div class="card-body">
+        <p>{% translate "Performer" %}: {{ check.performer.username }}</p>
+        <p>{% translate "AI_score" %}: <span class="fs-4 fw-bold">{{ check.ai_score }}%</span></p>
+        <p>{% translate "Checked_at" %}: {{ check.updated_at|date:"d.m.Y H:i" }}</p>
+      </div>
+    </div>
+    <div class="card my-4">
+      <div class="card-header">
+        <h3 class="mb-0">{% translate "Performers_comment" %}</h3>
+      </div>
+      <div class="card-body">
+        {% if check.comment %}
+          {{ check.comment|linebreaks }}
+        {% else %}
+          <p class="text-muted mb-0">{% translate "No_comment_provided" %}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="d-flex gap-2">
+      {% if request.user.role == "customer" %}
+        <a href="{% url 'tasks:text-task-detail' check.task.id %}" class="btn btn-secondary">{% translate "Back_to_task" %}</a>
+      {% endif %}
+
+      {% if request.user.role == "performer" %}
+        <a href="{% url 'tasks:my-text-checks' %}" class="btn btn-secondary">{% translate "Back_to_user_checks" %}</a>
+      {% endif %}
+    </div>
+  </div>
+{% endblock content %}

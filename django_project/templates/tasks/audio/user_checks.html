@@ -12,18 +12,20 @@
     {% translate "audio_not_supported_browser" %}
   </audio>
 {% endblock task_content %}
+{% block completed_task_content %}
+  <audio class="mx-auto mb-3" controls>
+    <source src="{{ check.task.audio.url }}" type="audio/mpeg">
+    {% translate "audio_not_supported_browser" %}
+  </audio>
+{% endblock completed_task_content %}
 
 {% block available_task_title %}
-  {% if available_tasks %}
-    <a class="text-decoration-none purple-hover" href="{% url 'tasks:audio-check-perform' task.id %}">
-      {% translate "check_task" %}
-    </a>
-  {% endif %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:audio-check-perform' task.id %}">
+    {% translate "check_task" %}
+  </a>
 {% endblock available_task_title %}
 {% block completed_task_title %}
-  {% if completed_tasks %}
-    <a class="text-decoration-none purple-hover" href="{% url 'tasks:audio-check-perform' task.id %}">{{ task.title }}</a>
-  {% endif %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:audio-check-perform' check.task.id %}">{{ check.task.title }}</a>
 {% endblock completed_task_title %}
 
 {% block no_tasks %}
