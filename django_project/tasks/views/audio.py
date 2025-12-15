@@ -5,6 +5,7 @@ import tasks.models
 from tasks.views.base import (
     BaseMyChecksListView,
     BaseMyTasksListView,
+    BaseTaskCheckDetailView,
     BaseTaskCheckPerformView,
     BaseTaskCreateView,
     BaseTaskDetailView,
@@ -39,3 +40,9 @@ class AudioTaskDetailView(BaseTaskDetailView):
     model = tasks.models.AudioTask
     check_model = tasks.models.AudioTaskCheck
     template_name = "tasks/audio/audio_task_detail.html"
+
+
+class AudioTaskCheckDetailView(BaseTaskCheckDetailView):
+    model = tasks.models.AudioTaskCheck
+    task_model = tasks.models.AudioTask
+    template_name = "tasks/audio/check_detail.html"

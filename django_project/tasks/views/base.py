@@ -4,7 +4,6 @@ from django.contrib import auth, messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, View
 
@@ -20,7 +19,6 @@ class BaseTaskCreateView(
 ):
     model = None
     form_class = None
-    success_url = reverse_lazy("homepage:index")
     template_name = "tasks/task_create.html"
 
     def form_valid(self, form):
@@ -83,17 +81,16 @@ class BaseTaskCheckPerformView(
             if action == "publish":
                 check.status = self.check_model.Status.PUBLISHED
                 message = _("Check_published")
-            else:
+                check.save()
+                messages.success(request, message)
+                return redirect(check)
+
+            if action == "save_draft":
                 check.status = self.check_model.Status.DRAFT
                 message = _("Draft_saved")
-
-            check.save()
-            messages.success(request, message)
-
-            if check.status == self.check_model.Status.PUBLISHED:
-                return redirect("homepage:index")
-
-            return redirect(request.path)
+                check.save()
+                messages.success(request, message)
+                return redirect(request.path)
 
         return render(
             request,
@@ -109,8 +106,8 @@ class BaseMyTasksListView(
 ):
     model = None
     check_model = None
-    context_object_name = "tasks"
     template_name = None
+    context_object_name = "tasks"
 
     def get_queryset(self):
         user = self.request.user
@@ -129,8 +126,8 @@ class BaseMyChecksListView(
 ):
     model = None
     task_model = None
-    context_object_name = "checks"
     template_name = None
+    context_object_name = "checks"
 
     def get_queryset(self):
         all_needed_models_qs = self.model.objects.with_task_client(
@@ -181,8 +178,9 @@ class BaseTaskDetailView(
 ):
     model = None
     check_model = None
-    context_object_name = "task"
     template_name = None
+    pk_url_kwarg = "task_id"
+    context_object_name = "task"
 
     def get_queryset(self):
         return (
@@ -204,9 +202,9 @@ class BaseTaskDetailView(
 class BaseTaskCheckDetailView(LoginRequiredMixin, DetailView):
     model = None
     task_model = None
-    context_object_name = "check"
-    pk_url_kwarg = "check_id"
     template_name = None
+    pk_url_kwarg = "check_id"
+    context_object_name = "check"
 
     def get_object(self, queryset=None):
         check = super().get_object(queryset)
