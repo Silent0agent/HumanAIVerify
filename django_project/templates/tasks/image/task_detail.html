@@ -6,10 +6,14 @@
   {{ task.title }}
 {% endblock title %}
 
-{% block image %}
-  <img class="float-start mx-3" src="{{ task.image.url }}" alt="{% translate 'Image_of_task' %}" width="500" height="500">
-{% endblock image %}
+{% block task_content %}
+  <img src="{{ task.image.url }}" alt="{% translate 'Image_of_task' %}" width="460">
+{% endblock task_content %}
+
+{% block view_details %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:image-check-detail' check.id %}">{% translate "View_details" %}</a>
+{% endblock view_details %}
 
 {% block back_to_user_tasks %}
-  <a class="text-decoration-none purple-hover" href="{% url 'tasks:user-image-tasks' %}">{% translate "Back_to_my_tasks" %}</a>
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:user-image-tasks' %}">{% translate "Back_to_user_tasks" %}</a>
 {% endblock back_to_user_tasks %}

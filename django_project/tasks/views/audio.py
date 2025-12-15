@@ -3,8 +3,8 @@ __all__ = ()
 import tasks.forms
 import tasks.models
 from tasks.views.base import (
-    BaseMyChecksListView,
-    BaseMyTasksListView,
+    BaseUserChecksListView,
+    BaseUserTasksListView,
     BaseTaskCheckPerformView,
     BaseTaskCreateView,
     BaseTaskDetailView,
@@ -20,22 +20,22 @@ class AudioTaskCheckPerformView(BaseTaskCheckPerformView):
     task_model = tasks.models.AudioTask
     check_model = tasks.models.AudioTaskCheck
     form_class = tasks.forms.AudioTaskCheckForm
-    template_name = "tasks/audio/audio_check_perform.html"
+    template_name = "tasks/audio/check_perform.html"
 
 
-class MyAudioTasksListView(BaseMyTasksListView):
+class UserAudioTasksListView(BaseUserTasksListView):
     model = tasks.models.AudioTask
     check_model = tasks.models.AudioTaskCheck
-    template_name = "tasks/audio/my_audio_tasks.html"
+    template_name = "tasks/audio/user_tasks.html"
 
 
-class MyAudioChecksListView(BaseMyChecksListView):
+class UserAudioChecksListView(BaseUserChecksListView):
     model = tasks.models.AudioTaskCheck
     task_model = tasks.models.AudioTask
-    template_name = "tasks/audio/my_audio_checks.html"
+    template_name = "tasks/audio/user_checks.html"
 
 
 class AudioTaskDetailView(BaseTaskDetailView):
     model = tasks.models.AudioTask
     check_model = tasks.models.AudioTaskCheck
-    template_name = "tasks/audio/audio_task_detail.html"
+    template_name = "tasks/audio/task_detail.html"
