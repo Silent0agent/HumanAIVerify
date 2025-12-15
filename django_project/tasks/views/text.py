@@ -13,9 +13,27 @@ from tasks.views.base import (
 from tasks.views.base import BaseTaskCheckDetailView
 
 
+class MyTextTasksListView(BaseMyTasksListView):
+    model = tasks.models.TextTask
+    check_model = tasks.models.TextTaskCheck
+    template_name = "tasks/text/my_text_tasks.html"
+
+
 class TextTaskCreateView(BaseTaskCreateView):
     model = tasks.models.TextTask
     form_class = tasks.forms.TextTaskForm
+
+
+class TextTaskDetailView(BaseTaskDetailView):
+    model = tasks.models.TextTask
+    check_model = tasks.models.TextTaskCheck
+    template_name = "tasks/text/text_task_detail.html"
+
+
+class MyTextChecksListView(BaseMyChecksListView):
+    model = tasks.models.TextTaskCheck
+    task_model = tasks.models.TextTask
+    template_name = "tasks/text/my_text_checks.html"
 
 
 class TextTaskCheckPerformView(BaseTaskCheckPerformView):
@@ -53,24 +71,6 @@ class TextTaskCheckPerformView(BaseTaskCheckPerformView):
                 "annotated_content": final_content,
             },
         )
-
-
-class MyTextTasksListView(BaseMyTasksListView):
-    model = tasks.models.TextTask
-    check_model = tasks.models.TextTaskCheck
-    template_name = "tasks/text/my_text_tasks.html"
-
-
-class MyTextChecksListView(BaseMyChecksListView):
-    model = tasks.models.TextTaskCheck
-    task_model = tasks.models.TextTask
-    template_name = "tasks/text/my_text_checks.html"
-
-
-class TextTaskDetailView(BaseTaskDetailView):
-    model = tasks.models.TextTask
-    check_model = tasks.models.TextTaskCheck
-    template_name = "tasks/text/text_task_detail.html"
 
 
 class TextTaskCheckDetailView(BaseTaskCheckDetailView):
