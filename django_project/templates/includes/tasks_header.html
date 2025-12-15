@@ -2,7 +2,7 @@
 
 {% block extra_head %}
   <link rel="stylesheet" href="{% static 'css/tasks_header.css' %}" />
-{% endblock %}
+{% endblock extra_head %}
 
 {% with view_name=request.resolver_match.view_name %}
   <nav class="mb-3">

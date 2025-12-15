@@ -11,6 +11,11 @@
     <img src="{{ image.url }}" alt="{% translate 'Image' %}" width="{{ image.width }}" height="{{ image.height }}">
   {% endthumbnail %}
 {% endblock task_content %}
+{% block completed_task_content %}
+  {% thumbnail check.task.image "70x70" crop="center" upscale=True as image %}
+    <img src="{{ image.url }}" alt="{% translate 'Image' %}" width="{{ image.width }}" height="{{ image.height }}">
+  {% endthumbnail %}
+{% endblock completed_task_content %}
 
 {% block available_task_title %}
   {% if available_tasks %}
@@ -20,9 +25,7 @@
   {% endif %}
 {% endblock available_task_title %}
 {% block completed_task_title %}
-  {% if completed_tasks %}
-    <a class="text-decoration-none purple-hover" href="{% url 'tasks:image-check-perform' task.id %}">{{ task.title }}</a>
-  {% endif %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:image-check-perform' check.task.id %}">{{ check.task.title }}</a>
 {% endblock completed_task_title %}
 
 {% block no_tasks %}

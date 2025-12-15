@@ -28,4 +28,9 @@ urlpatterns = [
         tasks.views.UserImageChecksListView.as_view(),
         name="user-image-checks",
     ),
+    path(
+        "check/<int:check_id>/",
+        tasks.views.ImageTaskCheckDetailView.as_view(),
+        name="image-check-detail",
+    ),
 ]

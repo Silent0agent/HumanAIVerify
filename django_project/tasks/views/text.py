@@ -3,13 +3,13 @@ __all__ = ()
 import tasks.forms
 import tasks.models
 from tasks.views.base import (
+    BaseTaskCheckDetailView,
     BaseTaskCheckPerformView,
     BaseTaskCreateView,
     BaseTaskDetailView,
     BaseUserChecksListView,
     BaseUserTasksListView,
 )
-from tasks.views.base import BaseTaskCheckDetailView
 
 
 class TextTaskCreateView(BaseTaskCreateView):

@@ -1,23 +1,26 @@
 __all__ = (
+    "AudioTaskCheckDetailView",
+    "AudioTaskCheckPerformView",
+    "AudioTaskCreateView",
+    "AudioTaskDetailView",
+    "UserAudioChecksListView",
+    "UserAudioTasksListView",
+    "UserImageChecksListView",
+    "UserImageTasksListView",
     "UserTextChecksListView",
     "UserTextTasksListView",
+    "ImageTaskCheckPerformView",
+    "ImageTaskCreateView",
+    "ImageTaskDetailView",
+    "ImageTaskCheckDetailView",
     "TextTaskCheckDetailView",
     "TextTaskCheckPerformView",
     "TextTaskCreateView",
     "TextTaskDetailView",
-    "UserImageChecksListView",
-    "UserImageTasksListView",
-    "ImageTaskCheckPerformView",
-    "ImageTaskCreateView",
-    "ImageTaskDetailView",
-    "UserAudioChecksListView",
-    "UserAudioTasksListView",
-    "AudioTaskCheckPerformView",
-    "AudioTaskCreateView",
-    "AudioTaskDetailView",
 )
 
 from tasks.views.audio import (
+    AudioTaskCheckDetailView,
     AudioTaskCheckPerformView,
     AudioTaskCreateView,
     AudioTaskDetailView,
@@ -25,6 +28,7 @@ from tasks.views.audio import (
     UserAudioTasksListView,
 )
 from tasks.views.image import (
+    ImageTaskCheckDetailView,
     ImageTaskCheckPerformView,
     ImageTaskCreateView,
     ImageTaskDetailView,
@@ -32,8 +36,6 @@ from tasks.views.image import (
     UserImageTasksListView,
 )
 from tasks.views.text import (
-    UserTextChecksListView,
-    UserTextTasksListView,
     TextTaskCheckDetailView,
     TextTaskCheckPerformView,
     TextTaskCreateView,
