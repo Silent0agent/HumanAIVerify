@@ -67,7 +67,7 @@ class TestHelpers:
                 cls.model = cls.form_class.Meta.model
                 cls.task_model = cls.model.task.field.related_model
 
-            cls.client_user = User.objects.create_user(
+            cls.customer = User.objects.create_user(
                 username="client_base",
                 email="client_base@t.com",
                 password="pass",
@@ -198,7 +198,7 @@ class TestTextCheckForm(TestHelpers.BaseCheckFormTest):
 
     def create_task(self):
         return self.task_model.objects.create(
-            client=self.client_user,
+            client=self.customer,
             title="Text Task",
             content="Some content",
         )
@@ -224,7 +224,7 @@ class TestImageCheckForm(TestHelpers.BaseCheckFormTest):
     def create_task(self):
         image = SimpleUploadedFile("t.jpg", b"123", "image/jpeg")
         return self.task_model.objects.create(
-            client=self.client_user,
+            client=self.customer,
             title="Image Task",
             image=image,
         )
@@ -236,7 +236,7 @@ class TestAudioCheckForm(TestHelpers.BaseCheckFormTest):
     def create_task(self):
         audio = SimpleUploadedFile("t.mp3", b"123", "audio/mpeg")
         return self.task_model.objects.create(
-            client=self.client_user,
+            client=self.customer,
             title="Audio Task",
             audio=audio,
         )

@@ -45,4 +45,4 @@ class ImageTaskDetailView(BaseTaskDetailView):
 class ImageTaskCheckDetailView(BaseTaskCheckDetailView):
     model = tasks.models.ImageTaskCheck
     task_model = tasks.models.ImageTask
-    template_name = "tasks/image/task_check_detail.html"
+    template_name = "tasks/image/check_detail.html"

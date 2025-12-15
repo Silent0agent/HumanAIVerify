@@ -76,4 +76,4 @@ class TextTaskDetailView(BaseTaskDetailView):
 class TextTaskCheckDetailView(BaseTaskCheckDetailView):
     model = tasks.models.TextTaskCheck
     task_model = tasks.models.TextTask
-    template_name = "tasks/text/task_check_detail.html"
+    template_name = "tasks/text/check_detail.html"

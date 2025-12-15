@@ -22,12 +22,12 @@ class TestHelpers:
         @classmethod
         def setUpClass(cls):
             super().setUpClass()
-            cls.client_user = User.objects.create_user(
+            cls.customer = User.objects.create_user(
                 username="customer",
                 password="password",
                 email="email1@test.com",
             )
-            cls.performer_user = User.objects.create_user(
+            cls.performer = User.objects.create_user(
                 username="performer",
                 password="password",
                 email="email2@test.com",
@@ -39,7 +39,7 @@ class TestHelpers:
 
         def setUp(self):
             task_kwargs = {
-                self.model.client.field.name: self.client_user,
+                self.model.client.field.name: self.customer,
                 self.model.title.field.name: self.task_title,
                 **self.get_task_data(),
             }
@@ -67,18 +67,18 @@ class TestHelpers:
         def test_ai_score_calculation(self):
             self.check_model.objects.create(
                 task=self.task,
-                performer=self.performer_user,
+                performer=self.performer,
                 ai_score=50.0,
                 status=self.check_model.Status.PUBLISHED,
             )
-            performer_2 = User.objects.create_user(
+            new_performer = User.objects.create_user(
                 username="performer_2",
                 password="password",
                 email="email3@test.com",
             )
             self.check_model.objects.create(
                 task=self.task,
-                performer=performer_2,
+                performer=new_performer,
                 ai_score=100.0,
                 status=self.check_model.Status.PUBLISHED,
             )
@@ -86,30 +86,30 @@ class TestHelpers:
             self.assertAlmostEqual(self.task.ai_score, 75.0)
 
         def test_ordering_by_created_at_field(self):
-            task_2 = self.model.objects.create(
-                client=self.client_user,
+            new_task = self.model.objects.create(
+                client=self.customer,
                 title="Test title",
                 created_at=self.task.created_at + timedelta(seconds=10),
             )
             tasks = self.model.objects.all()
-            self.assertEqual(tasks[0], task_2)
+            self.assertEqual(tasks[0], new_task)
             self.assertEqual(tasks[1], self.task)
 
         def test_on_delete_client_protect(self):
-            new_client = User.objects.create_user(
+            new_customer = User.objects.create_user(
                 username="client_2",
                 email="client_2@test.com",
             )
 
             task_kwargs = {
-                self.model.client.field.name: new_client,
+                self.model.client.field.name: new_customer,
                 self.model.title.field.name: "Task 2",
                 **self.get_task_data(),
             }
             self.model.objects.create(**task_kwargs)
 
             with self.assertRaises(ProtectedError):
-                new_client.delete()
+                new_customer.delete()
 
     class BaseCheckModelTest(TestCase):
         model = None
@@ -118,12 +118,12 @@ class TestHelpers:
         @classmethod
         def setUpClass(cls):
             super().setUpClass()
-            cls.client_user = User.objects.create_user(
+            cls.customer = User.objects.create_user(
                 username="customer",
                 password="pass",
                 email="customer@email.com",
             )
-            cls.performer_user = User.objects.create_user(
+            cls.performer = User.objects.create_user(
                 username="performer",
                 password="pass",
                 email="performer@email.com",
@@ -135,13 +135,13 @@ class TestHelpers:
 
         def setUp(self):
             self.task = self.task_model.objects.create(
-                client=self.client_user,
+                client=self.customer,
                 title="Task Title",
                 **self.get_task_data(),
             )
             self.check = self.model.objects.create(
                 task=self.task,
-                performer=self.performer_user,
+                performer=self.performer,
                 ai_score=self.check_ai_score,
                 comment="Comment",
             )
@@ -149,7 +149,7 @@ class TestHelpers:
         def test_check_str(self):
             self.assertEqual(
                 str(self.check),
-                f"{self.task.title} | {self.performer_user.username} "
+                f"{self.task.title} | {self.performer.username} "
                 f"({self.check_ai_score}%)",
             )
 
@@ -174,7 +174,7 @@ class TestHelpers:
             with self.assertRaises(IntegrityError):
                 self.model.objects.create(
                     task=self.task,
-                    performer=self.performer_user,
+                    performer=self.performer,
                     ai_score=10.0,
                 )
 
@@ -184,52 +184,52 @@ class TestHelpers:
                 self.check.full_clean()
 
         def test_ordering_by_created_at_field(self):
-            performer_user_2 = User.objects.create_user(
+            new_performer = User.objects.create_user(
                 username="performer_2",
                 password="password",
                 email="example3@email.com",
             )
-            check_2 = self.model.objects.create(
+            new_check = self.model.objects.create(
                 task=self.task,
-                performer=performer_user_2,
+                performer=new_performer,
                 ai_score=35.0,
                 comment="Looks like human",
                 created_at=self.check.created_at + timedelta(seconds=10),
             )
             checks = self.model.objects.all()
-            self.assertEqual(checks[0], check_2)
+            self.assertEqual(checks[0], new_check)
             self.assertEqual(checks[1], self.check)
 
         def test_on_delete_task_cascade(self):
-            task_2 = self.task_model.objects.create(
-                client=self.client_user,
+            new_task = self.task_model.objects.create(
+                client=self.customer,
                 title="Task 2",
             )
             self.model.objects.create(
-                task=task_2,
-                performer=self.performer_user,
+                task=new_task,
+                performer=self.performer,
                 ai_score=35.0,
                 comment="Looks like human",
             )
             self.assertEqual(self.model.objects.count(), 2)
-            task_2.delete()
+            new_task.delete()
             self.assertEqual(self.model.objects.count(), 1)
 
         def test_on_delete_performer_protect(self):
-            performer_user_2 = User.objects.create_user(
+            new_performer = User.objects.create_user(
                 username="performer_2",
                 password="password",
                 email="example3@email.com",
             )
             self.model.objects.create(
                 task=self.task,
-                performer=performer_user_2,
+                performer=new_performer,
                 ai_score=35.0,
                 comment="Looks like human",
             )
             self.assertEqual(User.objects.count(), 3)
             with self.assertRaises(ProtectedError):
-                performer_user_2.delete()
+                new_performer.delete()
 
             self.assertEqual(User.objects.count(), 3)
 
@@ -248,7 +248,7 @@ class TextTaskModelTest(TestHelpers.BaseTaskModelTest):
         )
 
         task = self.model.objects.create(
-            client=self.client_user,
+            client=self.customer,
             title="Test Article",
             content=html_content,
         )
@@ -332,7 +332,7 @@ class AudioTaskModelTest(TestHelpers.BaseTaskModelTest):
         image = SimpleUploadedFile("t.jpg", b"123", "image/jpeg")
         with self.assertRaises(ValidationError):
             task = self.model(
-                client=self.client_user,
+                client=self.customer,
                 title="Some title",
                 audio=image,
             )

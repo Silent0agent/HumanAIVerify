@@ -45,4 +45,4 @@ class AudioTaskDetailView(BaseTaskDetailView):
 class AudioTaskCheckDetailView(BaseTaskCheckDetailView):
     model = tasks.models.AudioTaskCheck
     task_model = tasks.models.AudioTask
-    template_name = "tasks/audio/task_check_detail.html"
+    template_name = "tasks/audio/check_detail.html"
