@@ -4,6 +4,7 @@ import uuid
 
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
@@ -31,6 +32,9 @@ class AudioTask(BaseTask):
         verbose_name = _("audio_task")
         verbose_name_plural = _("audio_tasks")
 
+    def get_absolute_url(self):
+        return reverse("tasks:audio-task-detail", kwargs={"task_id": self.pk})
+
     def audio_player(self):
         if self.audio:
             return mark_safe(
@@ -52,3 +56,9 @@ class AudioTaskCheck(BaseTaskCheck):
     class Meta(BaseTaskCheck.Meta):
         verbose_name = _("audio_task_check")
         verbose_name_plural = _("audio_task_checks")
+
+    def get_absolute_url(self):
+        return reverse(
+            "tasks:audio-check-detail",
+            kwargs={"check_id": self.pk},
+        )

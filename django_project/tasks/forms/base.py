@@ -4,15 +4,20 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 import core.forms
+import tasks.models.base
 
 
 class BaseTaskForm(core.forms.BootstrapFormMixin, forms.ModelForm):
     class Meta:
-        fields = ["title", "description"]
+        base_task_model = tasks.models.base.BaseTask
+        fields = [
+            base_task_model.title.field.name,
+            base_task_model.description.field.name,
+        ]
 
         labels = {
-            "title": _("Title"),
-            "description": _("Description"),
+            base_task_model.title.field.name: _("Title"),
+            base_task_model.description.field.name: _("Description"),
         }
 
 
@@ -25,10 +30,14 @@ class AiScoreWidget(forms.NumberInput):
 
 class BaseTaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
     class Meta:
-        fields = ["ai_score", "comment"]
+        base_check_model = tasks.models.base.BaseTaskCheck
+        fields = [
+            base_check_model.ai_score.field.name,
+            base_check_model.comment.field.name,
+        ]
 
         widgets = {
-            "ai_score": AiScoreWidget(
+            base_check_model.ai_score.field.name: AiScoreWidget(
                 attrs={
                     "class": "form-control",
                     "min": "0",
@@ -37,7 +46,7 @@ class BaseTaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
                     "placeholder": "0",
                 },
             ),
-            "comment": forms.Textarea(
+            base_check_model.comment.field.name: forms.Textarea(
                 attrs={
                     "class": "form-control",
                     "rows": 4,
@@ -47,12 +56,12 @@ class BaseTaskCheckForm(core.forms.BootstrapFormMixin, forms.ModelForm):
         }
 
         labels = {
-            "ai_score": _("AI_Probability_percent"),
-            "comment": _("Comment"),
+            base_check_model.ai_score.field.name: _("AI_Probability_percent"),
+            base_check_model.comment.field.name: _("Comment"),
         }
 
         help_texts = {
-            "ai_score": _("Enter_ai_percentage"),
+            base_check_model.ai_score.field.name: _("Enter_ai_percentage"),
         }
 
     def clean(self):

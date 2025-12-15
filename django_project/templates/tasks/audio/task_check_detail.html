@@ -1,9 +1,0 @@
-{% extends "tasks/base/task_check_detail.html" %}
-{% load i18n %}
-
-{% block task_content %}
-  <audio class="mx-auto mb-3" controls>
-    <source src="{{ task.audio.url }}" type="audio/mpeg">
-    {% translate "audio_not_supported_browser" %}
-  </audio>
-{% endblock task_content %}
