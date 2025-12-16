@@ -61,8 +61,7 @@ class TextTaskCheckPerformView(BaseTaskCheckPerformView):
         raw_html = request.POST.get("highlighted_content")
 
         if raw_html:
-            # final_content = core.utils.sanitize_html(raw_html)
-            final_content = raw_html
+            final_content = core.utils.sanitize_html(raw_html)
         else:
             final_content = self.task.content
 
