@@ -1,11 +1,12 @@
 .site-header {
     position: relative;
     width: 100%;
-    /* sixseven */
     z-index: 67;
     transition: transform 0.22s ease, box-shadow 0.22s ease;
     will-change: transform;
     background: var(--bs-body-bg);
+    padding-top: .375rem;
+    padding-bottom: .375rem;
 }
 
 .site-header.site-header--fixed {
@@ -17,10 +18,33 @@
 }
 
 .site-header.site-header--hidden {
-    transform: translateY(-110%);
+    transform: translateY(-100%);
 }
 
 .header-placeholder {
     height: 0;
-    transition: height 0.22s ease;
+    transition: none;
+}
+
+@media (max-width: 767.98px) {
+    .site-header .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+    .site-header .fs-4 {
+        font-size: 1.125rem;
+    }
+    .offcanvas {
+        width: 84%;
+        max-width: 360px;
+    }
+    .offcanvas .nav-link {
+        font-size: 1rem;
+    }
+    .btn.btn-outline-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: .35rem .5rem;
+    }
 }
