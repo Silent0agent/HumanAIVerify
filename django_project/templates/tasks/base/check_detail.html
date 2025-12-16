@@ -18,10 +18,12 @@
 
       <div class="d-none d-md-flex gap-2">
         {% if request.user.role == "customer" %}
-          {% block customer_return_link_top %}{% endblock customer_return_link_top %}
+          {% block customer_return_link_top %}
+          {% endblock customer_return_link_top %}
         {% endif %}
         {% if request.user.role == "performer" %}
-          {% block performer_return_link_top %}{% endblock performer_return_link_top %}
+          {% block performer_return_link_top %}
+          {% endblock performer_return_link_top %}
         {% endif %}
       </div>
     </div>
