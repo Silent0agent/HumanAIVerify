@@ -18,10 +18,9 @@ templates:
   before_script:
     - pip install djlint
   script:
-    - cd django_project
-    - djlint . --check
+    - djlint django_project --check
     - |
-      ! grep -rEn '="[^"]*(\{%|\{\{)[^}"%]*"[^}"%]*' templates/
+      ! grep -rEn --include="*.html" '="[^"]*(\{%|\{\{)[^}"%]*"[^}"%]*' django_project/
 
 flake8:
   stage: lint:python
