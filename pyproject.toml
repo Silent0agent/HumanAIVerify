@@ -8,4 +8,3 @@ ignore = "T002"
 max-attribute-length = 160
 max-line-length = 160
 max-blank-lines = 1
-use-gitignore = true
