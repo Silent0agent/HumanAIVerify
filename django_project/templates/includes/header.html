@@ -19,12 +19,12 @@
               {% if request.user.role == 'customer' %}
                 <li class="nav-item ">
                   <a href="{% url 'tasks:my-text-tasks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "my_tasks" %}</a>
+                     class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "user_tasks" %}</a>
                 </li>
               {% elif request.user.role == 'performer' %}
                 <li class="nav-item ">
                   <a href="{% url 'tasks:my-text-checks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "my_checks" %}</a>
+                     class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "user_checks" %}</a>
                 </li>
               {% endif %}
             {% endif %}

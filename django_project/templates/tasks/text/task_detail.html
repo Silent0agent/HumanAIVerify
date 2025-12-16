@@ -1,0 +1,19 @@
+{% extends "tasks/base/task_detail.html" %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block title %}
+  {{ task.title }}
+{% endblock title %}
+
+{% block task_content %}
+  {{ task.content|safe }}
+{% endblock task_content %}
+
+{% block view_details %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:text-check-detail' check.id %}">{% translate "View_details" %}</a>
+{% endblock view_details %}
+
+{% block back_to_my_tasks %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:my-text-tasks' %}">{% translate "Back_to_my_tasks" %}</a>
+{% endblock back_to_my_tasks %}
