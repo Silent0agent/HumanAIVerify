@@ -19,7 +19,7 @@ templates:
     - pip install -r requirements/dev.txt
   script:
     - find django_project -name "*.html"
-    - djlint django_project --lint --extension=html
+    - find django_project -name "*.html" | xargs djlint --check --profile=django
     - |
       ! grep -rEn --include="*.html" '="[^"]*(\{%|\{\{)[^}"%]*"[^}"%]*' django_project/
 
