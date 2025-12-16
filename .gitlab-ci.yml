@@ -16,9 +16,10 @@ sort-requirements:
 templates:
   stage: lint:templates
   before_script:
-    - pip install djlint
+    - pip install -r requirements/dev.txt
   script:
-    - djlint django_project --check
+    - find django_project -name "*.html"
+    - djlint django_project --lint --extension=html
     - |
       ! grep -rEn --include="*.html" '="[^"]*(\{%|\{\{)[^}"%]*"[^}"%]*' django_project/
 
