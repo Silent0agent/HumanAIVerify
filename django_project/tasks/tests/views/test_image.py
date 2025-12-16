@@ -25,7 +25,7 @@ def create_dummy_image():
 class TestImageMyTasksList(tasks.tests.views.base.tasks.BaseMyTasksListTest):
     model = tasks.models.ImageTask
     view_url = reverse("tasks:my-image-tasks")
-    template_name = "tasks/image/my_image_tasks.html"
+    template_name = "tasks/image/my_tasks.html"
 
     def create_task(self, client, title="Task"):
         return self.model.objects.create(
@@ -50,7 +50,7 @@ class TestImageTaskCreate(tasks.tests.views.base.tasks.BaseTaskCreateViewTest):
 class TestImageTaskDetail(tasks.tests.views.base.tasks.BaseTaskDetailViewTest):
     model = tasks.models.ImageTask
     view_url_name = "tasks:image-task-detail"
-    template_name = "tasks/image/image_task_detail.html"
+    template_name = "tasks/image/task_detail.html"
 
     def create_task(self, client):
         return self.model.objects.create(
@@ -66,7 +66,7 @@ class TestImageMyChecksListtasks(
     model = tasks.models.ImageTaskCheck
     task_model = tasks.models.ImageTask
     view_url = reverse("tasks:my-image-checks")
-    template_name = "tasks/image/my_image_checks.html"
+    template_name = "tasks/image/my_checks.html"
 
     def create_task(self, client, title="Task"):
         return self.task_model.objects.create(
@@ -83,7 +83,7 @@ class TestImageCheckPerform(
     task_model = tasks.models.ImageTask
     view_url_name = "tasks:image-check-perform"
     success_url_name = "tasks:image-check-detail"
-    template_name = "tasks/image/image_check_perform.html"
+    template_name = "tasks/image/check_perform.html"
 
     def create_task(self):
         return self.task_model.objects.create(

@@ -24,6 +24,11 @@ urlpatterns = [
         name="my-audio-checks",
     ),
     path(
+        "check/<int:check_id>/",
+        tasks.views.AudioTaskCheckDetailView.as_view(),
+        name="audio-check-detail",
+    ),
+    path(
         "<int:task_id>/check/",
         tasks.views.AudioTaskCheckPerformView.as_view(),
         name="audio-check-perform",

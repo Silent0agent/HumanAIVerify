@@ -6,17 +6,17 @@ import tasks.models
 from tasks.views.base import (
     BaseMyChecksListView,
     BaseMyTasksListView,
+    BaseTaskCheckDetailView,
     BaseTaskCheckPerformView,
     BaseTaskCreateView,
     BaseTaskDetailView,
 )
-from tasks.views.base import BaseTaskCheckDetailView
 
 
 class MyTextTasksListView(BaseMyTasksListView):
     model = tasks.models.TextTask
     check_model = tasks.models.TextTaskCheck
-    template_name = "tasks/text/my_text_tasks.html"
+    template_name = "tasks/text/my_tasks.html"
 
 
 class TextTaskCreateView(BaseTaskCreateView):
@@ -27,20 +27,20 @@ class TextTaskCreateView(BaseTaskCreateView):
 class TextTaskDetailView(BaseTaskDetailView):
     model = tasks.models.TextTask
     check_model = tasks.models.TextTaskCheck
-    template_name = "tasks/text/text_task_detail.html"
+    template_name = "tasks/text/task_detail.html"
 
 
 class MyTextChecksListView(BaseMyChecksListView):
     model = tasks.models.TextTaskCheck
     task_model = tasks.models.TextTask
-    template_name = "tasks/text/my_text_checks.html"
+    template_name = "tasks/text/my_checks.html"
 
 
 class TextTaskCheckPerformView(BaseTaskCheckPerformView):
     task_model = tasks.models.TextTask
     check_model = tasks.models.TextTaskCheck
     form_class = tasks.forms.TextTaskCheckForm
-    template_name = "tasks/text/text_check_perform.html"
+    template_name = "tasks/text/check_perform.html"
 
     def get(self, request, *args, **kwargs):
         initial_content = self.task.content

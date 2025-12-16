@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <div class="mb-3">
+    {% block back_to_my_tasks %}
+      <a href="#" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i> {% translate "Back to list" %}
+      </a>
+    {% endblock back_to_my_tasks %}
+  </div>
+
+  <div class="card shadow-sm mb-5 border-0">
+    <div class="card-header bg-transparent border-bottom-0 pt-4 px-4">
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+        <h2 class="h3 mb-0 text-break">{{ task.title }}</h2>
+        <span class="badge bg-light text-dark border">ID: {{ task.id }}</span>
+      </div>
+    </div>
+
+    <div class="card-body px-4">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="p-2 border rounded bg-light d-flex justify-content-center align-items-center" style="min-height: 200px;">
+            <div class="w-100 text-center" style="overflow: hidden;">
+              {% block task_content %}
+                <p class="text-muted fst-italic">{% translate "No preview content" %}</p>
+              {% endblock task_content %}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <h5 class="text-muted small text-uppercase fw-bold mb-2">{% translate "Description" %}</h5>
+          <p class="mb-4 text-secondary">
+            {% if task.description %}
+              {{ task.description|linebreaksbr }}
+            {% else %}
+              <em class="text-muted">{% translate 'no_task_description' %}</em>
+            {% endif %}
+          </p>
+
+          <div class="row row-cols-2 row-cols-sm-3 g-3 mt-auto">
+
+            <div class="col">
+              <div class="p-2 border rounded text-center bg-white h-100">
+                <div class="text-muted small mb-1">{% translate "Created" %}</div>
+                <div class="fw-medium text-nowrap">
+                  <i class="bi bi-calendar3 me-1"></i>{{ task.created_at|date:"d.m.Y" }}
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="p-2 border rounded text-center bg-white h-100">
+                <div class="text-muted small mb-1">{% translate "AI Score" %}</div>
+                <div class="fw-bold">
+                  {% if task.ai_score is not None %}
+                    {% if task.ai_score >= 80 %}
+                      <span class="text-success">{{ task.ai_score|floatformat:0 }}%</span>
+                    {% elif task.ai_score >= 50 %}
+                      <span class="text-warning">{{ task.ai_score|floatformat:0 }}%</span>
+                    {% else %}
+                      <span class="text-danger">{{ task.ai_score|floatformat:0 }}%</span>
+                    {% endif %}
+                  {% else %}
+                    <span class="text-muted">-</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="p-2 border rounded text-center bg-white h-100">
+                <div class="text-muted small mb-1">{% translate "Checks" %}</div>
+                <div class="fw-medium">{{ task.checks_count }}</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h4 class="mb-3 px-2">{% translate "Checks History" %}</h4>
+
+  {% if task.checks.all %}
+    <div class="card shadow-sm border-0 overflow-hidden">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4 fw-medium text-secondary small text-uppercase">ID</th>
+              <th class="fw-medium text-secondary small text-uppercase">{% translate "Performer" %}</th>
+              <th class="fw-medium text-secondary small text-uppercase">Score</th>
+              <th class="fw-medium text-secondary small text-uppercase" style="min-width: 200px;">{% translate "Comment" %}</th>
+              <th class="fw-medium text-secondary small text-uppercase text-nowrap">{% translate "Date" %}</th>
+              <th class="pe-4 fw-medium text-secondary small text-uppercase text-end">{% translate "Actions" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for check in task.checks.all %}
+              <tr>
+                <td class="ps-4 text-muted small">#{{ check.id }}</td>
+                <td>
+                  <div class="fw-medium">{{ check.performer.username }}</div>
+                </td>
+                <td>
+                  <span class="badge bg-secondary bg-opacity-10 text-dark border">{{ check.ai_score|floatformat:1 }}%</span>
+                </td>
+                <td>
+                  {% if check.comment %}
+                    <span class="d-inline-block text-truncate" style="max-width: 250px;" title="{{ check.comment }}">{{ check.comment }}</span>
+                  {% else %}
+                    <span class="text-muted small">-</span>
+                  {% endif %}
+                </td>
+                <td class="text-nowrap text-secondary small">{{ check.updated_at|date:"d.m.Y" }}</td>
+                <td class="pe-4 text-end">
+                  {% block view_details %}
+                    <a href="#" class="btn btn-sm btn-light border">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                  {% endblock view_details %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-light border text-center py-4 text-muted">
+      <i class="bi bi-clipboard-x display-6 mb-3 d-block"></i>
+      {% translate "No_checks_yet" %}
+    </div>
+  {% endif %}
+
+{% endblock content %}
+
+{% comment %} {% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <h2 class="text-center mb-3">{{ task.title }}</h2>
+
+  <div>
+    <div class="card mx-3 p-1 mb-2 d-inline-block float-start">
+      {% block task_content %}{% endblock task_content %}
+    </div>
+    <p>{% translate "Created_at" %}: {{ task.created_at|date:"d.m.Y" }}</p>
+    <p>{% translate 'Description' %}: {% if task.description %}{{ task.description }}{% else %}{% translate 'no_task_description' %}{% endif %}</p>
+    <p>{% translate "AI_score" %}:
+      {% if task.ai_score %}
+        {{ task.ai_score|floatformat:1 }}%
+      {% else %}
+        {% translate "Not_evaluated" %}
+      {% endif %}
+    </p>
+    <p>{% translate "Total_checks" %}: {{ task.checks_count }}</p>
+    {% block back_to_my_tasks %}{% endblock back_to_my_tasks %}
+  </div>
+
+  {% if task.checks.all %}
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th class="fw-medium">#</th>
+          <th class="fw-medium">{% translate "Performer" %}</th>
+          <th class="fw-medium">{% translate "AI_score" %}</th>
+          <th class="fw-medium">{% translate "Comment" %}</th>
+          <th class="fw-medium">{% translate "Published_at" %}</th>
+          <th class="fw-medium">{% translate "Actions" %}</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for check in task.checks.all %}
+          <tr>
+            <td class="align-middle">
+              <span>{{ forloop.counter }}</span>
+            </td>
+            <td class="align-middle">
+              <span>{{ check.performer.username }}</span>
+            </td>
+            <td class="align-middle">
+              <span>{{ check.ai_score }}</span>
+            </td>
+            <td class="align-middle">
+              <span>
+                {% if check.comment %}
+                  {{ check.comment|truncatechars:100 }}
+                {% else %}
+                  {% translate "No_comment" %}
+                {% endif %}
+              </span>
+            </td>
+            <td class="align-middle">
+              <span>{{ check.updated_at|date:"d.m.Y" }}</span>
+            </td>
+            <td class="align-middle">
+              {% block view_details %}{% endblock view_details %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>{% translate "No_checks_yet" %}.</p>
+  {% endif %}
+{% endblock content %} {% endcomment %}

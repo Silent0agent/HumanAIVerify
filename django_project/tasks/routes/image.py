@@ -24,6 +24,11 @@ urlpatterns = [
         name="my-image-checks",
     ),
     path(
+        "check/<int:check_id>/",
+        tasks.views.ImageTaskCheckDetailView.as_view(),
+        name="image-check-detail",
+    ),
+    path(
         "<int:task_id>/check/",
         tasks.views.ImageTaskCheckPerformView.as_view(),
         name="image-check-perform",

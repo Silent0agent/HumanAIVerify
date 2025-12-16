@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/highlight-text.css' %}">
+{% endblock extra_head %}
+
+{% block content %}
+  <div class="container">
+    <h2 class="text-center">{% translate "task_check" %}: {{ task.title }}</h2>
+
+    {% block task %}
+    {% endblock task %}
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.media }}
+      {% block input %}
+      {% endblock input %}
+      {{ form.as_p }}
+      <hr>
+      {% if form.instance.status == 'published' %}
+        <div class="alert alert-success">{% translate "check_already_published" %}</div>
+        <a href="{% url 'tasks:my-image-checks' %}" class="btn btn-secondary">{% translate "Return" %}</a>
+      {% else %}
+        <div class="d-flex gap-2">
+          <button type="submit" name="action" value="save_draft" class="btn btn-secondary">{% translate "save_draft" %}</button>
+
+          <button type="submit"
+                  name="action"
+                  value="publish"
+                  class="btn btn-primary"
+                  data-confirm-message="{% translate 'action_irreversible'|escapejs %}"
+                  onclick="return confirm(this.getAttribute('data-confirm-message'));">{% translate "Send_check" %}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+
+  <script src="{% static 'js/highlith-text.js' %}"></script>
+{% endblock content %}

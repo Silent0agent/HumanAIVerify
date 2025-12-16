@@ -18,7 +18,7 @@ def create_dummy_audio():
 class TestAudioMyTasksList(tasks.tests.views.base.tasks.BaseMyTasksListTest):
     model = tasks.models.AudioTask
     view_url = reverse("tasks:my-audio-tasks")
-    template_name = "tasks/audio/my_audio_tasks.html"
+    template_name = "tasks/audio/my_tasks.html"
 
     def create_task(self, client, title="Task"):
         return self.model.objects.create(
@@ -43,7 +43,7 @@ class TestAudioTaskCreate(tasks.tests.views.base.tasks.BaseTaskCreateViewTest):
 class TestAudioTaskDetail(tasks.tests.views.base.tasks.BaseTaskDetailViewTest):
     model = tasks.models.AudioTask
     view_url_name = "tasks:audio-task-detail"
-    template_name = "tasks/audio/audio_task_detail.html"
+    template_name = "tasks/audio/task_detail.html"
 
     def create_task(self, client):
         return self.model.objects.create(
@@ -59,7 +59,7 @@ class TestAudioMyChecksList(
     model = tasks.models.AudioTaskCheck
     task_model = tasks.models.AudioTask
     view_url = reverse("tasks:my-audio-checks")
-    template_name = "tasks/audio/my_audio_checks.html"
+    template_name = "tasks/audio/my_checks.html"
 
     def create_task(self, client, title="Task"):
         return self.task_model.objects.create(
@@ -76,7 +76,7 @@ class TestAudioCheckPerform(
     task_model = tasks.models.AudioTask
     view_url_name = "tasks:audio-check-perform"
     success_url_name = "tasks:audio-check-detail"
-    template_name = "tasks/audio/audio_check_perform.html"
+    template_name = "tasks/audio/check_perform.html"
 
     def create_task(self):
         return self.task_model.objects.create(
