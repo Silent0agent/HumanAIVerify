@@ -7,16 +7,16 @@
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
-          aria-label="{% trans 'Toggle theme (auto)' %}">
+          aria-label="{% translate 'Toggle_color_theme_auto' %}">
     <img src="{% static 'img/theme-switcher/auto.svg' %}" width="18" height="18" class="me-2" alt="">
-    <span>{% trans "Auto" %}</span>
+    <span>{% translate "Auto" %}</span>
   </button>
 
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
     <li>
       <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
         <img src="{% static 'img/theme-switcher/light.svg' %}" width="18" height="18" class="me-2" alt="">
-        {% trans "Light" %}
+        {% translate "Light" %}
         <span class="ms-auto check d-none" aria-hidden="true">✔</span>
       </button>
     </li>
@@ -24,7 +24,7 @@
     <li>
       <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
         <img src="{% static 'img/theme-switcher/dark.svg' %}" width="18" height="18" class="me-2" alt="">
-        {% trans "Dark" %}
+        {% translate "Dark" %}
         <span class="ms-auto check d-none" aria-hidden="true">✔</span>
       </button>
     </li>
@@ -32,7 +32,7 @@
     <li>
       <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="true">
         <img src="{% static 'img/theme-switcher/auto.svg' %}" width="18" height="18" class="me-2" alt="">
-        {% trans "Auto" %}
+        {% translate "Auto" %}
         <span class="ms-auto check d-none" aria-hidden="true">✔</span>
       </button>
     </li>
