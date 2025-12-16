@@ -2,6 +2,6 @@
 
 {% translate "Hello" %},
 {% translate 'activate_link_text' %}:
-{{ activate_link }}
+{{ activate_link }}.
 
-{% translate 'ignore_activate_link_text' %}.
+{% translate 'Ignore_activate_link_text' %}.

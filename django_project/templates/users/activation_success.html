@@ -2,11 +2,11 @@
 {% load i18n %}
 
 {% block title %}
-  {% translate "account_activation" %}
+  {% translate "Account_activation" %}
 {% endblock title %}
 
 {% block content %}
-  <h1>{% translate "account_activation_head" %}!</h1>
-  <p>{% translate "account_activation_head-text" %}</p>
+  <h1>{% translate "Account_activation_head" %}!</h1>
+  <p>{% translate "Account_activation_head-text" %}</p>
   <a class="btn btn-primary mt-2" href="{% url 'auth:login' %}">{% translate "Login" %}</a>
 {% endblock content %}
