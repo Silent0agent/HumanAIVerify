@@ -18,8 +18,7 @@ templates:
   before_script:
     - pip install -r requirements/dev.txt
   script:
-    - find django_project -name "*.html"
-    - find django_project -name "*.html" | xargs djlint --check --profile=django
+    - find django_project -name "*.html" | xargs djlint --check --lint --profile=django --indent=2 --ignore=T002 --max-attribute-length=160 --max-line-length=160 --max-blank-lines=1
     - |
       ! grep -rEn --include="*.html" '="[^"]*(\{%|\{\{)[^}"%]*"[^}"%]*' django_project/
 
