@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  {% translate "Check Details" %}: {{ check.task.title }}
+{% endblock title %}
+
+{% block content %}
+  <div class="container-fluid container-lg mt-4 mb-5">
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+      <div>
+        <h2 class="h3 mb-1 text-break">{{ check.task.title }}</h2>
+        <div class="text-muted small">
+          <i class="bi bi-clock me-1"></i>{% translate "Checked at" %}: {{ check.updated_at|date:"d.m.Y H:i" }}
+        </div>
+      </div>
+
+      <div class="d-none d-md-flex gap-2">
+        {% if request.user.role == "customer" %}
+          {% block customer_return_link_top %}{% endblock customer_return_link_top %}
+        {% endif %}
+        {% if request.user.role == "performer" %}
+          {% block performer_return_link_top %}{% endblock performer_return_link_top %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row g-4">
+
+      <div class="col-lg-8">
+
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header bg-transparent border-bottom-0 pt-4 px-4">
+            <h5 class="card-title fw-bold text-secondary text-uppercase small mb-0">
+              <i class="bi bi-file-earmark-text me-2"></i>{% translate "Task Content" %}
+            </h5>
+          </div>
+          <div class="card-body px-4 pb-4">
+            <div class="bg-light border rounded p-3 d-flex justify-content-center align-items-center" style="min-height: 200px;">
+              <div class="w-100 overflow-hidden">
+                {% block task_content %}
+                  <p class="text-muted text-center fst-italic">{% translate "Content preview unavailable" %}</p>
+                {% endblock task_content %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card shadow-sm border-0">
+          <div class="card-body p-4">
+            <h5 class="fw-bold text-secondary text-uppercase small mb-3">
+              <i class="bi bi-info-circle me-2"></i>{% translate "Task Information" %}
+            </h5>
+
+            <div class="mb-3">
+              <span class="text-muted small d-block mb-1">{% translate "Description" %}</span>
+              {% if check.task.description %}
+                <div class="text-dark">{{ check.task.description|linebreaks }}</div>
+              {% else %}
+                <em class="text-muted">{% translate "No description provided" %}</em>
+              {% endif %}
+            </div>
+
+            <hr class="text-muted opacity-25">
+
+            <div class="text-muted small">{% translate "Task Created" %}: {{ check.task.created_at|date:"d.m.Y" }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="sticky-top" style="top: 20px; z-index: 10;">
+
+          <div class="card shadow border-0">
+            <div class="card-header bg-primary bg-opacity-10 border-bottom-0 py-3">
+              <h5 class="mb-0 text-primary fw-bold text-center">{% translate "Check Result" %}</h5>
+            </div>
+
+            <div class="card-body p-4">
+              <div class="text-center mb-4">
+                <div class="text-uppercase text-muted small fw-bold mb-2">{% translate "AI Probability Score" %}</div>
+                {% if check.ai_score is not None %}
+                  <div class="display-4 fw-bold {% if check.ai_score >= 80 %}text-success {% elif check.ai_score >= 50 %}text-warning {% else %}text-danger{% endif %}">
+                    {{ check.ai_score|floatformat:0 }}%
+                  </div>
+                  <div class="small text-muted">
+                    {% if check.ai_score >= 80 %}
+                      <i class="bi bi-check-circle-fill text-success me-1"></i>{% translate "High probability" %}
+                    {% elif check.ai_score >= 50 %}
+                      <i class="bi bi-exclamation-circle-fill text-warning me-1"></i>{% translate "Medium probability" %}
+                    {% else %}
+                      <i class="bi bi-x-circle-fill text-danger me-1"></i>{% translate "Low probability" %}
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <div class="display-6 text-muted">--</div>
+                {% endif %}
+              </div>
+
+              <hr>
+
+              <div class="mb-3">
+                <div class="text-uppercase text-muted small fw-bold mb-1">{% translate "Performer" %}</div>
+                <div class="d-flex align-items-center">
+                  <div class="avatar bg-secondary bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+                    <i class="bi bi-person-fill text-secondary"></i>
+                  </div>
+                  <span class="fw-medium">{{ check.performer.username }}</span>
+                </div>
+              </div>
+
+              <hr>
+
+              <div>
+                <div class="text-uppercase text-muted small fw-bold mb-2">{% translate "Comment" %}</div>
+                <div class="bg-light rounded p-3 text-secondary small">
+                  {% if check.comment %}
+                    <i class="bi bi-chat-quote-fill text-muted me-2 opacity-50"></i>
+                    {{ check.comment|linebreaksbr }}
+                  {% else %}
+                    <em class="text-muted">{% translate "No comment provided" %}</em>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer bg-transparent border-top-0 pb-4 pt-0 px-4">
+              <div class="d-grid gap-2">
+                {% if request.user.role == "customer" %}
+                  {% block customer_return_link %}
+                    <a href="#" class="btn btn-outline-primary">{% translate "Back to Task" %}</a>
+                  {% endblock customer_return_link %}
+                {% endif %}
+
+                {% if request.user.role == "performer" %}
+                  {% block performer_return_link %}
+                    <a href="#" class="btn btn-outline-secondary">{% translate "Back to List" %}</a>
+                  {% endblock performer_return_link %}
+                {% endif %}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock content %}
+
+{% comment %} {% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  {% translate "Task_check" %}: {{ check.task.title }}
+{% endblock title %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="text-center">{% translate "Check_details" %}: {{ check.task.title }}</h2>
+
+    <div class="card my-4">
+      <div class="card-header">
+        <h3 class="mb-0">{% translate "Task_information" %}</h3>
+      </div>
+      <div class="card-body">
+        <p>{% translate "Created_at" %}: {{ check.task.created_at|date:"d.m.Y H:i" }}</p>
+        {% if check.task.description %}
+          <p>{% translate "Description" %}: {{ check.task.description }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="card my-4">
+      <div class="card-header">
+        <h3 class="mb-0">{% translate "Task_content" %}</h3>
+      </div>
+      <div class="card-body">
+        {% block task_content %}{% endblock task_content %}
+      </div>
+    </div>
+    <div class="card my-4">
+      <div class="card-header">
+        <h3 class="mb-0">{% translate "Check_information" %}</h3>
+      </div>
+      <div class="card-body">
+        <p>{% translate "Performer" %}: {{ check.performer.username }}</p>
+        <p>{% translate "AI_score" %}: <span class="fs-4 fw-bold">{{ check.ai_score }}%</span></p>
+        <p>{% translate "Checked_at" %}: {{ check.updated_at|date:"d.m.Y H:i" }}</p>
+      </div>
+    </div>
+    <div class="card my-4">
+      <div class="card-header">
+        <h3 class="mb-0">{% translate "Performers_comment" %}</h3>
+      </div>
+      <div class="card-body">
+        {% if check.comment %}
+          {{ check.comment|linebreaks }}
+        {% else %}
+          <p class="text-muted mb-0">{% translate "No_comment_provided" %}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="d-flex gap-2">
+      {% if request.user.role == "customer" %}
+      {% block customer_return_link %}
+      {% endblock customer_return_link %}
+      {% endif %}
+
+      {% if request.user.role == "performer" %}
+      {% block performer_return_link %}
+      {% endblock performer_return_link %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock content %} {% endcomment %}
