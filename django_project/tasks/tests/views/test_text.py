@@ -13,7 +13,7 @@ User = auth.get_user_model()
 class TestTextMyTasksList(tasks.tests.views.base.tasks.BaseMyTasksListTest):
     model = tasks.models.TextTask
     view_url = reverse("tasks:my-text-tasks")
-    template_name = "tasks/text/my_text_tasks.html"
+    template_name = "tasks/text/my_tasks.html"
 
     def create_task(self, client, title="Task"):
         return self.model.objects.create(
@@ -38,7 +38,7 @@ class TestTextTaskCreate(tasks.tests.views.base.tasks.BaseTaskCreateViewTest):
 class TestTextTaskDetail(tasks.tests.views.base.tasks.BaseTaskDetailViewTest):
     model = tasks.models.TextTask
     view_url_name = "tasks:text-task-detail"
-    template_name = "tasks/text/text_task_detail.html"
+    template_name = "tasks/text/task_detail.html"
 
     def create_task(self, client):
         return self.model.objects.create(
@@ -52,7 +52,7 @@ class TestTextMyChecksList(tasks.tests.views.base.checks.BaseMyChecksListTest):
     model = tasks.models.TextTaskCheck
     task_model = tasks.models.TextTask
     view_url = reverse("tasks:my-text-checks")
-    template_name = "tasks/text/my_text_checks.html"
+    template_name = "tasks/text/my_checks.html"
 
     def create_task(self, client, title="Task"):
         return self.task_model.objects.create(
@@ -69,7 +69,7 @@ class TestTextCheckPerform(
     task_model = tasks.models.TextTask
     view_url_name = "tasks:text-check-perform"
     success_url_name = "tasks:text-check-detail"
-    template_name = "tasks/text/text_check_perform.html"
+    template_name = "tasks/text/check_perform.html"
 
     def create_task(self):
         return self.task_model.objects.create(

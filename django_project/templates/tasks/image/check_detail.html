@@ -1,83 +1,14 @@
-{% extends "base.html" %}
+{% extends "tasks/base/check_detail.html" %}
 {% load i18n %}
 
-{% block title %}
-  <title>{{ task.title }}</title>
-{% endblock title %}
+{% block task_content %}
+  <img src="{{ check.task.image.url }}" alt="{% translate 'task_image' %}" width="460" height="auto">
+{% endblock task_content %}
 
-{% block content %}
-  <h1>{{ task.title }}</h1>
+{% block customer_return_link %}
+  <a href="{% url 'tasks:image-task-detail' check.task.id %}" class="btn btn-secondary">{% translate "Back_to_task" %}</a>
+{% endblock customer_return_link %}
 
-  <div class="task-info">
-    {% translate "Task_information" %}
-    <p>
-      <strong>{% translate "Created_at" %}:</strong>
-      {{ task.created_at|date:"d.m.Y H:i" }}
-    </p>
-
-    {% if task.description %}
-      <p>
-        <strong>{% translate "Description" %}:</strong> {{ task.description }}
-      </p>
-    {% endif %}
-
-    <p>
-      <strong>{% translate "Image" %}:</strong>
-    </p>
-    <img src="{{ task.image.url }}" alt="{% translate 'Image_of_task' %}" width="{{ task.image.width }}" height="{{ task.image.height }}">
-
-    <p>
-      <strong>{% translate "AI_score" %}:</strong>
-      {% if task.ai_score %}
-        {{ task.ai_score|floatformat:1 }}%
-      {% else %}
-        {% translate "Not_evaluated" %}
-      {% endif %}
-    </p>
-
-    <p>
-      <strong>{% translate "Total_checks" %}:</strong> {{ task.checks_count }}
-    </p>
-  </div>
-
-  <div class="checks-list">
-    <h2>{% translate "Checks" %}</h2>
-
-    {% if task.checks.all %}
-      <table>
-        <thead>
-          <tr>
-            <th>{% translate "Performer" %}</th>
-            <th>{% translate "AI_score" %}</th>
-            <th>{% translate "Comment" %}</th>
-            <th>{% translate "Published_at" %}</th>
-            <th>{% translate "Actions" %}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for check in task.checks.all %}
-            <tr>
-              <td>{{ check.performer.username }}</td>
-              <td>{{ check.ai_score }}%</td>
-              <td>
-                {% if check.comment %}
-                  {{ check.comment|truncatechars:100 }}
-                {% else %}
-                  {% translate "No_comment" %}
-                {% endif %}
-              </td>
-              <td>{{ check.updated_at|date:"d.m.Y H:i" }}</td>
-              <td>
-                <a href="{% url 'tasks:text-check-detail' check.id %}">{% translate "View_details" %}</a>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <p>{% translate "No_checks_yet" %}.</p>
-    {% endif %}
-  </div>
-
-  <a href="{% url 'tasks:my-text-tasks' %}">{% translate "Back_to_my_tasks" %}</a>
-{% endblock content %}
+{% block performer_return_link %}
+  <a href="{% url 'tasks:my-image-checks' %}" class="btn btn-secondary">{% translate "Back_to_my_checks" %}</a>
+{% endblock performer_return_link %}
