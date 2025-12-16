@@ -170,7 +170,7 @@ CUSTOM_COLOR_PALETTE = [
     {"color": "hsl(207, 90%, 54%)", "label": "Blue"},
 ]
 
-CKEDITOR_5_CUSTOM_CSS = "css/custom-ckeditor5.css"
+CKEDITOR_5_CUSTOM_CSS = "css/custom_ckeditor5.css"
 CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 CKEDITOR_5_FILE_UPLOAD_PERMISSION = "any"
 CKEDITOR_5_CONFIGS = {

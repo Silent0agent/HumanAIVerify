@@ -1,7 +1,7 @@
 <div class="dropdown normalize-button">
   <button class="btn btn-outline-secondary btn-sm d-flex align-items-center" type="button" id="roleDropdown" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="me-2">👤</span>
-    <span class="d-none d-sm-inline">{{ request.user.get_role_display|title }}</span>
+    <span>{{ request.user.get_role_display|title }}</span>
   </button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="roleDropdown">
     {% for role_code, role_label in request.user.Role.choices %}

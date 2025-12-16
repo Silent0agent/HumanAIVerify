@@ -7,28 +7,29 @@
 {% endblock extra_head %}
 
 {% with request.resolver_match.view_name as view_name %}
-  <header class="py-3 mb-4 border-bottom">
+  <header class="py-2 mb-4 border-bottom site-header">
     <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-around">
-        <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-3">
+          <a href="{% url 'homepage:index' %}" class="nav-link px-2 fs-4 purple-hover">HumanAIVerify</a>
+        </div>
+
+        <div class="d-none d-md-flex align-items-center gap-4 w-75 justify-content-center">
           <ul class="nav mb-0">
-            <li class="nav-item ">
+            <li class="nav-item">
               <a href="{% url 'about:about' %}" class="nav-link px-2 {% if view_name == 'about:about' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "About" %}</a>
             </li>
             {% if request.user.is_authenticated %}
               {% if request.user.role == 'customer' %}
-                <li class="nav-item ">
-                  <a href="{% url 'tasks:my-text-tasks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "my_tasks" %}</a>
+                <li class="nav-item">
+                  <a href="{% url 'tasks:my-text-tasks' %}" class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "my_tasks" %}</a>
                 </li>
               {% elif request.user.role == 'performer' %}
-                <li class="nav-item ">
-                  <a href="{% url 'tasks:my-text-checks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "my_checks" %}</a>
+                <li class="nav-item">
+                  <a href="{% url 'tasks:my-text-checks' %}" class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "my_checks" %}</a>
                 </li>
               {% endif %}
             {% endif %}
-
             {% if request.user.is_superuser %}
               <li class="nav-item">
                 <a href="{% url 'admin:index' %}" class="nav-link purple px-2">{% translate "Admin" %}</a>
@@ -37,51 +38,101 @@
           </ul>
         </div>
 
-        <a href="{% url 'homepage:index' %}" class="nav-link px-2 fs-3 purple-hover">HumanAIVerify</a>
-        <div class="d-flex align-items-center gap-5">
-          {% if not request.user.is_authenticated %}
-            <div class="d-flex gap-1">
+        <div class="d-flex align-items-center gap-3">
+          <div class="d-none d-md-flex align-items-center gap-2">
+            {% if not request.user.is_authenticated %}
               <a href="{% url 'auth:login' %}" class="btn btn-outline-primary btn-sm">{% translate "Login" %}</a>
               <a href="{% url 'auth:signup' %}" class="btn btn-primary btn-sm">{% translate "Signup" %}</a>
-            </div>
-          {% else %}
-            <div class="dropdown text-end">
-              <a href="{% url 'users:profile' %}" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                {% if request.user.avatar %}
-                  {% thumbnail request.user.avatar "32x32" crop="center" upscale=True as avatar %}
-                    <img src="{{ avatar.url }}" alt="{% translate 'Avatar' %}" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
-                  {% endthumbnail %}
-                {% else %}
-                  <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'Avatar_not_found' %}" width="32" height="32" class="rounded-circle">
-                {% endif %}
-              </a>
-              <ul class="dropdown-menu text-small">
-                <li>
-                  <a class="dropdown-item" href="{% url 'users:profile' %}">{% translate "Profile" %}</a>
-                </li>
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li>
-                  <form action="{% url 'auth:logout' %}" method="post" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="dropdown-item text-danger border-0 bg-translateparent w-100 text-start">{% translate "Logout" %}</button>
-                  </form>
-                </li>
-              </ul>
-            </div>
-          {% endif %}
-          <div class="d-flex align-items-center gap-1">
-            {% if request.user.is_authenticated %}
-              {% include "includes/role-switcher.html" %}
+            {% else %}
+              <div class="dropdown text-end">
+                <a href="{% url 'users:profile' %}" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  {% if request.user.avatar %}
+                    {% thumbnail request.user.avatar "32x32" crop="center" upscale=True as avatar %}
+                      <img src="{{ avatar.url }}" alt="{% translate 'Avatar' %}" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
+                    {% endthumbnail %}
+                  {% else %}
+                    <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'Avatar_not_found' %}" width="32" height="32" class="rounded-circle">
+                  {% endif %}
+                </a>
+                <ul class="dropdown-menu text-small">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'users:profile' %}">{% translate "Profile" %}</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <form action="{% url 'auth:logout' %}" method="post" class="d-inline">
+                      {% csrf_token %}
+                      <button type="submit" class="dropdown-item text-danger border-0 bg-translateparent w-100 text-start">{% translate "Logout" %}</button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
             {% endif %}
-            {% include "includes/languages-switcher.html" %}
-            {% include "includes/theme-switcher.html" %}
+            <div class="d-flex align-items-center gap-1">
+              {% if request.user.is_authenticated %}
+                {% include "includes/role_switcher.html" %}
+              {% endif %}
+              {% include "includes/languages_switcher.html" %}
+              {% include "includes/theme_switcher.html" %}
+            </div>
           </div>
+
+          <button class="btn btn-outline-secondary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#headerOffcanvas" aria-controls="headerOffcanvas" aria-label="Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
   </header>
-{% endwith %}
 
-<script src="{% static 'js/header-scroll.js' %}"></script>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="headerOffcanvas" aria-labelledby="headerOffcanvasLabel">
+    <div class="offcanvas-header">
+      <a id="headerOffcanvasLabel" href="{% url 'homepage:index' %}" class="nav-link fs-4 purple-hover">HumanAIVerify</a>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <nav class="nav flex-column mb-3">
+        <a class="nav-link py-2 {% if view_name == 'about:about' %}link-secondary active disabled{% else %}purple{% endif %}" href="{% url 'about:about' %}">{% translate "About" %}</a>
+        {% if request.user.is_authenticated %}
+          {% if request.user.role == 'customer' %}
+            <a class="nav-link py-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% endif %}" href="{% url 'tasks:my-text-tasks' %}">{% translate "my_tasks" %}</a>
+          {% elif request.user.role == 'performer' %}
+            <a class="nav-link py-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% endif %}" href="{% url 'tasks:my-text-checks' %}">{% translate "my_checks" %}</a>
+          {% endif %}
+        {% endif %}
+        {% if request.user.is_superuser %}
+          <a class="nav-link py-2" href="{% url 'admin:index' %}">{% translate "Admin" %}</a>
+        {% endif %}
+      </nav>
+
+      <div class="mb-3">
+        {% if not request.user.is_authenticated %}
+          <a class="btn btn-outline-primary w-100 mb-2" href="{% url 'auth:login' %}">{% translate "Login" %}</a>
+          <a class="btn btn-primary w-100" href="{% url 'auth:signup' %}">{% translate "Signup" %}</a>
+        {% else %}
+          <a class="btn btn-outline-secondary w-100 mb-2" href="{% url 'users:profile' %}">{% translate "Profile" %}</a>
+          <form action="{% url 'auth:logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger w-100">{% translate "Logout" %}</button>
+          </form>
+        {% endif %}
+      </div>
+      
+      <div class="d-flex gap-3 mt-5 mb-3">
+        {% include "includes/languages_switcher.html" %}
+        {% include "includes/theme_switcher.html" %}
+      </div>
+      
+      {% if request.user.is_authenticated %}
+        {% include "includes/role_switcher.html" %}
+      {% endif %}
+
+    </div>
+  </div>
+
+  <script src="{% static 'js/header_scroll.js' %}"></script>
+{% endwith %}
