@@ -1,10 +1,14 @@
 {% load static %}
 {% load i18n %}
 
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock extra_head %}
+
 {% for hidden_field in form.hidden_fields %}{{ hidden_field }}{% endfor %}
 {% for field in form %}
   {% if field.name != "remember_me" %}
-    {% if field.name == "password" or field.name == "password1" or field.name == "password2" or field.name == "old_password" or field.name == "new_password1" or field.name == "new_password2" %}
+    {% if field.name == "password" or field.name == "password1" or field.name == "old_password" or field.name == "new_password1" %}
       <div class="form-floating mx-auto w-75 position-relative">
         {{ field }}
         <label for="{{ field.id_for_label }}">
@@ -63,5 +67,5 @@
   </div>
 </div>
 
-<script src="{% static 'js/password-toogle-eye.js'%}"></script>
-<script src="{% static 'js/password-info-check.js'%}"></script>
+<script src="{% static 'js/password_toogle_eye.js'%}"></script>
+<script src="{% static 'js/password_info_check.js'%}"></script>

@@ -12,7 +12,9 @@
     pop.type = 'button';
     pop.className = 'haiv-popover';
     pop.setAttribute('aria-hidden', 'true');
-    pop.innerHTML = '<span class="label">Выделить</span>';
+    const selectLabel = (container && container.dataset && container.dataset.selectLabel) ? container.dataset.selectLabel : 'Select';
+    pop.innerHTML = `<span class="label">${selectLabel}</span>`;
+    pop.setAttribute('aria-label', selectLabel);
     document.body.appendChild(pop);
     let showTimeout = null;
 

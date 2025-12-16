@@ -10,7 +10,7 @@
     <h2>{% translate "task_check" %}: {{ task.title }}</h2>
 
     <div class="card text-start my-3 p-3 mx-auto col-11 roboto">
-      <div id="task-content-container" aria-label="Task content" data-original-html="{{ task.content|escapejs }}">
+      <div id="task-content-container" aria-label="Task content" data-original-html="{{ task.content|escapejs }}" data-select-label="{% translate 'Select' %}">
         {% if form.instance and form.instance.annotated_content %}
           {{ form.instance.annotated_content|safe }}
         {% else %}
@@ -38,7 +38,6 @@
         <div class="d-flex gap-2">
           <button type="submit" name="action" value="save_draft" class="btn btn-secondary">
             {% translate "save_draft" %}
-            {% comment %} Save draft {% endcomment %}
           </button>
 
           <button type="submit"
@@ -48,12 +47,11 @@
                   data-confirm-message="{% translate 'action_irreversible_send_check'|escapejs %}"
                   onclick="return confirm(this.getAttribute('data-confirm-message'));">
             {% translate "send_check" %}
-            {% comment %} Send check {% endcomment %}
           </button>
         </div>
       {% endif %}
     </form>
   </div>
 
-  <script src="{% static 'js/highlith-text.js' %}"></script>
+  <script src="{% static 'js/highlith_text.js' %}"></script>
 {% endblock content %}

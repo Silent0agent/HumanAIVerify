@@ -5,11 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const numberInput = widget.querySelector('input:not([type="range"])');
         const rangeInput = widget.querySelector('input[type="range"]');
 
-        if (!numberInput || !rangeInput) {
-            console.error('Dual Range Widget: Не найдены input поля внутри виджета');
-            return;
-        }
-
         rangeInput.addEventListener('input', function() {
             numberInput.value = this.value;
         });
