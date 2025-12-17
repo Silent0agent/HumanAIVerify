@@ -3,14 +3,18 @@
 {% load thumbnail %}
 {% load i18n %}
 
+{% block title %}
+{% translate "User_detail" %}
+{% endblock title %}
+
 {% block content %}
-  <h1>{% translate "Profile" %}</h1>
+  <h1>{% translate "User_detail" %}</h1>
   {% if user_obj.avatar %}
     {% thumbnail user_obj "150x150" crop="center" upscale=True as avatar %}
       <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
     {% endthumbnail %}
   {% else %}
-    <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'avatar_not_found' %}" width="150" height="150" class="rounded-circle">
+    <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'Avatar_not_found' %}" width="150" height="150" class="rounded-circle">
   {% endif %}
   <p>
     <strong>{% translate "Username" %}:</strong> {{ user_obj.username }}
@@ -19,7 +23,7 @@
     <strong>{% translate "Email" %}:</strong> {{ user_obj.email }}
   </p>
   {% if request.user.email == user_obj.email %}
-    <a href="{% url 'users:profile' %}">{% translate "edit_profile" %}
+    <a href="{% url 'users:profile' %}">{% translate "Edit_profile" %}
     {% endif %}
   </a>
 {% endblock content %}
