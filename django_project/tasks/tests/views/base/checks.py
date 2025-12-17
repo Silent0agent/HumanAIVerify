@@ -1,7 +1,6 @@
 __all__ = ()
 
 from http import HTTPStatus
-import unittest
 
 from django.contrib import auth
 from django.urls import reverse
@@ -209,11 +208,11 @@ class BaseCheckPerformViewTest(BaseViewTest):
             reverse(self.success_url_name, kwargs={"check_id": check.id}),
         )
 
-    @unittest.skip("Future logic")
     def test_user_cant_check_his_task(self):
         self.client.logout()
         user_performer = User.objects.create_user(
             username="temp_perf",
+            email="new_performer@email.com",
             password="pwd",
             role=User.Role.PERFORMER,
         )

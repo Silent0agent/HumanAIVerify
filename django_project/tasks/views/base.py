@@ -144,9 +144,12 @@ class BaseTaskCheckPerformView(
             pk=kwargs["task_id"],
         )
 
-        self.check_obj = self.check_model.objects.filter(
-            task=self.task,
-            performer=request.user,
+        if self.task.client == request.user:
+            raise PermissionDenied(_("You_cant_check_task_created_by_you"))
+
+        self.check_obj = self.check_model.objects.by_task_and_performer(
+            self.task,
+            request.user,
         ).first()
 
         return super().dispatch(request, *args, **kwargs)
