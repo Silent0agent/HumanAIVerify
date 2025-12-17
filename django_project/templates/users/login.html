@@ -13,7 +13,7 @@
 {% block extra_fields %}
   <div class="checkbox my-3">
     {{ form.remember_me }}
-    <label class="form-check-label" for="{{ form.remember_me.id_for_label }}">{% translate "remember_me" %}</label>
+    <label class="form-check-label" for="{{ form.remember_me.id_for_label }}">{% translate "Remember_me" %}</label>
   </div>
 {% endblock extra_fields %}
 {% block buttons %}
@@ -24,13 +24,13 @@
 
 {% block extra_under_form %}
   <p class="text-center mt-3 mb-0">
-    <a class="purple-hover text-decoration-none" href="{% url 'auth:reset-password' %}" role="button" aria-label="{% translate 'password_recovery' %}">
-      {% translate "forgot_password" %}
+    <a class="purple-hover text-decoration-none" href="{% url 'auth:reset-password' %}" role="button" aria-label="{% translate 'Password_recovery' %}">
+      {% translate "Forgot_password" %}
     </a>
   </p>
   <p class="text-center mb-0">
     <a class="purple-hover text-decoration-none mb-0" href="{% url 'auth:signup' %}" role="button" aria-label="{% translate 'Signup' %}">
-      {% translate "create_account" %}
+      {% translate "Create_account" %}
     </a>
   </p>
 {% endblock extra_under_form %}
