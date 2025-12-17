@@ -19,6 +19,15 @@
             <li class="nav-item">
               <a href="{% url 'about:about' %}" class="nav-link px-2 {% if view_name == 'about:about' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "About" %}</a>
             </li>
+
+            {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a href="{% url 'training:start' %}" class="nav-link px-2 {% if 'training:' in view_name %}link-secondary active disabled{% else %}purple{% endif %}">
+                  {% translate "Training" %}
+                </a>
+              </li>
+            {% endif %}
+
             {% if request.user.is_authenticated %}
               {% if request.user.role == 'customer' %}
                 <li class="nav-item">
@@ -32,6 +41,7 @@
                 </li>
               {% endif %}
             {% endif %}
+
             {% if request.user.is_superuser %}
               <li class="nav-item">
                 <a href="{% url 'admin:index' %}" class="nav-link purple px-2">{% translate "Admin" %}</a>
@@ -104,6 +114,13 @@
     <div class="offcanvas-body">
       <nav class="nav flex-column mb-3">
         <a class="nav-link py-2 {% if view_name == 'about:about' %}link-secondary active disabled{% else %}purple{% endif %}" href="{% url 'about:about' %}">{% translate "About" %}</a>
+
+        {% if request.user.is_authenticated %}
+          <a class="nav-link py-2 {% if 'training:' in view_name %}link-secondary active disabled{% endif %}" href="{% url 'training:start' %}">
+            {% translate "Training" %}
+          </a>
+        {% endif %}
+
         {% if request.user.is_authenticated %}
           {% if request.user.role == 'customer' %}
             <a class="nav-link py-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}" href="{% url 'tasks:my-text-tasks' %}">{% translate "My_tasks" %}</a>
@@ -111,6 +128,7 @@
             <a class="nav-link py-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}" href="{% url 'tasks:my-text-checks' %}">{% translate "My_checks" %}</a>
           {% endif %}
         {% endif %}
+
         {% if request.user.is_superuser %}
           <a class="nav-link py-2 purple" href="{% url 'admin:index' %}">{% translate "Admin" %}</a>
         {% endif %}
