@@ -16,12 +16,11 @@ sort-requirements:
 templates:
   stage: lint:templates
   before_script:
-    - pip install djlint
+    - pip install -r requirements/dev.txt
   script:
-    - cd django_project
-    - djlint . --check
+    - find django_project -name "*.html" | xargs djlint --check --lint --profile=django --indent=2 --ignore=T002 --max-attribute-length=160 --max-line-length=160 --max-blank-lines=1
     - |
-      ! grep -rEn '="[^"]*(\{%|\{\{)[^}"%]*"[^}"%]*' templates/
+      ! grep -rEn --include="*.html" '="[^"]*(\{%|\{\{)[^}"%]*"[^}"%]*' django_project/
 
 flake8:
   stage: lint:python
