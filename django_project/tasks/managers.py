@@ -5,15 +5,20 @@ from django.db import models
 
 class TaskQuerySet(models.QuerySet):
     def by_client(self, user):
-        return self.filter(client=user)
+        client_field_name = self.model.client.field.name
+        return self.filter(**{client_field_name: user})
 
     def with_client(self):
         return self.select_related(self.model.client.field.name)
 
     def with_avg_ai_score(self, check_model):
+        task_field_name = check_model.task.field.name
+        status_field_name = check_model.status.field.name
         task_qs = check_model.objects.filter(
-            task=models.OuterRef("id"),
-            status=check_model.Status.PUBLISHED,
+            **{
+                task_field_name: models.OuterRef("id"),
+                status_field_name: check_model.Status.PUBLISHED,
+            },
         ).values("task")
         avg_ai_score_qs = task_qs.annotate(
             avg_score=models.Avg(check_model.ai_score.field.name),
@@ -69,15 +74,28 @@ class TaskQuerySet(models.QuerySet):
             user=user,
         ).values(check_model.task.field.name)
 
-        return self.exclude(id__in=completed_tasks_qs)
+        client_field_name = self.model.client.field.name
+
+        return self.exclude(
+            models.Q(id__in=completed_tasks_qs)
+            | models.Q(**{client_field_name: user}),
+        )
 
 
 class CheckQuerySet(models.QuerySet):
     def by_performer(self, user):
-        return self.filter(performer=user)
+        performer_field_name = self.model.performer.field.name
+        return self.filter(**{performer_field_name: user})
 
     def with_performer(self):
         return self.select_related(self.model.performer.field.name)
+
+    def by_task_and_performer(self, task, user):
+        task_field_name = self.model.task.field.name
+        performer_field_name = self.model.performer.field.name
+        return self.filter(
+            **{task_field_name: task, performer_field_name: user},
+        )
 
     def with_task(self):
         return self.select_related(self.model.task.field.name)
@@ -88,14 +106,15 @@ class CheckQuerySet(models.QuerySet):
         )
 
     def published(self):
-        return self.filter(status=self.model.Status.PUBLISHED)
+        status_field_name = self.model.status.field.name
+        return self.filter(**{status_field_name: self.model.Status.PUBLISHED})
 
 
 class TaskCheckManager(models.Manager.from_queryset(CheckQuerySet)):
     def get_avg_ai_score(self):
-        ai_score_field = self.model.ai_score.field.name
+        ai_score_field_name = self.model.ai_score.field.name
 
         avg_queryset = self.published().aggregate(
-            avg_score=models.Avg(ai_score_field),
+            avg_score=models.Avg(ai_score_field_name),
         )
         return avg_queryset["avg_score"]
