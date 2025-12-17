@@ -2,8 +2,11 @@ __all__ = ()
 
 from django.contrib import auth, messages
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.models import Group
 from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
+
+from training.models import UserTrainingProgress
 
 
 User = auth.get_user_model()
@@ -34,5 +37,43 @@ class CustomerRequiredMixin(RoleRequiredMixin):
     allowed_roles = [User.Role.CUSTOMER]
 
 
-class PerformerRequiredMixin(RoleRequiredMixin):
-    allowed_roles = [User.Role.PERFORMER]
+class PerformerRequiredMixin(UserPassesTestMixin):
+
+    def test_func(self):
+        user = self.request.user
+        return (
+            user.is_authenticated
+            and user.groups.filter(name="Performers").exists()
+        )
+
+    def handle_no_permission(self):
+        if self.request.user.is_authenticated:
+
+            try:
+                progress = UserTrainingProgress.objects.get(
+                    user=self.request.user,
+                )
+                if progress.training_score >= 10:
+                    performer_group, created = Group.objects.get_or_create(
+                        name="Performers",
+                    )
+                    self.request.user.groups.add(performer_group)
+                    messages.success(
+                        self.request,
+                        _("Congratulations_you_have_been_added_to_performers"),
+                    )
+                    return redirect(self.request.path)
+
+                messages.warning(
+                    self.request,
+                    _("You_need_points_to_become_performer"),
+                )
+            except UserTrainingProgress.DoesNotExist:
+                messages.info(
+                    self.request,
+                    _("Complete_training_to_become_performer"),
+                )
+
+            return redirect("training:start")
+
+        return super().handle_no_permission()
