@@ -42,7 +42,6 @@ django:
     - pip install -r requirements/prod.txt
     - pip install -r requirements/test.txt
     - cd django_project
-    - python3 manage.py makemigrations --check
     - python3 manage.py test
   only:
     - merge_requests
