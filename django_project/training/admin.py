@@ -2,6 +2,7 @@ __all__ = ()
 
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.models import Group
 from django.utils import timezone
 from django.utils.text import Truncator
 from django.utils.timesince import timesince
@@ -108,8 +109,6 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
         return self.readonly_fields
 
     def save_model(self, request, obj, form, change):
-        from django.contrib.auth.models import Group
-
         old_score = None
         if change and obj.pk:
             try:

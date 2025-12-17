@@ -17,6 +17,7 @@ env = environ.Env(
     DJANGO_MAX_AUTH_ATTEMPTS=(int, 6),
     DJANGO_EMAIL_HOST=(str, "smtp.example.com"),
     DJANGO_DEFAULT_FROM_EMAIL=(str, "user@example.com"),
+    DJANGO_TRAINING_COMPLETIONS_FOR_PERFORMER=(int, 10),
 )
 environ.Env.read_env(PROJECT_ROOT / ".env")
 
