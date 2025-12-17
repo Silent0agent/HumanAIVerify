@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "homepage.apps.HomepageConfig",
     "tasks.apps.TasksConfig",
     "users.apps.UsersConfig",
+    "training.apps.TrainingConfig",
     "django_cleanup.apps.CleanupConfig",
 ]
 

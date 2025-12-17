@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  <title>{% translate "Training" %}</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="mb-0">{% translate "AI_Detection_Training" %}</h2>
+    </div>
+    
+    <div class="card-body">
+      <div class="mb-4">
+        <h3>{% translate "Your_progress" %}</h3>
+
+        <!-- Исправляем вычисление процента -->
+        {% with progress_percent=progress.training_score|add:0 %}
+          <div class="progress mb-2" style="height: 30px;">
+            <div class="progress-bar"
+                 role="progressbar"
+                 style="width: {% widthratio progress.training_score 1 10 %}%">
+              {{ progress.training_score }}/10
+            </div>
+          </div>
+        {% endwith %}
+
+        <p class="mb-0">
+          {% translate "Score" %}: <strong>{{ progress.training_score }}</strong>
+          | {% translate "Completed_texts" %}: <strong>{{ progress.completed_texts.count }}</strong>
+        </p>
+      </div>
+
+      {% if progress.can_take_test and progress.get_available_texts.exists %}
+        <div class="alert alert-info">
+          <h4 class="alert-heading">{% translate "How_it_works" %}</h4>
+          <ul class="mb-0">
+            <li>{% translate "Correct_answer_1_point" %}</li>
+            <li>{% translate "Wrong_answer_2_points" %}</li>
+            <li>{% translate "Need_10_points_to_become_performer" %}</li>
+            <li>{% translate "Wait_24_hours_after_fail" %}</li>
+          </ul>
+        </div>
+
+        <a href="{% url 'training:start' %}" class="btn btn-primary btn-lg">
+          {% translate "Start_training" %}
+        </a>
+      {% else %}
+        {% if not progress.can_take_test %}
+          <div class="alert alert-warning">
+            <h4 class="alert-heading">{% translate "Please_wait" %}</h4>
+            <p>
+              {% blocktranslate with hours=progress.remaining_hours %}
+                You can try again in {{ hours }} hours.
+              {% endblocktranslate %}
+            </p>
+          </div>
+        {% endif %}
+        
+        {% if progress.training_score >= 10 %}
+          <div class="alert alert-success">
+            <h4 class="alert-heading">{% translate "Congratulations" %}!</h4>
+            <p>
+              {% translate "You_are_now_a_performer" %}
+            </p>
+          </div>
+        {% else %}
+          <p class="text-muted">
+            {% translate "No_available_training_texts_or_waiting_period" %}
+          </p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
