@@ -32,12 +32,12 @@
               {% if request.user.role == 'customer' %}
                 <li class="nav-item">
                   <a href="{% url 'tasks:my-text-tasks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "my_tasks" %}</a>
+                     class="nav-link px-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "My_tasks" %}</a>
                 </li>
               {% elif request.user.role == 'performer' %}
                 <li class="nav-item">
                   <a href="{% url 'tasks:my-text-checks' %}"
-                     class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "my_checks" %}</a>
+                     class="nav-link px-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}">{% translate "My_checks" %}</a>
                 </li>
               {% endif %}
             {% endif %}
@@ -76,7 +76,7 @@
                   <li>
                     <form action="{% url 'auth:logout' %}" method="post" class="d-inline">
                       {% csrf_token %}
-                      <button type="submit" class="dropdown-item text-danger border-0 bg-translateparent w-100 text-start">{% translate "Logout" %}</button>
+                      <button type="submit" class="dropdown-item text-danger border-0 bg-transparent w-100 text-start">{% translate "Logout" %}</button>
                     </form>
                   </li>
                 </ul>
@@ -123,14 +123,14 @@
 
         {% if request.user.is_authenticated %}
           {% if request.user.role == 'customer' %}
-            <a class="nav-link py-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% endif %}" href="{% url 'tasks:my-text-tasks' %}">{% translate "my_tasks" %}</a>
+            <a class="nav-link py-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}" href="{% url 'tasks:my-text-tasks' %}">{% translate "My_tasks" %}</a>
           {% elif request.user.role == 'performer' %}
-            <a class="nav-link py-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% endif %}" href="{% url 'tasks:my-text-checks' %}">{% translate "my_checks" %}</a>
+            <a class="nav-link py-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}" href="{% url 'tasks:my-text-checks' %}">{% translate "My_checks" %}</a>
           {% endif %}
         {% endif %}
 
         {% if request.user.is_superuser %}
-          <a class="nav-link py-2" href="{% url 'admin:index' %}">{% translate "Admin" %}</a>
+          <a class="nav-link py-2 purple" href="{% url 'admin:index' %}">{% translate "Admin" %}</a>
         {% endif %}
       </nav>
 
