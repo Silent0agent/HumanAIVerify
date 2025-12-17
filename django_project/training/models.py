@@ -1,7 +1,6 @@
 __all__ = ()
 
 from django.conf import settings
-from django.contrib.auth.models import Group
 from django.db import models
 from django.utils import timezone
 from django.utils.text import Truncator
@@ -93,6 +92,8 @@ class UserTrainingProgress(models.Model):
         return max(0, 24 - int(time_since_fail.total_seconds() / 3600))
 
     def add_completed_text(self, training_text, is_correct):
+        from django.contrib.auth.models import Group
+
         self.completed_texts.add(training_text)
 
         if is_correct:
