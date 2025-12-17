@@ -13,7 +13,7 @@
 
     <div class="text-muted small">
       <i class="bi bi-calendar-check me-1" aria-hidden="true"></i>
-      <time datetime="{{ check.updated_at|date:"c" }}">{{ check.updated_at|date:"d.m.Y H:i" }}</time>
+      <time datetime="{{ check.updated_at|date:'c' }}">{{ check.updated_at|date:"d.m.Y H:i" }}</time>
     </div>
 
     <div class="d-none d-md-flex gap-2">
@@ -64,7 +64,7 @@
 
           <hr class="text-muted opacity-25">
 
-          <div class="text-muted small">{% translate "Task_created" %}: <time datetime="{{ check.task.created_at|date:"c" }}">{{ check.task.created_at|date:"d.m.Y" }}</time></div>
+          <div class="text-muted small">{% translate "Task_created" %}: <time datetime="{{ check.task.created_at|date:'c' }}">{{ check.task.created_at|date:"d.m.Y" }}</time></div>
         </div>
       </article>
     </section>
