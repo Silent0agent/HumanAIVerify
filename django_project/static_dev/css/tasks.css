@@ -35,6 +35,10 @@
     white-space: nowrap;
 }
 
+.tasks-performer {
+    cursor: pointer;
+}
+
 button.active {
     color: #712cf9 !important;
 }
