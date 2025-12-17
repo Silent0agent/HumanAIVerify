@@ -1,8 +1,12 @@
 {% extends "tasks/base/check_detail.html" %}
-{% load i18n %}
+{% load static i18n %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/highlight_text.css' %}">
+{% endblock extra_head %}
 
 {% block task_content %}
-  <p>{{ check.task.content|safe }}</p>
+  <p>{{ check.annotated_content|safe }}</p>
 {% endblock task_content %}
 
 {% block customer_return_link %}

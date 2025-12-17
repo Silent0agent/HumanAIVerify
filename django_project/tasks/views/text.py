@@ -58,7 +58,7 @@ class TextTaskCheckPerformView(BaseTaskCheckPerformView):
         )
 
     def post(self, request, *args, **kwargs):
-        raw_html = request.POST.get("highlighted_content")
+        raw_html = request.POST.getlist("highlighted_content")[0]
 
         if raw_html:
             final_content = core.utils.sanitize_html(raw_html)
