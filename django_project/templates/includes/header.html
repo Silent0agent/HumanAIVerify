@@ -22,9 +22,8 @@
 
             {% if request.user.is_authenticated %}
               <li class="nav-item">
-                <a href="{% url 'training:start' %}"
-                   class="nav-link px-2 {% if 'training:' in view_name %}link-secondary active disabled{% else %}purple{% endif %}">
-                   {% translate "Training" %}
+                <a href="{% url 'training:start' %}" class="nav-link px-2 {% if 'training:' in view_name %}link-secondary active disabled{% else %}purple{% endif %}">
+                  {% translate "Training" %}
                 </a>
               </li>
             {% endif %}
