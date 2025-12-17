@@ -112,6 +112,7 @@
             <tr class="hover-shadow">
               <td class="ps-4 text-muted">#{{ check.id }}</td>
               <td class="fw-medium">
+                <div class="tasks-performer" onclick="window.location.href='{% url 'users:user-detail' check.performer.id %}'">
                 {% if check.performer.avatar %}
                   {% thumbnail check.performer.avatar "30x30" crop="center" upscale=True as avatar %}
                     <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle me-2">
@@ -119,7 +120,7 @@
                 {% else %}
                   <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'avatar_not_found' %}" width="30" height="30" class="rounded-circle me-2">
                 {% endif %}
-                {{ check.performer.username }}
+                {{ check.performer.username }}</div>
               </td>
               <td>
                 {% if task.ai_score >= 70 %}
