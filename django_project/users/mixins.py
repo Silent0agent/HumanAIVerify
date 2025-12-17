@@ -2,24 +2,21 @@ __all__ = ()
 
 from django.contrib import auth, messages
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.contrib.auth.models import Group
 from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
-
-from training.models import UserTrainingProgress
-
 
 User = auth.get_user_model()
 
 
 class RoleRequiredMixin(UserPassesTestMixin):
-    allowed_roles = []
+    def get_allowed_roles(self):
+        return []
 
     def test_func(self):
         if not self.request.user.is_authenticated:
             return False
 
-        return self.request.user.role in self.allowed_roles
+        return self.request.user.role in self.get_allowed_roles()
 
     def handle_no_permission(self):
         if not self.request.user.is_authenticated:
@@ -34,7 +31,8 @@ class RoleRequiredMixin(UserPassesTestMixin):
 
 
 class CustomerRequiredMixin(RoleRequiredMixin):
-    allowed_roles = [User.Role.CUSTOMER]
+    def get_allowed_roles(self):
+        return [User.Role.CUSTOMER]
 
 
 class PerformerRequiredMixin(UserPassesTestMixin):
@@ -47,8 +45,10 @@ class PerformerRequiredMixin(UserPassesTestMixin):
         )
 
     def handle_no_permission(self):
-        if self.request.user.is_authenticated:
+        from django.contrib.auth.models import Group
+        from training.models import UserTrainingProgress
 
+        if self.request.user.is_authenticated:
             try:
                 progress = UserTrainingProgress.objects.get(
                     user=self.request.user,
