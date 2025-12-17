@@ -1,7 +1,9 @@
 __all__ = ()
 
 from django.conf import settings
+from django.contrib.auth.models import Group
 from django.db import models
+from django.utils import timezone
 from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
@@ -76,8 +78,6 @@ class UserTrainingProgress(models.Model):
 
     @property
     def can_take_test(self):
-        from django.utils import timezone
-
         if not self.last_fail_timestamp:
             return True
 
@@ -86,8 +86,6 @@ class UserTrainingProgress(models.Model):
 
     @property
     def remaining_hours(self):
-        from django.utils import timezone
-
         if not self.last_fail_timestamp or self.can_take_test:
             return 0
 
@@ -95,9 +93,6 @@ class UserTrainingProgress(models.Model):
         return max(0, 24 - int(time_since_fail.total_seconds() / 3600))
 
     def add_completed_text(self, training_text, is_correct):
-        from django.utils import timezone
-        from django.contrib.auth.models import Group
-
         self.completed_texts.add(training_text)
 
         if is_correct:

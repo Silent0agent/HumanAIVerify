@@ -2,12 +2,16 @@ __all__ = ()
 
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.models import Group
+from django.utils import timezone
 from django.utils.text import Truncator
+from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
-from training.models import TrainingText, UserTrainingProgress
+
+import training.models
 
 
-@admin.register(TrainingText)
+@admin.register(training.models.TrainingText)
 class TrainingTextAdmin(admin.ModelAdmin):
     list_display = ("id", "difficulty", "is_ai_generated", "content_preview")
     list_filter = ("difficulty", "is_ai_generated")
@@ -35,7 +39,7 @@ class TrainingTextAdmin(admin.ModelAdmin):
     content_preview.short_description = _("Content_preview")
 
 
-@admin.register(UserTrainingProgress)
+@admin.register(training.models.UserTrainingProgress)
 class UserTrainingProgressAdmin(admin.ModelAdmin):
 
     list_display = (
@@ -82,9 +86,6 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
 
     def last_fail(self, obj):
         if obj.last_fail_timestamp:
-            from django.utils import timezone
-            from django.utils.timesince import timesince
-
             time_diff = timezone.now() - obj.last_fail_timestamp
             if time_diff.days < 1:
                 return _("hours_ago").format(hours=obj.remaining_hours)
@@ -108,14 +109,14 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
         return self.readonly_fields
 
     def save_model(self, request, obj, form, change):
-        from django.contrib.auth.models import Group
-
         old_score = None
         if change and obj.pk:
             try:
-                old_obj = UserTrainingProgress.objects.get(pk=obj.pk)
+                old_obj = training.models.UserTrainingProgress.objects.get(
+                    pk=obj.pk,
+                )
                 old_score = old_obj.training_score
-            except UserTrainingProgress.DoesNotExist:
+            except training.models.UserTrainingProgress.DoesNotExist:
                 pass
 
         super().save_model(request, obj, form, change)

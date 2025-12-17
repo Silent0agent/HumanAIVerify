@@ -8,16 +8,19 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views import View
-from training.forms import TrainingTextForm
-from training.models import TrainingText, UserTrainingProgress
+
+import training.forms
+import training.models
 
 
 class TrainingStartView(LoginRequiredMixin, View):
     template_name = "training/start.html"
 
     def get(self, request):
-        progress, created = UserTrainingProgress.objects.get_or_create(
-            user=request.user,
+        progress, created = (
+            training.models.UserTrainingProgress.objects.get_or_create(
+                user=request.user,
+            )
         )
         context_dict = {
             "progress": progress,
@@ -56,19 +59,25 @@ class TrainingTakeTestView(LoginRequiredMixin, View):
     template_name = "training/take_test.html"
 
     def get(self, request, text_id):
-        progress = get_object_or_404(UserTrainingProgress, user=request.user)
+        progress = get_object_or_404(
+            training.models.UserTrainingProgress,
+            user=request.user,
+        )
 
         if not progress.can_take_test:
             messages.error(request, _("You_need_to_wait"))
             return redirect("training:start")
 
-        training_text = get_object_or_404(TrainingText, id=text_id)
+        training_text = get_object_or_404(
+            training.models.TrainingText,
+            id=text_id,
+        )
 
         if progress.completed_texts.filter(id=text_id).exists():
             messages.info(request, _("You_already_completed_this_text"))
             return redirect("training:start")
 
-        form = TrainingTextForm(training_text=training_text)
+        form = training.forms.TrainingTextForm(training_text=training_text)
 
         return render(
             request,
@@ -82,10 +91,19 @@ class TrainingTakeTestView(LoginRequiredMixin, View):
         )
 
     def post(self, request, text_id):
-        progress = get_object_or_404(UserTrainingProgress, user=request.user)
+        progress = get_object_or_404(
+            training.models.UserTrainingProgress,
+            user=request.user,
+        )
 
-        training_text = get_object_or_404(TrainingText, id=text_id)
-        form = TrainingTextForm(request.POST, training_text=training_text)
+        training_text = get_object_or_404(
+            training.models.TrainingText,
+            id=text_id,
+        )
+        form = training.forms.TrainingTextForm(
+            request.POST,
+            training_text=training_text,
+        )
 
         if form.is_valid():
             user_answer = form.cleaned_data["is_ai_generated"]
@@ -126,8 +144,10 @@ class TrainingResultsView(LoginRequiredMixin, View):
     template_name = "training/results.html"
 
     def get(self, request):
-        progress, created = UserTrainingProgress.objects.get_or_create(
-            user=request.user,
+        progress, created = (
+            training.models.UserTrainingProgress.objects.get_or_create(
+                user=request.user,
+            )
         )
 
         return render(
@@ -136,7 +156,7 @@ class TrainingResultsView(LoginRequiredMixin, View):
             {
                 "progress": progress,
                 "completed_count": progress.completed_texts.count(),
-                "total_texts": TrainingText.objects.count(),
+                "total_texts": training.models.TrainingText.objects.count(),
                 "needed_score": settings.TRAINING_COMPLETIONS_FOR_PERFORMER,
             },
         )
