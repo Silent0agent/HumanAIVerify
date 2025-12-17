@@ -17,6 +17,6 @@
   <a class="text-decoration-none purple-hover" href="{% url 'tasks:audio-check-detail' check.id %}">{% translate "View_details" %}</a>
 {% endblock view_details %}
 
-{% block back_to_my_tasks %}
-  <a class="text-decoration-none purple-hover" href="{% url 'tasks:my-audio-tasks' %}">{% translate "Back_to_my_tasks" %}</a>
-{% endblock back_to_my_tasks %}
+{% block my_tasks %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:my-audio-tasks' %}">{% translate "My_tasks" %}</a>
+{% endblock my_tasks %}
