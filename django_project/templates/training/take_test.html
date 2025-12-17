@@ -3,56 +3,48 @@
 
 {% block title %}
   <title>{% translate "Training_Test" %}</title>
-{% endblock %}
+{% endblock title %}
 
 {% block content %}
-<div class="container mt-4">
-  <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <h2 class="mb-0">{% translate "Training_Test" %}</h2>
-      <span class="badge bg-secondary">{{ training_text.get_difficulty_display }}</span>
-    </div>
-    
-    <div class="card-body">
-      <div class="mb-4">
-        <h4>{% translate "Read_the_text_and_decide" %}:</h4>
-        <div class="bg-light p-4 rounded mb-4">
-          {{ training_text.content|linebreaks }}
-        </div>
+  <div class="container mt-4">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">{% translate "Training_Test" %}</h2>
+        <span class="badge bg-secondary">{{ training_text.get_difficulty_display }}</span>
       </div>
-      
-      <form method="post">
-        {% csrf_token %}
-        
+
+      <div class="card-body">
         <div class="mb-4">
-          <h4>{{ form.is_ai_generated.label }}</h4>
-          {% for choice in form.is_ai_generated %}
-          <div class="form-check mb-2">
-            {{ choice.tag }}
-            <label class="form-check-label" for="{{ choice.id_for_label }}">
-              {{ choice.choice_label }}
-            </label>
+          <h4>{% translate "Read_the_text_and_decide" %}:</h4>
+          <div class="bg-light p-4 rounded mb-4">{{ training_text.content|linebreaks }}</div>
+        </div>
+
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="mb-4">
+            <h4>{{ form.is_ai_generated.label }}</h4>
+            {% for choice in form.is_ai_generated %}
+              <div class="form-check mb-2">
+                {{ choice.tag }}
+                <label class="form-check-label" for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+              </div>
+            {% endfor %}
           </div>
-          {% endfor %}
-        </div>
-        
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <a href="{% url 'training:start' %}" class="btn btn-secondary me-md-2">
-            {% translate "Cancel" %}
-          </a>
-          <button type="submit" class="btn btn-primary">
-            {% translate "Submit_answer" %}
-          </button>
-        </div>
-      </form>
-    </div>
-    
-    <div class="card-footer text-muted">
-      <small>
-        {% translate "Current_score" %}: <strong>{{ progress.training_score }}</strong> | 
-        {% translate "Goal" %}: 10
-      </small>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{% url 'training:start' %}" class="btn btn-secondary me-md-2">{% translate "Cancel" %}</a>
+            <button type="submit" class="btn btn-primary">{% translate "Submit_answer" %}</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card-footer text-muted">
+        <small>
+          {% translate "Current_score" %}: <strong>{{ progress.training_score }}</strong> |
+          {% translate "Goal" %}: {{ needed_score }}
+        </small>
+      </div>
     </div>
   </div>
-</div>
-{% endblock %}
+{% endblock content %}

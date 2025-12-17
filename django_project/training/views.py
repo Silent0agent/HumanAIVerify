@@ -1,4 +1,8 @@
 __all__ = ()
+
+import random
+
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
@@ -9,28 +13,29 @@ from training.models import TrainingText, UserTrainingProgress
 
 
 class TrainingStartView(LoginRequiredMixin, View):
-
     template_name = "training/start.html"
 
     def get(self, request):
         progress, created = UserTrainingProgress.objects.get_or_create(
             user=request.user,
         )
+        context_dict = {
+            "progress": progress,
+            "can_start": False,
+            "needed_score": settings.TRAINING_COMPLETIONS_FOR_PERFORMER,
+        }
 
         if not progress.can_take_test:
             messages.warning(
                 request,
-                _("You_can_try_again_in_hours").format(
+                _("Try_again_in_hours").format(
                     hours=progress.remaining_hours,
                 ),
             )
             return render(
                 request,
                 self.template_name,
-                {
-                    "progress": progress,
-                    "can_start": False,
-                },
+                context_dict,
             )
 
         available_texts = progress.get_available_texts()
@@ -39,13 +44,8 @@ class TrainingStartView(LoginRequiredMixin, View):
             return render(
                 request,
                 self.template_name,
-                {
-                    "progress": progress,
-                    "can_start": False,
-                },
+                context_dict,
             )
-
-        import random
 
         training_text = random.choice(list(available_texts))
 
@@ -53,7 +53,6 @@ class TrainingStartView(LoginRequiredMixin, View):
 
 
 class TrainingTakeTestView(LoginRequiredMixin, View):
-
     template_name = "training/take_test.html"
 
     def get(self, request, text_id):
@@ -78,6 +77,7 @@ class TrainingTakeTestView(LoginRequiredMixin, View):
                 "training_text": training_text,
                 "form": form,
                 "progress": progress,
+                "needed_score": settings.TRAINING_COMPLETIONS_FOR_PERFORMER,
             },
         )
 
@@ -98,10 +98,13 @@ class TrainingTakeTestView(LoginRequiredMixin, View):
             else:
                 messages.error(request, _("Wrong_answer_minus_2_points"))
 
-            if progress.training_score >= 10:
+            if (
+                progress.training_score
+                >= settings.TRAINING_COMPLETIONS_FOR_PERFORMER
+            ):
                 messages.success(
                     request,
-                    _("Congratulations_you_are_now_a_performer"),
+                    _("You_are_now_a_performer"),
                 )
                 return redirect("training:results")
 
@@ -114,12 +117,12 @@ class TrainingTakeTestView(LoginRequiredMixin, View):
                 "training_text": training_text,
                 "form": form,
                 "progress": progress,
+                "needed_score": settings.TRAINING_COMPLETIONS_FOR_PERFORMER,
             },
         )
 
 
 class TrainingResultsView(LoginRequiredMixin, View):
-
     template_name = "training/results.html"
 
     def get(self, request):
@@ -134,6 +137,6 @@ class TrainingResultsView(LoginRequiredMixin, View):
                 "progress": progress,
                 "completed_count": progress.completed_texts.count(),
                 "total_texts": TrainingText.objects.count(),
-                "needed_score": 10,
+                "needed_score": settings.TRAINING_COMPLETIONS_FOR_PERFORMER,
             },
         )

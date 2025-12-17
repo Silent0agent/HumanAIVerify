@@ -2,11 +2,11 @@ __all__ = ()
 
 from django.conf import settings
 from django.db import models
+from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
 
 class TrainingText(models.Model):
-
     class Difficulty(models.TextChoices):
         EASY = "easy", _("easy")
         MEDIUM = "medium", _("medium")
@@ -37,12 +37,10 @@ class TrainingText(models.Model):
         ordering = ["difficulty", "id"]
 
     def __str__(self):
-        ai_status = _("AI") if self.is_ai_generated else _("Human")
-        return f"{self.difficulty.upper()}: {ai_status} ({self.id})"
+        return Truncator(self.content).chars(30)
 
 
 class UserTrainingProgress(models.Model):
-
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -74,7 +72,7 @@ class UserTrainingProgress(models.Model):
         verbose_name_plural = _("user_training_progresses")
 
     def __str__(self):
-        return f"Training: {self.user.username} ({self.training_score})"
+        return self.user.username
 
     @property
     def can_take_test(self):
@@ -84,7 +82,7 @@ class UserTrainingProgress(models.Model):
             return True
 
         time_since_fail = timezone.now() - self.last_fail_timestamp
-        return time_since_fail.days >= 1  # Ждет 24 часа
+        return time_since_fail.days >= 1
 
     @property
     def remaining_hours(self):
@@ -111,7 +109,7 @@ class UserTrainingProgress(models.Model):
 
         self.save()
 
-        if self.training_score >= 10:
+        if self.training_score >= settings.TRAINING_COMPLETIONS_FOR_PERFORMER:
             performer_group, created = Group.objects.get_or_create(
                 name="Performers",
             )

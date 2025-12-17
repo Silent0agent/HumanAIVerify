@@ -1,13 +1,14 @@
 __all__ = ()
 
+from django.conf import settings
 from django.contrib import admin
+from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 from training.models import TrainingText, UserTrainingProgress
 
 
 @admin.register(TrainingText)
 class TrainingTextAdmin(admin.ModelAdmin):
-
     list_display = ("id", "difficulty", "is_ai_generated", "content_preview")
     list_filter = ("difficulty", "is_ai_generated")
     search_fields = ("content",)
@@ -29,11 +30,7 @@ class TrainingTextAdmin(admin.ModelAdmin):
     )
 
     def content_preview(self, obj):
-        preview = obj.content[:100]
-        if len(obj.content) > 100:
-            preview += "..."
-
-        return preview
+        return Truncator(obj.content).chars(30)
 
     content_preview.short_description = _("Content_preview")
 
@@ -125,8 +122,9 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
 
         if (
             old_score is not None
-            and old_score < 10
-            and obj.training_score >= 10
+            and old_score < settings.TRAINING_COMPLETIONS_FOR_PERFORMER
+            and obj.training_score
+            >= settings.TRAINING_COMPLETIONS_FOR_PERFORMER
             and obj.user.role != "performer"
         ):
             performer_group, created = Group.objects.get_or_create(

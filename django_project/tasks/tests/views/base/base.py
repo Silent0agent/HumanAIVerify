@@ -11,7 +11,7 @@ class BaseViewTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.performer_group, _ = Group.objects.get_or_create(name='Performers')
+        cls.performer_group, _ = Group.objects.get_or_create(name="Performers")
         cls.customer = User.objects.create_user(
             username="customer",
             email="example1@example.com",
