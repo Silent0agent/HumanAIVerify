@@ -12,8 +12,14 @@
     <nav>
       <ul class="nav nav-tabs nav-fill mb-4" id="taskTabs" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link active fw-normal" id="available-tab" data-bs-toggle="tab" data-bs-target="#available-pane"
-                  type="button" role="tab" aria-controls="available-pane" aria-selected="true">
+          <button class="nav-link active fw-normal"
+                  id="available-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#available-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="available-pane"
+                  aria-selected="true">
             <i class="bi bi-inbox me-1 fs-6" aria-hidden="true"></i>
             {% translate "available_tasks" %}
             {% if available_tasks %}
@@ -23,8 +29,14 @@
         </li>
 
         <li class="nav-item" role="presentation">
-          <button class="nav-link fw-normal" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed-pane"
-                  type="button" role="tab" aria-controls="completed-pane" aria-selected="false">
+          <button class="nav-link fw-normal"
+                  id="completed-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#completed-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="completed-pane"
+                  aria-selected="false">
             <i class="bi bi-check2-circle me-1 fs-6" aria-hidden="true"></i>
             {% translate "completed_tasks" %}
           </button>
@@ -56,7 +68,7 @@
 
                     <div class="preview border rounded p-2 mt-2 text-secondary d-flex align-items-center justify-content-center" aria-hidden="false">
                       {% block task_content %}
-                        <small class="text-muted">{{ task.description|default:_("No preview")|truncatechars:120 }}</small>
+                        <small class="text-muted">{{ task.description|default:_("No preview") |truncatechars:120 }}</small>
                       {% endblock task_content %}
                     </div>
                   </div>
@@ -98,7 +110,10 @@
         {% else %}
           <div class="empty-state border rounded text-center py-5">
             <i class="bi bi-clipboard-x display-5 d-block mb-3"></i>
-            <h4 class="mb-2">{% block no_tasks %}{% endblock no_tasks %}</h4>
+            <h4 class="mb-2">
+              {% block no_tasks %}
+              {% endblock no_tasks %}
+            </h4>
             <p class="text-muted mb-0">{% translate "Good job! You've cleared the queue." %}</p>
           </div>
         {% endif %}
@@ -162,8 +177,14 @@
           </div>
         {% else %}
           <div class="empty-state border rounded text-center py-5">
-            <div class="display-1 text-muted mb-3" aria-hidden="true"><i class="bi bi-journal-x"></i></div>
-            <h4 class="mb-2">{% block no_checks %}{% translate "No_check_history" %}{% endblock no_checks %}</h4>
+            <div class="display-1 text-muted mb-3" aria-hidden="true">
+              <i class="bi bi-journal-x"></i>
+            </div>
+            <h4 class="mb-2">
+              {% block no_checks %}
+                {% translate "No_check_history" %}
+              {% endblock no_checks %}
+            </h4>
           </div>
         {% endif %}
       </section>

@@ -18,9 +18,7 @@
           <h5 class="modal-title" id="taskContentLabel">{% translate "Content" %} — {{ task.title }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
         </div>
-        <div class="modal-body">
-          {{ task.content|safe }}
-        </div>
+        <div class="modal-body">{{ task.content|safe }}</div>
       </div>
     </div>
   </div>
