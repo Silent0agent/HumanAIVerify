@@ -1,7 +1,7 @@
 __all__ = ()
 
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
@@ -79,6 +79,7 @@ class UserTrainingProgress(models.Model):
     @property
     def can_take_test(self):
         from django.utils import timezone
+
         if not self.last_fail_timestamp:
             return True
 
@@ -88,6 +89,7 @@ class UserTrainingProgress(models.Model):
     @property
     def remaining_hours(self):
         from django.utils import timezone
+
         if not self.last_fail_timestamp or self.can_take_test:
             return 0
 
@@ -110,12 +112,14 @@ class UserTrainingProgress(models.Model):
         self.save()
 
         if self.training_score >= 10:
-            performer_group, created = Group.objects.get_or_create(name="Performers")
+            performer_group, created = Group.objects.get_or_create(
+                name="Performers",
+            )
             self.user.groups.add(performer_group)
             self.user.role = "performer"
             self.user.save()
 
     def get_available_texts(self):
         return TrainingText.objects.exclude(
-            id__in=self.completed_texts.values_list('id', flat=True)
+            id__in=self.completed_texts.values_list("id", flat=True),
         )
