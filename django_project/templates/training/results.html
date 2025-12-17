@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+  <title>{% translate "Training_Results" %}</title>
+{% endblock title %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="mb-0">{% translate "Training_Results" %}</h2>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-3">
+              <div class="card-body text-center">
+                <h3 class="display-4">{{ progress.training_score }}</h3>
+                <p class="text-muted">{% translate "Current_score" %}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card mb-3">
+              <div class="card-body text-center">
+                <h3 class="display-4">{{ completed_count }}</h3>
+                <p class="text-muted">{% translate "Completed_texts" %}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h3>{% translate "Progress_to_become_performer" %}</h3>
+
+          {% widthratio progress.training_score needed_score 100 as progress_percent %}
+          {% if progress_percent > 100 %}
+            {% widthratio 100 1 1 as progress_percent %}
+          {% endif %}
+
+          <div class="progress results-progress-area">
+            <div class="progress-bar progress-bar-striped {% if progress.training_score >= needed_score %}bg-success{% endif %}"
+                 role="progressbar"
+                 style="width: {{ progress_percent }}%"
+                 aria-valuenow="{{ progress.training_score }}"
+                 aria-valuemin="0"
+                 aria-valuemax="{{ needed_score }}">{{ progress.training_score }}/{{ needed_score }}</div>
+          </div>
+        </div>
+
+        {% if progress.training_score >= needed_score %}
+          <div class="alert alert-success">
+            <h4 class="alert-heading">{% translate "Congratulations" %}!</h4>
+            <p>{% translate "You_have_become_a_performer" %}</p>
+            <hr>
+            <p class="mb-0">
+              <a href="{% url 'tasks:my-text-checks' %}" class="alert-link">{% translate "Start_checking_tasks" %}</a>
+            </p>
+          </div>
+        {% else %}
+          <div class="alert alert-info">
+            <p>
+              {% translate "You_need_points_to_become_performer" %} {{ needed_score }}
+              {% translate "Current" %}: {{ progress.training_score }}
+            </p>
+            <a href="{% url 'training:start' %}" class="btn btn-primary">{% translate "Continue_training" %}</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}

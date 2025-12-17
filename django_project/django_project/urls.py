@@ -16,6 +16,7 @@ urlpatterns = [
     path("feedback/", include("feedback.urls")),
     path("users/", include("users.urls.users_urls")),
     path("tasks/", include("tasks.urls")),
+    path("training/", include("training.urls")),
     path("", include("homepage.urls")),
 ]
 
