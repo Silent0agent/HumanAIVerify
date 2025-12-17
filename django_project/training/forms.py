@@ -5,7 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 class TrainingTextForm(forms.Form):
-
     is_ai_generated = forms.ChoiceField(
         choices=[
             (True, _("AI_generated")),
