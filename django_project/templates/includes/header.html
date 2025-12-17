@@ -106,9 +106,11 @@
         <a class="nav-link py-2 {% if view_name == 'about:about' %}link-secondary active disabled{% else %}purple{% endif %}" href="{% url 'about:about' %}">{% translate "About" %}</a>
         {% if request.user.is_authenticated %}
           {% if request.user.role == 'customer' %}
-            <a class="nav-link py-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}" href="{% url 'tasks:my-text-tasks' %}">{% translate "My_tasks" %}</a>
+            <a class="nav-link py-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}"
+               href="{% url 'tasks:my-text-tasks' %}">{% translate "My_tasks" %}</a>
           {% elif request.user.role == 'performer' %}
-            <a class="nav-link py-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}" href="{% url 'tasks:my-text-checks' %}">{% translate "My_checks" %}</a>
+            <a class="nav-link py-2 {% if view_name == 'tasks:my-text-checks' %}link-secondary active disabled{% else %}purple{% endif %}"
+               href="{% url 'tasks:my-text-checks' %}">{% translate "My_checks" %}</a>
           {% endif %}
         {% endif %}
         {% if request.user.is_superuser %}
