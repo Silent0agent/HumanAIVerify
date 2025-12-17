@@ -24,7 +24,7 @@ class TextTaskCheckAdmin(BaseCheckAdmin):
     unique_content_field = tasks.models.TextTaskCheck.annotated_content.field
 
     class Media:
-        css = {"all": ("css/highlight-text.css",)}
+        css = {"all": ("css/highlight_text.css",)}
 
     @admin.display(description=_("Annotated_content"), empty_value="-")
     def display_annotated_content(self, obj):

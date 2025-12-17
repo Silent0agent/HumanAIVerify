@@ -11,8 +11,8 @@
     let offcanvasOpen = false;
 
     const FIX_THRESHOLD = 10;
-    const HIDE_THRESHOLD = 25;
-    const SHOW_THRESHOLD = -25;
+    const HIDE_THRESHOLD = 5;
+    const SHOW_THRESHOLD = -5;
 
     function updatePlaceholder() {
         const h = header.offsetHeight;

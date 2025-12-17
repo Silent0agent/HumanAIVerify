@@ -19,9 +19,9 @@
   </audio>
 {% endblock completed_task_content %}
 
-{% block available_task_title %}
-  <a class="text-decoration-none purple-hover" href="{% url 'tasks:audio-check-perform' task.id %}">{% translate "check_task" %}</a>
-{% endblock available_task_title %}
+{% block task_title %}
+  <a href="{% url 'tasks:audio-check-perform' task.id %}" class="text-decoration-none stretched-link purple-hover">{{ task.title }}</a>
+{% endblock task_title %}
 {% block completed_task_title %}
   <a class="text-decoration-none purple-hover" href="{% url 'tasks:audio-check-perform' check.task.id %}">{{ check.task.title }}</a>
 {% endblock completed_task_title %}
