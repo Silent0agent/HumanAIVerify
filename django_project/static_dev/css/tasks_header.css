@@ -10,8 +10,6 @@
 }
 
 
-/* внутренний бар: теперь позиционируется от левого края контейнера */
-
 #miniTabsIndicator>div {
     position: absolute;
     left: 0;
