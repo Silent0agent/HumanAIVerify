@@ -6,8 +6,10 @@ from django.utils import timezone
 from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
+import core.models
 
-class TrainingText(models.Model):
+
+class TrainingText(core.models.TimeStampedModel):
     class Difficulty(models.TextChoices):
         EASY = "easy", _("easy")
         MEDIUM = "medium", _("medium")
@@ -41,7 +43,7 @@ class TrainingText(models.Model):
         return Truncator(self.content).chars(30)
 
 
-class UserTrainingProgress(models.Model):
+class UserTrainingProgress(core.models.TimeStampedModel):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -65,8 +67,6 @@ class UserTrainingProgress(models.Model):
         related_name="completed_by_users",
         verbose_name=_("completed_texts"),
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = _("user_training_progress")
