@@ -2,14 +2,14 @@
 {% load i18n %}
 
 {% block title %}
-  <title>{% translate "Training_Test" %}</title>
+  {% translate "Training_test" %}
 {% endblock title %}
 
 {% block content %}
   <div class="container mt-4">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h2 class="mb-0">{% translate "Training_Test" %}</h2>
+        <h2 class="mb-0">{% translate "Training_test" %}</h2>
         <span class="badge bg-secondary">{{ training_text.get_difficulty_display }}</span>
       </div>
 
