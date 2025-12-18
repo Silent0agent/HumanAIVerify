@@ -2,7 +2,7 @@
 
 [![pipeline status](https://gitlab.crja72.ru/django/2025/autumn/course/projects/team-7/badges/develop/pipeline.svg?key_text=lint%20%26%20tests)](https://gitlab.crja72.ru/django/2025/autumn/course/projects/team-7/-/commits/develop)
 
-HumanAIVerify is a service for checking content for signs of AI by humans. Customer can upload text, image, or audio tasks and then performers with check it. To became a performer user need to pass AI-detection test on 10 points. Languages supported: English, Russian.
+HumanAIVerify is a service for checking content for signs of AI by humans. Customers can upload text, image, or audio tasks and then performers will check them. To become a performer, a user needs to pass a qualification test. Languages supported: English, Russian.
 
 ## Requirements
 
