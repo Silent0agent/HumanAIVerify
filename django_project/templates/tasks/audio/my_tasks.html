@@ -6,6 +6,10 @@
   {% translate "my_audio_tasks" %}
 {% endblock title %}
 
+{% block task_onclick %}
+  onclick="window.location.href='{% url 'tasks:audio-task-detail' task.id %}'"
+{% endblock task_onclick %}
+
 {% block task_title %}
   <a class="text-decoration-none purple-hover" href="{% url 'tasks:audio-task-detail' task.id %}">{{ task.title }}</a>
 {% endblock task_title %}
