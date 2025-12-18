@@ -153,6 +153,7 @@ Windows:
 ```batch
 python manage.py createsuperuser
 ```
+
 ### 12. Load fixtures (optional)
 
 Linux/macOS:
