@@ -3,10 +3,10 @@
     "model": "training.trainingtext",
     "pk": 1,
     "fields": {
-      "content": "Синергетическая интеграция блокчейн-технологий с экосистемами интернета вещей способствует беспрецедентной неизменности данных и децентрализованным механизмам консенсуса, тем самым оптимизируя прозрачность цепочек поставок и операционную эффективность.",
+      "content": "The synergistic integration of blockchain technology with IoT ecosystems facilitates unprecedented data immutability and decentralized consensus mechanisms, thereby optimizing supply chain transparency and operational efficiency.",
       "is_ai_generated": true,
       "difficulty": "easy",
-      "explanation": "Использует сложные технические термины и неестественно сложные конструкции предложений, характерные для AI.",
+      "explanation": "Uses complex technical terms and unnaturally complex sentence structures typical of AI.",
       "created_at": "2024-01-15T10:00:00Z",
       "updated_at": "2024-01-15T10:00:00Z"
     }
@@ -15,10 +15,10 @@
     "model": "training.trainingtext",
     "pk": 2,
     "fields": {
-      "content": "Используя алгоритмы машинного обучения, мы можем экстраполировать прогнозную аналитику из многомерных наборов данных, улучшая парадигмы принятия решений посредством архитектур нейронных сетей и методологий глубокого обучения.",
+      "content": "Leveraging machine learning algorithms, we can extrapolate predictive analytics from multivariate datasets, enhancing decision-making paradigms through neural network architectures and deep learning methodologies.",
       "is_ai_generated": true,
       "difficulty": "medium",
-      "explanation": "Слишком формальный и технический язык с избыточными сложными конструкциями.",
+      "explanation": "Overly formal and technical language with redundant complex constructions.",
       "created_at": "2024-01-15T10:05:00Z",
       "updated_at": "2024-01-15T10:05:00Z"
     }
@@ -27,10 +27,10 @@
     "model": "training.trainingtext",
     "pk": 3,
     "fields": {
-      "content": "Онтологические импликации квантовых вычислений трансцендируют традиционные бинарные парадигмы, требуя реконцептуализации теории информации в рамках недетерминистических фреймворков.",
+      "content": "The ontological implications of quantum computing transcend traditional binary paradigms, necessitating a reconceptualization of information theory within non-deterministic frameworks.",
       "is_ai_generated": true,
       "difficulty": "hard",
-      "explanation": "Абстрактные философские термины в техническом контексте, неестественные комбинации слов.",
+      "explanation": "Abstract philosophical terms in a technical context, unnatural word combinations.",
       "created_at": "2024-01-15T10:10:00Z",
       "updated_at": "2024-01-15T10:10:00Z"
     }
@@ -39,10 +39,10 @@
     "model": "training.trainingtext",
     "pk": 4,
     "fields": {
-      "content": "Устойчивое городское развитие требует внедрения инициатив зеленой инфраструктуры, которые синергетически интегрируют возобновляемые источники энергии с технологиями умных сетей.",
+      "content": "Sustainable urban development necessitates the implementation of green infrastructure initiatives that synergistically integrate renewable energy sources with smart grid technologies.",
       "is_ai_generated": true,
       "difficulty": "medium",
-      "explanation": "Использование модных терминов и излишне сложных грамматических конструкций.",
+      "explanation": "Use of buzzwords and overly complex grammatical structures.",
       "created_at": "2024-01-15T10:15:00Z",
       "updated_at": "2024-01-15T10:15:00Z"
     }
@@ -51,10 +51,10 @@
     "model": "training.trainingtext",
     "pk": 5,
     "fields": {
-      "content": "Герменевтический анализ постмодернистской литературной деконструкции раскрывает интертекстуальные диалоги, проблематизирующие традиционные представления об авторской интенциональности и нарративной когерентности.",
+      "content": "The hermeneutic analysis of postmodern literary deconstruction reveals intertextual dialogues that problematize traditional notions of authorial intentionality and narrative coherence.",
       "is_ai_generated": true,
       "difficulty": "hard",
-      "explanation": "Академический жаргон с искусственными комбинациями терминов.",
+      "explanation": "Academic jargon with artificial term combinations.",
       "created_at": "2024-01-15T10:20:00Z",
       "updated_at": "2024-01-15T10:20:00Z"
     }
@@ -63,10 +63,10 @@
     "model": "training.trainingtext",
     "pk": 6,
     "fields": {
-      "content": "Вчера я пошел в магазин за хлебом, но забыл взять деньги. Пришлось возвращаться домой, а потом снова идти под дождем. Было очень неприятно и обидно.",
+      "content": "Yesterday I went to the store to buy bread but forgot to take money. I had to go back home and then walk again in the rain. It was very unpleasant and frustrating.",
       "is_ai_generated": false,
       "difficulty": "easy",
-      "explanation": "Простой бытовой рассказ с эмоциональной оценкой и личными переживаниями.",
+      "explanation": "Simple everyday story with emotional assessment and personal experiences.",
       "created_at": "2024-01-15T10:25:00Z",
       "updated_at": "2024-01-15T10:25:00Z"
     }
@@ -75,10 +75,10 @@
     "model": "training.trainingtext",
     "pk": 7,
     "fields": {
-      "content": "Наша кошка терпеть не может, когда ее берут на руки. Она сразу начинает вырываться и убегает под диван. Иногда она сидит там по несколько часов, пока не решит, что опасность миновала.",
+      "content": "Our cat absolutely hates being picked up. She immediately starts struggling and runs under the sofa. Sometimes she sits there for several hours until she decides the danger has passed.",
       "is_ai_generated": false,
       "difficulty": "easy",
-      "explanation": "Личное наблюдение за поведением животного с конкретными деталями.",
+      "explanation": "Personal observation of animal behavior with specific details.",
       "created_at": "2024-01-15T10:30:00Z",
       "updated_at": "2024-01-15T10:30:00Z"
     }
@@ -87,10 +87,10 @@
     "model": "training.trainingtext",
     "pk": 8,
     "fields": {
-      "content": "Чтобы приготовить борщ, сначала нужно сварить бульон из говядины на косточке. Потом добавить нарезанную картошку, свеклу, морковь и капусту. В самом конце заправить томатной пастой и дать настояться.",
+      "content": "To make borscht, first you need to cook beef broth with bones. Then add chopped potatoes, beets, carrots, and cabbage. At the very end, add tomato paste and let it simmer.",
       "is_ai_generated": false,
       "difficulty": "medium",
-      "explanation": "Практические кулинарные инструкции с понятной последовательностью действий.",
+      "explanation": "Practical cooking instructions with clear sequence of actions.",
       "created_at": "2024-01-15T10:35:00Z",
       "updated_at": "2024-01-15T10:35:00Z"
     }
@@ -99,10 +99,10 @@
     "model": "training.trainingtext",
     "pk": 9,
     "fields": {
-      "content": "Когда я учился в школе, у нас был очень строгий учитель математики. Он всегда заставлял нас решать дополнительные задачи и проверял домашнюю работу с особой тщательностью. Мы его боялись, но многому научились.",
+      "content": "When I was in school, we had a very strict math teacher. He always made us solve extra problems and checked homework with particular thoroughness. We were afraid of him but learned a lot.",
       "is_ai_generated": false,
       "difficulty": "medium",
-      "explanation": "Личное воспоминание с субъективной оценкой и эмоциональной окраской.",
+      "explanation": "Personal memory with subjective assessment and emotional coloring.",
       "created_at": "2024-01-15T10:40:00Z",
       "updated_at": "2024-01-15T10:40:00Z"
     }
@@ -111,10 +111,10 @@
     "model": "training.trainingtext",
     "pk": 10,
     "fields": {
-      "content": "Сегодня утром я проснулся от того, что за окном пели птицы. Солнечный свет мягко пробивался сквозь легкие шторы, и в воздухе стоял аромат свежескошенной травы. Было такое умиротворенное ощущение начала нового дня.",
+      "content": "This morning I woke up to birds singing outside my window. Sunlight was softly filtering through the thin curtains, and the air carried the scent of freshly cut grass. There was such a peaceful feeling of a new day beginning.",
       "is_ai_generated": false,
       "difficulty": "hard",
-      "explanation": "Поэтичное описание утра с сенсорными деталями и личным восприятием.",
+      "explanation": "Poetic morning description with sensory details and personal perception.",
       "created_at": "2024-01-15T10:45:00Z",
       "updated_at": "2024-01-15T10:45:00Z"
     }
