@@ -1019,7 +1019,7 @@ msgstr "Попробуйте снова через"
 
 #: templates/training/start.html:50
 msgid "hours"
-msgstr "часов"
+msgstr "часа (ов)"
 
 #: templates/training/start.html:57 training/views.py:127
 msgid "You_are_now_a_performer"
