@@ -1,11 +1,11 @@
 __all__ = ()
 
+from django.conf import settings
 from django.contrib import auth, messages
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
-from django_project.settings import TRAINING_COMPLETIONS_FOR_PERFORMER
 
 from training.models import UserTrainingProgress
 
@@ -43,7 +43,7 @@ class PerformerRequiredMixin(UserPassesTestMixin):
         user = self.request.user
         return (
             user.is_authenticated
-            and user.groups.filter(name="Performers").exists()
+            and user.groups.filter(name=settings.PERFORMER_GROUP_NAME).exists()
         )
 
     def handle_no_permission(self):
@@ -55,10 +55,10 @@ class PerformerRequiredMixin(UserPassesTestMixin):
                 )
                 if (
                     progress.training_score
-                    >= TRAINING_COMPLETIONS_FOR_PERFORMER
+                    >= settings.TRAINING_COMPLETIONS_FOR_PERFORMER
                 ):
                     performer_group, created = Group.objects.get_or_create(
-                        name="Performers",
+                        name=settings.PERFORMER_GROUP_NAME,
                     )
                     self.request.user.groups.add(performer_group)
                     messages.success(

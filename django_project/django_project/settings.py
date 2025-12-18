@@ -133,6 +133,8 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
+PERFORMER_GROUP_NAME = "Performers"
+
 LOGIN_URL = reverse_lazy("auth:login")
 LOGIN_REDIRECT_URL = reverse_lazy("users:profile")
 LOGOUT_REDIRECT_URL = reverse_lazy("auth:logout")

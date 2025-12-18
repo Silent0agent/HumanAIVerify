@@ -110,7 +110,7 @@ class UserTrainingProgress(core.models.TimeStampedModel):
 
         if self.training_score >= settings.TRAINING_COMPLETIONS_FOR_PERFORMER:
             performer_group, created = Group.objects.get_or_create(
-                name="Performers",
+                name=settings.PERFORMER_GROUP_NAME,
             )
             self.user.groups.add(performer_group)
             self.user.role = "performer"
