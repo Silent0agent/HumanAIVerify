@@ -1,0 +1,18 @@
+{% extends "tasks/base/check_detail.html" %}
+{% load static i18n %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/highlight_text.css' %}">
+{% endblock extra_head %}
+
+{% block task_content %}
+  <p>{{ check.annotated_content|safe }}</p>
+{% endblock task_content %}
+
+{% block customer_return_link %}
+  <a href="{% url 'tasks:text-task-detail' check.task.id %}" class="btn btn-secondary">{% translate "Back_to_task" %}</a>
+{% endblock customer_return_link %}
+
+{% block performer_return_link %}
+  <a href="{% url 'tasks:my-text-checks' %}" class="btn btn-secondary">{% translate "Back_to_my_checks" %}</a>
+{% endblock performer_return_link %}

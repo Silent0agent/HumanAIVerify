@@ -1,0 +1,19 @@
+<div class="row g-2 align-items-center js-dual-range-widget">
+
+  <div class="col-auto ai-score-input">
+    <input type="{{ widget.type }}"
+           name="{{ widget.name }}"
+           {% if widget.value != None %}value="{{ widget.value }}"{% endif %}
+           {% for name, value in widget.attrs.items %}{{ name }}="{{ value }}"{% endfor %}
+           id="{{ widget.attrs.id }}">
+  </div>
+
+  <div class="col-auto">
+    <span class="fw-bold text-muted">%</span>
+  </div>
+
+  <div class="col">
+    <input type="range" class="form-range" min="0" max="100" step="0.1" {% if widget.value != None %} value="{{ widget.value }}"{% else %} value="0" {% endif %}>
+  </div>
+
+</div>

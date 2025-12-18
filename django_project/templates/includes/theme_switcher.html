@@ -1,0 +1,38 @@
+{% load i18n static %}
+
+<div class="dropdown normalize-button">
+  <button id="themeDropdown" class="btn btn-outline-secondary btn-sm d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <img src="{% static 'img/theme-switcher/auto.svg' %}" width="18" height="18" class="me-2" alt="">
+    <span>{% translate "Auto" %}</span>
+  </button>
+
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
+    <li>
+      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+        <img src="{% static 'img/theme-switcher/light.svg' %}" width="18" height="18" class="me-2" alt="">
+        {% translate "Light" %}
+        <span class="ms-auto check d-none" aria-hidden="true">✔</span>
+      </button>
+    </li>
+
+    <li>
+      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+        <img src="{% static 'img/theme-switcher/dark.svg' %}" width="18" height="18" class="me-2" alt="">
+        {% translate "Dark" %}
+        <span class="ms-auto check d-none" aria-hidden="true">✔</span>
+      </button>
+    </li>
+
+    <li>
+      <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="true">
+        <img src="{% static 'img/theme-switcher/auto.svg' %}" width="18" height="18" class="me-2" alt="">
+        {% translate "Auto" %}
+        <span class="ms-auto check d-none" aria-hidden="true">✔</span>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<script src="{% static 'js/color_modes.js' %}"></script>
+<script src="{% static 'js/ckeditor_theme_sync.js' %}"></script>
+<script src="{% static 'js/theme_switcher.js' %}"></script>

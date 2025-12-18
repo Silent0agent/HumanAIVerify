@@ -1,0 +1,35 @@
+{% extends "base_form.html" %}
+{% load i18n static %}
+
+{% block title %}
+  {% translate "Login" %}
+{% endblock title %}
+
+{% block head %}
+  {% translate "Login" %}
+{% endblock head %}
+
+{% block extra_fields %}
+  <div class="checkbox my-3">
+    {{ form.remember_me }}
+    <label class="form-check-label" for="{{ form.remember_me.id_for_label }}">{% translate "Remember_me" %}</label>
+  </div>
+{% endblock extra_fields %}
+{% block buttons %}
+  <div class="d-flex flex-column gap-2 mt-3 align-items-center justify-content-center ">
+    <button type="submit" class="btn btn-primary btn-lg">{% translate "Login" %}</button>
+  </div>
+{% endblock buttons %}
+
+{% block extra_under_form %}
+  <p class="text-center mt-3 mb-0">
+    <a class="purple-hover text-decoration-none" href="{% url 'auth:reset-password' %}" role="button" aria-label="{% translate 'Password_recovery' %}">
+      {% translate "Forgot_password" %}
+    </a>
+  </p>
+  <p class="text-center mb-0">
+    <a class="purple-hover text-decoration-none mb-0" href="{% url 'auth:signup' %}" role="button" aria-label="{% translate 'Signup' %}">
+      {% translate "Create_account" %}
+    </a>
+  </p>
+{% endblock extra_under_form %}

@@ -1,0 +1,7 @@
+{% load i18n %}
+
+{% translate "Hello" %},
+{% translate 'activate_link_text' %}:
+{{ activate_link }}.
+
+{% translate 'Ignore_activate_link_text' %}.

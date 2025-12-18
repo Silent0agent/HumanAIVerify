@@ -1,0 +1,53 @@
+{% load tz_detect i18n static %}
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="An platform for ai content verification." />
+    <meta name="generator" content="Astro v5.13.2" />
+    <meta name="keywords"
+          content="ai-content-verification, human-verification, text-check, content-verification, ai-detection, plagiarism-check, content-moderation, human-review, text-analysis, content-quality, artificial-intelligence, human-audit, ai-generated-content, content-authenticity, manual-verification, expert-review, content-validation">
+    <meta name="theme-color" content="#712cf9" />
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bi.css' %}">
+    <link rel="shortcut icon" type="image/icon" href="{% static 'img/fav/favicon.ico' %}" />
+    <link rel="icon" type="image/icon" sizes="96x96" href="{% static 'img/fav/favicon.ico' %}" />
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="{% static 'img/fav/favicon-16x16.ico' %}" />
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="{% static 'img/fav/favicon-32x32.ico' %}" />
+    <link rel="icon" type="image/x-icon" sizes="192x192" href="{% static 'img/fav/web-app-manifest-192x192.png' %}" />
+    <link rel="icon" type="image/x-icon" sizes="192x192" href="{% static 'img/fav/android-chrome-192x192.png' %}">
+    <link rel="icon" type="image/x-icon" sizes="512x512" href="{% static 'img/fav/android-chrome-512x512.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/fav/android-chrome-maskable-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{% static 'img/fav/android-chrome-maskable-512x512.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" type="image/x-icon" href="{% static 'img/fav/apple-touch-icon.ico' %}" />
+    <link rel="manifest" type="application/manifest+json" href="{% static 'img/fav/site.webmanifest' %}" />
+
+    {% block extra_head %}
+    {% endblock extra_head %}
+
+    <title>
+      {% block title %}
+      {% endblock title %}
+    </title>
+  </head>
+  {% tz_detect %}
+  <body class="d-flex flex-column min-vh-100">
+    {% include "includes/header.html" %}
+
+    <main class="flex-grow-1">
+      <div class="container mb-5">
+        {% include "includes/messages.html" %}
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </main>
+
+    {% include "includes/footer.html" %}
+
+    <script src="{% static 'js/bootstrap.bundle.min.js'%}" class="astro-vvvwv3sm"></script>
+  </body>
+</html>

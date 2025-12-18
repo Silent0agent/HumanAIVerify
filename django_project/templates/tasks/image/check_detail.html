@@ -1,0 +1,14 @@
+{% extends "tasks/base/check_detail.html" %}
+{% load i18n %}
+
+{% block task_content %}
+  <img src="{{ check.task.image.url }}" alt="{% translate 'task_image' %}" width="460" height="auto">
+{% endblock task_content %}
+
+{% block customer_return_link %}
+  <a href="{% url 'tasks:image-task-detail' check.task.id %}" class="btn btn-secondary">{% translate "Back_to_task" %}</a>
+{% endblock customer_return_link %}
+
+{% block performer_return_link %}
+  <a href="{% url 'tasks:my-image-checks' %}" class="btn btn-secondary">{% translate "Back_to_my_checks" %}</a>
+{% endblock performer_return_link %}

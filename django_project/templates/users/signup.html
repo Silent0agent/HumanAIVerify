@@ -1,0 +1,21 @@
+{% extends "base_form.html" %}
+{% load i18n static %}
+
+{% block title %}
+  {% translate "Signup" %}
+{% endblock title %}
+
+{% block head %}
+  {% translate "Signup" %}
+{% endblock head %}
+
+{% block buttons %}
+  <button class="btn w-25 mx-auto mt-3 btn-primary" type="submit">{% translate "Signup" %}</button>
+{% endblock buttons %}
+
+{% block extra_under_form %}
+  <p class="text-center mb-0">{% translate "Receive_link_after_signup" %}</p>
+  <p class="text-center mt-1">
+    <span>{% translate "Signup_have_account_already" %},</span> <a class="purple-hover text-decoration-none" href="{% url 'auth:login' %}">{% translate "login_here" %}</a>.
+  </p>
+{% endblock extra_under_form %}

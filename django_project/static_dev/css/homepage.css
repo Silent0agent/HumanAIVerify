@@ -1,0 +1,79 @@
+.task-card {
+    border: 2px solid var(--card-border-color, #000);
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+    background-color: var(--card-bg, #fff);
+}
+
+.task-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem var(--card-shadow-color, rgba(0,0,0,0.15));
+}
+
+.task-img-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 3px solid var(--img-border-color, #198754);
+    border-radius: 4px;
+    background-color: var(--img-container-bg, #f8f9fa);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.task-img-container img {
+    max-height: 70%;
+    max-width: 80%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    filter: var(--img-filter, none);
+}
+
+.task-card:hover .task-img-container img {
+    transform: scale(1.1);
+}
+
+.task-title {
+    font-family: 'Days One', sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--text-color, #212529);
+}
+
+.btn-task-action {
+    display: block;
+    width: 100%;
+    border: 3px solid var(--btn-border-color, #712cf9);
+    color: var(--btn-text-color, #333);
+    background: var(--btn-bg, transparent);
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 10px;
+    margin-top: auto;
+    transition: all 0.2s ease;
+}
+
+.btn-task-action:hover {
+    background-color: var(--btn-hover-bg, #712cf9);
+    color: var(--btn-hover-color, #fff);
+    text-decoration: none;
+}
+
+[data-bs-theme="dark"] {
+    --card-border-color: #495057;
+    --card-bg: #212529;
+    --card-shadow-color: rgba(255,255,255,0.1);
+    --img-border-color: #20c997;
+    --img-container-bg: #2b3035;
+    --img-filter: invert(1) brightness(2);
+    --text-color: #f8f9fa;
+    --btn-border-color: #8a5cf0;
+    --btn-text-color: #e9ecef;
+    --btn-bg: transparent;
+    --btn-hover-bg: #8a5cf0;
+    --btn-hover-color: #fff;
+}
