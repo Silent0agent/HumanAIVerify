@@ -186,7 +186,7 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
             and obj.user.role != self.user_model.Role.PERFORMER
         ):
             performer_group, created = Group.objects.get_or_create(
-                name="Performers",
+                name=settings.PERFORMER_GROUP_NAME,
             )
             obj.user.groups.add(performer_group)
             obj.user.role = self.user_model.Role.PERFORMER
@@ -194,6 +194,6 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
 
             self.message_user(
                 request,
-                _("User_added_to_Performers_group"),
+                _("User_added_to_performers_group"),
                 level=messages.SUCCESS,
             )
