@@ -17,7 +17,11 @@
             <div class="flex-shrink-0">
               {% if user_obj.avatar %}
                 {% thumbnail user_obj.avatar "150x150" crop="center" upscale=True as avatar %}
-                  <img src="{{ avatar.url }}" alt="{% translate "Avatar_of" %} {{ user_obj.username }}" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle" loading="lazy">
+                  <img src="{{ avatar.url }}"
+                       alt="{% translate "Avatar_of" %} {{ user_obj.username }}"
+                       width="{{ avatar.width }}" height="{{ avatar.height }}"
+                       class="rounded-circle"
+                       loading="lazy">
                 {% endthumbnail %}
               {% else %}
                 <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'Avatar_not_found' %}" width="150" height="150" class="rounded-circle" loading="lazy">
@@ -61,7 +65,7 @@
               {% if user_obj.profile.bio %}
                 <p class="mb-0">{{ user_obj.profile.bio|linebreaks }}</p>
               {% else %}
-                <p class="mb-0 text-muted">{% translate "No additional information" %}</p>
+                <p class="mb-0 text-muted">{% translate "No_additional_information" %}</p>
               {% endif %}
             </div>
 
