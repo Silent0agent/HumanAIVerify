@@ -22,6 +22,8 @@ class TrainingStartView(LoginRequiredMixin, View):
                 user=request.user,
             )
         )
+        if request.user.groups.filter(name='Performers').exists():
+            return redirect('training:results')
         context_dict = {
             "progress": progress,
             "can_start": False,
