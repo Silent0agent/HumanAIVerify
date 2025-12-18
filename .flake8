@@ -1,0 +1,10 @@
+[flake8]
+inline-quotes = "
+application-import-names = about, core, feedback, homepage, tasks, training, users
+import-order-style = google
+exclude =
+    */migrations/
+    venv/,
+    env/,
+    .git/,
+    __pycache__

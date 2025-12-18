@@ -1,0 +1,51 @@
+{% extends "base_form.html" %}
+{% load i18n static %}
+
+{% block extra_head %}
+  {{ form.media }}
+{% endblock extra_head %}
+{% block title %}
+  {% translate "create_task" %}
+{% endblock title %}
+
+{% block head %}
+  {% translate "create_task" %}
+{% endblock head %}
+
+{% block col-card-md %}
+  11
+{% endblock col-card-md %}
+
+{% block form_fields %}
+  {% for field in form %}
+    {% if forloop.first %}
+      <div class="form-floating mx-auto col-11 col-md-5">
+        {{ field }}
+        <label for="{{ field.id_for_label }}">
+          {{ field.label }}
+          {% if field.field.required %}<span>*</span>{% endif %}
+        </label>
+      </div>
+    {% elif forloop.last %}
+      {% if field.field.widget.input_type == "file" %}
+        <div class="form-floating mx-auto col-11 col-md-5">
+          <div>{{ field }}</div>
+        </div>
+      {% else %}
+        <div class="form-floating mt-4 mx-auto col-11 col-md-10 roboto">{{ field }}</div>
+      {% endif %}
+    {% else %}
+      <div class="form-floating mx-auto col-11 col-md-5">
+        {{ field }}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+{% endblock form_fields %}
+
+{% block buttons %}
+  <div class="d-flex flex-column gap-2 mt-3 align-items-center justify-content-center ">
+    <button type="submit" class="btn btn-primary btn-lg">{% translate "Create" %}</button>
+  </div>
+{% endblock buttons %}

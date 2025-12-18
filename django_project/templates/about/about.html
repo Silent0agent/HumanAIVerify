@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock extra_head %}
+
+{% block title %}
+  {% translate "About" %}
+{% endblock title %}
+
+{% block content %}
+  <section>
+    <h2 class="text-white text-center mt-3 display-3 d-md-block d-none">{% translate "About_header" %}</h2>
+    <div class="container-fluid">
+      <div class="row align-items-center p-5">
+        <div class="col-md-6 order-1 order-md-1 d-flex flex-column justify-content-center px-5">
+          <h1 class="display-4 mb-3 lh-1">{% translate "About_title" %}</h1>
+          <p class="fs-5 text-muted">{% translate "About_text" %}</p>
+        </div>
+
+        <div class="col-md-6 text-center order-2 px-4 d-md-block d-none">
+          <img src="{% static 'img/logo.png' %}" height="auto" width="auto" class="img-fluid" alt="{% translate 'Logo' %}">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container-fluid text-center mb-4">
+      <hr class="border-light mx-auto">
+      <h2 class="display-4 mb-0">{% translate "Team_header" %}</h2>
+    </div>
+
+    <div class="container mx-auto col-7">
+      <div class="row g-0 team-row">
+
+        <div class="col-md-8 d-flex">
+          <div class="img-overlay-wrapper">
+            <img src="{% static 'img/team/denis.png' %}" height="auto" width="auto" class="w-100 h-100" alt="{% translate 'Denis' %}">
+            <div class="img-caption">
+              <div class="fs-5">{% translate "Denis" %}</div>
+              <div class="opacity-75">{% translate "Team_lead" %}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 d-flex flex-column">
+          <div class="img-overlay-wrapper">
+            <img src="{% static 'img/team/egor.jpg' %}" height="auto" width="auto"  class="w-100 h-100" alt="{% translate 'Egor' %}">
+            <div class="img-caption">
+              <div class="fs-5">{% translate "Egor" %}</div>
+              <div class="opacity-75">{% translate "Backend" %}</div>
+            </div>
+          </div>
+
+          <div class="img-overlay-wrapper">
+            <img src="{% static 'img/team/ivan.jpg' %}" height="auto" width="auto"  class="w-100 h-100" alt="{% translate 'Ivan' %}">
+            <div class="img-caption">
+              <div class="fs-5">{% translate "Ivan" %}</div>
+              <div class="opacity-75">{% translate "Frontend" %}</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% endblock content %}

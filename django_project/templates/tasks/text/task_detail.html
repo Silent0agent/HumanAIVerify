@@ -1,0 +1,32 @@
+{% extends "tasks/base/task_detail.html" %}
+{% load thumbnail i18n %}
+
+{% block title %}
+  {{ task.title }}
+{% endblock title %}
+
+{% block task_content %}
+  {{ task.content|safe|truncatechars_html:240 }}
+{% endblock task_content %}
+
+{% block task_content_expand %}
+  <div class="modal fade" id="taskContentExpand" tabindex="-1" aria-labelledby="taskContentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content rounded-3">
+        <div class="modal-header">
+          <h5 class="modal-title" id="taskContentLabel">{% translate "Content" %} — {{ task.title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+        </div>
+        <div class="modal-body">{{ task.content|safe }}</div>
+      </div>
+    </div>
+  </div>
+{% endblock task_content_expand %}
+
+{% block view_details %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:text-check-detail' check.id %}">{% translate "View_details" %}</a>
+{% endblock view_details %}
+
+{% block my_tasks %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:my-text-tasks' %}">{% translate "My_tasks" %}</a>
+{% endblock my_tasks %}
