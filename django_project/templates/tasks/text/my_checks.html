@@ -14,10 +14,10 @@
 {% endblock completed_task_content %}
 
 {% block task_title %}
-  <a href="{% url 'tasks:text-check-perform' task.id %}" class="text-decoration-none stretched-link purple-hover">{{ task.title }}</a>
+  <a href="{% url 'tasks:text-check-perform' task.id %}" class="text-decoration-none stretched-link purple-hover">{{ task.title|truncatechars:25 }}</a>
 {% endblock task_title %}
 {% block completed_task_title %}
-  <a class="text-decoration-none purple-hover" href="{% url 'tasks:text-check-perform' check.task.id %}">{{ check.task.title }}</a>
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:text-check-perform' check.task.id %}">{{ check.task.title|truncatechars:25 }}</a>
 {% endblock completed_task_title %}
 
 {% block no_tasks %}

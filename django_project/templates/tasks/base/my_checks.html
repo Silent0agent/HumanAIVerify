@@ -60,15 +60,13 @@
                   </header>
 
                   <div class="card-body">
-                    <h3 class="h5 card-title text-truncate mb-2" title="{{ task.title }}">
+                    <h3 class="card-title text-truncate">
                       {% block task_title %}
-                        <a href="{{ check.get_absolute_url }}" class="text-decoration-none text-dark stretched-link">{{ task.title }}</a>
                       {% endblock task_title %}
                     </h3>
 
-                    <div class="preview border rounded p-2 mt-2 text-secondary d-flex align-items-center justify-content-center" aria-hidden="false">
+                    <div class="card-text text-muted small mt-2 task-content-preview">
                       {% block task_content %}
-                        <small class="text-muted">{{ task.description|default:_("No preview") |truncatechars:120 }}</small>
                       {% endblock task_content %}
                     </div>
                   </div>
@@ -78,21 +76,21 @@
                       <div class="d-flex align-items-center gap-2">
                         {% if task.ai_score is not None %}
                           {% if task.ai_score >= 70 %}
-                            <span class="badge ai-badge ai-high" aria-label="{% translate 'High_AI_score' %}">
-                              <i class="bi bi-cpu me-1" aria-hidden="true"></i>{{ task.ai_score|floatformat:0 }}%
+                            <span class="badge text-danger border border-danger px-2 py-1">
+                              <i class="bi bi-cpu me-1"></i><span class="fs-6 fw-normal">{{ task.ai_score|floatformat:0 }}%</span>
                             </span>
                           {% elif task.ai_score >= 30 %}
-                            <span class="badge ai-badge ai-medium" aria-label="{% translate 'Medium_AI_score' %}">
-                              <i class="bi bi-cpu me-1" aria-hidden="true"></i>{{ task.ai_score|floatformat:0 }}%
+                            <span class="badge text-warning border border-warning px-2 py-1">
+                              <i class="bi bi-cpu me-1"></i><span class="fs-6 fw-normal">{{ task.ai_score|floatformat:0 }}%</span>
                             </span>
                           {% else %}
-                            <span class="badge ai-badge ai-low" aria-label="{% translate 'Low_AI_score' %}">
-                              <i class="bi bi-cpu me-1" aria-hidden="true"></i>{{ task.ai_score|floatformat:0 }}%
+                            <span class="badge text-success border border-success px-2 py-1">
+                              <i class="bi bi-cpu me-1"></i><span class="fs-6 fw-normal">{{ task.ai_score|floatformat:0 }}%</span>
                             </span>
                           {% endif %}
                         {% else %}
-                          <span class="badge ai-badge ai-none" title="{% translate 'not_checked' %}">
-                            <i class="bi bi-hourglass me-1" aria-hidden="true"></i><span class="fw-normal">{% translate "Not_checked" %}</span>
+                          <span class="badge text-secondary border px-2 py-1" title="{% translate 'not_checked' %}">
+                            <i class="bi bi-hourglass me-1"></i>{% translate "Not_checked" %}
                           </span>
                         {% endif %}
                       </div>
@@ -146,18 +144,25 @@
                         </div>
                       </td>
 
-                      <td class="small">{{ check.task.client.username }}</td>
+                      <td class="small">
+                        <div role="button" onclick="window.location.href='{% url 'users:user-detail' check.task.client.id %}'">
+                          {% if check.task.client.avatar %}
+                            {% thumbnail check.task.client.avatar "30x30" crop="center" upscale=True as avatar %}
+                              <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
+                            {% endthumbnail %}
+                          {% else %}
+                            <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'avatar_not_found' %}" width="30" height="30" class="rounded-circle">
+                          {% endif %}
+                          {{ check.task.client.username }}
+                        </div>
+                      </td>
 
                       <td class="text-muted small d-none d-md-table-cell">
                         <time datetime="{{ check.updated_at|date:'c' }}">{{ check.updated_at|date:"d.m.Y" }}</time>
                       </td>
 
                       <td>
-                        {% if check.status == 'published' %}
-                          <span class="badge status-badge status-published fw-normal">{{ check.get_status_display }}</span>
-                        {% else %}
-                          <span class="badge status-badge status-other fw-normal">{{ check.get_status_display }}</span>
-                        {% endif %}
+                        <span class="badge status-badge status-published fw-normal fs-6">{{ check.get_status_display }}</span>
                       </td>
 
                       <td class="pe-4 text-end">

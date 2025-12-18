@@ -20,7 +20,7 @@
 {% block form_fields %}
   {% for field in form %}
     {% if forloop.first %}
-      <div class="form-floating my-3 mx-auto col-4">
+      <div class="form-floating mx-auto col-11 col-md-5">
         {{ field }}
         <label for="{{ field.id_for_label }}">
           {{ field.label }}
@@ -28,13 +28,18 @@
         </label>
       </div>
     {% elif forloop.last %}
-      <div class="form-floating my-3 mx-auto col-11 roboto">{{ field }}</div>
+      {% if field.field.widget.input_type == "file" %}
+        <div class="form-floating mx-auto col-11 col-md-5">
+          <div>{{ field }}</div>
+        </div>
+      {% else %}
+        <div class="form-floating mt-4 mx-auto col-11 col-md-10 roboto">{{ field }}</div>
+      {% endif %}
     {% else %}
-      <div class="form-floating my-3 mx-auto col-8">
+      <div class="form-floating mx-auto col-11 col-md-5">
         {{ field }}
         <label for="{{ field.id_for_label }}">
           {{ field.label }}
-          {% if field.field.required %}<span>*</span>{% endif %}
         </label>
       </div>
     {% endif %}
@@ -47,92 +52,3 @@
     <button type="submit" class="btn btn-primary btn-lg">{% translate "Create" %}</button>
   </div>
 {% endblock buttons %}
-
-{% comment %} {% extends "base_form.html" %}
-{% load static %}
-{% load i18n %}
-
-{% block extra_head %}
-  {{ form.media }}
-{% endblock extra_head %}
-
-{% block title %}
-  {% translate "create_task" %}
-{% endblock title %}
-
-{% block head %}
-  {% translate "create_task" %}
-{% endblock head %}
-
-{% block col-card-md %}
-  10
-{% endblock col-card-md %}
-
-{% block form_fields %}
-  {# Добавляем ряд для правильной работы сетки Bootstrap #}
-  <div class="row justify-content-center">
-    
-    {% for field in form %}
-      
-      {# ПЕРВОЕ ПОЛЕ (обычно Заголовок) #}
-      {# На телефоне: во всю ширину (12). На ПК: половина ширины (6) #}
-      {% if forloop.first %}
-        <div class="col-12 col-md-6 my-2">
-          <div class="form-floating">
-            {{ field }}
-            <label for="{{ field.id_for_label }}">
-              {{ field.label }}
-              {% if field.field.required %}<span>*</span>{% endif %}
-            </label>
-          </div>
-        </div>
-
-      {# ПОСЛЕДНЕЕ ПОЛЕ #}
-      {# На телефоне: во всю ширину. На ПК: компактно (4) #}
-      {% elif forloop.last %}
-        <div class="col-12 col-md-4 my-3 roboto d-flex align-items-center justify-content-center">
-            {{ field }}
-        </div>
-
-      {# ОСТАЛЬНЫЕ ПОЛЯ (Описание, Контент) #}
-      {# На телефоне: во всю ширину. На ПК: широкие (10), чтобы влезало много текста #}
-      {% else %}
-        <div class="col-12 col-md-10 my-2">
-          <div class="form-floating">
-            {# Добавляем стиль высоты прямо сюда, чтобы поле было большим без CSS файла #}
-            {# Если это не Textarea, стиль просто проигнорируется браузером #}
-            {{ field }}
-            <style>
-              #id_content {
-        height: 300px !important; 
-    }
-    
-    /* Поле Description - среднее */
-    #id_description {
-        height: 120px !important;
-    }
-                /* Небольшой хак внутри цикла: если поле textarea, делаем его высоким */
-                textarea.form-control {
-                    height: 150px !important;
-                }
-</style>
-            <label for="{{ field.id_for_label }}">
-              {{ field.label }}
-              {% if field.field.required %}<span>*</span>{% endif %}
-            </label>
-          </div>
-        </div>
-      {% endif %}
-      
-    {% endfor %}
-  </div>
-
-{% endblock form_fields %}
-
-{% block buttons %}
-  <div class="d-flex flex-column gap-2 mt-4 align-items-center justify-content-center">
-    <button type="submit" class="btn btn-primary btn-lg col-12 col-md-4">
-      {% translate "Create" %}
-    </button>
-  </div>
-{% endblock buttons %} {% endcomment %}

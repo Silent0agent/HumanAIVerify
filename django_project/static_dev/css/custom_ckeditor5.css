@@ -15,6 +15,12 @@
   --ck-color-tooltip-background: rgba(15, 17, 20, 0.95);
   --ck-color-tooltip-text: #eef3f8;
   --ck-tooltip-hover-text: rgba(255, 255, 255, 0.95);
+  --ck-color-toolbar-border: #41464b;
+  --ck-table-layout-default-border-color: #41464b;
+}
+
+.ck.ck-toolbar__items {
+  border: 1px solid #41464b;
 }
 
 html[data-theme="dark"],
