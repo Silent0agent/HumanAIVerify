@@ -2,7 +2,7 @@
 
 [![pipeline status](https://gitlab.crja72.ru/django/2025/autumn/course/projects/team-7/badges/develop/pipeline.svg?key_text=lint%20%26%20tests)](https://gitlab.crja72.ru/django/2025/autumn/course/projects/team-7/-/commits/develop)
 
-HumanAIVerify is a service for checking content for signs of AI by humans
+HumanAIVerify is a service for checking content for signs of AI by humans. Customer can upload text, image, or audio tasks and then performers with check it. To became a performer user need to pass AI-detection test on 10 points. Languages supported: English, Russian.
 
 ## Requirements
 
@@ -118,22 +118,9 @@ Windows:
 python manage.py migrate
 ```
 
-### 9. Create Localization Files (optional)
+### 9. Compile translations files
 
-Create localization directory:
-
-```commandline
-mkdir locale
-```
-
-Generate message files for English and Russian
-
-```commandline
-django-admin makemessages -l en
-django-admin makemessages -l ru
-```
-
-Compile the translations when ready:
+Supported languages: English, Russian
 
 ```commandline
 django-admin compilemessages
