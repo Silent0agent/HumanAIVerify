@@ -82,10 +82,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return 'auto';
     }
 
-    // Инициализация
     updateAllToggles(detectInitialTheme());
 
-    // Обработчики меню (один набор меню в DOM; достаточно слушать клики по ним)
     document.querySelectorAll('[data-bs-theme-value]').forEach(btn => {
         btn.addEventListener('click', function() {
             const v = this.getAttribute('data-bs-theme-value') || 'auto';
