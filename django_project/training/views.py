@@ -15,15 +15,21 @@ import training.models
 
 class TrainingStartView(LoginRequiredMixin, View):
     template_name = "training/start.html"
+    progress_model = training.models.UserTrainingProgress
+    text_model = training.models.TrainingText
 
     def get(self, request):
-        progress, created = (
-            training.models.UserTrainingProgress.objects.get_or_create(
+        try:
+            progress = (
+                self.progress_model.objects.with_completed_texts_count().get(
+                    user=request.user,
+                )
+            )
+        except self.progress_model.DoesNotExist:
+            progress = self.progress_model.objects.create(
                 user=request.user,
             )
-        )
-        if request.user.groups.filter(name="Performers").exists():
-            return redirect("training:results")
+            progress.completed_texts_count = 0
 
         context_dict = {
             "progress": progress,
@@ -32,38 +38,31 @@ class TrainingStartView(LoginRequiredMixin, View):
         }
 
         if not progress.can_take_test:
-            messages.warning(
-                request,
-                _("Try_again_in_hours").format(
-                    hours=progress.remaining_hours,
-                ),
-            )
-            return render(
-                request,
-                self.template_name,
-                context_dict,
-            )
+            return render(request, self.template_name, context_dict)
 
-        available_texts = progress.get_available_texts()
-        if not available_texts.exists():
+        available_ids = list(
+            progress.get_available_texts().values_list("id", flat=True),
+        )
+
+        if not available_ids:
             messages.info(request, _("No_more_training_texts_available"))
-            return render(
-                request,
-                self.template_name,
-                context_dict,
-            )
+            return render(request, self.template_name, context_dict)
 
-        training_text = random.choice(list(available_texts))
+        random_id = random.choice(available_ids)
 
-        return redirect("training:take-test", text_id=training_text.id)
+        return redirect("training:take-test", text_id=random_id)
 
 
 class TrainingTakeTestView(LoginRequiredMixin, View):
     template_name = "training/take_test.html"
+    progress_model = training.models.UserTrainingProgress
+    text_model = training.models.TrainingText
 
     def get(self, request, text_id):
         progress = get_object_or_404(
-            training.models.UserTrainingProgress,
+            self.progress_model.objects.with_text_completion_status(
+                text_id,
+            ),
             user=request.user,
         )
 
@@ -71,14 +70,14 @@ class TrainingTakeTestView(LoginRequiredMixin, View):
             messages.error(request, _("You_need_to_wait"))
             return redirect("training:start")
 
-        training_text = get_object_or_404(
-            training.models.TrainingText,
-            id=text_id,
-        )
-
-        if progress.completed_texts.filter(id=text_id).exists():
+        if progress.is_already_completed:
             messages.info(request, _("You_already_completed_this_text"))
             return redirect("training:start")
+
+        training_text = get_object_or_404(
+            self.text_model,
+            id=text_id,
+        )
 
         form = training.forms.TrainingTextForm(training_text=training_text)
 
@@ -95,12 +94,12 @@ class TrainingTakeTestView(LoginRequiredMixin, View):
 
     def post(self, request, text_id):
         progress = get_object_or_404(
-            training.models.UserTrainingProgress,
+            self.progress_model,
             user=request.user,
         )
 
         training_text = get_object_or_404(
-            training.models.TrainingText,
+            self.text_model,
             id=text_id,
         )
         form = training.forms.TrainingTextForm(
@@ -145,21 +144,30 @@ class TrainingTakeTestView(LoginRequiredMixin, View):
 
 class TrainingResultsView(LoginRequiredMixin, View):
     template_name = "training/results.html"
+    progress_model = training.models.UserTrainingProgress
+    text_model = training.models.TrainingText
 
     def get(self, request):
-        progress, created = (
-            training.models.UserTrainingProgress.objects.get_or_create(
+
+        try:
+            progress = (
+                self.progress_model.objects.with_completed_texts_count().get(
+                    user=request.user,
+                )
+            )
+        except self.progress_model.DoesNotExist:
+            progress = self.progress_model.objects.create(
                 user=request.user,
             )
-        )
+            progress.completed_texts_count = 0
 
         return render(
             request,
             self.template_name,
             {
                 "progress": progress,
-                "completed_count": progress.completed_texts.count(),
-                "total_texts": training.models.TrainingText.objects.count(),
+                "completed_count": progress.completed_texts_count,
+                "total_texts": self.text_model.objects.count(),
                 "needed_score": settings.TRAINING_COMPLETIONS_FOR_PERFORMER,
             },
         )

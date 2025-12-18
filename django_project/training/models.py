@@ -7,6 +7,7 @@ from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
 import core.models
+import training.managers
 
 
 class TrainingText(core.models.TimeStampedModel):
@@ -67,6 +68,8 @@ class UserTrainingProgress(core.models.TimeStampedModel):
         related_name="completed_by_users",
         verbose_name=_("completed_texts"),
     )
+
+    objects = training.managers.TrainingProgressQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("user_training_progress")
