@@ -4,26 +4,78 @@
 {% load i18n %}
 
 {% block title %}
-  {% translate "User_detail" %}
+  {{ user_obj.username }} — {% translate "detail" %}
 {% endblock title %}
 
 {% block content %}
-  <h1>{% translate "User_detail" %}</h1>
-  {% if user_obj.avatar %}
-    {% thumbnail user_obj "150x150" crop="center" upscale=True as avatar %}
-      <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
-    {% endthumbnail %}
-  {% else %}
-    <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'Avatar_not_found' %}" width="150" height="150" class="rounded-circle">
-  {% endif %}
-  <p>
-    <strong>{% translate "Username" %}:</strong> {{ user_obj.username }}
-  </p>
-  <p>
-    <strong>{% translate "Email" %}:</strong> {{ user_obj.email }}
-  </p>
-  {% if request.user.email == user_obj.email %}
-    <a href="{% url 'users:profile' %}">{% translate "Edit_profile" %}
-    {% endif %}
-  </a>
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex gap-3 align-items-center mb-3">
+            <div class="flex-shrink-0">
+              {% if user_obj.avatar %}
+                {% thumbnail user_obj.avatar "150x150" crop="center" upscale=True as avatar %}
+                  <img src="{{ avatar.url }}" alt="{% translate "Avatar_of" %} {{ user_obj.username }}" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle" loading="lazy">
+                {% endthumbnail %}
+              {% else %}
+                <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'Avatar_not_found' %}" width="150" height="150" class="rounded-circle" loading="lazy">
+              {% endif %}
+            </div>
+
+            <div class="flex-grow-1">
+              <h1 class="h4 mb-1">{{ user_obj.get_full_name|default:user_obj.username }}</h1>
+              <p class="mb-0 text-muted small">
+                <span class="me-2">{% translate "Username" %}: {{ user_obj.username }}</span>
+                <span class="me-2">{% translate "Email" %}:
+                  <a href="mailto:{{ user_obj.email }}" class="text-decoration-none">{{ user_obj.email }}</a>
+                </span>
+              </p>
+
+              <p class="mb-0 text-muted small mt-2">
+                {% translate "Joined" %}:
+                <time datetime="{{ user_obj.date_joined|date:'c' }}">{{ user_obj.date_joined|date:"d.m.Y" }}</time>
+                {% if user_obj.last_login %}
+                  <span class="ms-3">{% translate "Last_login" %}:
+                    <time datetime="{{ user_obj.last_login|date:'c' }}">{{ user_obj.last_login|date:"d.m.Y H:i" }}</time>
+                  </span>
+                {% endif %}
+              </p>
+            </div>
+
+            <div class="text-end">
+              {% if request.user.is_authenticated and request.user.pk == user_obj.pk %}
+                <div>
+                  <a href="{% url 'users:profile' %}" class="btn btn-primary btn-sm">{% translate "Edit_profile" %}</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="row gy-3">
+            <div class="col-12 col-md-6">
+              <h6 class="mb-1 text-uppercase small text-secondary">{% translate "About" %}</h6>
+              {% if user_obj.profile.bio %}
+                <p class="mb-0">{{ user_obj.profile.bio|linebreaks }}</p>
+              {% else %}
+                <p class="mb-0 text-muted">{% translate "No additional information" %}</p>
+              {% endif %}
+            </div>
+
+            <div class="col-12 col-md-6">
+              <h6 class="mb-1 text-uppercase small text-secondary">{% translate "Account" %}</h6>
+              <ul class="list-unstyled mb-0 small text-muted">
+                <li class="mt-1">
+                  {% translate "Role" %}: <span class="ms-1">{{ user_obj.role|capfirst }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
