@@ -7,7 +7,7 @@
 {% endblock title %}
 
 {% block task_content %}
-  {% thumbnail task.image "120x120" crop="center" upscale=True as image %}
+  {% thumbnail task.image "70x70" crop="center" upscale=True as image %}
     <img src="{{ image.url }}" alt="{% translate 'Image' %}" width="{{ image.width }}" height="{{ image.height }}">
   {% endthumbnail %}
 {% endblock task_content %}

@@ -90,6 +90,11 @@ class UsersViewsTest(TestCase):
             User.email.field.name,
             User.username.field.name,
             User.avatar.field.name,
+            User.role.field.name,
+            User.date_joined.field.name,
+            User.first_name.field.name,
+            User.last_name.field.name,
+            User.last_login.field.name,
         }
         all_model_fields = {field.name for field in User._meta.get_fields()}
         private_fields = all_model_fields - public_fields
