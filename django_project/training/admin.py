@@ -29,9 +29,9 @@ class TrainingTextAdmin(admin.ModelAdmin):
     content_preview.short_description = _("Content_preview")
 
     list_display = (
+        content_preview.__name__,
         difficulty_field.name,
         is_ai_generated_field.name,
-        content_preview.__name__,
     )
     list_filter = (
         difficulty_field.name,
