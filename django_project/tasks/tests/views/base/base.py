@@ -1,5 +1,6 @@
 __all__ = ()
 
+from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.models import Group
 from django.test import TestCase
@@ -11,7 +12,9 @@ class BaseViewTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.performer_group, _ = Group.objects.get_or_create(name="Performers")
+        cls.performer_group, _ = Group.objects.get_or_create(
+            name=settings.PERFORMER_GROUP_NAME,
+        )
         cls.customer = User.objects.create_user(
             username="customer",
             email="example1@example.com",
