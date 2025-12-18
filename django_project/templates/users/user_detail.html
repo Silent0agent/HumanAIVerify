@@ -18,7 +18,7 @@
               {% if user_obj.avatar %}
                 {% thumbnail user_obj.avatar "150x150" crop="center" upscale=True as avatar %}
                   <img src="{{ avatar.url }}"
-                       alt="{% translate "Avatar_of" %} {{ user_obj.username }}"
+                       alt="{% translate 'Avatar_of' %} {{ user_obj.username }}"
                        width="{{ avatar.width }}"
                        height="{{ avatar.height }}"
                        class="rounded-circle"
