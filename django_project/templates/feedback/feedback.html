@@ -1,0 +1,25 @@
+{% extends "base_form.html" %}
+{% load i18n static %}
+
+{% block title %}
+  {% translate "Feedback" %}
+{% endblock title %}
+
+{% block image %}
+  <img class="mb-3" src="{% static 'img/logo.png' %}" alt="{% translate 'Logo' %}" width="72" height="72">
+{% endblock image %}
+{% block head %}
+  {% translate "Feedback" %}
+{% endblock head %}
+
+<img class="mb-3" src="{% static 'img/logo.png' %}" alt="{% translate 'Logo' %}" width="72" height="72">
+<h1 class="h3 mb-3 fw-normal">{% translate "Feedback" %}</h1>
+{% block extra_form_fields %}
+  {% include "includes/forms/fields.html" with form=author_form %}
+  {% include "includes/forms/fields.html" with form=content_form %}
+  {% include "includes/forms/fields.html" with form=files_form %}
+{% endblock extra_form_fields %}
+
+{% block buttons %}
+  <button class="btn w-25 mx-auto btn-primary mt-3" type="submit">{% translate "Send" %}</button>
+{% endblock buttons %}

@@ -1,0 +1,8 @@
+.password-eye, .password-info {
+  right: .75rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.password-info {
+  right: 2.75rem;
+}

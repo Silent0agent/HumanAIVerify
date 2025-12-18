@@ -1,0 +1,197 @@
+:root {
+  --ck-color-base-background: #ffffff;
+  --ck-color-base-border: rgba(33, 37, 41, 0.08);
+  --ck-color-text: #0b1220;
+  --ck-color-input-text: #0b1220;
+  --ck-color-focus-border: #0d6efd;
+  --ck-color-toolbar-border: rgba(33, 37, 41, 0.06);
+  --ck-color-panel-border: rgba(33, 37, 41, 0.06);
+  --ck-color-button-on-background: #0b1220;
+  --ck-color-button-default-hover-background: rgba(0, 0, 0, 0.04);
+  --ck-color-button-action-text: #ff0000;
+  --ck-content-font-color: #0b1220;
+  --ck-link-action-color: #9663fb;
+  --ck-list-hover-bg: rgba(0, 0, 0, 0.04);
+  --ck-color-tooltip-background: rgba(15, 17, 20, 0.95);
+  --ck-color-tooltip-text: #eef3f8;
+  --ck-tooltip-hover-text: rgba(255, 255, 255, 0.95);
+  --ck-color-toolbar-border: #41464b;
+  --ck-table-layout-default-border-color: #41464b;
+}
+
+.ck.ck-toolbar__items {
+  border: 1px solid #41464b;
+}
+
+html[data-theme="dark"],
+.ck-editor.ck-theme-dark {
+  --ck-color-base-background: hsl(270, 1%, 29%);
+  --ck-color-base-border: hsl(240, 4%, 24%);
+  --ck-color-text: hsl(0, 0%, 98%);
+  --ck-color-input-text: hsl(0, 0%, 98%);
+  --ck-color-focus-border: hsl(208, 90%, 62%);
+  --ck-color-toolbar-border: hsl(300, 1%, 22%);
+  --ck-color-panel-border: hsl(300, 1%, 22%);
+  --ck-color-button-on-background: hsl(255, 3%, 18%);
+  --ck-color-button-default-hover-background: hsl(270, 1%, 22%);
+  --ck-color-button-action-text: var(--ck-custom-white, #fff);
+  --ck-content-font-color: var(--ck-custom-white, #fff);
+  --ck-link-action-color: #9663fb;
+  --ck-list-hover-bg: hsl(270, 2%, 22%);
+  --ck-color-tooltip-background: hsl(252, 7%, 14%);
+  --ck-color-tooltip-text: hsl(0, 0%, 93%);
+  --ck-tooltip-hover-text: #ffffff;
+}
+
+.ck-editor,
+.ck-editor__editable,
+.ck-toolbar,
+.ck-dropdown__panel,
+.ck-list__options,
+.ck-balloon-panel {
+  background: var(--ck-color-base-background) !important;
+  color: var(--ck-color-text) !important;
+  border-color: var(--ck-color-toolbar-border) !important;
+}
+
+.ck-editor__editable {
+  color: var(--ck-content-font-color) !important;
+  background: transparent !important;
+  caret-color: var(--ck-color-text) !important;
+}
+
+.ck-toolbar {
+  border-bottom: 1px solid var(--ck-color-toolbar-border) !important;
+  background: transparent !important;
+}
+
+.ck-dropdown__panel,
+.ck-list-dropdown__panel,
+.ck-balloon-panel {
+  background: var(--ck-color-base-background) !important;
+  color: var(--ck-color-text) !important;
+  border: 1px solid var(--ck-color-panel-border) !important;
+}
+
+.ck-toolbar svg,
+.ck-toolbar .ck-icon {
+  fill: currentColor !important;
+  stroke: none !important;
+}
+
+.ck.ck-editor__editable a {
+  color: inherit;
+  text-decoration: underline;
+}
+.ck.ck-editor__editable a:active,
+.ck.ck-editor__editable a:focus,
+.ck.ck-editor__editable a:visited {
+  color: var(--ck-link-action-color) !important;
+}
+
+.ck-toolbar .ck-button.ck-on,
+.ck-toolbar .ck-button:active,
+.ck-toolbar .ck-button:focus-visible {
+  color: var(--ck-link-action-color) !important;
+  background: transparent !important;
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--ck-link-action-color) 12%, transparent);
+  border-radius: 6px;
+}
+
+.ck-toolbar .ck-button.ck-on .ck-icon,
+.ck-toolbar .ck-button:active .ck-icon {
+  fill: var(--ck-link-action-color) !important;
+  color: var(--ck-link-action-color) !important;
+}
+
+.ck-list__options .ck-list__item,
+.ck-dropdown__panel [role="menuitem"] {
+  color: var(--ck-color-text);
+  background: transparent;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+}
+
+.ck-list__options .ck-list__item:hover,
+.ck-list__options .ck-list__item[aria-selected="true"],
+.ck-list__options .ck-list__item[aria-current="true"] {
+  background: var(--ck-list-hover-bg) !important;
+  color: var(--ck-color-text) !important;
+}
+
+.ck-list__options .ck-list__item:hover .ck-icon,
+.ck-list__options .ck-list__item[aria-selected="true"] .ck-icon {
+  color: var(--ck-color-text) !important;
+  fill: currentColor !important;
+}
+
+.ck-list__options .ck-list__item:focus-visible,
+.ck-toolbar .ck-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--ck-color-focus-border) 18%, transparent);
+  border-radius: 6px;
+}
+
+.ck-content pre {
+  color: color-mix(in srgb, var(--ck-color-text) 90%, black 10%) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--ck-color-toolbar-border) 60%,
+    black 40%
+  ) !important;
+}
+.ck-content table,
+.ck-content th,
+.ck-content td {
+  border-color: var(--ck-color-toolbar-border) !important;
+}
+
+@media (hover: none) {
+  .ck-toolbar .ck-button.ck-on {
+    color: var(--ck-link-action-color) !important;
+  }
+}
+
+.ck-tooltip,
+.ck-tooltip * {
+  background-color: var(--ck-color-tooltip-background) !important;
+  color: var(--ck-color-tooltip-text) !important;
+  padding: 0.35rem 0.6rem !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(255, 255, 255, 0.04) !important;
+  max-width: 20rem !important;
+  white-space: normal !important;
+  z-index: 3000 !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+.ck-tooltip .ck-tooltip__text,
+.ck-tooltip__text {
+  color: var(--ck-color-tooltip-text) !important;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+.ck-tooltip::before,
+.ck-tooltip::after {
+  background: transparent !important;
+  border-color: rgba(0, 0, 0, 0) !important;
+}
+
+[data-cke-tooltip-text].ck-tooltip,
+[data-cke-tooltip-text] .ck-tooltip__text {
+  background-color: var(--ck-color-tooltip-background) !important;
+  color: var(--ck-color-tooltip-text) !important;
+}
+
+.ck-tooltip:hover .ck-tooltip__text,
+html[data-theme="dark"] .ck-tooltip:hover .ck-tooltip__text,
+.ck-editor.ck-theme-dark .ck-tooltip:hover .ck-tooltip__text {
+  color: var(--ck-tooltip-hover-text) !important;
+}
+
+.ck.ck-splitbutton.ck-splitbutton_open>.ck-button:not(.ck-on):not(.ck-disabled):not(:hover), .ck.ck-splitbutton:hover>.ck-button:not(.ck-on):not(.ck-disabled):not(:hover) {
+  background: hsla(240, 4%, 24%, 0.593);
+}

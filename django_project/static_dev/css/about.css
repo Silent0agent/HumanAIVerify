@@ -1,0 +1,38 @@
+.img-overlay-wrapper {
+  position: relative;
+}
+.img-overlay-wrapper img {
+  border-radius: 1%;
+  transition: transform .45s ease;
+}
+.img-overlay-wrapper:hover .img-caption,
+.img-overlay-wrapper:focus-within .img-caption {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+@media (hover: hover) {
+  .img-overlay-wrapper:hover img { transform: scale(1.01); }
+}
+
+.img-caption {
+  position: absolute;
+  left: .75rem;
+  bottom: .6rem;
+  padding: .35rem .6rem;
+  background: rgba(0,0,0,.6);
+  color: #fff;
+  border-radius: 10%;
+  font-size: .95rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .18s ease, transform .18s ease;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+@media (hover: none) {
+  .img-caption { opacity: 1; transform: none; }
+}

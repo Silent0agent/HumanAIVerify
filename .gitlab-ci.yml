@@ -1,0 +1,49 @@
+image: python:3.11
+
+stages:
+  - lint:dependencies
+  - lint:templates
+  - lint:python
+  - test
+
+sort-requirements:
+  stage: lint:dependencies
+  before_script:
+    - pip install -r requirements/test.txt
+  script:
+    - sort-requirements --check requirements/*.txt
+
+templates:
+  stage: lint:templates
+  before_script:
+    - pip install -r requirements/dev.txt
+  script:
+    - find django_project -name "*.html" | xargs djlint --check --lint --profile=django --indent=2 --ignore=T002 --max-attribute-length=160 --max-line-length=160 --max-blank-lines=1
+    - |
+      ! grep -rEn --include="*.html" '="[^"]*(\{%|\{\{)[^}"%]*"[^}"%]*' django_project/
+
+flake8:
+  stage: lint:python
+  image: registry.gitlab.com/pipeline-components/flake8:latest
+  before_script:
+    - pip install -r requirements/test.txt
+  script:
+    - flake8 --verbose
+
+black:
+  stage: lint:python
+  image: registry.gitlab.com/pipeline-components/black:latest
+  script:
+    - black --check --diff .
+
+django:
+  stage: test
+  script:
+    - pip install -r requirements/prod.txt
+    - pip install -r requirements/test.txt
+    - cd django_project
+    - python3 manage.py makemigrations --check
+    - python3 manage.py test
+  only:
+    - merge_requests
+    - pushes

@@ -1,0 +1,59 @@
+{% load i18n static %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/tasks_header.css' %}" />
+{% endblock extra_head %}
+
+{% with view_name=request.resolver_match.view_name %}
+  <nav class="mb-5">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex mx-auto position-relative gap-4">
+        <ul id="miniTabs" class="nav">
+          {% if request.user.role == 'customer' %}
+            <li class="nav-item">
+              <a href="{% url 'tasks:my-text-tasks' %}"
+                 class="nav-link align-items-center {% if view_name == 'tasks:my-text-tasks' %}purple{% endif %}"
+                 data-tab="text-tasks"
+                 data-create-url="{% url 'tasks:text-task-create' %}"><span>{% translate 'Text_tasks' %}</span></a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'tasks:my-image-tasks' %}"
+                 class="nav-link align-items-center {% if view_name == 'tasks:my-image-tasks' %}purple{% endif %}"
+                 data-tab="image-tasks"
+                 data-create-url="{% url 'tasks:image-task-create' %}"><span>{% translate 'Image_tasks' %}</span></a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'tasks:my-audio-tasks' %}"
+                 class="nav-link align-items-center {% if view_name == 'tasks:my-audio-tasks' %}purple{% endif %}"
+                 data-tab="audio-tasks"
+                 data-create-url="{% url 'tasks:audio-task-create' %}"><span>{% translate 'Audio_tasks' %}</span></a>
+            </li>
+
+          {% elif request.user.role == 'performer' %}
+            <li class="nav-item">
+              <a href="{% url 'tasks:my-text-checks' %}"
+                 class="nav-link align-items-center {% if view_name == 'tasks:my-text-checks' %}purple{% endif %}"
+                 data-tab="text-checks"><span>{% translate 'Text_checks' %}</span></a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'tasks:my-image-checks' %}"
+                 class="nav-link align-items-center {% if view_name == 'tasks:my-image-checks' %}purple{% endif %}"
+                 data-tab="image-checks"><span>{% translate 'Image_checks' %}</span></a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'tasks:my-audio-checks' %}"
+                 class="nav-link align-items-center {% if view_name == 'tasks:my-audio-checks' %}purple{% endif %}"
+                 data-tab="audio-checks"><span>{% translate 'Audio_checks' %}</span></a>
+            </li>
+          {% endif %}
+        </ul>
+        {% if request.user.role == 'customer' %}
+          <a id="createBtn" href="#" class="btn btn-primary">{% translate 'Create' %}</a>
+        {% endif %}
+
+        <div id="miniTabsIndicator" class="position-absolute"></div>
+      </div>
+    </div>
+  </nav>
+  <script src="{% static 'js/tasks_header.js' %}"></script>
+{% endwith %}

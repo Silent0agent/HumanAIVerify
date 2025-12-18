@@ -1,0 +1,40 @@
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)!important;
+}
+
+.task-content-preview {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.task {
+    position: relative;
+    cursor: pointer;
+}
+
+.detail-hero {
+    background-color: #fbfbfb;
+    border-radius: .375rem;
+    padding: 1rem;
+    word-break: break-word;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+}
+
+button.active {
+    color: #712cf9 !important;
+}

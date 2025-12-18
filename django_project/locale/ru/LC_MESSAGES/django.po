@@ -1,0 +1,1468 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-18 23:10+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Russian <ivan1one111one@gmail.com>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\about\apps.py:10
+msgid "About_app_name"
+msgstr "О приложении"
+
+#: .\core\apps.py:12
+msgid "Core_app_name"
+msgstr "Ядро"
+
+#: .\core\models.py:9
+msgid "created_at"
+msgstr "Дата создания"
+
+#: .\core\models.py:13
+msgid "updated_at"
+msgstr "Дата обновления"
+
+#: .\core\validators.py:17
+msgid "Error_file_too_big"
+msgstr "Файл слишком большой. Максимально допустимый размер: %(max)s"
+
+#: .\django_project\settings.py:153
+msgid "English"
+msgstr "Английский"
+
+#: .\django_project\settings.py:154
+msgid "Russian"
+msgstr "Русский"
+
+#: .\feedback\admin.py:42 .\templates\homepage\index.html:36
+msgid "Text"
+msgstr "Текст"
+
+#: .\feedback\apps.py:10
+msgid "Feedback_app_name"
+msgstr "Обратная связь"
+
+#: .\feedback\forms.py:25
+msgid "Name"
+msgstr "Имя"
+
+#: .\feedback\forms.py:26 .\templates\users\user_detail.html:34
+msgid "Email"
+msgstr "Электронная почта"
+
+#: .\feedback\forms.py:30
+msgid "Enter_name"
+msgstr "Введите имя"
+
+#: .\feedback\forms.py:33
+msgid "Enter_email"
+msgstr "Введите электронную почту"
+
+#: .\feedback\forms.py:47
+msgid "Feedback_text"
+msgstr "Текст обратной связи"
+
+#: .\feedback\forms.py:51
+msgid "Enter_feedback_text"
+msgstr "Введите текст обратной связи"
+
+#: .\feedback\forms.py:67
+msgid "Upload_files"
+msgstr "Загрузить файлы"
+
+#: .\feedback\forms.py:68
+msgid "Upload_files_help_text"
+msgstr "Загрузите файлы с обратной связью (необязательно)"
+
+#: .\feedback\models.py:15
+msgid "received"
+msgstr "получено"
+
+#: .\feedback\models.py:16
+msgid "pending"
+msgstr "в ожидании"
+
+#: .\feedback\models.py:17
+msgid "answered"
+msgstr "отвечено"
+
+#: .\feedback\models.py:22
+msgid "name"
+msgstr "имя"
+
+#: .\feedback\models.py:26
+msgid "Max_symbols_help_text"
+msgstr "Максимально допустимое количество символов — 150"
+
+#: .\feedback\models.py:29 .\users\models.py:59
+msgid "email"
+msgstr "электронная почта"
+
+#: .\feedback\models.py:30
+msgid "Email_help_text"
+msgstr "Введите электронную почту для связи"
+
+#: .\feedback\models.py:34
+msgid "sender_contact_data"
+msgstr "контактные данные отправителя"
+
+#: .\feedback\models.py:35
+msgid "sender_contact_data_plural"
+msgstr "контактные данные отправителей"
+
+#: .\feedback\models.py:47
+msgid "author"
+msgstr "автор"
+
+#: .\feedback\models.py:53
+msgid "feedback_text"
+msgstr "текст обратной связи"
+
+#: .\feedback\models.py:54
+msgid "Feedback_text_help_text"
+msgstr "Введите текст обратной связи"
+
+#: .\feedback\models.py:58
+msgid "feedback_status"
+msgstr "статус обратной связи"
+
+#: .\feedback\models.py:62
+msgid "Status_help_text"
+msgstr "Статус обратной связи"
+
+#: .\feedback\models.py:66 .\feedback\models.py:84 .\feedback\models.py:116
+msgid "feedback"
+msgstr "отзыв"
+
+#: .\feedback\models.py:67
+msgid "feedback_plural"
+msgstr "отзывы"
+
+#: .\feedback\models.py:87 .\feedback\models.py:95
+msgid "feedback_file"
+msgstr "файл отзыва"
+
+#: .\feedback\models.py:96
+msgid "feedback_file_plural"
+msgstr "файлы отзывов"
+
+#: .\feedback\models.py:108 .\training\models.py:52 .\users\models.py:86
+msgid "user"
+msgstr "пользователь"
+
+#: .\feedback\models.py:120
+msgid "time"
+msgstr "время"
+
+#: .\feedback\models.py:124
+msgid "status_from"
+msgstr "статус от"
+
+#: .\feedback\models.py:130
+msgid "status_to"
+msgstr "статус до"
+
+#: .\feedback\models.py:137
+msgid "status_log"
+msgstr "журнал статусов"
+
+#: .\feedback\models.py:138
+msgid "status_log_plural"
+msgstr "журналы статусов"
+
+#: .\feedback\views.py:74
+msgid "Feedback_mail_head"
+msgstr "Тема письма обратной связи"
+
+#: .\feedback\views.py:81
+msgid "Success_feedback_form"
+msgstr "Спасибо за отправку обратной связи!"
+
+#: .\homepage\apps.py:10
+msgid "Homepage_app_name"
+msgstr "Главная"
+
+#: .\tasks\admin\base.py:66 .\templates\tasks\base\check_detail.html:119
+#: .\templates\tasks\base\task_detail.html:105
+msgid "Performer"
+msgstr "Исполнитель"
+
+#: .\tasks\admin\base.py:84
+msgid "Error_task_admin_improperly_configured"
+msgstr "Админ задач некорректно настроен: %(class_name)s"
+
+#: .\tasks\admin\base.py:111
+msgid "Task"
+msgstr "Задача"
+
+#: .\tasks\admin\base.py:165 .\tasks\admin\base.py:300 .\training\admin.py:147
+msgid "Timestamps"
+msgstr "Временные метки"
+
+#: .\tasks\admin\base.py:200
+msgid "Average_AI_Score"
+msgstr "Средняя оценка ИИ"
+
+#: .\tasks\admin\base.py:204 .\templates\tasks\base\task_detail.html:158
+msgid "No_checks"
+msgstr "Нет проверок"
+
+#: .\tasks\admin\base.py:294 .\tasks\forms\text.py:17
+#: .\templates\tasks\image\task_detail.html:17
+#: .\templates\tasks\text\task_detail.html:17
+msgid "Content"
+msgstr "Содержимое"
+
+#: .\tasks\admin\text.py:29
+msgid "Annotated_content"
+msgstr "Аннотированное содержимое"
+
+#: .\tasks\apps.py:10
+msgid "Tasks_app_name"
+msgstr "Задачи"
+
+#: .\tasks\fields.py:14
+msgid "client"
+msgstr "клиент"
+
+#: .\tasks\fields.py:24
+msgid "task"
+msgstr "задание"
+
+#: .\tasks\fields.py:34 .\users\models.py:56
+msgid "performer"
+msgstr "исполнитель"
+
+#: .\tasks\forms\audio.py:29
+msgid "Audio_file"
+msgstr "Аудиофайл"
+
+#: .\tasks\forms\base.py:19 .\templates\tasks\base\my_checks.html:128
+msgid "Title"
+msgstr "Заголовок"
+
+#: .\tasks\forms\base.py:20 .\templates\tasks\base\check_detail.html:61
+#: .\templates\tasks\base\task_detail.html:34
+#: .\templates\tasks\base\task_detail.html:168
+msgid "Description"
+msgstr "Описание"
+
+#: .\tasks\forms\base.py:53
+msgid "Your_comment_is_optional"
+msgstr "Ваш комментарий (необязательно)"
+
+#: .\tasks\forms\base.py:59
+msgid "AI_Probability_percent"
+msgstr "Вероятность ИИ (%)"
+
+#: .\tasks\forms\base.py:60 .\templates\tasks\base\check_detail.html:137
+#: .\templates\tasks\base\task_detail.html:107
+msgid "Comment"
+msgstr "Комментарий"
+
+#: .\tasks\forms\base.py:64
+msgid "Enter_ai_percentage"
+msgstr "Введите процент вероятности ИИ"
+
+#: .\tasks\forms\base.py:73
+msgid "Error_check_already_published"
+msgstr "Проверка уже опубликована"
+
+#: .\tasks\forms\image.py:26 .\templates\tasks\image\my_checks.html:10
+#: .\templates\tasks\image\my_checks.html:15
+#: .\templates\tasks\image\my_tasks.html:18
+msgid "Image"
+msgstr "Изображение"
+
+#: .\tasks\models\audio.py:23
+msgid "audio_file"
+msgstr "аудиофайл"
+
+#: .\tasks\models\audio.py:32
+msgid "audio_task"
+msgstr "аудиозадание"
+
+#: .\tasks\models\audio.py:33
+msgid "audio_tasks"
+msgstr "аудиозадания"
+
+#: .\tasks\models\audio.py:43 .\templates\tasks\audio\check_detail.html:7
+#: .\templates\tasks\audio\check_perform.html:7
+#: .\templates\tasks\audio\my_checks.html:11
+#: .\templates\tasks\audio\my_checks.html:17
+#: .\templates\tasks\audio\my_tasks.html:19
+#: .\templates\tasks\audio\task_detail.html:11
+msgid "audio_not_supported_browser"
+msgstr "Аудио не поддерживается этим браузером"
+
+#: .\tasks\models\audio.py:47
+msgid "no_audio"
+msgstr "Аудио отсутствует"
+
+#: .\tasks\models\audio.py:49
+msgid "audio_preview"
+msgstr "Предпрослушивание аудио"
+
+#: .\tasks\models\audio.py:57
+msgid "audio_task_check"
+msgstr "проверка аудиозадания"
+
+#: .\tasks\models\audio.py:58
+msgid "audio_task_checks"
+msgstr "проверки аудиозаданий"
+
+#: .\tasks\models\base.py:14
+msgid "title"
+msgstr "заголовок"
+
+#: .\tasks\models\base.py:18
+msgid "description"
+msgstr "описание"
+
+#: .\tasks\models\base.py:41
+msgid "draft"
+msgstr "черновик"
+
+#: .\tasks\models\base.py:42
+msgid "published"
+msgstr "опубликовано"
+
+#: .\tasks\models\base.py:45
+msgid "ai_score"
+msgstr "оценка ИИ"
+
+#: .\tasks\models\base.py:49
+msgid "comment"
+msgstr "комментарий"
+
+#: .\tasks\models\base.py:53
+msgid "status"
+msgstr "статус"
+
+#: .\tasks\models\image.py:22
+msgid "image"
+msgstr "изображение"
+
+#: .\tasks\models\image.py:28
+msgid "image_task"
+msgstr "задание с изображением"
+
+#: .\tasks\models\image.py:29
+msgid "image_tasks"
+msgstr "задания с изображениями"
+
+#: .\tasks\models\image.py:50
+msgid "No_image"
+msgstr "Изображение отсутствует"
+
+#: .\tasks\models\image.py:52
+msgid "image_preview"
+msgstr "Предпросмотр изображения"
+
+#: .\tasks\models\image.py:60
+msgid "image_task_check"
+msgstr "проверка задания с изображением"
+
+#: .\tasks\models\image.py:61
+msgid "image_task_checks"
+msgstr "проверки заданий с изображениями"
+
+#: .\tasks\models\text.py:15 .\training\models.py:20
+msgid "content"
+msgstr "содержимое"
+
+#: .\tasks\models\text.py:20
+msgid "text_task"
+msgstr "текстовое задание"
+
+#: .\tasks\models\text.py:21
+msgid "text_tasks"
+msgstr "текстовые задания"
+
+#: .\tasks\models\text.py:31
+msgid "annotated_content"
+msgstr "аннотированное содержимое"
+
+#: .\tasks\models\text.py:36
+msgid "text_task_check"
+msgstr "проверка текстового задания"
+
+#: .\tasks\models\text.py:37
+msgid "text_task_checks"
+msgstr "проверки текстовых заданий"
+
+#: .\tasks\views\base.py:47
+msgid "Task_create_success"
+msgstr "Задача успешно создана"
+
+#: .\tasks\views\base.py:74
+msgid "Not_owner_of_task"
+msgstr "Вы не являетесь владельцем этой задачи"
+
+#: .\tasks\views\base.py:148
+msgid "You_cant_check_task_created_by_you"
+msgstr "Вы не можете проверять задачу, созданную вами"
+
+#: .\tasks\views\base.py:187
+msgid "Check_published"
+msgstr "Проверка опубликована"
+
+#: .\tasks\views\base.py:194
+msgid "Draft_saved"
+msgstr "Черновик сохранён"
+
+#: .\tasks\views\base.py:221
+msgid "Not_viewer_of_check"
+msgstr "У вас нет прав для просмотра этой проверки"
+
+#: .\templates\about\about.html:9 .\templates\includes\footer.html:51
+#: .\templates\includes\header.html:18 .\templates\includes\header.html:114
+#: .\templates\users\user_detail.html:63
+msgid "About"
+msgstr "О нас"
+
+#: .\templates\about\about.html:14
+msgid "About_header"
+msgstr "Кто мы"
+
+#: .\templates\about\about.html:18
+msgid "About_title"
+msgstr "Меняем мир — проверяя контент, созданный с помощью ИИ"
+
+#: .\templates\about\about.html:19
+msgid "About_text"
+msgstr ""
+"Основанная в 2025 году на простой идее проверки контента, созданного с "
+"помощью ИИ, HumanAIVerify предлагает передовые технологии, позволяющие "
+"каждому обнаруживать ИИ в аудио-, изображениях и тексте."
+
+#: .\templates\about\about.html:23 .\templates\feedback\feedback.html:9
+#: .\templates\feedback\feedback.html:15
+msgid "Logo"
+msgstr "Логотип"
+
+#: .\templates\about\about.html:32
+msgid "Team_header"
+msgstr "Наша команда"
+
+#: .\templates\about\about.html:40 .\templates\about\about.html:42
+msgid "Denis"
+msgstr "Денис"
+
+#: .\templates\about\about.html:43
+msgid "Team_lead"
+msgstr "Руководитель команды"
+
+#: .\templates\about\about.html:50 .\templates\about\about.html:52
+msgid "Egor"
+msgstr "Егор"
+
+#: .\templates\about\about.html:53
+msgid "Backend"
+msgstr "Бэкенд"
+
+#: .\templates\about\about.html:58 .\templates\about\about.html:60
+msgid "Ivan"
+msgstr "Иван"
+
+#: .\templates\about\about.html:61
+msgid "Frontend"
+msgstr "Фронтенд"
+
+#: .\templates\feedback\feedback.html:5 .\templates\feedback\feedback.html:12
+#: .\templates\feedback\feedback.html:16
+msgid "Feedback"
+msgstr "Обратная связь"
+
+#: .\templates\feedback\feedback.html:24
+msgid "Send"
+msgstr "Отправить"
+
+#: .\templates\homepage\index.html:5
+msgid "Home"
+msgstr "Главная"
+
+#: .\templates\homepage\index.html:15
+msgid "Homepage_header"
+msgstr "Что в планах на сегодня?"
+
+#: .\templates\homepage\index.html:18
+msgid "Select_task_type_check"
+msgstr "Выберите тип задания для проверки"
+
+#: .\templates\homepage\index.html:20
+msgid "Select_task_type_create"
+msgstr "Выберите тип задания для создания"
+
+#: .\templates\homepage\index.html:33
+msgid "Text_verification"
+msgstr "Проверка текста"
+
+#: .\templates\homepage\index.html:39 .\templates\homepage\index.html:59
+#: .\templates\homepage\index.html:79
+msgid "View_checks"
+msgstr "Просмотреть проверки"
+
+#: .\templates\homepage\index.html:41 .\templates\homepage\index.html:61
+#: .\templates\homepage\index.html:81
+msgid "View_tasks"
+msgstr "Просмотреть задания"
+
+#: .\templates\homepage\index.html:53
+msgid "Image_verification"
+msgstr "Проверка изображений"
+
+#: .\templates\homepage\index.html:56
+msgid "Images"
+msgstr "Изображения"
+
+#: .\templates\homepage\index.html:73
+msgid "Audio_verification"
+msgstr "Проверка аудио"
+
+#: .\templates\homepage\index.html:76
+msgid "Audio_files"
+msgstr "Аудиофайлы"
+
+#: .\templates\includes\footer.html:17
+msgid "footer_text"
+msgstr "Обнаруживайте ИИ везде, где вы работаете"
+
+#: .\templates\includes\footer.html:30
+msgid "Tasks"
+msgstr "Задачи"
+
+#: .\templates\includes\footer.html:33
+#: .\templates\includes\tasks_header.html:29
+msgid "Audio_tasks"
+msgstr "Аудиозадания"
+
+#: .\templates\includes\footer.html:36
+#: .\templates\includes\tasks_header.html:23
+msgid "Image_tasks"
+msgstr "Задания с изображениями"
+
+#: .\templates\includes\footer.html:39
+#: .\templates\includes\tasks_header.html:17
+msgid "Text_tasks"
+msgstr "Текстовые задания"
+
+#: .\templates\includes\footer.html:45
+msgid "Company"
+msgstr "Компания"
+
+#: .\templates\includes\footer.html:48
+msgid "Contact"
+msgstr "Контакты"
+
+#: .\templates\includes\footer.html:54
+msgid "Became_performer"
+msgstr "Стать исполнителем"
+
+#: .\templates\includes\footer.html:63
+msgid "What_is_genAI"
+msgstr "Что такое генеративный ИИ"
+
+#: .\templates\includes\footer.html:66
+msgid "Spot_genAI"
+msgstr "Обнаружить генеративный ИИ"
+
+#: .\templates\includes\footer.html:69
+msgid "GenAI_statistics"
+msgstr "Статистика генеративного ИИ"
+
+#: .\templates\includes\forms\errors.html:9
+#: .\templates\includes\forms\errors.html:16
+#: .\templates\includes\forms\fields.html:55
+#: .\templates\includes\messages.html:7
+#: .\templates\tasks\base\task_detail.html:169
+#: .\templates\tasks\image\task_detail.html:18
+#: .\templates\tasks\text\task_detail.html:18
+msgid "Close"
+msgstr "Закрыть"
+
+#: .\templates\includes\forms\fields.html:57
+msgid "Password_canr_be_similar_to_personal_information"
+msgstr "Пароль не должен быть слишком похож на личную информацию"
+
+#: .\templates\includes\forms\fields.html:60
+msgid "Password_must_contain_at_least_eight_characters"
+msgstr "Пароль должен содержать не менее восьми символов"
+
+#: .\templates\includes\forms\fields.html:63
+msgid "Password_cant_be_commonly_used"
+msgstr "Пароль не должен быть общеупотребимым"
+
+#: .\templates\includes\forms\fields.html:66
+msgid "Password_cant_be_entirely_numeric"
+msgstr "Пароль не должен состоять только из цифр"
+
+#: .\templates\includes\header.html:24 .\templates\includes\header.html:118
+#: .\templates\training\start.html:5
+msgid "Training"
+msgstr "Обучение"
+
+#: .\templates\includes\header.html:33 .\templates\includes\header.html:125
+#: .\templates\tasks\audio\task_detail.html:20
+#: .\templates\tasks\image\task_detail.html:33
+#: .\templates\tasks\text\task_detail.html:31
+msgid "My_tasks"
+msgstr "Мои задания"
+
+#: .\templates\includes\header.html:38 .\templates\includes\header.html:128
+msgid "My_checks"
+msgstr "Мои проверки"
+
+#: .\templates\includes\header.html:45 .\templates\includes\header.html:133
+msgid "Admin"
+msgstr "Админ"
+
+#: .\templates\includes\header.html:54 .\templates\includes\header.html:139
+#: .\templates\users\activation_success.html:11 .\templates\users\login.html:5
+#: .\templates\users\login.html:9 .\templates\users\login.html:20
+#: .\templates\users\password_reset_confirm.html:19
+msgid "Login"
+msgstr "Войти"
+
+#: .\templates\includes\header.html:55 .\templates\includes\header.html:140
+#: .\templates\users\login.html:31 .\templates\users\signup.html:5
+#: .\templates\users\signup.html:9 .\templates\users\signup.html:13
+msgid "Signup"
+msgstr "Регистрация"
+
+#: .\templates\includes\header.html:61
+msgid "Avatar"
+msgstr "Аватар"
+
+#: .\templates\includes\header.html:64 .\templates\users\profile.html:14
+#: .\templates\users\user_detail.html:26
+msgid "Avatar_not_found"
+msgstr "Аватар не найден"
+
+#: .\templates\includes\header.html:69 .\templates\includes\header.html:142
+#: .\templates\users\profile.html:5 .\templates\users\profile.html:18
+msgid "Profile"
+msgstr "Профиль"
+
+#: .\templates\includes\header.html:77 .\templates\includes\header.html:145
+#: .\templates\users\profile.html:32
+msgid "Logout"
+msgstr "Выйти"
+
+#: .\templates\includes\tasks_header.html:36
+msgid "Text_checks"
+msgstr "Проверки текста"
+
+#: .\templates\includes\tasks_header.html:41
+msgid "Image_checks"
+msgstr "Проверки изображений"
+
+#: .\templates\includes\tasks_header.html:46
+msgid "Audio_checks"
+msgstr "Проверки аудио"
+
+#: .\templates\includes\tasks_header.html:51
+#: .\templates\tasks\task_create.html:49
+msgid "Create"
+msgstr "Создать"
+
+#: .\templates\includes\theme_switcher.html:6
+#: .\templates\includes\theme_switcher.html:29
+msgid "Auto"
+msgstr "Авто"
+
+#: .\templates\includes\theme_switcher.html:13
+msgid "Light"
+msgstr "Светлая"
+
+#: .\templates\includes\theme_switcher.html:21
+msgid "Dark"
+msgstr "Тёмная"
+
+#: .\templates\tasks\audio\check_detail.html:12
+#: .\templates\tasks\base\check_detail.html:153
+#: .\templates\tasks\image\check_detail.html:9
+#: .\templates\tasks\text\check_detail.html:13
+msgid "Back_to_task"
+msgstr "Назад к задаче"
+
+#: .\templates\tasks\audio\check_detail.html:16
+#: .\templates\tasks\image\check_detail.html:13
+#: .\templates\tasks\text\check_detail.html:17
+msgid "Back_to_my_checks"
+msgstr "Назад к моим проверкам"
+
+#: .\templates\tasks\audio\my_checks.html:5
+msgid "my_audio_checks"
+msgstr "Мои проверки аудио"
+
+#: .\templates\tasks\audio\my_checks.html:29
+#: .\templates\tasks\audio\my_tasks.html:24
+msgid "no_audio_tasks"
+msgstr "Аудиозаданий нет"
+
+#: .\templates\tasks\audio\my_checks.html:33
+msgid "no_audio_checks"
+msgstr "Аудиопроверок нет"
+
+#: .\templates\tasks\audio\my_tasks.html:5
+msgid "my_audio_tasks"
+msgstr "Мои аудиозадания"
+
+#: .\templates\tasks\audio\task_detail.html:16
+#: .\templates\tasks\image\task_detail.html:29
+#: .\templates\tasks\text\task_detail.html:27
+msgid "View_details"
+msgstr "Просмотреть детали"
+
+#: .\templates\tasks\base\check_detail.html:9
+#: .\templates\tasks\base\check_detail.html:14
+msgid "Check_details"
+msgstr "Детали проверки"
+
+#: .\templates\tasks\base\check_detail.html:39
+msgid "Task_content"
+msgstr "Содержимое задания"
+
+#: .\templates\tasks\base\check_detail.html:47
+msgid "Content_preview_unavailable"
+msgstr "Предпросмотр содержимого недоступен"
+
+#: .\templates\tasks\base\check_detail.html:57
+#, fuzzy
+#| msgid "Task Information"
+msgid "Task_information"
+msgstr "Информация о задании"
+
+#: .\templates\tasks\base\check_detail.html:65
+msgid "No_description_provided"
+msgstr "Описание не предоставлено"
+
+#: .\templates\tasks\base\check_detail.html:72
+msgid "Task_created"
+msgstr "Задача создана"
+
+#: .\templates\tasks\base\check_detail.html:83
+msgid "Check_result"
+msgstr "Результат проверки"
+
+#: .\templates\tasks\base\check_detail.html:88
+#: .\templates\tasks\base\check_detail.html:108
+#: .\templates\tasks\base\my_checks.html:132
+#: .\templates\tasks\base\task_detail.html:55
+msgid "AI_score"
+msgstr "Оценка ИИ"
+
+#: .\templates\tasks\base\check_detail.html:92
+msgid "High_probability"
+msgstr "Высокая вероятность"
+
+#: .\templates\tasks\base\check_detail.html:97
+msgid "Medium_probability"
+msgstr "Средняя вероятность"
+
+#: .\templates\tasks\base\check_detail.html:102
+msgid "Low_probability"
+msgstr "Низкая вероятность"
+
+#: .\templates\tasks\base\check_detail.html:143
+msgid "No_comment"
+msgstr "Комментариев нет"
+
+#: .\templates\tasks\base\check_detail.html:153
+#, fuzzy
+#| msgid "Back_to_task"
+msgid "Back to Task"
+msgstr "Назад к задаче"
+
+#: .\templates\tasks\base\check_detail.html:159
+msgid "Back_to_list"
+msgstr "Назад к списку"
+
+#: .\templates\tasks\base\check_detail.html:159
+#, fuzzy
+#| msgid "Back_to_list"
+msgid "Back to List"
+msgstr "Назад к списку"
+
+#: .\templates\tasks\base\check_perform.html:10
+msgid "task_check"
+msgstr "проверка задания"
+
+#: .\templates\tasks\base\check_perform.html:23
+msgid "check_already_published"
+msgstr "Проверка уже опубликована"
+
+#: .\templates\tasks\base\check_perform.html:24
+msgid "Return"
+msgstr "Вернуться"
+
+#: .\templates\tasks\base\check_perform.html:27
+msgid "save_draft"
+msgstr "Сохранить черновик"
+
+#: .\templates\tasks\base\check_perform.html:33
+msgid "action_irreversible"
+msgstr "Действие необратимо"
+
+#: .\templates\tasks\base\check_perform.html:34
+msgid "Send_check"
+msgstr "Отправить проверку"
+
+#: .\templates\tasks\base\my_checks.html:24
+msgid "available_tasks"
+msgstr "доступные задания"
+
+#: .\templates\tasks\base\my_checks.html:26
+msgid "available_count"
+msgstr "количество доступных"
+
+#: .\templates\tasks\base\my_checks.html:41
+msgid "completed_tasks"
+msgstr "выполненные задания"
+
+#: .\templates\tasks\base\my_checks.html:57
+#: .\templates\tasks\base\my_checks.html:129
+msgid "Client"
+msgstr "Клиент"
+
+#: .\templates\tasks\base\my_checks.html:92
+#: .\templates\tasks\base\my_tasks.html:55
+msgid "not_checked"
+msgstr "не проверено"
+
+#: .\templates\tasks\base\my_checks.html:93
+#: .\templates\tasks\base\my_tasks.html:56
+#: .\templates\tasks\base\task_detail.html:72
+msgid "Not_checked"
+msgstr "Не проверено"
+
+#: .\templates\tasks\base\my_checks.html:98
+#: .\templates\tasks\base\my_tasks.html:60
+msgid "checks_count"
+msgstr "количество проверок"
+
+#: .\templates\tasks\base\my_checks.html:115
+msgid "no_tasks_text"
+msgstr "Отличная работа! Вы очистили очередь."
+
+#: .\templates\tasks\base\my_checks.html:130
+#: .\templates\tasks\base\task_detail.html:108
+msgid "Date"
+msgstr "Дата"
+
+#: .\templates\tasks\base\my_checks.html:131
+msgid "Status"
+msgstr "Статус"
+
+#: .\templates\tasks\base\my_checks.html:154
+#: .\templates\tasks\base\task_detail.html:123
+msgid "avatar_not_found"
+msgstr "Аватар не найден"
+
+#: .\templates\tasks\base\my_checks.html:190
+msgid "No_check_history"
+msgstr "История проверок отсутствует"
+
+#: .\templates\tasks\base\task_detail.html:38
+msgid "no_task_description"
+msgstr "Описание задания отсутствует"
+
+#: .\templates\tasks\base\task_detail.html:46
+msgid "Created"
+msgstr "Создано"
+
+#: .\templates\tasks\base\task_detail.html:80
+msgid "Checks"
+msgstr "Проверки"
+
+#: .\templates\tasks\base\task_detail.html:95
+msgid "Checks_history"
+msgstr "История проверок"
+
+#: .\templates\tasks\base\task_detail.html:106
+#: .\templates\training\start.html:29
+msgid "Score"
+msgstr "Оценка"
+
+#: .\templates\tasks\base\task_detail.html:109
+msgid "Actions"
+msgstr "Действия"
+
+#: .\templates\tasks\image\check_detail.html:5
+#: .\templates\tasks\image\check_perform.html:5
+msgid "task_image"
+msgstr "Изображение задания"
+
+#: .\templates\tasks\image\my_checks.html:5
+msgid "my_image_checks"
+msgstr "Мои проверки изображений"
+
+#: .\templates\tasks\image\my_checks.html:27
+#: .\templates\tasks\image\my_tasks.html:23
+msgid "no_image_tasks"
+msgstr "Нет заданий с изображениями"
+
+#: .\templates\tasks\image\my_checks.html:31
+msgid "no_image_checks"
+msgstr "Нет проверок изображений"
+
+#: .\templates\tasks\image\my_tasks.html:5
+msgid "my_image_tasks"
+msgstr "Мои задания с изображениями"
+
+#: .\templates\tasks\image\task_detail.html:9
+#: .\templates\tasks\image\task_detail.html:21
+msgid "Image_of_task"
+msgstr "Изображение задания"
+
+#: .\templates\tasks\task_create.html:8 .\templates\tasks\task_create.html:12
+msgid "create_task"
+msgstr "создать задание"
+
+#: .\templates\tasks\text\my_checks.html:6
+msgid "my_text_checks"
+msgstr "Мои проверки текста"
+
+#: .\templates\tasks\text\my_checks.html:24
+#: .\templates\tasks\text\my_tasks.html:21
+msgid "no_text_tasks"
+msgstr "Нет текстовых заданий"
+
+#: .\templates\tasks\text\my_checks.html:28
+msgid "no_text_checks"
+msgstr "Нет проверок текста"
+
+#: .\templates\tasks\text\my_tasks.html:5
+msgid "my_text_tasks"
+msgstr "Мои текстовые задания"
+
+#: .\templates\training\results.html:5 .\templates\training\results.html:12
+msgid "Training_results"
+msgstr "Результаты обучения"
+
+#: .\templates\training\results.html:21 .\templates\training\take_test.html:44
+msgid "Current_score"
+msgstr "Текущий балл"
+
+#: .\templates\training\results.html:30 .\templates\training\start.html:30
+#: .\training\admin.py:86
+msgid "Completed_texts"
+msgstr "Завершённые тексты"
+
+#: .\templates\training\results.html:37
+msgid "Progress_to_become_performer"
+msgstr "Прогресс для получения статуса исполнителя"
+
+#: .\templates\training\results.html:56 .\templates\training\start.html:56
+msgid "Congratulations"
+msgstr "Поздравляем"
+
+#: .\templates\training\results.html:57
+msgid "You_have_become_a_performer"
+msgstr "Вы стали исполнителем"
+
+#: .\templates\training\results.html:60
+msgid "Start_checking_tasks"
+msgstr "Начать проверять задания"
+
+#: .\templates\training\results.html:66 .\users\mixins.py:72
+msgid "You_need_points_to_become_performer"
+msgstr "Вам нужны очки, чтобы стать исполнителем"
+
+#: .\templates\training\results.html:67
+msgid "Current"
+msgstr "Текущее"
+
+#: .\templates\training\results.html:69
+msgid "Continue_training"
+msgstr "Продолжить обучение"
+
+#: .\templates\training\start.html:12
+msgid "AI_Detection_Training"
+msgstr "Обучение обнаружению ИИ"
+
+#: .\templates\training\start.html:17
+msgid "Your_progress"
+msgstr "Ваш прогресс"
+
+#: .\templates\training\start.html:36
+msgid "How_it_works"
+msgstr "Как это работает"
+
+#: .\templates\training\start.html:38
+msgid "Correct_answer_1_point"
+msgstr "Правильный ответ +1 очко"
+
+#: .\templates\training\start.html:39
+msgid "Wrong_answer_2_points"
+msgstr "Неправильный ответ -2 очка"
+
+#: .\templates\training\start.html:40
+msgid "Needed_score_to_become_performer"
+msgstr "Необходимый балл, чтобы стать исполнителем"
+
+#: .\templates\training\start.html:41
+msgid "Wait_24_hours_after_fail"
+msgstr "Подождите 24 часа после неудачи"
+
+#: .\templates\training\start.html:45
+msgid "Start_training"
+msgstr "Начать обучение"
+
+#: .\templates\training\start.html:49
+msgid "Please_wait"
+msgstr "Пожалуйста, подождите"
+
+#: .\templates\training\start.html:50
+msgid "Try_again_in"
+msgstr "Попробуйте снова через"
+
+#: .\templates\training\start.html:50
+msgid "hours"
+msgstr "часа (ов)"
+
+#: .\templates\training\start.html:57 .\training\views.py:127
+msgid "You_are_now_a_performer"
+msgstr "Вы теперь исполнитель"
+
+#: .\templates\training\start.html:60
+msgid "No_available_training_texts_or_waiting_period"
+msgstr "Нет доступных текстов для обучения или действует период ожидания"
+
+#: .\templates\training\take_test.html:5 .\templates\training\take_test.html:12
+msgid "Training_test"
+msgstr "Тест обучения"
+
+#: .\templates\training\take_test.html:18
+msgid "Read_the_text_and_decide"
+msgstr "Прочитайте текст и решите"
+
+#: .\templates\training\take_test.html:36
+msgid "Skip"
+msgstr "Пропустить"
+
+#: .\templates\training\take_test.html:37
+msgid "Submit_answer"
+msgstr "Отправить ответ"
+
+#: .\templates\training\take_test.html:45
+msgid "Goal"
+msgstr "Цель"
+
+#: .\templates\users\activation_success.html:5
+msgid "Account_activation"
+msgstr "Активация аккаунта"
+
+#: .\templates\users\activation_success.html:9
+msgid "Account_activation_head"
+msgstr "Аккаунт активирован!"
+
+#: .\templates\users\activation_success.html:10
+msgid "Account_activation_head-text"
+msgstr "Ваш аккаунт активирован"
+
+#: .\templates\users\login.html:15
+msgid "Remember_me"
+msgstr "Запомнить меня"
+
+#: .\templates\users\login.html:26 .\templates\users\password_change.html:24
+msgid "Password_recovery"
+msgstr "Восстановление пароля"
+
+#: .\templates\users\login.html:27 .\templates\users\password_change.html:25
+msgid "Forgot_password"
+msgstr "Забыли пароль"
+
+#: .\templates\users\login.html:32
+msgid "Create_account"
+msgstr "Создать аккаунт"
+
+#: .\templates\users\password_change.html:5
+#: .\templates\users\password_change.html:13
+msgid "Password_change"
+msgstr "Смена пароля"
+
+#: .\templates\users\password_change.html:18
+msgid "Change"
+msgstr "Изменить"
+
+#: .\templates\users\password_reset.html:5
+#: .\templates\users\password_reset_confirm.html:5
+#: .\templates\users\password_reset_done.html:5
+msgid "Password_reset_title"
+msgstr "Сброс пароля"
+
+#: .\templates\users\password_reset.html:13
+#: .\templates\users\password_reset_confirm.html:15
+#: .\templates\users\password_reset_done.html:9
+msgid "Password_reset_head"
+msgstr "Сброс пароля"
+
+#: .\templates\users\password_reset.html:18
+msgid "Further"
+msgstr "Далее"
+
+#: .\templates\users\password_reset_complete.html:5 .\users\views.py:131
+msgid "Password_reset"
+msgstr "Сброс пароля"
+
+#: .\templates\users\password_reset_complete.html:9
+msgid "Password_reset_success_head"
+msgstr "Пароль сброшен!"
+
+#: .\templates\users\password_reset_complete.html:10
+msgid "Password_reset_success_text"
+msgstr "Используйте новый пароль для входа."
+
+#: .\templates\users\password_reset_confirm.html:24
+msgid "Invalid_link_on_password_reset"
+msgstr "Недействительная ссылка для сброса пароля"
+
+#: .\templates\users\password_reset_done.html:10
+msgid "Password_reset_text"
+msgstr "Используйте новый пароль для входа."
+
+#: .\templates\users\password_reset_email.html:2
+msgid "Reset_password_text_about_site"
+msgstr "Вы получили это письмо, потому что запросили сброс пароля на сайте"
+
+#: .\templates\users\password_reset_email.html:3
+msgid "Reset_password_text_follow_link"
+msgstr "Перейдите по ссылке и выберите новый пароль"
+
+#: .\templates\users\password_reset_email.html:5
+msgid "Reset_password_text_thanks_for_using"
+msgstr "Спасибо, что пользуетесь нашим сайтом"
+
+#: .\templates\users\profile.html:23
+msgid "Save"
+msgstr "Сохранить"
+
+#: .\templates\users\profile.html:24
+msgid "Change_password"
+msgstr "Сменить пароль"
+
+#: .\templates\users\signup.html:17
+msgid "Receive_link_after_signup"
+msgstr "Вы получите ссылку после регистрации"
+
+#: .\templates\users\signup.html:19
+msgid "Signup_have_account_already"
+msgstr "Если у вас уже есть аккаунт"
+
+#: .\templates\users\signup.html:19
+msgid "login_here"
+msgstr "войдите здесь"
+
+#: .\templates\users\subjects\activation_email.txt:3
+msgid "Hello"
+msgstr "Здравствуйте"
+
+#: .\templates\users\subjects\activation_email.txt:4
+msgid "activate_link_text"
+msgstr "Чтобы активировать аккаунт, перейдите по ссылке"
+
+#: .\templates\users\subjects\activation_email.txt:7
+msgid "Ignore_activate_link_text"
+msgstr "Игнорируйте это письмо, если вы не регистрировались"
+
+#: .\templates\users\subjects\password_reset.txt:3
+#, fuzzy
+#| msgid "Password_reset_title"
+msgid "Password_reset_on_site"
+msgstr "Сброс пароля на сайте"
+
+#: .\templates\users\user_detail.html:5
+msgid "detail"
+msgstr "детали"
+
+#: .\templates\users\user_detail.html:19
+msgid "Avatar_of"
+msgstr "Аватар пользователя"
+
+#: .\templates\users\user_detail.html:33
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: .\templates\users\user_detail.html:40
+msgid "Joined"
+msgstr "Дата регистрации"
+
+#: .\templates\users\user_detail.html:43
+msgid "Last_login"
+msgstr "Последний вход"
+
+#: .\templates\users\user_detail.html:53
+msgid "Edit_profile"
+msgstr "Редактировать профиль"
+
+#: .\templates\users\user_detail.html:67
+msgid "No_additional_information"
+msgstr "Дополнительной информации нет"
+
+#: .\templates\users\user_detail.html:72
+msgid "Account"
+msgstr "Аккаунт"
+
+#: .\templates\users\user_detail.html:75
+msgid "Role"
+msgstr "Роль"
+
+#: .\training\admin.py:29
+msgid "Content_preview"
+msgstr "Предпросмотр содержимого"
+
+#: .\training\admin.py:44
+msgid "Text_content"
+msgstr "Текстовое содержимое"
+
+#: .\training\admin.py:53
+msgid "Classification"
+msgstr "Классификация"
+
+#: .\training\admin.py:92
+msgid "hours_ago"
+msgstr "часов назад"
+
+#: .\training\admin.py:96
+msgid "Never"
+msgstr "Никогда"
+
+#: .\training\admin.py:98
+msgid "Last_fail"
+msgstr "Последняя неудача"
+
+#: .\training\admin.py:103
+msgid "Can_train_now"
+msgstr "Можно тренироваться сейчас"
+
+#: .\training\admin.py:129
+msgid "User_information"
+msgstr "Информация о пользователе"
+
+#: .\training\admin.py:138
+msgid "Training_status"
+msgstr "Статус обучения"
+
+#: .\training\admin.py:197
+msgid "User_added_to_performers_group"
+msgstr "Пользователь добавлен в группу исполнителей"
+
+#: .\training\apps.py:10
+msgid "Training_app_name"
+msgstr "Обучение"
+
+#: .\training\forms.py:22
+msgid "AI_generated"
+msgstr "Создано ИИ"
+
+#: .\training\forms.py:23
+msgid "Human_written"
+msgstr "Написано человеком"
+
+#: .\training\forms.py:27
+msgid "Is_this_text_AI_generated?"
+msgstr "Этот текст создан ИИ?"
+
+#: .\training\models.py:15
+msgid "easy"
+msgstr "легко"
+
+#: .\training\models.py:16
+msgid "medium"
+msgstr "средне"
+
+#: .\training\models.py:17
+msgid "hard"
+msgstr "сложно"
+
+#: .\training\models.py:23
+msgid "is_ai_generated"
+msgstr "создано ИИ"
+
+#: .\training\models.py:24
+msgid "Is_the_text_AI_generated"
+msgstr "Текст создан ИИ?"
+
+#: .\training\models.py:30
+msgid "difficulty"
+msgstr "сложность"
+
+#: .\training\models.py:34
+msgid "explanation"
+msgstr "объяснение"
+
+#: .\training\models.py:35
+msgid "Explanation_why_text_is_AI_or_human"
+msgstr "Объяснение, почему текст создан ИИ или человеком"
+
+#: .\training\models.py:39
+msgid "training_text"
+msgstr "текст для обучения"
+
+#: .\training\models.py:40
+msgid "training_texts"
+msgstr "тексты для обучения"
+
+#: .\training\models.py:56
+msgid "training_score"
+msgstr "результат обучения"
+
+#: .\training\models.py:57
+msgid "Current_training_score"
+msgstr "Текущий результат обучения"
+
+#: .\training\models.py:62
+msgid "last_fail_timestamp"
+msgstr "метка времени последней неудачной попытки"
+
+#: .\training\models.py:63
+msgid "Timestamp_of_last_failed_attempt"
+msgstr "Метка времени последней неудачной попытки"
+
+#: .\training\models.py:69
+msgid "completed_texts"
+msgstr "завершённые тексты"
+
+#: .\training\models.py:75
+msgid "user_training_progress"
+msgstr "прогресс обучения пользователя"
+
+#: .\training\models.py:76
+msgid "user_training_progresses"
+msgstr "прогрессы обучения пользователей"
+
+#: .\training\views.py:48
+msgid "No_more_training_texts_available"
+msgstr "Больше нет доступных текстов для обучения"
+
+#: .\training\views.py:70
+msgid "You_need_to_wait"
+msgstr "Вам нужно подождать"
+
+#: .\training\views.py:74
+msgid "You_already_completed_this_text"
+msgstr "Вы уже завершили этот текст"
+
+#: .\training\views.py:117
+msgid "Correct_answer_plus_1_point"
+msgstr "Правильный ответ +1 очко"
+
+#: .\training\views.py:119
+msgid "Wrong_answer_minus_2_points"
+msgstr "Неправильный ответ -2 очка"
+
+#: .\users\admin.py:69
+msgid "Security_profile"
+msgstr "Профиль безопасности"
+
+#: .\users\admin.py:79
+msgid "Additional_information"
+msgstr "Дополнительная информация"
+
+#: .\users\apps.py:10
+msgid "Users_app_name"
+msgstr "Пользователи"
+
+#: .\users\backends.py:63
+msgid "Account_blocked_due_maxed_attrempts"
+msgstr "Аккаунт заблокирован из-за превышения числа неудачных попыток входа"
+
+#: .\users\backends.py:79 .\users\views.py:82
+msgid "Profile_activation"
+msgstr "Активация профиля"
+
+#: .\users\forms.py:24
+msgid "Error_user_with_email_already_exists"
+msgstr "Пользователь с таким адресом электронной почты уже существует"
+
+#: .\users\forms.py:45
+msgid "username_or_email_label"
+msgstr "Имя пользователя или электронная почта"
+
+#: .\users\mixins.py:30
+msgid "User_have_wrong_role"
+msgstr "У вас неверная роль"
+
+#: .\users\mixins.py:66
+msgid "Congratulations_you_have_been_added_to_performers"
+msgstr "Поздравляем! Вас добавили в группу исполнителей"
+
+#: .\users\mixins.py:77
+msgid "Complete_training_to_become_performer"
+msgstr "Завершите обучение, чтобы стать исполнителем"
+
+#: .\users\models.py:22
+msgid "avatar"
+msgstr "Аватар"
+
+#: .\users\models.py:48
+msgid "No_avatar"
+msgstr "Аватар отсутствует"
+
+#: .\users\models.py:50
+msgid "avatar_preview"
+msgstr "Предпросмотр аватара"
+
+#: .\users\models.py:55
+msgid "customer"
+msgstr "Клиент"
+
+#: .\users\models.py:64
+msgid "role"
+msgstr "Роль"
+
+#: .\users\models.py:71
+msgid "login_attempts_count"
+msgstr "Количество попыток входа"
+
+#: .\users\models.py:75
+msgid "blocking_timestamp"
+msgstr "Метка времени блокировки"
+
+#: .\users\models.py:79
+msgid "last_login_attempt_timestamp"
+msgstr "Метка времени последней попытки входа"
+
+#: .\users\models.py:87
+msgid "users"
+msgstr "Пользователи"
+
+#: .\users\views.py:33
+msgid "Invalid_or_expired_activation_link"
+msgstr "Недействительная или просроченная ссылка активации"
+
+#: .\users\views.py:61
+msgid "Need_to_activate_profile"
+msgstr "Необходимо активировать профиль"
+
+#: .\users\views.py:66
+msgid "Signup_success"
+msgstr "Регистрация прошла успешно"
+
+#: .\users\views.py:111
+msgid "Logout_success"
+msgstr "Вы вышли из аккаунта"
+
+#: .\users\views.py:121
+msgid "Password_changed"
+msgstr "Пароль изменён"
+
+#: .\users\views.py:152
+msgid "Settings_saved"
+msgstr "Настройки сохранены"

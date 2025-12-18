@@ -1,0 +1,122 @@
+[
+  {
+    "model": "training.trainingtext",
+    "pk": 1,
+    "fields": {
+      "content": "The synergistic integration of blockchain technology with IoT ecosystems facilitates unprecedented data immutability and decentralized consensus mechanisms, thereby optimizing supply chain transparency and operational efficiency.",
+      "is_ai_generated": true,
+      "difficulty": "easy",
+      "explanation": "Uses complex technical terms and unnaturally complex sentence structures typical of AI.",
+      "created_at": "2024-01-15T10:00:00Z",
+      "updated_at": "2024-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "training.trainingtext",
+    "pk": 2,
+    "fields": {
+      "content": "Leveraging machine learning algorithms, we can extrapolate predictive analytics from multivariate datasets, enhancing decision-making paradigms through neural network architectures and deep learning methodologies.",
+      "is_ai_generated": true,
+      "difficulty": "medium",
+      "explanation": "Overly formal and technical language with redundant complex constructions.",
+      "created_at": "2024-01-15T10:05:00Z",
+      "updated_at": "2024-01-15T10:05:00Z"
+    }
+  },
+  {
+    "model": "training.trainingtext",
+    "pk": 3,
+    "fields": {
+      "content": "The ontological implications of quantum computing transcend traditional binary paradigms, necessitating a reconceptualization of information theory within non-deterministic frameworks.",
+      "is_ai_generated": true,
+      "difficulty": "hard",
+      "explanation": "Abstract philosophical terms in a technical context, unnatural word combinations.",
+      "created_at": "2024-01-15T10:10:00Z",
+      "updated_at": "2024-01-15T10:10:00Z"
+    }
+  },
+  {
+    "model": "training.trainingtext",
+    "pk": 4,
+    "fields": {
+      "content": "Sustainable urban development necessitates the implementation of green infrastructure initiatives that synergistically integrate renewable energy sources with smart grid technologies.",
+      "is_ai_generated": true,
+      "difficulty": "medium",
+      "explanation": "Use of buzzwords and overly complex grammatical structures.",
+      "created_at": "2024-01-15T10:15:00Z",
+      "updated_at": "2024-01-15T10:15:00Z"
+    }
+  },
+  {
+    "model": "training.trainingtext",
+    "pk": 5,
+    "fields": {
+      "content": "The hermeneutic analysis of postmodern literary deconstruction reveals intertextual dialogues that problematize traditional notions of authorial intentionality and narrative coherence.",
+      "is_ai_generated": true,
+      "difficulty": "hard",
+      "explanation": "Academic jargon with artificial term combinations.",
+      "created_at": "2024-01-15T10:20:00Z",
+      "updated_at": "2024-01-15T10:20:00Z"
+    }
+  },
+  {
+    "model": "training.trainingtext",
+    "pk": 6,
+    "fields": {
+      "content": "Yesterday I went to the store to buy bread but forgot to take money. I had to go back home and then walk again in the rain. It was very unpleasant and frustrating.",
+      "is_ai_generated": false,
+      "difficulty": "easy",
+      "explanation": "Simple everyday story with emotional assessment and personal experiences.",
+      "created_at": "2024-01-15T10:25:00Z",
+      "updated_at": "2024-01-15T10:25:00Z"
+    }
+  },
+  {
+    "model": "training.trainingtext",
+    "pk": 7,
+    "fields": {
+      "content": "Our cat absolutely hates being picked up. She immediately starts struggling and runs under the sofa. Sometimes she sits there for several hours until she decides the danger has passed.",
+      "is_ai_generated": false,
+      "difficulty": "easy",
+      "explanation": "Personal observation of animal behavior with specific details.",
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-01-15T10:30:00Z"
+    }
+  },
+  {
+    "model": "training.trainingtext",
+    "pk": 8,
+    "fields": {
+      "content": "To make borscht, first you need to cook beef broth with bones. Then add chopped potatoes, beets, carrots, and cabbage. At the very end, add tomato paste and let it simmer.",
+      "is_ai_generated": false,
+      "difficulty": "medium",
+      "explanation": "Practical cooking instructions with clear sequence of actions.",
+      "created_at": "2024-01-15T10:35:00Z",
+      "updated_at": "2024-01-15T10:35:00Z"
+    }
+  },
+  {
+    "model": "training.trainingtext",
+    "pk": 9,
+    "fields": {
+      "content": "When I was in school, we had a very strict math teacher. He always made us solve extra problems and checked homework with particular thoroughness. We were afraid of him but learned a lot.",
+      "is_ai_generated": false,
+      "difficulty": "medium",
+      "explanation": "Personal memory with subjective assessment and emotional coloring.",
+      "created_at": "2024-01-15T10:40:00Z",
+      "updated_at": "2024-01-15T10:40:00Z"
+    }
+  },
+  {
+    "model": "training.trainingtext",
+    "pk": 10,
+    "fields": {
+      "content": "This morning I woke up to birds singing outside my window. Sunlight was softly filtering through the thin curtains, and the air carried the scent of freshly cut grass. There was such a peaceful feeling of a new day beginning.",
+      "is_ai_generated": false,
+      "difficulty": "hard",
+      "explanation": "Poetic morning description with sensory details and personal perception.",
+      "created_at": "2024-01-15T10:45:00Z",
+      "updated_at": "2024-01-15T10:45:00Z"
+    }
+  }
+]

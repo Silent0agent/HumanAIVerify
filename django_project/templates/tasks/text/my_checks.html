@@ -1,0 +1,29 @@
+{% extends "tasks/base/my_checks.html" %}
+{% load thumbnail i18n %}
+{% load i18n %}
+
+{% block title %}
+  {% translate "my_text_checks" %}
+{% endblock title %}
+
+{% block task_content %}
+  {{ task.content|safe|truncatechars_html:25 }}
+{% endblock task_content %}
+{% block completed_task_content %}
+  {{ check.task.content|safe|truncatechars_html:25 }}
+{% endblock completed_task_content %}
+
+{% block task_title %}
+  <a href="{% url 'tasks:text-check-perform' task.id %}" class="text-decoration-none stretched-link purple-hover">{{ task.title|truncatechars:25 }}</a>
+{% endblock task_title %}
+{% block completed_task_title %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:text-check-perform' check.task.id %}">{{ check.task.title|truncatechars:25 }}</a>
+{% endblock completed_task_title %}
+
+{% block no_tasks %}
+  {% translate "no_text_tasks" %}
+{% endblock no_tasks %}
+
+{% block no_checks %}
+  {% translate "no_text_checks" %}
+{% endblock no_checks %}

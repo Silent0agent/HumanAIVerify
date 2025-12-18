@@ -1,0 +1,21 @@
+{% extends "tasks/base/task_detail.html" %}
+{% load thumbnail i18n %}
+
+{% block title %}
+  {{ task.title }}
+{% endblock title %}
+
+{% block task_content %}
+  <audio class="mx-auto mb-3" controls>
+    <source src="{{ task.audio.url }}" type="audio/mpeg">
+    {% translate "audio_not_supported_browser" %}
+  </audio>
+{% endblock task_content %}
+
+{% block view_details %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:audio-check-detail' check.id %}">{% translate "View_details" %}</a>
+{% endblock view_details %}
+
+{% block my_tasks %}
+  <a class="text-decoration-none purple-hover" href="{% url 'tasks:my-audio-tasks' %}">{% translate "My_tasks" %}</a>
+{% endblock my_tasks %}
