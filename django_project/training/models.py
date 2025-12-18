@@ -95,8 +95,6 @@ class UserTrainingProgress(core.models.TimeStampedModel):
         return max(0, 24 - int(time_since_fail.total_seconds() / 3600))
 
     def add_completed_text(self, training_text, is_correct):
-        from django.contrib.auth.models import Group
-
         self.completed_texts.add(training_text)
 
         if is_correct:
@@ -109,11 +107,15 @@ class UserTrainingProgress(core.models.TimeStampedModel):
         self.save()
 
         if self.training_score >= settings.TRAINING_COMPLETIONS_FOR_PERFORMER:
-            performer_group, created = Group.objects.get_or_create(
+            group_model = self.user.groups.model
+
+            performer_group, created = group_model.objects.get_or_create(
                 name=settings.PERFORMER_GROUP_NAME,
             )
             self.user.groups.add(performer_group)
-            self.user.role = "performer"
+
+            user_model = self.user._meta.model
+            self.user.role = user_model.Role.PERFORMER
             self.user.save()
 
     def get_available_texts(self):
