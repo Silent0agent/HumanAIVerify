@@ -5,9 +5,8 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import Group
 from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
-
 from training.models import UserTrainingProgress
-
+from django_project.settings import TRAINING_COMPLETIONS_FOR_PERFORMER
 
 User = auth.get_user_model()
 
@@ -53,7 +52,7 @@ class PerformerRequiredMixin(UserPassesTestMixin):
                 progress = UserTrainingProgress.objects.get(
                     user=self.request.user,
                 )
-                if progress.training_score >= 10:
+                if progress.training_score >= TRAINING_COMPLETIONS_FOR_PERFORMER:
                     performer_group, created = Group.objects.get_or_create(
                         name="Performers",
                     )
