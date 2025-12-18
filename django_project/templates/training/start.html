@@ -47,7 +47,7 @@
           {% if not progress.can_take_test %}
             <div class="alert alert-warning">
               <h4 class="alert-heading">{% translate "Please_wait" %}</h4>
-              <p>{% translate "Try_again_in" %} {{ remaining_hours }} {% translate "hours" %}</p>
+              <p>{% translate "Try_again_in" %} {{ progress.remaining_hours }} {% translate "hours" %}</p>
             </div>
           {% endif %}
 
