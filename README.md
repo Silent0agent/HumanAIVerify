@@ -153,8 +153,21 @@ Windows:
 ```batch
 python manage.py createsuperuser
 ```
+### 12. Load fixtures (optional)
 
-### 12. Run server
+Linux/macOS:
+
+```bash
+python3 manage.py loaddata fixtures/training_texts.json
+```
+
+Windows:
+
+```batch
+python manage.py loaddata fixtures/training_texts.json
+```
+
+### 13. Run server
 
 Linux/macOS:
 
