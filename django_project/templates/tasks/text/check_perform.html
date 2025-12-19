@@ -3,7 +3,10 @@
 
 {% block task %}
   <div class="card text-start my-3 p-3 mx-auto col-11 roboto">
-    <div id="task-content-container" aria-label="Task content" data-original-html="{{ task.content|escapejs }}">
+    <div id="task-content-container"
+         aria-label="{% translate 'Task_content' %}"
+         data-original-html="{{ task.content|escapejs }}"
+         data-select-label="{% translate 'Select' %}">
       {% if form.instance and form.instance.annotated_content %}
         {{ form.instance.annotated_content|safe }}
       {% else %}
