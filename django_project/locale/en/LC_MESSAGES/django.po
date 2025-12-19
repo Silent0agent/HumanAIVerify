@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-18 23:10+0300\n"
+"POT-Creation-Date: 2025-12-19 03:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <ivan1one111one@gmail.com>\n"
@@ -60,7 +60,7 @@ msgstr "Feedback"
 msgid "Name"
 msgstr "Name"
 
-#: .\feedback\forms.py:26 .\templates\users\user_detail.html:34
+#: .\feedback\forms.py:26 .\templates\users\user_detail.html:35
 msgid "Email"
 msgstr "Email"
 
@@ -114,7 +114,7 @@ msgstr "email"
 
 #: .\feedback\models.py:30
 msgid "Email_help_text"
-msgstr "Enter email to contack"
+msgstr "Enter email to contact"
 
 #: .\feedback\models.py:34
 msgid "sender_contact_data"
@@ -190,7 +190,7 @@ msgstr "Feedback mail head"
 
 #: .\feedback\views.py:81
 msgid "Success_feedback_form"
-msgstr "Thank's for sending feedback!"
+msgstr "Thanks for sending feedback!"
 
 #: .\homepage\apps.py:10
 msgid "Homepage_app_name"
@@ -203,7 +203,7 @@ msgstr "Performer"
 
 #: .\tasks\admin\base.py:84
 msgid "Error_task_admin_improperly_configured"
-msgstr "Admin task improperly_configured: %(class_name)s"
+msgstr "Admin task improperly configured: %(class_name)s"
 
 #: .\tasks\admin\base.py:111
 msgid "Task"
@@ -219,9 +219,9 @@ msgstr "Average AI Score"
 
 #: .\tasks\admin\base.py:204 .\templates\tasks\base\task_detail.html:158
 msgid "No_checks"
-msgstr "No cheks"
+msgstr "No checks"
 
-#: .\tasks\admin\base.py:294 .\tasks\forms\text.py:17
+#: .\tasks\admin\base.py:294 .\tasks\forms\text.py:13
 #: .\templates\tasks\image\task_detail.html:17
 #: .\templates\tasks\text\task_detail.html:17
 msgid "Content"
@@ -306,7 +306,7 @@ msgstr "audio tasks"
 #: .\templates\tasks\audio\my_checks.html:17
 #: .\templates\tasks\audio\my_tasks.html:19
 #: .\templates\tasks\audio\task_detail.html:11
-msgid "audio_not_supported_browser"
+msgid "Audio_not_supported_browser"
 msgstr "Audio is not supported by this browser"
 
 #: .\tasks\models\audio.py:47
@@ -407,7 +407,7 @@ msgstr "text task checks"
 
 #: .\tasks\views\base.py:47
 msgid "Task_create_success"
-msgstr "Task succefully created"
+msgstr "Task successfully created"
 
 #: .\tasks\views\base.py:74
 msgid "Not_owner_of_task"
@@ -431,7 +431,6 @@ msgstr "You are not viewer of check"
 
 #: .\templates\about\about.html:9 .\templates\includes\footer.html:51
 #: .\templates\includes\header.html:18 .\templates\includes\header.html:114
-#: .\templates\users\user_detail.html:63
 msgid "About"
 msgstr "About"
 
@@ -535,11 +534,11 @@ msgid "Audio_verification"
 msgstr "Audio verification"
 
 #: .\templates\homepage\index.html:76
-msgid "Audio_files"
-msgstr "Audio files"
+msgid "Audio"
+msgstr "Audio"
 
 #: .\templates\includes\footer.html:17
-msgid "footer_text"
+msgid "Footer_text"
 msgstr "Spot AI, everywhere you work"
 
 #: .\templates\includes\footer.html:30
@@ -596,7 +595,7 @@ msgid "Close"
 msgstr "Close"
 
 #: .\templates\includes\forms\fields.html:57
-msgid "Password_canr_be_similar_to_personal_information"
+msgid "Password_cant_be_similar_to_personal_information"
 msgstr "Password can't be very similar to personal information"
 
 #: .\templates\includes\forms\fields.html:60
@@ -609,7 +608,7 @@ msgstr "Password can't be commonly used"
 
 #: .\templates\includes\forms\fields.html:66
 msgid "Password_cant_be_entirely_numeric"
-msgstr "Password cant be entirely numeric"
+msgstr "Password can't be entirely numeric"
 
 #: .\templates\includes\header.html:24 .\templates\includes\header.html:118
 #: .\templates\training\start.html:5
@@ -648,8 +647,10 @@ msgstr "Signup"
 msgid "Avatar"
 msgstr "Avatar"
 
-#: .\templates\includes\header.html:64 .\templates\users\profile.html:14
-#: .\templates\users\user_detail.html:26
+#: .\templates\includes\header.html:64
+#: .\templates\tasks\base\my_checks.html:154
+#: .\templates\tasks\base\task_detail.html:123
+#: .\templates\users\profile.html:14 .\templates\users\user_detail.html:26
 msgid "Avatar_not_found"
 msgstr "Avatar not found"
 
@@ -707,21 +708,21 @@ msgid "Back_to_my_checks"
 msgstr "Back to my checks"
 
 #: .\templates\tasks\audio\my_checks.html:5
-msgid "my_audio_checks"
-msgstr "my audio checks"
+msgid "My_audio_checks"
+msgstr "My audio checks"
 
 #: .\templates\tasks\audio\my_checks.html:29
 #: .\templates\tasks\audio\my_tasks.html:24
-msgid "no_audio_tasks"
-msgstr "no audio tasks"
+msgid "No_audio_tasks"
+msgstr "No audio tasks"
 
 #: .\templates\tasks\audio\my_checks.html:33
-msgid "no_audio_checks"
-msgstr "no audio_ hecks"
+msgid "No_audio_checks"
+msgstr "No audio checks"
 
 #: .\templates\tasks\audio\my_tasks.html:5
-msgid "my_audio_tasks"
-msgstr "my audio tasks"
+msgid "My_audio_tasks"
+msgstr "My audio tasks"
 
 #: .\templates\tasks\audio\task_detail.html:16
 #: .\templates\tasks\image\task_detail.html:29
@@ -743,10 +744,8 @@ msgid "Content_preview_unavailable"
 msgstr "Content preview unavailable"
 
 #: .\templates\tasks\base\check_detail.html:57
-#, fuzzy
-#| msgid "Task Information"
 msgid "Task_information"
-msgstr "Task_information"
+msgstr "Task information"
 
 #: .\templates\tasks\base\check_detail.html:65
 msgid "No_description_provided"
@@ -783,57 +782,45 @@ msgstr "Low probability"
 msgid "No_comment"
 msgstr "No comment"
 
-#: .\templates\tasks\base\check_detail.html:153
-#, fuzzy
-#| msgid "Back_to_task"
-msgid "Back to Task"
-msgstr "Back to task"
-
 #: .\templates\tasks\base\check_detail.html:159
 msgid "Back_to_list"
 msgstr "Back to list"
 
-#: .\templates\tasks\base\check_detail.html:159
-#, fuzzy
-#| msgid "Back_to_list"
-msgid "Back to List"
-msgstr "Back to list"
-
 #: .\templates\tasks\base\check_perform.html:10
-msgid "task_check"
-msgstr "task check"
+msgid "Task_check"
+msgstr "Task check"
 
 #: .\templates\tasks\base\check_perform.html:23
-msgid "check_already_published"
-msgstr "check already published"
+msgid "Check_already_published"
+msgstr "Check already published"
 
 #: .\templates\tasks\base\check_perform.html:24
 msgid "Return"
 msgstr "Return"
 
 #: .\templates\tasks\base\check_perform.html:27
-msgid "save_draft"
-msgstr "save draft"
+msgid "Save_draft"
+msgstr "Save draft"
 
 #: .\templates\tasks\base\check_perform.html:33
-msgid "action_irreversible"
-msgstr "action is irreverseble"
+msgid "Action_irreversible"
+msgstr "Are you sure? This action is irreversible."
 
 #: .\templates\tasks\base\check_perform.html:34
 msgid "Send_check"
 msgstr "Send check"
 
 #: .\templates\tasks\base\my_checks.html:24
-msgid "available_tasks"
-msgstr "available tasks"
+msgid "Available_tasks"
+msgstr "Available tasks"
 
 #: .\templates\tasks\base\my_checks.html:26
-msgid "available_count"
-msgstr "available count"
+msgid "Available_tasks_count"
+msgstr "Available tasks count"
 
 #: .\templates\tasks\base\my_checks.html:41
-msgid "completed_tasks"
-msgstr "completed tasks"
+msgid "Completed_tasks"
+msgstr "Completed tasks"
 
 #: .\templates\tasks\base\my_checks.html:57
 #: .\templates\tasks\base\my_checks.html:129
@@ -841,11 +828,8 @@ msgid "Client"
 msgstr "Client"
 
 #: .\templates\tasks\base\my_checks.html:92
-#: .\templates\tasks\base\my_tasks.html:55
-msgid "not_checked"
-msgstr "not checked"
-
 #: .\templates\tasks\base\my_checks.html:93
+#: .\templates\tasks\base\my_tasks.html:55
 #: .\templates\tasks\base\my_tasks.html:56
 #: .\templates\tasks\base\task_detail.html:72
 msgid "Not_checked"
@@ -853,11 +837,11 @@ msgstr "Not checked"
 
 #: .\templates\tasks\base\my_checks.html:98
 #: .\templates\tasks\base\my_tasks.html:60
-msgid "checks_count"
-msgstr "checks count"
+msgid "Checks_count"
+msgstr "Checks count"
 
 #: .\templates\tasks\base\my_checks.html:115
-msgid "no_tasks_text"
+msgid "No_tasks_text"
 msgstr "Good job! You've cleared the queue."
 
 #: .\templates\tasks\base\my_checks.html:130
@@ -869,18 +853,13 @@ msgstr "Date"
 msgid "Status"
 msgstr "Status"
 
-#: .\templates\tasks\base\my_checks.html:154
-#: .\templates\tasks\base\task_detail.html:123
-msgid "avatar_not_found"
-msgstr "Avatar's not found"
-
 #: .\templates\tasks\base\my_checks.html:190
 msgid "No_check_history"
 msgstr "No check history"
 
 #: .\templates\tasks\base\task_detail.html:38
-msgid "no_task_description"
-msgstr "mo task description"
+msgid "No_task_description"
+msgstr "No task description"
 
 #: .\templates\tasks\base\task_detail.html:46
 msgid "Created"
@@ -905,25 +884,25 @@ msgstr "Actions"
 
 #: .\templates\tasks\image\check_detail.html:5
 #: .\templates\tasks\image\check_perform.html:5
-msgid "task_image"
-msgstr "task image"
+msgid "Task_image"
+msgstr "Task image"
 
 #: .\templates\tasks\image\my_checks.html:5
-msgid "my_image_checks"
-msgstr "my image checks"
+msgid "My_image_checks"
+msgstr "My image checks"
 
 #: .\templates\tasks\image\my_checks.html:27
 #: .\templates\tasks\image\my_tasks.html:23
-msgid "no_image_tasks"
-msgstr "no image tasks"
+msgid "No_image_tasks"
+msgstr "No image tasks"
 
 #: .\templates\tasks\image\my_checks.html:31
-msgid "no_image_checks"
-msgstr "no image checks"
+msgid "No_image_checks"
+msgstr "No image checks"
 
 #: .\templates\tasks\image\my_tasks.html:5
-msgid "my_image_tasks"
-msgstr "my image tasks"
+msgid "My_image_tasks"
+msgstr "My image tasks"
 
 #: .\templates\tasks\image\task_detail.html:9
 #: .\templates\tasks\image\task_detail.html:21
@@ -931,25 +910,25 @@ msgid "Image_of_task"
 msgstr "Image of task"
 
 #: .\templates\tasks\task_create.html:8 .\templates\tasks\task_create.html:12
-msgid "create_task"
-msgstr "create task"
+msgid "Create_task"
+msgstr "Create task"
 
 #: .\templates\tasks\text\my_checks.html:6
-msgid "my_text_checks"
-msgstr "my text checks"
+msgid "My_text_checks"
+msgstr "My text checks"
 
 #: .\templates\tasks\text\my_checks.html:24
 #: .\templates\tasks\text\my_tasks.html:21
-msgid "no_text_tasks"
-msgstr "no text tasks"
+msgid "No_text_tasks"
+msgstr "No text tasks"
 
 #: .\templates\tasks\text\my_checks.html:28
-msgid "no_text_checks"
-msgstr "no text checks"
+msgid "No_text_checks"
+msgstr "No text checks"
 
 #: .\templates\tasks\text\my_tasks.html:5
-msgid "my_text_tasks"
-msgstr "my text tasks"
+msgid "My_text_tasks"
+msgstr "My text tasks"
 
 #: .\templates\training\results.html:5 .\templates\training\results.html:12
 msgid "Training_results"
@@ -974,7 +953,7 @@ msgstr "Congratulations"
 
 #: .\templates\training\results.html:57
 msgid "You_have_become_a_performer"
-msgstr "You have became a performer"
+msgstr "You have become a performer"
 
 #: .\templates\training\results.html:60
 msgid "Start_checking_tasks"
@@ -1005,11 +984,11 @@ msgid "How_it_works"
 msgstr "How it works"
 
 #: .\templates\training\start.html:38
-msgid "Correct_answer_1_point"
+msgid "Correct_answer_one_point"
 msgstr "Correct answer +1 point"
 
 #: .\templates\training\start.html:39
-msgid "Wrong_answer_2_points"
+msgid "Wrong_answer_two_points"
 msgstr "Wrong answer -2 points"
 
 #: .\templates\training\start.html:40
@@ -1017,7 +996,7 @@ msgid "Needed_score_to_become_performer"
 msgstr "Needed score to become performer"
 
 #: .\templates\training\start.html:41
-msgid "Wait_24_hours_after_fail"
+msgid "Wait_twenty_four_hours_after_fail"
 msgstr "Wait 24 hours after fail"
 
 #: .\templates\training\start.html:45
@@ -1073,7 +1052,7 @@ msgid "Account_activation_head"
 msgstr "Account activated!"
 
 #: .\templates\users\activation_success.html:10
-msgid "Account_activation_head-text"
+msgid "Account_activation_head_text"
 msgstr "Your account has been activated"
 
 #: .\templates\users\login.html:15
@@ -1139,11 +1118,11 @@ msgstr "Use new password to login."
 
 #: .\templates\users\password_reset_email.html:2
 msgid "Reset_password_text_about_site"
-msgstr "You recieved this email because requested password reset on site"
+msgstr "You received this email because you requested password reset on site"
 
 #: .\templates\users\password_reset_email.html:3
 msgid "Reset_password_text_follow_link"
-msgstr "follow the link and select new password"
+msgstr "Follow the link and select new password"
 
 #: .\templates\users\password_reset_email.html:5
 msgid "Reset_password_text_thanks_for_using"
@@ -1179,13 +1158,11 @@ msgstr "To activate account follow the link"
 
 #: .\templates\users\subjects\activation_email.txt:7
 msgid "Ignore_activate_link_text"
-msgstr "Ignore this email if have not registred"
+msgstr "Ignore this email if you have not registered"
 
 #: .\templates\users\subjects\password_reset.txt:3
-#, fuzzy
-#| msgid "Password_reset_title"
 msgid "Password_reset_on_site"
-msgstr "Password reset"
+msgstr "Password reset on site"
 
 #: .\templates\users\user_detail.html:5
 msgid "detail"
@@ -1199,29 +1176,21 @@ msgstr "Avatar of"
 msgid "Username"
 msgstr "Username"
 
-#: .\templates\users\user_detail.html:40
+#: .\templates\users\user_detail.html:41
 msgid "Joined"
 msgstr "Joined"
 
-#: .\templates\users\user_detail.html:43
-msgid "Last_login"
-msgstr "Last login"
-
-#: .\templates\users\user_detail.html:53
+#: .\templates\users\user_detail.html:49
 msgid "Edit_profile"
 msgstr "Edit profile"
 
-#: .\templates\users\user_detail.html:67
-msgid "No_additional_information"
-msgstr "No additional information"
-
-#: .\templates\users\user_detail.html:72
+#: .\templates\users\user_detail.html:58
 msgid "Account"
 msgstr "Account"
 
-#: .\templates\users\user_detail.html:75
-msgid "Role"
-msgstr "Role"
+#: .\templates\users\user_detail.html:61
+msgid "Current_role"
+msgstr "Current role"
 
 #: .\training\admin.py:29
 msgid "Content_preview"
@@ -1259,7 +1228,7 @@ msgstr "User information"
 msgid "Training_status"
 msgstr "Training status"
 
-#: .\training\admin.py:197
+#: .\training\admin.py:196
 msgid "User_added_to_performers_group"
 msgstr "User added to performers group"
 
@@ -1275,9 +1244,9 @@ msgstr "AI generated"
 msgid "Human_written"
 msgstr "Human written"
 
-#: .\training\forms.py:27
-msgid "Is_this_text_AI_generated?"
-msgstr "Is this text AI generated?"
+#: .\training\forms.py:27 .\training\models.py:24
+msgid "Is_the_text_AI_generated"
+msgstr "Is the text AI generated?"
 
 #: .\training\models.py:15
 msgid "easy"
@@ -1294,10 +1263,6 @@ msgstr "hard"
 #: .\training\models.py:23
 msgid "is_ai_generated"
 msgstr "is ai generated"
-
-#: .\training\models.py:24
-msgid "Is_the_text_AI_generated"
-msgstr "Is the text AI generated"
 
 #: .\training\models.py:30
 msgid "difficulty"
@@ -1360,11 +1325,11 @@ msgid "You_already_completed_this_text"
 msgstr "You already completed this text"
 
 #: .\training\views.py:117
-msgid "Correct_answer_plus_1_point"
+msgid "Correct_answer_plus_one_point"
 msgstr "Correct answer +1 point"
 
 #: .\training\views.py:119
-msgid "Wrong_answer_minus_2_points"
+msgid "Wrong_answer_minus_two_points"
 msgstr "Wrong answer -2 points"
 
 #: .\users\admin.py:69
@@ -1380,8 +1345,10 @@ msgid "Users_app_name"
 msgstr "Users"
 
 #: .\users\backends.py:63
-msgid "Account_blocked_due_maxed_attrempts"
-msgstr "Account blocked due to maximum login attrempts fail"
+#, fuzzy
+#| msgid "Account_blocked_due_maxed_attrempts"
+msgid "Account_blocked_due_maxed_attempts"
+msgstr "Account blocked due to maximum login attempts fail"
 
 #: .\users\backends.py:79 .\users\views.py:82
 msgid "Profile_activation"
@@ -1389,7 +1356,7 @@ msgstr "Profile activation"
 
 #: .\users\forms.py:24
 msgid "Error_user_with_email_already_exists"
-msgstr "user with this email already exisis"
+msgstr "User with this email already exists"
 
 #: .\users\forms.py:45
 msgid "username_or_email_label"
@@ -1457,7 +1424,7 @@ msgstr "You have signed up"
 
 #: .\users\views.py:111
 msgid "Logout_success"
-msgstr "You have loged out"
+msgstr "You have logged out"
 
 #: .\users\views.py:121
 msgid "Password_changed"
