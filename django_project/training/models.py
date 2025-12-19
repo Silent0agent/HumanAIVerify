@@ -21,7 +21,7 @@ class TrainingText(core.models.TimeStampedModel):
     )
     is_ai_generated = models.BooleanField(
         verbose_name=_("is_ai_generated"),
-        help_text=_("Is_the_text_AI_generated"),
+        help_text=_("Is_the_text_AI_generated_question"),
     )
     difficulty = models.CharField(
         max_length=10,
