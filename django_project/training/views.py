@@ -114,9 +114,9 @@ class TrainingTakeTestView(LoginRequiredMixin, View):
             progress.add_completed_text(training_text, is_correct)
 
             if is_correct:
-                messages.success(request, _("Correct_answer_plus_1_point"))
+                messages.success(request, _("Correct_answer_plus_one_point"))
             else:
-                messages.error(request, _("Wrong_answer_minus_2_points"))
+                messages.error(request, _("Wrong_answer_minus_two_points"))
 
             if (
                 progress.training_score
