@@ -122,9 +122,9 @@
           <div class="card shadow-sm border-0">
             <div class="table-responsive">
               <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+                <thead class="bg-body-tertiary">
                   <tr>
-                    <th scope="col" class="ps-4">#</th>
+                    <th scope="col" class="ps-4">ID</th>
                     <th scope="col">{% translate "Title" %}</th>
                     <th scope="col">{% translate "Client" %}</th>
                     <th scope="col" class="d-none d-md-table-cell">{% translate "Date" %}</th>
@@ -162,7 +162,7 @@
                       </td>
 
                       <td>
-                        <span class="badge status-badge status-published fw-normal fs-6">{{ check.get_status_display }}</span>
+                        <span class="badge bg-body-tertiary text-body fw-normal fs-6">{{ check.get_status_display }}</span>
                       </td>
 
                       <td class="pe-4 text-end">
