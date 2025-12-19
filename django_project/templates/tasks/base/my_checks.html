@@ -21,9 +21,9 @@
                   aria-controls="available-pane"
                   aria-selected="true">
             <i class="bi bi-inbox me-1 fs-6" aria-hidden="true"></i>
-            {% translate "available_tasks" %}
+            {% translate "Available_tasks" %}
             {% if available_tasks %}
-              <span class="badge bg-primary rounded-pill ms-2" aria-label="{% translate 'available_count' %}">{{ available_tasks.count }}</span>
+              <span class="badge bg-primary rounded-pill ms-2" aria-label="{% translate 'Available_tasks_count' %}">{{ available_tasks.count }}</span>
             {% endif %}
           </button>
         </li>
@@ -38,7 +38,7 @@
                   aria-controls="completed-pane"
                   aria-selected="false">
             <i class="bi bi-check2-circle me-1 fs-6" aria-hidden="true"></i>
-            {% translate "completed_tasks" %}
+            {% translate "Completed_tasks" %}
           </button>
         </li>
       </ul>
@@ -89,13 +89,13 @@
                             </span>
                           {% endif %}
                         {% else %}
-                          <span class="badge text-secondary border px-2 py-1" title="{% translate 'not_checked' %}">
+                          <span class="badge text-secondary border px-2 py-1" title="{% translate 'Not_checked' %}">
                             <i class="bi bi-hourglass me-1"></i>{% translate "Not_checked" %}
                           </span>
                         {% endif %}
                       </div>
 
-                      <div class="text-muted small d-flex align-items-center gap-2" title="{% translate 'checks_count' %}">
+                      <div class="text-muted small d-flex align-items-center gap-2" title="{% translate 'Checks_count' %}">
                         <i class="bi bi-people" aria-hidden="true"></i>
                         <span>{{ task.checks_count|default:0 }}</span>
                       </div>
@@ -112,7 +112,7 @@
               {% block no_tasks %}
               {% endblock no_tasks %}
             </h4>
-            <p class="text-muted mb-0">{% translate "no_tasks_text" %}</p>
+            <p class="text-muted mb-0">{% translate "No_tasks_text" %}</p>
           </div>
         {% endif %}
       </section>
@@ -151,7 +151,7 @@
                               <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle">
                             {% endthumbnail %}
                           {% else %}
-                            <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'avatar_not_found' %}" width="30" height="30" class="rounded-circle">
+                            <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'Avatar_not_found' %}" width="30" height="30" class="rounded-circle">
                           {% endif %}
                           {{ check.task.client.username }}
                         </div>
