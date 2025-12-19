@@ -14,7 +14,7 @@
     <div class="col-12 text-center">
       <h1 class="display-5 fw-bold">{% translate "Homepage_header" %}</h1>
       <p class="lead text-muted">
-        {% if request.user.role == "performer" %}
+        {% if request.user.is_authenticated and request.user.role == "performer" %}
           {% translate "Select_task_type_check" %}
         {% else %}
           {% translate "Select_task_type_create" %}
@@ -35,7 +35,7 @@
 
           <h4 class="task-title">{% translate "Text" %}</h4>
 
-          {% if request.user.role == "performer" %}
+          {% if request.user.is_authenticated and request.user.role == "performer" %}
             <a href="{% url 'tasks:my-text-checks' %}" class="btn btn-task-action">{% translate "View_checks" %}</a>
           {% else %}
             <a href="{% url 'tasks:my-text-tasks' %}" class="btn btn-task-action">{% translate "View_tasks" %}</a>
@@ -55,7 +55,7 @@
 
           <h4 class="task-title">{% translate "Images" %}</h4>
 
-          {% if request.user.role == "performer" %}
+          {% if request.user.is_authenticated and request.user.role == "performer" %}
             <a href="{% url 'tasks:my-image-checks' %}" class="btn btn-task-action">{% translate "View_checks" %}</a>
           {% else %}
             <a href="{% url 'tasks:my-image-tasks' %}" class="btn btn-task-action">{% translate "View_tasks" %}</a>
@@ -75,7 +75,7 @@
 
           <h4 class="task-title">{% translate "Audio" %}</h4>
 
-          {% if request.user.role == "performer" %}
+          {% if request.user.is_authenticated and request.user.role == "performer" %}
             <a href="{% url 'tasks:my-audio-checks' %}" class="btn btn-task-action">{% translate "View_checks" %}</a>
           {% else %}
             <a href="{% url 'tasks:my-audio-tasks' %}" class="btn btn-task-action">{% translate "View_tasks" %}</a>
