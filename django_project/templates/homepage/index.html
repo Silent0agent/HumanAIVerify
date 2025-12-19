@@ -73,7 +73,7 @@
             <img src="{% static 'img/homepage/audio_icon.png' %}" height="300" width="300" alt="{% translate 'Audio_verification' %}">
           </div>
 
-          <h4 class="task-title">{% translate "Audio_files" %}</h4>
+          <h4 class="task-title">{% translate "Audio" %}</h4>
 
           {% if request.user.role == "performer" %}
             <a href="{% url 'tasks:my-audio-checks' %}" class="btn btn-task-action">{% translate "View_checks" %}</a>

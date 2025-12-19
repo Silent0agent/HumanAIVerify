@@ -2,7 +2,7 @@
 {% load thumbnail i18n %}
 
 {% block title %}
-  {% translate "my_audio_tasks" %}
+  {% translate "My_audio_tasks" %}
 {% endblock title %}
 
 {% block task_onclick %}
@@ -16,10 +16,10 @@
 {% block task_content %}
   <audio class="mx-auto mb-3" controls>
     <source src="{{ task.audio.url }}" type="audio/mpeg">
-    {% translate "audio_not_supported_browser" %}
+    {% translate "Audio_not_supported_browser" %}
   </audio>
 {% endblock task_content %}
 
 {% block no_tasks %}
-  {% translate "no_audio_tasks" %}
+  {% translate "No_audio_tasks" %}
 {% endblock no_tasks %}

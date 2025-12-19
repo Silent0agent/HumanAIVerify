@@ -35,7 +35,7 @@
             {% if task.description %}
               <div class="fs-6 fw-medium">{{ task.description|linebreaksbr|truncatechars:64 }}</div>
             {% else %}
-              <em class="text-muted">{% translate "no_task_description" %}</em>
+              <em class="text-muted">{% translate "No_task_description" %}</em>
             {% endif %}
           </div>
 
@@ -120,7 +120,7 @@
                         <img src="{{ avatar.url }}" alt="Avatar" width="{{ avatar.width }}" height="{{ avatar.height }}" class="rounded-circle me-2">
                       {% endthumbnail %}
                     {% else %}
-                      <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'avatar_not_found' %}" width="30" height="30" class="rounded-circle me-2">
+                      <img src="{% static 'img/no_avatar.png' %}" alt="{% translate 'Avatar_not_found' %}" width="30" height="30" class="rounded-circle me-2">
                     {% endif %}
                     {{ check.performer.username }}
                   </div>

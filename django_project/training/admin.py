@@ -158,10 +158,7 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
-            return self.readonly_fields + (
-                self.user_field.name,
-                self.training_score_field.name,
-            )
+            return self.readonly_fields + (self.user_field.name,)
 
         return self.readonly_fields
 
