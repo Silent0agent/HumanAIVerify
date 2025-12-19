@@ -54,14 +54,10 @@
       <div class="modal-body position-relative p-4">
         <button type="button" class="btn-close position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
         <ul class="fs-6 mb-0">
-          <li data-rule="similar" class="mb-3">{% translate "Password_canr_be_similar_to_personal_information" %}.</li>
-          {% comment %} <li data-rule="similar" class="mb-3">{% translate "Your password can’t be too similar to your other personal information." %}</li> {% endcomment %}
+          <li data-rule="similar" class="mb-3">{% translate "Password_cant_be_similar_to_personal_information" %}.</li>
           <li data-rule="length" class="mb-3">{% translate "Password_must_contain_at_least_eight_characters" %}.</li>
-          {% comment %} <li data-rule="length" class="mb-3">{% translate "Your password must contain at least 8 characters." %}</li> {% endcomment %}
           <li data-rule="common" class="mb-3">{% translate "Password_cant_be_commonly_used" %}.</li>
-          {% comment %} <li data-rule="common" class="mb-3">{% translate "Your password can’t be a commonly used password." %}</li> {% endcomment %}
           <li data-rule="numeric">{% translate "Password_cant_be_entirely_numeric" %}</li>
-          {% comment %} <li data-rule="numeric">{% translate "Your password can’t be entirely numeric." %}</li> {% endcomment %}
         </ul>
       </div>
     </div>

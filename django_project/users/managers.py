@@ -36,4 +36,6 @@ class CustomUserManager(UserManager):
             self.model.username.field.name,
             self.model.email.field.name,
             self.model.avatar.field.name,
+            self.model.date_joined.field.name,
+            self.model.role.field.name,
         )

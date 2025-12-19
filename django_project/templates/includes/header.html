@@ -5,7 +5,7 @@
 {% endblock extra_head %}
 
 {% with request.resolver_match.view_name as view_name %}
-  <header class="py-2 mb-4 border-bottom site-header">
+  <header class="py-2 mb-4 border-bottom site-header sticky-top bg-body z-3">
     <div class="container">
       <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center gap-3">
@@ -158,6 +158,4 @@
 
     </div>
   </div>
-
-  <script src="{% static 'js/header_scroll.js' %}"></script>
 {% endwith %}

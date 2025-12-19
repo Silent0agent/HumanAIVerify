@@ -40,7 +40,7 @@ class AudioTask(BaseTask):
             return mark_safe(
                 f'<audio controls style="width: 250px; height: 40px;">'
                 f'<source src="{self.audio.url}" type="audio/mpeg">'
-                f'{_("audio_not_supported_browser")}'
+                f'{_("Audio_not_supported_browser")}'
                 f"</audio>",
             )
 

@@ -60,7 +60,7 @@ class EmailBackend(auth.backends.ModelBackend):
         if request:
             messages.warning(
                 request,
-                _("Account_blocked_due_maxed_attrempts"),
+                _("Account_blocked_due_maxed_attempts"),
             )
             self._send_activation_email(request, user)
 
