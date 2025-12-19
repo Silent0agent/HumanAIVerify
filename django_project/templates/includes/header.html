@@ -1,4 +1,4 @@
-{% load thumbnail i18n static %}
+{% load i18n static thumbnail %}
 
 {% block extra_head %}
   <link rel="stylesheet" href="{% static 'css/header.css' %}">
@@ -24,9 +24,6 @@
                   {% translate "Training" %}
                 </a>
               </li>
-            {% endif %}
-
-            {% if request.user.is_authenticated %}
               {% if request.user.role == 'customer' %}
                 <li class="nav-item">
                   <a href="{% url 'tasks:my-text-tasks' %}"
@@ -117,9 +114,6 @@
           <a class="nav-link py-2 {% if 'training:' in view_name %}link-secondary active disabled{% endif %}" href="{% url 'training:start' %}">
             {% translate "Training" %}
           </a>
-        {% endif %}
-
-        {% if request.user.is_authenticated %}
           {% if request.user.role == 'customer' %}
             <a class="nav-link py-2 {% if view_name == 'tasks:my-text-tasks' %}link-secondary active disabled{% else %}purple{% endif %}"
                href="{% url 'tasks:my-text-tasks' %}">{% translate "My_tasks" %}</a>

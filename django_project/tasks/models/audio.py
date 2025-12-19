@@ -44,7 +44,7 @@ class AudioTask(BaseTask):
                 f"</audio>",
             )
 
-        return _("no_audio")
+        return _("No_audio")
 
     audio_player.short_description = _("audio_preview")
 
