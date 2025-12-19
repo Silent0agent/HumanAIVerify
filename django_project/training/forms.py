@@ -24,5 +24,5 @@ class TrainingTextForm(forms.ModelForm):
             ],
             coerce=lambda x: str(x).lower() == "true",
             widget=forms.RadioSelect,
-            label=_("Is_this_text_AI_generated?"),
+            label=_("Is_the_text_AI_generated"),
         )

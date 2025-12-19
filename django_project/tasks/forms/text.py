@@ -8,13 +8,16 @@ import tasks.models
 
 
 class TextTaskForm(BaseTaskForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["content"].label = _("Content") + " *"
+
     class Meta(BaseTaskForm.Meta):
         model = tasks.models.TextTask
         fields = BaseTaskForm.Meta.fields + [model.content.field.name]
 
         labels = {
             **BaseTaskForm.Meta.labels,
-            model.content.field.name: _("Content") + " *",
         }
 
 

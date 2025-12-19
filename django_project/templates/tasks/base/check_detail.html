@@ -86,12 +86,12 @@
           <div class="card-body p-4">
             <div class="text-center mb-4">
               <div class="text-uppercase text-muted small fw-normal mb-1">{% translate "AI_score" %}</div>
-              {% if check.ai_score >= 80 %}
+              {% if check.ai_score >= 70 %}
                 <div class="display-4 fw-normal text-danger">{{ check.ai_score|floatformat:0 }}%</div>
                 <div class="small text-muted">
                   <i class="bi bi-x-circle-fill text-danger me-1" aria-hidden="true"></i>{% translate "High_probability" %}
                 </div>
-              {% elif check.ai_score >= 50 %}
+              {% elif check.ai_score >= 30 %}
                 <div class="display-4 fw-normal text-warning">{{ check.ai_score|floatformat:0 }}%</div>
                 <div class="small text-muted">
                   <i class="bi bi-exclamation-circle-fill text-warning me-1" aria-hidden="true"></i>{% translate "Medium_probability" %}
@@ -150,13 +150,13 @@
             <div class="d-grid gap-2">
               {% if request.user.role == "customer" %}
                 {% block customer_return_link %}
-                  <a href="#" class="btn btn-outline-primary" role="button" aria-label="{% translate 'Back_to_task' %}">{% translate "Back to Task" %}</a>
+                  <a href="#" class="btn btn-outline-primary" role="button" aria-label="{% translate 'Back_to_task' %}">{% translate "Back_to_task" %}</a>
                 {% endblock customer_return_link %}
               {% endif %}
 
               {% if request.user.role == "performer" %}
                 {% block performer_return_link %}
-                  <a href="#" class="btn btn-outline-secondary" role="button" aria-label="{% translate 'Back_to_list' %}">{% translate "Back to List" %}</a>
+                  <a href="#" class="btn btn-outline-secondary" role="button" aria-label="{% translate 'Back_to_list' %}">{% translate "Back_to_list" %}</a>
                 {% endblock performer_return_link %}
               {% endif %}
             </div>

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function getMenuLabel(theme) {
         const btn = document.querySelector('[data-bs-theme-value="' + theme + '"]');
         if (!btn) return theme.charAt(0).toUpperCase() + theme.slice(1);
+
         let text = '';
         btn.childNodes.forEach(node => {
             if (node.nodeType === Node.TEXT_NODE) {
@@ -23,12 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return text;
     }
 
-    function getMenuIconSrc(theme) {
+    function getMenuIconHTML(theme) {
         const btn = document.querySelector('[data-bs-theme-value="' + theme + '"]');
         if (!btn) return null;
-        const img = btn.querySelector('img');
-        if (!img) return null;
-        return img.src;
+        const svg = btn.querySelector('svg');
+        if (!svg) return null;
+        return svg.innerHTML;
     }
 
     function markMenuSelected(theme) {
@@ -47,24 +48,34 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateAllToggles(theme) {
         const final = theme || 'auto';
         const label = getMenuLabel(final);
-        const iconSrc = getMenuIconSrc(final);
+        const iconHTML = getMenuIconHTML(final);
         const toggles = findToggles();
+
         toggles.forEach(toggleBtn => {
-            let iconImg = toggleBtn.querySelector('img');
+            let iconSvg = toggleBtn.querySelector('svg');
             let labelSpan = toggleBtn.querySelector('span');
-            if (!iconImg) {
-                iconImg = document.createElement('img');
-                iconImg.width = 18;
-                iconImg.height = 18;
-                iconImg.className = 'me-2';
-                toggleBtn.insertBefore(iconImg, toggleBtn.firstChild);
+
+            if (!iconSvg && iconHTML) {
+                iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                iconSvg.setAttribute('class', 'bi me-2');
+                iconSvg.setAttribute('width', '18');
+                iconSvg.setAttribute('height', '18');
+                iconSvg.setAttribute('fill', 'currentColor');
+                iconSvg.setAttribute('viewBox', '0 0 16 16');
+                toggleBtn.insertBefore(iconSvg, toggleBtn.firstChild);
             }
+
             if (!labelSpan) {
                 labelSpan = document.createElement('span');
                 toggleBtn.appendChild(labelSpan);
             }
+
             if (labelSpan) labelSpan.textContent = label;
-            if (iconSrc && iconImg) iconImg.src = iconSrc;
+
+            if (iconHTML && iconSvg) {
+                iconSvg.innerHTML = iconHTML;
+            }
+
             toggleBtn.setAttribute('aria-label', label);
         });
         markMenuSelected(final);
@@ -77,33 +88,45 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (e) {}
         const docTheme = document.documentElement.getAttribute('data-bs-theme');
         if (docTheme) return docTheme;
-        const pressedEl = document.querySelector('[data-bs-theme-value][aria-pressed="true"]');
-        if (pressedEl) return pressedEl.getAttribute('data-bs-theme-value') || 'auto';
-        return 'auto';
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark';
+        }
+        return 'light';
     }
 
-    updateAllToggles(detectInitialTheme());
+    const initTheme = detectInitialTheme();
+    updateAllToggles(initTheme);
+    if (initTheme !== 'auto') {
+        document.documentElement.setAttribute('data-bs-theme', initTheme);
+    }
 
     document.querySelectorAll('[data-bs-theme-value]').forEach(btn => {
         btn.addEventListener('click', function() {
             const v = this.getAttribute('data-bs-theme-value') || 'auto';
             try { localStorage.setItem('theme', v); } catch (e) {}
+
+            if (v === 'auto') {
+                const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-bs-theme', sysDark ? 'dark' : 'light');
+            } else {
+                document.documentElement.setAttribute('data-bs-theme', v);
+            }
+            
             updateAllToggles(v);
-            setTimeout(() => location.reload(), 100);
         });
     });
+
 
     window.addEventListener('storage', function(e) {
-        if (e.key === 'theme') updateAllToggles(e.newValue || 'auto');
-    });
-
-    const mo = new MutationObserver(records => {
-        records.forEach(r => {
-            if (r.attributeName === 'data-bs-theme') {
-                const v = document.documentElement.getAttribute('data-bs-theme') || 'auto';
-                updateAllToggles(v);
+        if (e.key === 'theme') {
+            const newTheme = e.newValue || 'auto';
+            updateAllToggles(newTheme);
+            if (newTheme === 'auto') {
+                 const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                 document.documentElement.setAttribute('data-bs-theme', sysDark ? 'dark' : 'light');
+            } else {
+                 document.documentElement.setAttribute('data-bs-theme', newTheme);
             }
-        });
+        }
     });
-    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-bs-theme'] });
 });
