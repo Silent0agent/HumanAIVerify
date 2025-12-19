@@ -23,7 +23,7 @@ class FeedbackUserProfile(models.Model):
         max_length=150,
         blank=True,
         null=True,
-        help_text=_("Max_symbols_help_text"),
+        help_text=_("Maximum_characters") % {"max": 150},
     )
     mail = models.EmailField(
         verbose_name=_("email"),
