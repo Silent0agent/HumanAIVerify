@@ -91,7 +91,7 @@
                   data-bs-toggle="offcanvas"
                   data-bs-target="#headerOffcanvas"
                   aria-controls="headerOffcanvas"
-                  aria-label="Menu">
+                  aria-label="{% translate 'Menu' %}">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
             </svg>
@@ -104,7 +104,7 @@
   <div class="offcanvas offcanvas-start" tabindex="-1" id="headerOffcanvas" aria-labelledby="headerOffcanvasLabel">
     <div class="offcanvas-header">
       <a id="headerOffcanvasLabel" href="{% url 'homepage:index' %}" class="nav-link fs-4 purple-hover">HumanAIVerify</a>
-      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="{% translate 'Close' %}"></button>
     </div>
     <div class="offcanvas-body">
       <nav class="nav flex-column mb-3">
