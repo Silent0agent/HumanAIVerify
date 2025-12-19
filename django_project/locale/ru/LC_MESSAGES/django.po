@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 16:15+0300\n"
+"POT-Creation-Date: 2025-12-19 23:58+0300\n"
 "PO-Revision-Date: 2025-12-19 16:00+0300\n"
 "Last-Translator: Denis <deniskuz08@gmail.com>\n"
 "Language-Team: Russian <ivan1one111one@gmail.com>, <deniskuz08@gmail.com>\n"
@@ -586,7 +586,7 @@ msgstr "Статистика генеративного ИИ"
 #: .\templates\includes\forms\errors.html:9
 #: .\templates\includes\forms\errors.html:16
 #: .\templates\includes\forms\fields.html:55
-#: .\templates\includes\messages.html:7
+#: .\templates\includes\header.html:107 .\templates\includes\messages.html:7
 #: .\templates\tasks\base\task_detail.html:169
 #: .\templates\tasks\image\task_detail.html:18
 #: .\templates\tasks\text\task_detail.html:18
@@ -663,6 +663,10 @@ msgstr "Профиль"
 msgid "Logout"
 msgstr "Выйти"
 
+#: .\templates\includes\header.html:94
+msgid "Menu"
+msgstr "Меню"
+
 #: .\templates\includes\tasks_header.html:36
 msgid "Text_checks"
 msgstr "Проверки текста"
@@ -735,6 +739,7 @@ msgid "Check_details"
 msgstr "Детали проверки"
 
 #: .\templates\tasks\base\check_detail.html:39
+#: .\templates\tasks\text\check_perform.html:7
 msgid "Task_content"
 msgstr "Содержимое задания"
 
@@ -911,6 +916,10 @@ msgstr "Изображение задания"
 #: .\templates\tasks\task_create.html:8 .\templates\tasks\task_create.html:12
 msgid "Create_task"
 msgstr "Создать задание"
+
+#: .\templates\tasks\text\check_perform.html:9
+msgid "Select"
+msgstr "Выделить"
 
 #: .\templates\tasks\text\my_checks.html:5
 msgid "My_text_checks"
