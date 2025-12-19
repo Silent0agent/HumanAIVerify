@@ -3,16 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 03:26+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <ivan1one111one@gmail.com>\n"
-"Language: \n"
+"POT-Creation-Date: 2025-12-19 16:15+0300\n"
+"PO-Revision-Date: 2025-12-19 16:00+0300\n"
+"Last-Translator: Denis <deniskuz08@gmail.com>\n"
+"Language-Team: English <ivan1one111one@gmail.com>, <deniskuz08@gmail.com>\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,11 +29,11 @@ msgstr "Core"
 
 #: .\core\models.py:9
 msgid "created_at"
-msgstr "created_at"
+msgstr "created at"
 
 #: .\core\models.py:13
 msgid "updated_at"
-msgstr "updated_at"
+msgstr "updated at"
 
 #: .\core\validators.py:17
 msgid "Error_file_too_big"
@@ -105,8 +104,8 @@ msgid "name"
 msgstr "name"
 
 #: .\feedback\models.py:26
-msgid "Max_symbols_help_text"
-msgstr "Max acceptable symbols - 150"
+msgid "Maximum_characters"
+msgstr "Maximum characters — %(max)s"
 
 #: .\feedback\models.py:29 .\users\models.py:59
 msgid "email"
@@ -122,7 +121,7 @@ msgstr "sender contact data"
 
 #: .\feedback\models.py:35
 msgid "sender_contact_data_plural"
-msgstr "senders contact data"
+msgstr "sender's contact data"
 
 #: .\feedback\models.py:47
 msgid "author"
@@ -150,7 +149,7 @@ msgstr "feedback"
 
 #: .\feedback\models.py:67
 msgid "feedback_plural"
-msgstr "feedbacks"
+msgstr "feedback"
 
 #: .\feedback\models.py:87 .\feedback\models.py:95
 msgid "feedback_file"
@@ -170,11 +169,11 @@ msgstr "time"
 
 #: .\feedback\models.py:124
 msgid "status_from"
-msgstr "status_from"
+msgstr "status from"
 
 #: .\feedback\models.py:130
 msgid "status_to"
-msgstr "status_to"
+msgstr "status to"
 
 #: .\feedback\models.py:137
 msgid "status_log"
@@ -186,7 +185,7 @@ msgstr "status logs"
 
 #: .\feedback\views.py:74
 msgid "Feedback_mail_head"
-msgstr "Feedback mail head"
+msgstr "Feedback email"
 
 #: .\feedback\views.py:81
 msgid "Success_feedback_form"
@@ -310,7 +309,7 @@ msgid "Audio_not_supported_browser"
 msgstr "Audio is not supported by this browser"
 
 #: .\tasks\models\audio.py:47
-msgid "no_audio"
+msgid "No_audio"
 msgstr "No audio"
 
 #: .\tasks\models\audio.py:49
@@ -407,15 +406,15 @@ msgstr "text task checks"
 
 #: .\tasks\views\base.py:47
 msgid "Task_create_success"
-msgstr "Task successfully created"
+msgstr "Task created successfully"
 
 #: .\tasks\views\base.py:74
 msgid "Not_owner_of_task"
-msgstr "You are not owner of this task"
+msgstr "You are not the owner of this task"
 
 #: .\tasks\views\base.py:148
 msgid "You_cant_check_task_created_by_you"
-msgstr "You can't check your task"
+msgstr "You can't check a task you created"
 
 #: .\tasks\views\base.py:187
 msgid "Check_published"
@@ -427,10 +426,10 @@ msgstr "Draft saved"
 
 #: .\tasks\views\base.py:221
 msgid "Not_viewer_of_check"
-msgstr "You are not viewer of check"
+msgstr "You are not a viewer of this check"
 
 #: .\templates\about\about.html:9 .\templates\includes\footer.html:51
-#: .\templates\includes\header.html:18 .\templates\includes\header.html:114
+#: .\templates\includes\header.html:18 .\templates\includes\header.html:111
 msgid "About"
 msgstr "About"
 
@@ -440,12 +439,12 @@ msgstr "Who we are"
 
 #: .\templates\about\about.html:18
 msgid "About_title"
-msgstr "Changing the world through verifying content on using AI"
+msgstr "Changing the world by verifying AI-generated content"
 
 #: .\templates\about\about.html:19
 msgid "About_text"
 msgstr ""
-"Founded in 2025 on the simple idea of verifying content on using AI, "
+"Founded in 2025 on the simple idea of verifying AI-generated content, "
 "HumanAIVerify offers groundbreaking technology that empowers everyone, "
 "everywhere to spot AI in audio, image and text content."
 
@@ -576,11 +575,11 @@ msgstr "Became Performer"
 msgid "What_is_genAI"
 msgstr "What is genAI"
 
-#: .\templates\includes\footer.html:66
-msgid "Spot_genAI"
-msgstr "Spot genAI"
+#: .\templates\includes\footer.html:67
+msgid "How_to_spot_genAI"
+msgstr "How to spot GenAI"
 
-#: .\templates\includes\footer.html:69
+#: .\templates\includes\footer.html:71
 msgid "GenAI_statistics"
 msgstr "GenAI statistics"
 
@@ -598,68 +597,68 @@ msgstr "Close"
 msgid "Password_cant_be_similar_to_personal_information"
 msgstr "Password can't be very similar to personal information"
 
-#: .\templates\includes\forms\fields.html:60
+#: .\templates\includes\forms\fields.html:58
 msgid "Password_must_contain_at_least_eight_characters"
 msgstr "Password must contain at least eight characters"
 
-#: .\templates\includes\forms\fields.html:63
+#: .\templates\includes\forms\fields.html:59
 msgid "Password_cant_be_commonly_used"
 msgstr "Password can't be commonly used"
 
-#: .\templates\includes\forms\fields.html:66
+#: .\templates\includes\forms\fields.html:60
 msgid "Password_cant_be_entirely_numeric"
 msgstr "Password can't be entirely numeric"
 
-#: .\templates\includes\header.html:24 .\templates\includes\header.html:118
+#: .\templates\includes\header.html:24 .\templates\includes\header.html:115
 #: .\templates\training\start.html:5
 msgid "Training"
 msgstr "Training"
 
-#: .\templates\includes\header.html:33 .\templates\includes\header.html:125
+#: .\templates\includes\header.html:30 .\templates\includes\header.html:119
 #: .\templates\tasks\audio\task_detail.html:20
 #: .\templates\tasks\image\task_detail.html:33
 #: .\templates\tasks\text\task_detail.html:31
 msgid "My_tasks"
 msgstr "My tasks"
 
-#: .\templates\includes\header.html:38 .\templates\includes\header.html:128
+#: .\templates\includes\header.html:35 .\templates\includes\header.html:122
 msgid "My_checks"
 msgstr "My checks"
 
-#: .\templates\includes\header.html:45 .\templates\includes\header.html:133
+#: .\templates\includes\header.html:42 .\templates\includes\header.html:127
 msgid "Admin"
 msgstr "Admin"
 
-#: .\templates\includes\header.html:54 .\templates\includes\header.html:139
+#: .\templates\includes\header.html:51 .\templates\includes\header.html:133
 #: .\templates\users\activation_success.html:11 .\templates\users\login.html:5
 #: .\templates\users\login.html:9 .\templates\users\login.html:20
 #: .\templates\users\password_reset_confirm.html:19
 msgid "Login"
 msgstr "Login"
 
-#: .\templates\includes\header.html:55 .\templates\includes\header.html:140
+#: .\templates\includes\header.html:52 .\templates\includes\header.html:134
 #: .\templates\users\login.html:31 .\templates\users\signup.html:5
 #: .\templates\users\signup.html:9 .\templates\users\signup.html:13
 msgid "Signup"
 msgstr "Signup"
 
-#: .\templates\includes\header.html:61
+#: .\templates\includes\header.html:58
 msgid "Avatar"
 msgstr "Avatar"
 
-#: .\templates\includes\header.html:64
+#: .\templates\includes\header.html:61
 #: .\templates\tasks\base\my_checks.html:154
 #: .\templates\tasks\base\task_detail.html:123
 #: .\templates\users\profile.html:14 .\templates\users\user_detail.html:26
 msgid "Avatar_not_found"
 msgstr "Avatar not found"
 
-#: .\templates\includes\header.html:69 .\templates\includes\header.html:142
+#: .\templates\includes\header.html:66 .\templates\includes\header.html:136
 #: .\templates\users\profile.html:5 .\templates\users\profile.html:18
 msgid "Profile"
 msgstr "Profile"
 
-#: .\templates\includes\header.html:77 .\templates\includes\header.html:145
+#: .\templates\includes\header.html:74 .\templates\includes\header.html:139
 #: .\templates\users\profile.html:32
 msgid "Logout"
 msgstr "Logout"
@@ -681,16 +680,16 @@ msgstr "Audio checks"
 msgid "Create"
 msgstr "Create"
 
-#: .\templates\includes\theme_switcher.html:6
-#: .\templates\includes\theme_switcher.html:29
+#: .\templates\includes\theme_switcher.html:8
+#: .\templates\includes\theme_switcher.html:37
 msgid "Auto"
 msgstr "Auto"
 
-#: .\templates\includes\theme_switcher.html:13
+#: .\templates\includes\theme_switcher.html:17
 msgid "Light"
 msgstr "Light"
 
-#: .\templates\includes\theme_switcher.html:21
+#: .\templates\includes\theme_switcher.html:27
 msgid "Dark"
 msgstr "Dark"
 
@@ -913,16 +912,16 @@ msgstr "Image of task"
 msgid "Create_task"
 msgstr "Create task"
 
-#: .\templates\tasks\text\my_checks.html:6
+#: .\templates\tasks\text\my_checks.html:5
 msgid "My_text_checks"
 msgstr "My text checks"
 
-#: .\templates\tasks\text\my_checks.html:24
+#: .\templates\tasks\text\my_checks.html:23
 #: .\templates\tasks\text\my_tasks.html:21
 msgid "No_text_tasks"
 msgstr "No text tasks"
 
-#: .\templates\tasks\text\my_checks.html:28
+#: .\templates\tasks\text\my_checks.html:27
 msgid "No_text_checks"
 msgstr "No text checks"
 
@@ -1049,7 +1048,7 @@ msgstr "Account activation"
 
 #: .\templates\users\activation_success.html:9
 msgid "Account_activation_head"
-msgstr "Account activated!"
+msgstr "Account activated"
 
 #: .\templates\users\activation_success.html:10
 msgid "Account_activation_head_text"
@@ -1088,7 +1087,6 @@ msgstr "Password reset"
 
 #: .\templates\users\password_reset.html:13
 #: .\templates\users\password_reset_confirm.html:15
-#: .\templates\users\password_reset_done.html:9
 msgid "Password_reset_head"
 msgstr "Password reset"
 
@@ -1096,25 +1094,23 @@ msgstr "Password reset"
 msgid "Further"
 msgstr "Further"
 
-#: .\templates\users\password_reset_complete.html:5 .\users\views.py:131
+#: .\templates\users\password_reset_complete.html:5
+#: .\templates\users\password_reset_complete.html:9
+#: .\templates\users\password_reset_done.html:9 .\users\views.py:131
 msgid "Password_reset"
 msgstr "Password reset"
 
-#: .\templates\users\password_reset_complete.html:9
-msgid "Password_reset_success_head"
-msgstr "Password reset!"
-
 #: .\templates\users\password_reset_complete.html:10
-msgid "Password_reset_success_text"
-msgstr "Use new password to login."
+msgid "Password_reset_complete_text"
+msgstr "Use new password to login"
 
 #: .\templates\users\password_reset_confirm.html:24
 msgid "Invalid_link_on_password_reset"
 msgstr "Invalid link on password reset"
 
 #: .\templates\users\password_reset_done.html:10
-msgid "Password_reset_text"
-msgstr "Use new password to login."
+msgid "Password_reset_done_text"
+msgstr "Check your email for the password reset link"
 
 #: .\templates\users\password_reset_email.html:2
 msgid "Reset_password_text_about_site"
@@ -1154,7 +1150,7 @@ msgstr "Hello"
 
 #: .\templates\users\subjects\activation_email.txt:4
 msgid "activate_link_text"
-msgstr "To activate account follow the link"
+msgstr "to activate account follow the link"
 
 #: .\templates\users\subjects\activation_email.txt:7
 msgid "Ignore_activate_link_text"
@@ -1228,7 +1224,7 @@ msgstr "User information"
 msgid "Training_status"
 msgstr "Training status"
 
-#: .\training\admin.py:196
+#: .\training\admin.py:194
 msgid "User_added_to_performers_group"
 msgstr "User added to performers group"
 
@@ -1245,7 +1241,7 @@ msgid "Human_written"
 msgstr "Human written"
 
 #: .\training\forms.py:27 .\training\models.py:24
-msgid "Is_the_text_AI_generated"
+msgid "Is_the_text_AI_generated_question"
 msgstr "Is the text AI generated?"
 
 #: .\training\models.py:15
@@ -1345,8 +1341,6 @@ msgid "Users_app_name"
 msgstr "Users"
 
 #: .\users\backends.py:63
-#, fuzzy
-#| msgid "Account_blocked_due_maxed_attrempts"
 msgid "Account_blocked_due_maxed_attempts"
 msgstr "Account blocked due to maximum login attempts fail"
 
