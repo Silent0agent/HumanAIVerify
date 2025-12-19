@@ -3,15 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 03:26+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Russian <ivan1one111one@gmail.com>\n"
+"POT-Creation-Date: 2025-12-19 16:15+0300\n"
+"PO-Revision-Date: 2025-12-19 16:00+0300\n"
+"Last-Translator: Denis <deniskuz08@gmail.com>\n"
+"Language-Team: Russian <ivan1one111one@gmail.com>, <deniskuz08@gmail.com>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +21,7 @@ msgstr ""
 
 #: .\about\apps.py:10
 msgid "About_app_name"
-msgstr "О приложении"
+msgstr "О нас"
 
 #: .\core\apps.py:12
 msgid "Core_app_name"
@@ -30,11 +29,11 @@ msgstr "Ядро"
 
 #: .\core\models.py:9
 msgid "created_at"
-msgstr "Дата создания"
+msgstr "дата создания"
 
 #: .\core\models.py:13
 msgid "updated_at"
-msgstr "Дата обновления"
+msgstr "дата обновления"
 
 #: .\core\validators.py:17
 msgid "Error_file_too_big"
@@ -86,7 +85,7 @@ msgstr "Загрузить файлы"
 
 #: .\feedback\forms.py:68
 msgid "Upload_files_help_text"
-msgstr "Загрузите файлы с обратной связью (необязательно)"
+msgstr "Приложите файлы (необязательно)"
 
 #: .\feedback\models.py:15
 msgid "received"
@@ -94,7 +93,7 @@ msgstr "получено"
 
 #: .\feedback\models.py:16
 msgid "pending"
-msgstr "в ожидании"
+msgstr "в обработке"
 
 #: .\feedback\models.py:17
 msgid "answered"
@@ -105,8 +104,8 @@ msgid "name"
 msgstr "имя"
 
 #: .\feedback\models.py:26
-msgid "Max_symbols_help_text"
-msgstr "Максимально допустимое количество символов — 150"
+msgid "Maximum_characters"
+msgstr "Максимально допустимое количество символов - %(max)s"
 
 #: .\feedback\models.py:29 .\users\models.py:59
 msgid "email"
@@ -146,19 +145,19 @@ msgstr "Статус обратной связи"
 
 #: .\feedback\models.py:66 .\feedback\models.py:84 .\feedback\models.py:116
 msgid "feedback"
-msgstr "отзыв"
+msgstr "обратная связь"
 
 #: .\feedback\models.py:67
 msgid "feedback_plural"
-msgstr "отзывы"
+msgstr "обратная связь"
 
 #: .\feedback\models.py:87 .\feedback\models.py:95
 msgid "feedback_file"
-msgstr "файл отзыва"
+msgstr "файл обратной связи"
 
 #: .\feedback\models.py:96
 msgid "feedback_file_plural"
-msgstr "файлы отзывов"
+msgstr "файлы обратной связи"
 
 #: .\feedback\models.py:108 .\training\models.py:52 .\users\models.py:86
 msgid "user"
@@ -307,15 +306,15 @@ msgstr "аудиозадания"
 #: .\templates\tasks\audio\my_tasks.html:19
 #: .\templates\tasks\audio\task_detail.html:11
 msgid "Audio_not_supported_browser"
-msgstr "Аудио не поддерживается этим браузером"
+msgstr "Воспроизведение аудио не поддерживается вашим браузером"
 
 #: .\tasks\models\audio.py:47
-msgid "no_audio"
+msgid "No_audio"
 msgstr "Аудио отсутствует"
 
 #: .\tasks\models\audio.py:49
 msgid "audio_preview"
-msgstr "Предпрослушивание аудио"
+msgstr "прослушивание аудио"
 
 #: .\tasks\models\audio.py:57
 msgid "audio_task_check"
@@ -430,7 +429,7 @@ msgid "Not_viewer_of_check"
 msgstr "У вас нет прав для просмотра этой проверки"
 
 #: .\templates\about\about.html:9 .\templates\includes\footer.html:51
-#: .\templates\includes\header.html:18 .\templates\includes\header.html:114
+#: .\templates\includes\header.html:18 .\templates\includes\header.html:111
 msgid "About"
 msgstr "О нас"
 
@@ -576,11 +575,11 @@ msgstr "Стать исполнителем"
 msgid "What_is_genAI"
 msgstr "Что такое генеративный ИИ"
 
-#: .\templates\includes\footer.html:66
-msgid "Spot_genAI"
-msgstr "Обнаружить генеративный ИИ"
+#: .\templates\includes\footer.html:67
+msgid "How_to_spot_genAI"
+msgstr "Как обнаружить генеративный ИИ"
 
-#: .\templates\includes\footer.html:69
+#: .\templates\includes\footer.html:71
 msgid "GenAI_statistics"
 msgstr "Статистика генеративного ИИ"
 
@@ -598,68 +597,68 @@ msgstr "Закрыть"
 msgid "Password_cant_be_similar_to_personal_information"
 msgstr "Пароль не должен быть слишком похож на личную информацию"
 
-#: .\templates\includes\forms\fields.html:60
+#: .\templates\includes\forms\fields.html:58
 msgid "Password_must_contain_at_least_eight_characters"
 msgstr "Пароль должен содержать не менее восьми символов"
 
-#: .\templates\includes\forms\fields.html:63
+#: .\templates\includes\forms\fields.html:59
 msgid "Password_cant_be_commonly_used"
 msgstr "Пароль не должен быть общеупотребимым"
 
-#: .\templates\includes\forms\fields.html:66
+#: .\templates\includes\forms\fields.html:60
 msgid "Password_cant_be_entirely_numeric"
 msgstr "Пароль не должен состоять только из цифр"
 
-#: .\templates\includes\header.html:24 .\templates\includes\header.html:118
+#: .\templates\includes\header.html:24 .\templates\includes\header.html:115
 #: .\templates\training\start.html:5
 msgid "Training"
 msgstr "Обучение"
 
-#: .\templates\includes\header.html:33 .\templates\includes\header.html:125
+#: .\templates\includes\header.html:30 .\templates\includes\header.html:119
 #: .\templates\tasks\audio\task_detail.html:20
 #: .\templates\tasks\image\task_detail.html:33
 #: .\templates\tasks\text\task_detail.html:31
 msgid "My_tasks"
 msgstr "Мои задания"
 
-#: .\templates\includes\header.html:38 .\templates\includes\header.html:128
+#: .\templates\includes\header.html:35 .\templates\includes\header.html:122
 msgid "My_checks"
 msgstr "Мои проверки"
 
-#: .\templates\includes\header.html:45 .\templates\includes\header.html:133
+#: .\templates\includes\header.html:42 .\templates\includes\header.html:127
 msgid "Admin"
 msgstr "Админ"
 
-#: .\templates\includes\header.html:54 .\templates\includes\header.html:139
+#: .\templates\includes\header.html:51 .\templates\includes\header.html:133
 #: .\templates\users\activation_success.html:11 .\templates\users\login.html:5
 #: .\templates\users\login.html:9 .\templates\users\login.html:20
 #: .\templates\users\password_reset_confirm.html:19
 msgid "Login"
 msgstr "Войти"
 
-#: .\templates\includes\header.html:55 .\templates\includes\header.html:140
+#: .\templates\includes\header.html:52 .\templates\includes\header.html:134
 #: .\templates\users\login.html:31 .\templates\users\signup.html:5
 #: .\templates\users\signup.html:9 .\templates\users\signup.html:13
 msgid "Signup"
 msgstr "Регистрация"
 
-#: .\templates\includes\header.html:61
+#: .\templates\includes\header.html:58
 msgid "Avatar"
 msgstr "Аватар"
 
-#: .\templates\includes\header.html:64
+#: .\templates\includes\header.html:61
 #: .\templates\tasks\base\my_checks.html:154
 #: .\templates\tasks\base\task_detail.html:123
 #: .\templates\users\profile.html:14 .\templates\users\user_detail.html:26
 msgid "Avatar_not_found"
 msgstr "Аватар не найден"
 
-#: .\templates\includes\header.html:69 .\templates\includes\header.html:142
+#: .\templates\includes\header.html:66 .\templates\includes\header.html:136
 #: .\templates\users\profile.html:5 .\templates\users\profile.html:18
 msgid "Profile"
 msgstr "Профиль"
 
-#: .\templates\includes\header.html:77 .\templates\includes\header.html:145
+#: .\templates\includes\header.html:74 .\templates\includes\header.html:139
 #: .\templates\users\profile.html:32
 msgid "Logout"
 msgstr "Выйти"
@@ -681,16 +680,16 @@ msgstr "Проверки аудио"
 msgid "Create"
 msgstr "Создать"
 
-#: .\templates\includes\theme_switcher.html:6
-#: .\templates\includes\theme_switcher.html:29
+#: .\templates\includes\theme_switcher.html:8
+#: .\templates\includes\theme_switcher.html:37
 msgid "Auto"
 msgstr "Авто"
 
-#: .\templates\includes\theme_switcher.html:13
+#: .\templates\includes\theme_switcher.html:17
 msgid "Light"
 msgstr "Светлая"
 
-#: .\templates\includes\theme_switcher.html:21
+#: .\templates\includes\theme_switcher.html:27
 msgid "Dark"
 msgstr "Тёмная"
 
@@ -804,7 +803,7 @@ msgstr "Сохранить черновик"
 
 #: .\templates\tasks\base\check_perform.html:33
 msgid "Action_irreversible"
-msgstr "Действие необратимо"
+msgstr "Вы уверены? Действие необратимо."
 
 #: .\templates\tasks\base\check_perform.html:34
 msgid "Send_check"
@@ -913,16 +912,16 @@ msgstr "Изображение задания"
 msgid "Create_task"
 msgstr "Создать задание"
 
-#: .\templates\tasks\text\my_checks.html:6
+#: .\templates\tasks\text\my_checks.html:5
 msgid "My_text_checks"
 msgstr "Мои проверки текста"
 
-#: .\templates\tasks\text\my_checks.html:24
+#: .\templates\tasks\text\my_checks.html:23
 #: .\templates\tasks\text\my_tasks.html:21
 msgid "No_text_tasks"
 msgstr "Нет текстовых заданий"
 
-#: .\templates\tasks\text\my_checks.html:28
+#: .\templates\tasks\text\my_checks.html:27
 msgid "No_text_checks"
 msgstr "Нет проверок текста"
 
@@ -1049,7 +1048,7 @@ msgstr "Активация аккаунта"
 
 #: .\templates\users\activation_success.html:9
 msgid "Account_activation_head"
-msgstr "Аккаунт активирован!"
+msgstr "Аккаунт активирован"
 
 #: .\templates\users\activation_success.html:10
 msgid "Account_activation_head_text"
@@ -1088,7 +1087,6 @@ msgstr "Сброс пароля"
 
 #: .\templates\users\password_reset.html:13
 #: .\templates\users\password_reset_confirm.html:15
-#: .\templates\users\password_reset_done.html:9
 msgid "Password_reset_head"
 msgstr "Сброс пароля"
 
@@ -1096,25 +1094,25 @@ msgstr "Сброс пароля"
 msgid "Further"
 msgstr "Далее"
 
-#: .\templates\users\password_reset_complete.html:5 .\users\views.py:131
+#: .\templates\users\password_reset_complete.html:5
+#: .\templates\users\password_reset_complete.html:9
+#: .\templates\users\password_reset_done.html:9 .\users\views.py:131
 msgid "Password_reset"
 msgstr "Сброс пароля"
 
-#: .\templates\users\password_reset_complete.html:9
-msgid "Password_reset_success_head"
-msgstr "Пароль сброшен!"
-
 #: .\templates\users\password_reset_complete.html:10
-msgid "Password_reset_success_text"
-msgstr "Используйте новый пароль для входа."
+msgid "Password_reset_complete_text"
+msgstr "Используйте новый пароль для входа"
 
 #: .\templates\users\password_reset_confirm.html:24
 msgid "Invalid_link_on_password_reset"
 msgstr "Недействительная ссылка для сброса пароля"
 
 #: .\templates\users\password_reset_done.html:10
-msgid "Password_reset_text"
-msgstr "Используйте новый пароль для входа."
+msgid "Password_reset_done_text"
+msgstr ""
+"Проверьте свою электронную почту, на неё должно было прийти письмо с "
+"подтверждением сброса пароля"
 
 #: .\templates\users\password_reset_email.html:2
 msgid "Reset_password_text_about_site"
@@ -1154,7 +1152,7 @@ msgstr "Здравствуйте"
 
 #: .\templates\users\subjects\activation_email.txt:4
 msgid "activate_link_text"
-msgstr "Чтобы активировать аккаунт, перейдите по ссылке"
+msgstr "чтобы активировать аккаунт, перейдите по ссылке"
 
 #: .\templates\users\subjects\activation_email.txt:7
 msgid "Ignore_activate_link_text"
@@ -1228,7 +1226,7 @@ msgstr "Информация о пользователе"
 msgid "Training_status"
 msgstr "Статус обучения"
 
-#: .\training\admin.py:196
+#: .\training\admin.py:194
 msgid "User_added_to_performers_group"
 msgstr "Пользователь добавлен в группу исполнителей"
 
@@ -1245,7 +1243,7 @@ msgid "Human_written"
 msgstr "Написано человеком"
 
 #: .\training\forms.py:27 .\training\models.py:24
-msgid "Is_the_text_AI_generated"
+msgid "Is_the_text_AI_generated_question"
 msgstr "Текст создан ИИ?"
 
 #: .\training\models.py:15
@@ -1382,31 +1380,31 @@ msgstr "Аватар отсутствует"
 
 #: .\users\models.py:50
 msgid "avatar_preview"
-msgstr "Предпросмотр аватара"
+msgstr "просмотр аватара"
 
 #: .\users\models.py:55
 msgid "customer"
-msgstr "Клиент"
+msgstr "клиент"
 
 #: .\users\models.py:64
 msgid "role"
-msgstr "Роль"
+msgstr "роль"
 
 #: .\users\models.py:71
 msgid "login_attempts_count"
-msgstr "Количество попыток входа"
+msgstr "количество попыток входа"
 
 #: .\users\models.py:75
 msgid "blocking_timestamp"
-msgstr "Метка времени блокировки"
+msgstr "метка времени блокировки"
 
 #: .\users\models.py:79
 msgid "last_login_attempt_timestamp"
-msgstr "Метка времени последней попытки входа"
+msgstr "метка времени последней попытки входа"
 
 #: .\users\models.py:87
 msgid "users"
-msgstr "Пользователи"
+msgstr "пользователи"
 
 #: .\users\views.py:33
 msgid "Invalid_or_expired_activation_link"
