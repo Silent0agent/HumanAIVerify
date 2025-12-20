@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 23:58+0300\n"
+"POT-Creation-Date: 2025-12-20 20:53+0300\n"
 "PO-Revision-Date: 2025-12-19 16:00+0300\n"
 "Last-Translator: Denis <deniskuz08@gmail.com>\n"
 "Language-Team: English <ivan1one111one@gmail.com>, <deniskuz08@gmail.com>\n"
@@ -482,7 +482,7 @@ msgid "Frontend"
 msgstr "Frontend"
 
 #: .\templates\feedback\feedback.html:5 .\templates\feedback\feedback.html:12
-#: .\templates\feedback\feedback.html:16
+#: .\templates\feedback\feedback.html:16 .\templates\includes\footer.html:48
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -563,13 +563,9 @@ msgstr "Text tasks"
 msgid "Company"
 msgstr "Company"
 
-#: .\templates\includes\footer.html:48
-msgid "Contact"
-msgstr "Contact"
-
 #: .\templates\includes\footer.html:54
-msgid "Became_performer"
-msgstr "Became Performer"
+msgid "Become_performer"
+msgstr "Become Performer"
 
 #: .\templates\includes\footer.html:63
 msgid "What_is_genAI"
