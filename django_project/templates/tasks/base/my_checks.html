@@ -167,8 +167,8 @@
 
                       <td class="pe-4 text-end">
                         {% if check.ai_score is not None %}
-                          <span class="fw-bold {% if check.ai_score > 70 %}text-success{% elif check.ai_score < 40 %}text-danger{% else %}text-warning{% endif %}">
-                            {{ check.ai_score|floatformat:0 }}%
+                          <span class="fw-bold {% if check.ai_score >= 70 %}text-danger{% elif check.ai_score >= 30 %}text-warning{% else %}text-success{% endif %}">
+                            {{ check.ai_score|floatformat:1 }}%
                           </span>
                         {% else %}
                           <span class="text-muted">-</span>
