@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-20 20:53+0300\n"
+"POT-Creation-Date: 2025-12-19 23:58+0300\n"
 "PO-Revision-Date: 2025-12-19 16:00+0300\n"
 "Last-Translator: Denis <deniskuz08@gmail.com>\n"
 "Language-Team: Russian <ivan1one111one@gmail.com>, <deniskuz08@gmail.com>\n"
@@ -482,7 +482,7 @@ msgid "Frontend"
 msgstr "Фронтенд"
 
 #: .\templates\feedback\feedback.html:5 .\templates\feedback\feedback.html:12
-#: .\templates\feedback\feedback.html:16 .\templates\includes\footer.html:48
+#: .\templates\feedback\feedback.html:16
 msgid "Feedback"
 msgstr "Обратная связь"
 
@@ -563,8 +563,12 @@ msgstr "Текстовые задания"
 msgid "Company"
 msgstr "Компания"
 
+#: .\templates\includes\footer.html:48
+msgid "Contact"
+msgstr "Контакты"
+
 #: .\templates\includes\footer.html:54
-msgid "Become_performer"
+msgid "Became_performer"
 msgstr "Стать исполнителем"
 
 #: .\templates\includes\footer.html:63
