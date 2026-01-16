@@ -63,7 +63,7 @@
     text-decoration: none;
 }
 
-[data-bs-theme="dark"] {
+[data-bs-theme='dark'] {
     --card-border-color: #495057;
     --card-bg: #212529;
     --card-shadow-color: rgba(255,255,255,0.1);

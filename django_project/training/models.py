@@ -12,33 +12,33 @@ import training.managers
 
 class TrainingText(core.models.TimeStampedModel):
     class Difficulty(models.TextChoices):
-        EASY = "easy", _("easy")
-        MEDIUM = "medium", _("medium")
-        HARD = "hard", _("hard")
+        EASY = 'easy', _('easy')
+        MEDIUM = 'medium', _('medium')
+        HARD = 'hard', _('hard')
 
     content = models.TextField(
-        verbose_name=_("content"),
+        verbose_name=_('content'),
     )
     is_ai_generated = models.BooleanField(
-        verbose_name=_("is_ai_generated"),
-        help_text=_("Is_the_text_AI_generated_question"),
+        verbose_name=_('is_ai_generated'),
+        help_text=_('Is_the_text_AI_generated_question'),
     )
     difficulty = models.CharField(
         max_length=10,
         choices=Difficulty.choices,
         default=Difficulty.MEDIUM,
-        verbose_name=_("difficulty"),
+        verbose_name=_('difficulty'),
     )
     explanation = models.TextField(
         blank=True,
-        verbose_name=_("explanation"),
-        help_text=_("Explanation_why_text_is_AI_or_human"),
+        verbose_name=_('explanation'),
+        help_text=_('Explanation_why_text_is_AI_or_human'),
     )
 
     class Meta:
-        verbose_name = _("training_text")
-        verbose_name_plural = _("training_texts")
-        ordering = ["difficulty", "id"]
+        verbose_name = _('training_text')
+        verbose_name_plural = _('training_texts')
+        ordering = ['difficulty', 'id']
 
     def __str__(self):
         return Truncator(self.content).chars(30)
@@ -48,32 +48,32 @@ class UserTrainingProgress(core.models.TimeStampedModel):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="training_progress",
-        verbose_name=_("user"),
+        related_name='training_progress',
+        verbose_name=_('user'),
     )
     training_score = models.IntegerField(
         default=0,
-        verbose_name=_("training_score"),
-        help_text=_("Current_training_score"),
+        verbose_name=_('training_score'),
+        help_text=_('Current_training_score'),
     )
     last_fail_timestamp = models.DateTimeField(
         null=True,
         blank=True,
-        verbose_name=_("last_fail_timestamp"),
-        help_text=_("Timestamp_of_last_failed_attempt"),
+        verbose_name=_('last_fail_timestamp'),
+        help_text=_('Timestamp_of_last_failed_attempt'),
     )
     completed_texts = models.ManyToManyField(
         TrainingText,
         blank=True,
-        related_name="completed_by_users",
-        verbose_name=_("completed_texts"),
+        related_name='completed_by_users',
+        verbose_name=_('completed_texts'),
     )
 
     objects = training.managers.TrainingProgressQuerySet.as_manager()
 
     class Meta:
-        verbose_name = _("user_training_progress")
-        verbose_name_plural = _("user_training_progresses")
+        verbose_name = _('user_training_progress')
+        verbose_name_plural = _('user_training_progresses')
 
     def __str__(self):
         return self.user.username
@@ -120,5 +120,5 @@ class UserTrainingProgress(core.models.TimeStampedModel):
 
     def get_available_texts(self):
         return TrainingText.objects.exclude(
-            id__in=self.completed_texts.values_list("id", flat=True),
+            id__in=self.completed_texts.values_list('id', flat=True),
         )

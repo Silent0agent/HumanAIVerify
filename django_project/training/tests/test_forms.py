@@ -20,9 +20,7 @@ class TrainingTextFormTest(TestCase):
 
         self.assertTrue(form.is_valid())
         self.assertTrue(
-            form.cleaned_data[
-                training.models.TrainingText.is_ai_generated.field.name
-            ],
+            form.cleaned_data[training.models.TrainingText.is_ai_generated.field.name],
         )
 
     def test_form_valid_with_false(self):
@@ -31,9 +29,7 @@ class TrainingTextFormTest(TestCase):
 
         self.assertTrue(form.is_valid())
         self.assertFalse(
-            form.cleaned_data[
-                training.models.TrainingText.is_ai_generated.field.name
-            ],
+            form.cleaned_data[training.models.TrainingText.is_ai_generated.field.name],
         )
 
     def test_form_invalid_with_empty(self):
@@ -47,7 +43,7 @@ class TrainingTextFormTest(TestCase):
         )
 
     def test_init_pops_training_text(self):
-        dummy_text = "some text object"
+        dummy_text = 'some text object'
         form = training.forms.TrainingTextForm(training_text=dummy_text)
 
         self.assertEqual(form.training_text, dummy_text)

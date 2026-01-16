@@ -7,39 +7,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("training", "0001_initial"),
+        ('training', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name="trainingtext",
-            name="created_at",
+            model_name='trainingtext',
+            name='created_at',
             field=models.DateTimeField(
                 auto_now_add=True,
                 default=django.utils.timezone.now,
-                verbose_name="created_at",
+                verbose_name='created_at',
             ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name="trainingtext",
-            name="updated_at",
-            field=models.DateTimeField(
-                auto_now=True, verbose_name="updated_at"
-            ),
+            model_name='trainingtext',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, verbose_name='updated_at'),
         ),
         migrations.AlterField(
-            model_name="usertrainingprogress",
-            name="created_at",
-            field=models.DateTimeField(
-                auto_now_add=True, verbose_name="created_at"
-            ),
+            model_name='usertrainingprogress',
+            name='created_at',
+            field=models.DateTimeField(auto_now_add=True, verbose_name='created_at'),
         ),
         migrations.AlterField(
-            model_name="usertrainingprogress",
-            name="updated_at",
-            field=models.DateTimeField(
-                auto_now=True, verbose_name="updated_at"
-            ),
+            model_name='usertrainingprogress',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, verbose_name='updated_at'),
         ),
     ]

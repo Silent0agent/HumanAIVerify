@@ -21,8 +21,8 @@ class ActivationTests(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(
-            username="testuser",
-            email="test@example.com",
+            username='testuser',
+            email='test@example.com',
             is_active=False,
         )
 
@@ -31,20 +31,20 @@ class ActivationTests(TestCase):
 
         response = self.client.get(
             reverse(
-                "auth:activate",
-                kwargs={"signed_username": signed_username},
+                'auth:activate',
+                kwargs={'signed_username': signed_username},
             ),
         )
 
-        self.assertTemplateUsed(response, "users/activation_success.html")
+        self.assertTemplateUsed(response, 'users/activation_success.html')
         self.user.refresh_from_db()
         self.assertTrue(self.user.is_active)
 
     def test_activation_with_invalid_signature(self):
         response = self.client.get(
             reverse(
-                "auth:activate",
-                kwargs={"signed_username": "invalid_signature"},
+                'auth:activate',
+                kwargs={'signed_username': 'invalid_signature'},
             ),
         )
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
@@ -55,8 +55,8 @@ class ActivationTests(TestCase):
 
         response = self.client.get(
             reverse(
-                "auth:activate",
-                kwargs={"signed_username": signed_username},
+                'auth:activate',
+                kwargs={'signed_username': signed_username},
             ),
         )
 

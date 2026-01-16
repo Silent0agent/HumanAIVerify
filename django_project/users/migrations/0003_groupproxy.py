@@ -7,23 +7,23 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("users", "0002_alter_customuser_managers"),
+        ('users', '0002_alter_customuser_managers'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name="GroupProxy",
+            name='GroupProxy',
             fields=[],
             options={
-                "verbose_name": "group",
-                "verbose_name_plural": "groups",
-                "proxy": True,
-                "indexes": [],
-                "constraints": [],
+                'verbose_name': 'group',
+                'verbose_name_plural': 'groups',
+                'proxy': True,
+                'indexes': [],
+                'constraints': [],
             },
-            bases=("auth.group",),
+            bases=('auth.group',),
             managers=[
-                ("objects", django.contrib.auth.models.GroupManager()),
+                ('objects', django.contrib.auth.models.GroupManager()),
             ],
         ),
     ]

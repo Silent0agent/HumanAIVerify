@@ -15,48 +15,44 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="TextTask",
+            name='TextTask',
             fields=[
                 (
-                    "id",
+                    'id',
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name="ID",
+                        verbose_name='ID',
                     ),
                 ),
                 (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="created at"
-                    ),
+                    'created_at',
+                    models.DateTimeField(auto_now_add=True, verbose_name='created at'),
                 ),
                 (
-                    "updated_at",
-                    models.DateTimeField(
-                        auto_now=True, verbose_name="updated at"
-                    ),
+                    'updated_at',
+                    models.DateTimeField(auto_now=True, verbose_name='updated at'),
                 ),
                 (
-                    "title",
-                    models.CharField(max_length=255, verbose_name="title"),
+                    'title',
+                    models.CharField(max_length=255, verbose_name='title'),
                 ),
-                ("content", models.TextField(verbose_name="content")),
+                ('content', models.TextField(verbose_name='content')),
                 (
-                    "client",
+                    'client',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.PROTECT,
-                        related_name="text_tasks",
+                        related_name='text_tasks',
                         to=settings.AUTH_USER_MODEL,
-                        verbose_name="client",
+                        verbose_name='client',
                     ),
                 ),
             ],
             options={
-                "verbose_name": "text task",
-                "verbose_name_plural": "text tasks",
-                "ordering": ["-created_at"],
+                'verbose_name': 'text task',
+                'verbose_name_plural': 'text tasks',
+                'ordering': ['-created_at'],
             },
         ),
     ]

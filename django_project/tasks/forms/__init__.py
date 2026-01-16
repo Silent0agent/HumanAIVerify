@@ -1,10 +1,10 @@
 __all__ = (
-    "TextTaskForm",
-    "TextTaskCheckForm",
-    "ImageTaskForm",
-    "ImageTaskCheckForm",
-    "AudioTaskForm",
-    "AudioTaskCheckForm",
+    'TextTaskForm',
+    'TextTaskCheckForm',
+    'ImageTaskForm',
+    'ImageTaskCheckForm',
+    'AudioTaskForm',
+    'AudioTaskCheckForm',
 )
 
 from tasks.forms.audio import AudioTaskCheckForm, AudioTaskForm

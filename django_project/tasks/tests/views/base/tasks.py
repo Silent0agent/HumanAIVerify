@@ -14,7 +14,7 @@ class BaseMyTasksListTest(BaseViewTest):
     view_url = None
     template_name = None
 
-    def create_task(self, client, title="Task title"):
+    def create_task(self, client, title='Task title'):
         raise NotImplementedError
 
     def setUp(self):
@@ -30,27 +30,27 @@ class BaseMyTasksListTest(BaseViewTest):
 
     def test_context_object_name(self):
         response = self.client.get(self.view_url)
-        self.assertIn("tasks", response.context)
+        self.assertIn('tasks', response.context)
 
     def test_list_contains_my_tasks(self):
-        task1 = self.create_task(self.customer, title="My Task 1")
-        task2 = self.create_task(self.customer, title="My Task 2")
+        task1 = self.create_task(self.customer, title='My Task 1')
+        task2 = self.create_task(self.customer, title='My Task 2')
 
         response = self.client.get(self.view_url)
 
-        self.assertIn(task1, response.context["tasks"])
-        self.assertIn(task2, response.context["tasks"])
+        self.assertIn(task1, response.context['tasks'])
+        self.assertIn(task2, response.context['tasks'])
 
     def test_list_does_not_contain_others_tasks(self):
         other_user = User.objects.create_user(
-            username="other",
-            email="other@example.com",
-            password="pass",
+            username='other',
+            email='other@example.com',
+            password='pass',
         )
-        other_task = self.create_task(other_user, title="Other Task")
+        other_task = self.create_task(other_user, title='Other Task')
         response = self.client.get(self.view_url)
 
-        self.assertNotIn(other_task, response.context["tasks"])
+        self.assertNotIn(other_task, response.context['tasks'])
 
     def test_anonymous_access_redirects(self):
         self.client.logout()
@@ -74,8 +74,8 @@ class BaseTaskCreateViewTest(BaseViewTest):
         self.client.force_login(self.customer)
 
     def get_valid_data(self):
-        self.task_title = "Test Task"
-        self.task_description = "Description"
+        self.task_title = 'Test Task'
+        self.task_description = 'Description'
         return {
             self.model.title.field.name: self.task_title,
             self.model.description.field.name: self.task_description,
@@ -91,7 +91,7 @@ class BaseTaskCreateViewTest(BaseViewTest):
 
     def test_form_in_context(self):
         response = self.client.get(self.view_url)
-        self.assertIn("form", response.context)
+        self.assertIn('form', response.context)
 
     def test_post_valid_status_code_ok(self):
         data = self.get_valid_data()
@@ -116,7 +116,7 @@ class BaseTaskCreateViewTest(BaseViewTest):
 
         self.assertRedirects(
             response,
-            reverse(self.success_url_name, kwargs={"task_id": task.pk}),
+            reverse(self.success_url_name, kwargs={'task_id': task.pk}),
         )
 
     def test_post_invalid_status_code_ok(self):
@@ -160,7 +160,7 @@ class BaseTaskDetailViewTest(BaseViewTest):
         self.task = self.create_task(self.customer)
         self.url = reverse(
             self.view_url_name,
-            kwargs={"task_id": self.task.pk},
+            kwargs={'task_id': self.task.pk},
         )
         self.client.force_login(self.customer)
 
@@ -174,14 +174,14 @@ class BaseTaskDetailViewTest(BaseViewTest):
 
     def test_context(self):
         response = self.client.get(self.url)
-        self.assertEqual(response.context["task"], self.task)
+        self.assertEqual(response.context['task'], self.task)
 
     def test_other_user_cannot_see_detail(self):
         self.client.logout()
         other_user = User.objects.create_user(
-            username="other",
-            email="other@example.com",
-            password="pass",
+            username='other',
+            email='other@example.com',
+            password='pass',
         )
         self.client.force_login(other_user)
 

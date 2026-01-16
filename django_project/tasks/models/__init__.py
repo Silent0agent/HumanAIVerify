@@ -1,10 +1,10 @@
 __all__ = (
-    "TextTask",
-    "TextTaskCheck",
-    "ImageTask",
-    "ImageTaskCheck",
-    "AudioTask",
-    "AudioTaskCheck",
+    'TextTask',
+    'TextTaskCheck',
+    'ImageTask',
+    'ImageTaskCheck',
+    'AudioTask',
+    'AudioTaskCheck',
 )
 
 from tasks.models.audio import AudioTask, AudioTaskCheck

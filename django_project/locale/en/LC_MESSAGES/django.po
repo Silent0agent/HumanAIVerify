@@ -1415,7 +1415,7 @@ msgstr "Invalid or expired activation link"
 
 #: .\users\views.py:61
 msgid "Need_to_activate_profile"
-msgstr "Need to activate profile"
+msgstr "Need to activate profile, check email"
 
 #: .\users\views.py:66
 msgid "Signup_success"

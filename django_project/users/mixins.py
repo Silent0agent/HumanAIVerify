@@ -27,10 +27,10 @@ class RoleRequiredMixin(UserPassesTestMixin):
 
         messages.error(
             self.request,
-            _("User_have_wrong_role"),
+            _('User_have_wrong_role'),
         )
 
-        return redirect("homepage:index")
+        return redirect('homepage:index')
 
 
 class CustomerRequiredMixin(RoleRequiredMixin):
@@ -63,20 +63,20 @@ class PerformerRequiredMixin(UserPassesTestMixin):
                     self.request.user.groups.add(performer_group)
                     messages.success(
                         self.request,
-                        _("Congratulations_you_have_been_added_to_performers"),
+                        _('Congratulations_you_have_been_added_to_performers'),
                     )
                     return redirect(self.request.path)
 
                 messages.warning(
                     self.request,
-                    _("You_need_points_to_become_performer"),
+                    _('You_need_points_to_become_performer'),
                 )
             except UserTrainingProgress.DoesNotExist:
                 messages.info(
                     self.request,
-                    _("Complete_training_to_become_performer"),
+                    _('Complete_training_to_become_performer'),
                 )
 
-            return redirect("training:start")
+            return redirect('training:start')
 
         return super().handle_no_permission()

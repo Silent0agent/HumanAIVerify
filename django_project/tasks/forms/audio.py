@@ -19,14 +19,14 @@ class AudioTaskForm(BaseTaskForm):
         widgets = {
             audio_field: forms.FileInput(
                 attrs={
-                    "class": "form-control",
-                    "accept": ".mp3, .wav",
+                    'class': 'form-control',
+                    'accept': '.mp3, .wav',
                 },
             ),
         }
         labels = {
             **BaseTaskForm.Meta.labels,
-            audio_field: _("Audio_file"),
+            audio_field: _('Audio_file'),
         }
 
 

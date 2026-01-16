@@ -26,7 +26,7 @@ class TrainingTextAdmin(admin.ModelAdmin):
     def content_preview(self, obj):
         return Truncator(obj.content).chars(30)
 
-    content_preview.short_description = _("Content_preview")
+    content_preview.short_description = _('Content_preview')
 
     list_display = (
         content_preview.__name__,
@@ -41,18 +41,18 @@ class TrainingTextAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (
-            _("Text_content"),
+            _('Text_content'),
             {
-                "fields": (
+                'fields': (
                     content_field.name,
                     explanation_field.name,
                 ),
             },
         ),
         (
-            _("Classification"),
+            _('Classification'),
             {
-                "fields": (
+                'fields': (
                     is_ai_generated_field.name,
                     difficulty_field.name,
                 ),
@@ -68,39 +68,33 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
 
     user_field = training.models.UserTrainingProgress.user.field
     user_model = user_field.related_model
-    training_score_field = (
-        training.models.UserTrainingProgress.training_score.field
-    )
-    last_fail_field = (
-        training.models.UserTrainingProgress.last_fail_timestamp.field
-    )
-    completed_texts_field = (
-        training.models.UserTrainingProgress.completed_texts.field
-    )
+    training_score_field = training.models.UserTrainingProgress.training_score.field
+    last_fail_field = training.models.UserTrainingProgress.last_fail_timestamp.field
+    completed_texts_field = training.models.UserTrainingProgress.completed_texts.field
     created_at_field = training.models.UserTrainingProgress.created_at.field
     updated_at_field = training.models.UserTrainingProgress.updated_at.field
 
     def completed_count(self, obj):
         return obj.completed_texts.count()
 
-    completed_count.short_description = _("Completed_texts")
+    completed_count.short_description = _('Completed_texts')
 
     def last_fail(self, obj):
         if obj.last_fail_timestamp:
             time_diff = timezone.now() - obj.last_fail_timestamp
             if time_diff.days < 1:
-                return _("hours_ago").format(hours=obj.remaining_hours)
+                return _('hours_ago').format(hours=obj.remaining_hours)
 
             return timesince(obj.last_fail_timestamp)
 
-        return _("Never")
+        return _('Never')
 
-    last_fail.short_description = _("Last_fail")
+    last_fail.short_description = _('Last_fail')
 
     def can_train_now(self, obj):
         return obj.can_take_test
 
-    can_train_now.short_description = _("Can_train_now")
+    can_train_now.short_description = _('Can_train_now')
     can_train_now.boolean = True
 
     list_display = (
@@ -114,8 +108,8 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
     list_filter = (training_score_field.name,)
 
     search_fields = (
-        f"{user_field.name}__{user_model.username.field.name}",
-        f"{user_field.name}__{user_model.email.field.name}",
+        f'{user_field.name}__{user_model.username.field.name}',
+        f'{user_field.name}__{user_model.email.field.name}',
     )
 
     readonly_fields = (
@@ -126,27 +120,27 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (
-            _("User_information"),
+            _('User_information'),
             {
-                "fields": (
+                'fields': (
                     user_field.name,
                     training_score_field.name,
                 ),
             },
         ),
         (
-            _("Training_status"),
+            _('Training_status'),
             {
-                "fields": (
+                'fields': (
                     last_fail_field.name,
                     completed_texts_field.name,
                 ),
             },
         ),
         (
-            _("Timestamps"),
+            _('Timestamps'),
             {
-                "fields": (
+                'fields': (
                     created_at_field.name,
                     updated_at_field.name,
                 ),
@@ -178,8 +172,7 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
         if (
             old_score is not None
             and old_score < settings.TRAINING_COMPLETIONS_FOR_PERFORMER
-            and obj.training_score
-            >= settings.TRAINING_COMPLETIONS_FOR_PERFORMER
+            and obj.training_score >= settings.TRAINING_COMPLETIONS_FOR_PERFORMER
             and obj.user.role != self.user_model.Role.PERFORMER
         ):
             performer_group, created = Group.objects.get_or_create(
@@ -191,6 +184,6 @@ class UserTrainingProgressAdmin(admin.ModelAdmin):
 
             self.message_user(
                 request,
-                _("User_added_to_performers_group"),
+                _('User_added_to_performers_group'),
                 level=messages.SUCCESS,
             )

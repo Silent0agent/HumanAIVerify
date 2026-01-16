@@ -20,7 +20,7 @@ class FeedbackIntegrationTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.url = reverse("feedback:feedback")
+        cls.url = reverse('feedback:feedback')
 
     @classmethod
     def tearDownClass(cls):
@@ -29,9 +29,9 @@ class FeedbackIntegrationTests(TestCase):
 
     def setUp(self):
         self.valid_data = {
-            "author-name": "Test User",
-            "author-mail": "test@example.com",
-            "content-text": "This is a test feedback message.",
+            'author-name': 'Test User',
+            'author-mail': 'test@example.com',
+            'content-text': 'This is a test feedback message.',
         }
 
     def test_feedback_page_status_code_ok(self):
@@ -40,15 +40,15 @@ class FeedbackIntegrationTests(TestCase):
 
     def test_feedback_page_template(self):
         response = self.client.get(self.url)
-        self.assertTemplateUsed(response, "feedback/feedback.html")
+        self.assertTemplateUsed(response, 'feedback/feedback.html')
 
     def test_feedback_page_forms_in_context(self):
         response = self.client.get(self.url)
 
         expected_forms = {
-            "author_form": feedback.forms.FeedbackUserProfileForm,
-            "content_form": feedback.forms.FeedbackForm,
-            "files_form": feedback.forms.FeedbackFileForm,
+            'author_form': feedback.forms.FeedbackUserProfileForm,
+            'content_form': feedback.forms.FeedbackForm,
+            'files_form': feedback.forms.FeedbackFileForm,
         }
 
         for form_key, form_class in expected_forms.items():
@@ -67,9 +67,7 @@ class FeedbackIntegrationTests(TestCase):
 
     def test_successful_submission_creates_objects(self):
         initial_feedback_count = feedback.models.Feedback.objects.count()
-        initial_profile_count = (
-            feedback.models.FeedbackUserProfile.objects.count()
-        )
+        initial_profile_count = feedback.models.FeedbackUserProfile.objects.count()
 
         self.client.post(
             self.url,
@@ -96,11 +94,11 @@ class FeedbackIntegrationTests(TestCase):
         created_feedback = feedback.models.Feedback.objects.first()
         self.assertEqual(
             created_feedback.text,
-            self.valid_data["content-text"],
+            self.valid_data['content-text'],
         )
         self.assertEqual(
             created_feedback.author.name,
-            self.valid_data["author-name"],
+            self.valid_data['author-name'],
         )
 
     def test_successful_submission_sends_email(self):
@@ -111,7 +109,7 @@ class FeedbackIntegrationTests(TestCase):
         )
 
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, [self.valid_data["author-mail"]])
+        self.assertEqual(mail.outbox[0].to, [self.valid_data['author-mail']])
 
     def test_successful_submission_email_text(self):
         self.client.post(
@@ -120,11 +118,11 @@ class FeedbackIntegrationTests(TestCase):
             follow=True,
         )
 
-        self.assertIn(self.valid_data["content-text"], mail.outbox[0].body)
+        self.assertIn(self.valid_data['content-text'], mail.outbox[0].body)
 
     def test_invalid_submission_status_code_ok(self):
         invalid_data = self.valid_data.copy()
-        invalid_data["author-mail"] = "not-an-email"
+        invalid_data['author-mail'] = 'not-an-email'
         response = self.client.post(self.url, data=invalid_data)
 
         self.assertEqual(response.status_code, 200)
@@ -133,7 +131,7 @@ class FeedbackIntegrationTests(TestCase):
         initial_feedback_count = feedback.models.Feedback.objects.count()
 
         invalid_data = self.valid_data.copy()
-        invalid_data["author-mail"] = "not-an-email"
+        invalid_data['author-mail'] = 'not-an-email'
 
         self.client.post(self.url, data=invalid_data)
 
@@ -144,26 +142,26 @@ class FeedbackIntegrationTests(TestCase):
 
     def test_invalid_submission_form_errors(self):
         invalid_data = self.valid_data.copy()
-        invalid_data["author-mail"] = "not-an-email"
+        invalid_data['author-mail'] = 'not-an-email'
 
         response = self.client.post(self.url, data=invalid_data)
 
-        author_form = response.context.get("author_form")
+        author_form = response.context.get('author_form')
         self.assertTrue(author_form.errors)
-        self.assertIn("mail", author_form.errors)
+        self.assertIn('mail', author_form.errors)
 
     def _post_feedback_with_files(self, count=1):
         files_to_upload = [
             SimpleUploadedFile(
-                name=f"test_file_{i}.txt",
-                content=f"content_{i}".encode("utf-8"),
-                content_type="text/plain",
+                name=f'test_file_{i}.txt',
+                content=f'content_{i}'.encode('utf-8'),
+                content_type='text/plain',
             )
             for i in range(count)
         ]
 
         data = self.valid_data.copy()
-        data["files-files"] = files_to_upload
+        data['files-files'] = files_to_upload
 
         return self.client.post(self.url, data=data, follow=True)
 
@@ -181,9 +179,9 @@ class FeedbackIntegrationTests(TestCase):
         saved_file = feedback_obj.files.first()
 
         self.assertTrue(
-            saved_file.file.name.startswith("feedback/attachments/"),
+            saved_file.file.name.startswith('feedback/attachments/'),
         )
-        self.assertTrue(saved_file.file.name.endswith(".txt"))
+        self.assertTrue(saved_file.file.name.endswith('.txt'))
 
     def test_uploaded_file_content(self):
         self._post_feedback_with_files(count=1)
@@ -191,7 +189,7 @@ class FeedbackIntegrationTests(TestCase):
         feedback_obj = feedback.models.Feedback.objects.first()
         saved_file = feedback_obj.files.first()
 
-        with Path(saved_file.file.path).open("rb") as f:
-            content = f.read().decode("utf-8")
+        with Path(saved_file.file.path).open('rb') as f:
+            content = f.read().decode('utf-8')
 
-        self.assertEqual(content, "content_0")
+        self.assertEqual(content, 'content_0')

@@ -9,31 +9,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     replaces = [
-        ("users", "0004_alter_customuser_email"),
-        ("users", "0005_alter_customuser_avatar"),
+        ('users', '0004_alter_customuser_email'),
+        ('users', '0005_alter_customuser_avatar'),
     ]
 
     dependencies = [
-        ("users", "0003_groupproxy"),
+        ('users', '0003_groupproxy'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name="customuser",
-            name="email",
-            field=models.EmailField(
-                max_length=254, unique=True, verbose_name="email"
-            ),
+            model_name='customuser',
+            name='email',
+            field=models.EmailField(max_length=254, unique=True, verbose_name='email'),
         ),
         migrations.AlterField(
-            model_name="customuser",
-            name="avatar",
+            model_name='customuser',
+            name='avatar',
             field=sorl.thumbnail.fields.ImageField(
                 blank=True,
                 null=True,
                 upload_to=users.models.AvatarFieldMixin.avatar_path,
                 validators=[core.validators.FileSizeValidator(5242880)],
-                verbose_name="avatar",
+                verbose_name='avatar',
             ),
         ),
     ]

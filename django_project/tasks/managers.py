@@ -16,13 +16,13 @@ class TaskQuerySet(models.QuerySet):
         status_field_name = check_model.status.field.name
         task_qs = check_model.objects.filter(
             **{
-                task_field_name: models.OuterRef("id"),
+                task_field_name: models.OuterRef('id'),
                 status_field_name: check_model.Status.PUBLISHED,
             },
-        ).values("task")
+        ).values('task')
         avg_ai_score_qs = task_qs.annotate(
             avg_score=models.Avg(check_model.ai_score.field.name),
-        ).values("avg_score")
+        ).values('avg_score')
 
         return self.annotate(
             _avg_ai_score=models.Subquery(
@@ -59,7 +59,7 @@ class TaskQuerySet(models.QuerySet):
         checks_lookup_name = task_fk_field.related_query_name()
 
         status_field_name = check_model.status.field.name
-        status_path = f"{checks_lookup_name}__{status_field_name}"
+        status_path = f'{checks_lookup_name}__{status_field_name}'
         published_status = check_model.Status.PUBLISHED
 
         return self.annotate(
@@ -77,8 +77,7 @@ class TaskQuerySet(models.QuerySet):
         client_field_name = self.model.client.field.name
 
         return self.exclude(
-            models.Q(id__in=completed_tasks_qs)
-            | models.Q(**{client_field_name: user}),
+            models.Q(id__in=completed_tasks_qs) | models.Q(**{client_field_name: user}),
         )
 
 
@@ -102,7 +101,7 @@ class CheckQuerySet(models.QuerySet):
 
     def with_task_client(self, task_model):
         return self.select_related(
-            f"{self.model.task.field.name}__{task_model.client.field.name}",
+            f'{self.model.task.field.name}__{task_model.client.field.name}',
         )
 
     def published(self):
@@ -117,4 +116,4 @@ class TaskCheckManager(models.Manager.from_queryset(CheckQuerySet)):
         avg_queryset = self.published().aggregate(
             avg_score=models.Avg(ai_score_field_name),
         )
-        return avg_queryset["avg_score"]
+        return avg_queryset['avg_score']

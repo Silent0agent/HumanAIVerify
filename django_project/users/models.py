@@ -15,11 +15,11 @@ import users.managers
 
 class AvatarFieldMixin(models.Model):
     def avatar_path(self, filename):
-        extension = filename.split(".")[-1]
-        return f"users/avatars/{uuid.uuid4()}.{extension}"
+        extension = filename.split('.')[-1]
+        return f'users/avatars/{uuid.uuid4()}.{extension}'
 
     avatar = sorl.thumbnail.ImageField(
-        verbose_name=_("avatar"),
+        verbose_name=_('avatar'),
         upload_to=avatar_path,
         blank=True,
         null=True,
@@ -32,8 +32,8 @@ class AvatarFieldMixin(models.Model):
     def get_avatar_x50(self):
         return sorl.thumbnail.get_thumbnail(
             self.avatar,
-            "50x50",
-            crop="center",
+            '50x50',
+            crop='center',
             upscale=True,
             quality=99,
         )
@@ -41,50 +41,50 @@ class AvatarFieldMixin(models.Model):
     def avatar_tmb(self):
         if self.avatar:
             return mark_safe(
-                f"<img src='{self.get_avatar_x50().url}' "
-                f"width='50' height='50'/>",
+                f'<img src=\'{self.get_avatar_x50().url}\' '
+                'width=\'50\' height=\'50\'/>',
             )
 
-        return _("No_avatar")
+        return _('No_avatar')
 
-    avatar_tmb.short_description = _("avatar_preview")
+    avatar_tmb.short_description = _('avatar_preview')
 
 
 class CustomUser(AvatarFieldMixin, AbstractUser):
     class Role(models.TextChoices):
-        CUSTOMER = "customer", _("customer")
-        PERFORMER = "performer", _("performer")
+        CUSTOMER = 'customer', _('customer')
+        PERFORMER = 'performer', _('performer')
 
     email = models.EmailField(
-        _("email"),
+        _('email'),
         unique=True,
     )
 
     role = models.CharField(
-        verbose_name=_("role"),
+        verbose_name=_('role'),
         max_length=9,
         default=Role.CUSTOMER,
         choices=Role.choices,
     )
 
     login_attempts_count = models.PositiveIntegerField(
-        verbose_name=_("login_attempts_count"),
+        verbose_name=_('login_attempts_count'),
         default=0,
     )
     block_timestamp = models.DateTimeField(
-        verbose_name=_("blocking_timestamp"),
+        verbose_name=_('blocking_timestamp'),
         null=True,
     )
     last_login_attempt_timestamp = models.DateTimeField(
-        verbose_name=_("last_login_attempt_timestamp"),
+        verbose_name=_('last_login_attempt_timestamp'),
         null=True,
     )
 
     objects = users.managers.CustomUserManager()
 
     class Meta:
-        verbose_name = _("user")
-        verbose_name_plural = _("users")
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
 
     def __str__(self):
         return self.email
@@ -94,7 +94,7 @@ class CustomUser(AvatarFieldMixin, AbstractUser):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("users:user-detail", kwargs={"pk": self.pk})
+        return reverse('users:user-detail', kwargs={'pk': self.pk})
 
     def clean(self):
         super().clean()

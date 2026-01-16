@@ -15,50 +15,50 @@ from tasks.models.base import BaseTask, BaseTaskCheck
 
 class AudioTask(BaseTask):
     def audio_path(self, filename):
-        extension = filename.split(".")[-1]
-        return f"tasks/audio_tasks/{uuid.uuid4()}.{extension}"
+        extension = filename.split('.')[-1]
+        return f'tasks/audio_tasks/{uuid.uuid4()}.{extension}'
 
-    client = tasks.fields.make_task_client_field("audio")
+    client = tasks.fields.make_task_client_field('audio')
     audio = models.FileField(
-        verbose_name=_("audio_file"),
+        verbose_name=_('audio_file'),
         upload_to=audio_path,
         validators=[
-            FileExtensionValidator(["mp3", "wav"]),
+            FileExtensionValidator(['mp3', 'wav']),
             core.validators.FileSizeValidator(50 * 1024 * 1024),
         ],
     )
 
     class Meta(BaseTask.Meta):
-        verbose_name = _("audio_task")
-        verbose_name_plural = _("audio_tasks")
+        verbose_name = _('audio_task')
+        verbose_name_plural = _('audio_tasks')
 
     def get_absolute_url(self):
-        return reverse("tasks:audio-task-detail", kwargs={"task_id": self.pk})
+        return reverse('tasks:audio-task-detail', kwargs={'task_id': self.pk})
 
     def audio_player(self):
         if self.audio:
             return mark_safe(
-                f'<audio controls style="width: 250px; height: 40px;">'
-                f'<source src="{self.audio.url}" type="audio/mpeg">'
+                '<audio controls style=\"width: 250px; height: 40px;\">'
+                f'<source src=\"{self.audio.url}\" type=\"audio/mpeg\">'
                 f'{_("Audio_not_supported_browser")}'
-                f"</audio>",
+                '</audio>',
             )
 
-        return _("No_audio")
+        return _('No_audio')
 
-    audio_player.short_description = _("audio_preview")
+    audio_player.short_description = _('audio_preview')
 
 
 class AudioTaskCheck(BaseTaskCheck):
     task = tasks.fields.make_check_task_field(AudioTask)
-    performer = tasks.fields.make_check_performer_field("audio")
+    performer = tasks.fields.make_check_performer_field('audio')
 
     class Meta(BaseTaskCheck.Meta):
-        verbose_name = _("audio_task_check")
-        verbose_name_plural = _("audio_task_checks")
+        verbose_name = _('audio_task_check')
+        verbose_name_plural = _('audio_task_checks')
 
     def get_absolute_url(self):
         return reverse(
-            "tasks:audio-check-detail",
-            kwargs={"check_id": self.pk},
+            'tasks:audio-check-detail',
+            kwargs={'check_id': self.pk},
         )

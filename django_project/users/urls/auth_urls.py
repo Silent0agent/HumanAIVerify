@@ -6,60 +6,60 @@ from django.urls import path
 import users.views
 
 
-app_name = "auth"
+app_name = 'auth'
 
 urlpatterns = [
     path(
-        "login/",
+        'login/',
         users.views.LoginView.as_view(),
-        name="login",
+        name='login',
     ),
     path(
-        "logout/",
+        'logout/',
         users.views.LogoutView.as_view(),
-        name="logout",
+        name='logout',
     ),
     path(
-        "signup/",
+        'signup/',
         users.views.SignUpView.as_view(),
-        name="signup",
+        name='signup',
     ),
     path(
-        "activate/<signed_username>/",
+        'activate/<signed_username>/',
         users.views.SignedUserActionView.as_view(
             max_age=3600 * 12,
             reset_security_data=False,
         ),
-        name="activate",
+        name='activate',
     ),
     path(
-        "unlock-account/<signed_username>/",
+        'unlock-account/<signed_username>/',
         users.views.SignedUserActionView.as_view(
             max_age=3600 * 7,
             reset_security_data=True,
         ),
-        name="unlock-account",
+        name='unlock-account',
     ),
     path(
-        "change-password/",
+        'change-password/',
         users.views.PasswordChangeView.as_view(),
-        name="change-password",
+        name='change-password',
     ),
     path(
-        "reset-password/",
+        'reset-password/',
         users.views.PasswordResetView.as_view(),
-        name="reset-password",
+        name='reset-password',
     ),
     path(
-        "reset-password/done/",
+        'reset-password/done/',
         django_views.PasswordResetDoneView.as_view(
-            template_name="users/password_reset_done.html",
+            template_name='users/password_reset_done.html',
         ),
-        name="password-reset-done",
+        name='password-reset-done',
     ),
     path(
-        "reset-password/confirm/<uidb64>/<token>/",
+        'reset-password/confirm/<uidb64>/<token>/',
         users.views.PasswordResetConfirmView.as_view(),
-        name="password-reset-confirm",
+        name='password-reset-confirm',
     ),
 ]

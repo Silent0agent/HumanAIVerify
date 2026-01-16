@@ -10,8 +10,8 @@ import homepage.views
 
 class HomepageRoutesTest(SimpleTestCase):
     def test_index(self):
-        url = reverse("homepage:index")
-        self.assertEqual(url, "/")
+        url = reverse('homepage:index')
+        self.assertEqual(url, '/')
 
         resolver = resolve(url)
         self.assertEqual(resolver.func.view_class, homepage.views.IndexView)
@@ -21,7 +21,7 @@ class HomepageViewsTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.index_url = reverse("homepage:index")
+        cls.index_url = reverse('homepage:index')
 
     def test_index_status_code_ok(self):
         response = self.client.get(self.index_url)
@@ -29,4 +29,4 @@ class HomepageViewsTests(TestCase):
 
     def test_index_template(self):
         self.client.get(self.index_url)
-        self.assertTemplateUsed("homepage/index.html")
+        self.assertTemplateUsed('homepage/index.html')

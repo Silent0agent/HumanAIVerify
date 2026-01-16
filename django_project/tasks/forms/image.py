@@ -15,15 +15,15 @@ class ImageTaskForm(BaseTaskForm):
         widgets = {
             model.image.field.name: forms.FileInput(
                 attrs={
-                    "class": "form-control",
-                    "accept": "image/*",
+                    'class': 'form-control',
+                    'accept': 'image/*',
                 },
             ),
         }
 
         labels = {
             **BaseTaskForm.Meta.labels,
-            model.image.field.name: _("Image"),
+            model.image.field.name: _('Image'),
         }
 
 

@@ -13,11 +13,11 @@ import feedback.models
 
 
 class FeedbackView(TemplateView):
-    template_name = "feedback/feedback.html"
-    success_url = reverse_lazy("feedback:feedback")
+    template_name = 'feedback/feedback.html'
+    success_url = reverse_lazy('feedback:feedback')
 
     def get_forms_dict(self):
-        if self.request.method == "POST":
+        if self.request.method == 'POST':
             data = self.request.POST
             files = self.request.FILES
         else:
@@ -25,18 +25,18 @@ class FeedbackView(TemplateView):
             files = None
 
         return {
-            "author_form": feedback.forms.FeedbackUserProfileForm(
+            'author_form': feedback.forms.FeedbackUserProfileForm(
                 data,
-                prefix="author",
+                prefix='author',
             ),
-            "content_form": feedback.forms.FeedbackForm(
+            'content_form': feedback.forms.FeedbackForm(
                 data,
-                prefix="content",
+                prefix='content',
             ),
-            "files_form": feedback.forms.FeedbackFileForm(
+            'files_form': feedback.forms.FeedbackFileForm(
                 data,
                 files,
-                prefix="files",
+                prefix='files',
             ),
         }
 
@@ -48,19 +48,19 @@ class FeedbackView(TemplateView):
     def post(self, request, *args, **kwargs):
         forms = self.get_forms_dict()
 
-        author_form = forms["author_form"]
-        content_form = forms["content_form"]
-        files_form = forms["files_form"]
+        author_form = forms['author_form']
+        content_form = forms['content_form']
+        files_form = forms['files_form']
 
         if all(form.is_valid() for form in forms.values()):
-            mail = author_form.cleaned_data["mail"]
-            name = author_form.cleaned_data["name"]
-            text = content_form.cleaned_data["text"]
+            mail = author_form.cleaned_data['mail']
+            name = author_form.cleaned_data['name']
+            text = content_form.cleaned_data['text']
 
             author_profile, created = (
                 feedback.models.FeedbackUserProfile.objects.update_or_create(
                     mail=mail,
-                    defaults={"name": name},
+                    defaults={'name': name},
                 )
             )
 
@@ -71,22 +71,22 @@ class FeedbackView(TemplateView):
             files_form.save(feedback_instance=feedback_item)
 
             send_mail(
-                _("Feedback_mail_head"),
+                _('Feedback_mail_head'),
                 text,
-                settings.DEFAULT_FROM_EMAIL,
+                settings.EMAIL_FROM_DEFAULT,
                 [mail],
                 fail_silently=False,
             )
 
-            messages.success(request, _("Success_feedback_form"))
+            messages.success(request, _('Success_feedback_form'))
             return redirect(self.success_url)
 
         return render(
             request,
             self.template_name,
             {
-                "author_form": author_form,
-                "content_form": content_form,
-                "files_form": files_form,
+                'author_form': author_form,
+                'content_form': content_form,
+                'files_form': files_form,
             },
         )

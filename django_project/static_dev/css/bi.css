@@ -1,6 +1,6 @@
 @font-face {
-    font-family: "Bootstrap Icons";
-    src: url("../fonts/bootstrap-icons-1.13.1/fonts/bootstrap-icons.woff2") format("woff2");
+    font-family: 'Bootstrap Icons';
+    src: url('../fonts/bootstrap-icons-1.13.1/fonts/bootstrap-icons.woff2') format('woff2');
 }
 
 .bi {
@@ -9,89 +9,89 @@
 }
 
 .bi-calendar::before {
-    content: "\F1F6";
+    content: '\F1F6';
 }
 
 .bi-eye-slash::before {
-    content: "\F340";
+    content: '\F340';
 }
 
 .bi-eye::before {
-    content: "\F341";
+    content: '\F341';
 }
 
 .bi-cpu::before {
-    content: "\F2D6";
+    content: '\F2D6';
 }
 
 .bi-hourglass::before {
-    content: "\F421";
+    content: '\F421';
 }
 
 .bi-people::before {
-    content: "\F4D0";
+    content: '\F4D0';
 }
 
 .bi-inbox::before {
-    content: "\F42D";
+    content: '\F42D';
 }
 
 .bi-arrow-left::before {
-    content: "\F12F";
+    content: '\F12F';
 }
 
 .bi-calendar3::before {
-    content: "\F214";
+    content: '\F214';
 }
 
 .bi-clipboard::before {
-    content: "\F290";
+    content: '\F290';
 }
 
 .bi-clipboard-x::before {
-    content: "\F28F";
+    content: '\F28F';
 }
 
 .bi-clipboard-check::before {
-    content: "\F28B";
+    content: '\F28B';
 }
 
 .bi-clipboard-plus::before {
-    content: "\F28E";
+    content: '\F28E';
 }
 
 .bi-clipboard2::before {
-    content: "\F733";
+    content: '\F733';
 }
 
 .bi-calendar-event::before {
-    content: "\F1E8";
+    content: '\F1E8';
 }
 
 .bi-calendar-check::before {
-    content: "\F1E2";
+    content: '\F1E2';
 }
 
 .bi-file-earmark-text::before {
-    content: "\F38B";
+    content: '\F38B';
 }
 
 .bi-info-circle::before {
-    content: "\F431";
+    content: '\F431';
 }
 
 .bi-check-circle-fill::before {
-    content: "\F26A";
+    content: '\F26A';
 }
 
 .bi-exclamation-circle-fill::before {
-    content: "\F332";
+    content: '\F332';
 }
 
 .bi-x-circle-fill::before {
-    content: "\F622";
+    content: '\F622';
 }
 
 .bi-check2-circle::before {
-    content: "\F270";
+    content: '\F270';
 }

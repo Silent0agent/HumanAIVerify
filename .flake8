@@ -1,5 +1,5 @@
 [flake8]
-inline-quotes = "
+max-line-length = 88
 application-import-names = about, core, feedback, homepage, tasks, training, users
 import-order-style = google
 exclude =

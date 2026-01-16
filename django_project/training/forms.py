@@ -12,17 +12,17 @@ class TrainingTextForm(forms.ModelForm):
         fields = (training.models.TrainingText.is_ai_generated.field.name,)
 
     def __init__(self, *args, **kwargs):
-        self.training_text = kwargs.pop("training_text", None)
+        self.training_text = kwargs.pop('training_text', None)
         super().__init__(*args, **kwargs)
 
-        self.fields[
-            training.models.TrainingText.is_ai_generated.field.name
-        ] = forms.TypedChoiceField(
-            choices=[
-                (True, _("AI_generated")),
-                (False, _("Human_written")),
-            ],
-            coerce=lambda x: str(x).lower() == "true",
-            widget=forms.RadioSelect,
-            label=_("Is_the_text_AI_generated_question"),
+        self.fields[training.models.TrainingText.is_ai_generated.field.name] = (
+            forms.TypedChoiceField(
+                choices=[
+                    (True, _('AI_generated')),
+                    (False, _('Human_written')),
+                ],
+                coerce=lambda x: str(x).lower() == 'true',
+                widget=forms.RadioSelect,
+                label=_('Is_the_text_AI_generated_question'),
+            )
         )

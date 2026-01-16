@@ -12,8 +12,8 @@ class FieldPaths:
     mail_field = feedback.models.FeedbackUserProfile.mail.field.name
     name_field = feedback.models.FeedbackUserProfile.name.field.name
 
-    FEEDBACK_AUTHOR_MAIL = f"{author_field}__{mail_field}"
-    FEEDBACK_AUTHOR_NAME = f"{author_field}__{name_field}"
+    FEEDBACK_AUTHOR_MAIL = f'{author_field}__{mail_field}'
+    FEEDBACK_AUTHOR_NAME = f'{author_field}__{name_field}'
 
 
 class FilesInline(admin.TabularInline):
@@ -39,7 +39,7 @@ class FeedbackInline(admin.TabularInline):
         self.fields = (created_at, status, str_method)
         self.readonly_fields = (created_at, str_method)
 
-    @admin.display(description=_("Text"))
+    @admin.display(description=_('Text'))
     def get_feedback_str(self, obj):
         return str(obj)
 
@@ -118,9 +118,7 @@ class StatusLogAdmin(admin.ModelAdmin):
         feedback.models.StatusLog.status_from.field.name,
         feedback.models.StatusLog.status_to.field.name,
     )
-    readonly_fields = [
-        field.name for field in feedback.models.StatusLog._meta.fields
-    ]
+    readonly_fields = [field.name for field in feedback.models.StatusLog._meta.fields]
 
     def get_queryset(self, request):
         return (

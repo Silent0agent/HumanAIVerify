@@ -12,156 +12,148 @@ class Migration(migrations.Migration):
 
     dependencies = [
         (
-            "tasks",
-            "0006_alter_texttaskcheck_options_and_more_squashed_0008_merge_20251212_2156",
+            'tasks',
+            '0006_alter_texttaskcheck_options_and_more_squashed_0008_merge_20251212_2156',
         ),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name="AudioTask",
+            name='AudioTask',
             fields=[
                 (
-                    "id",
+                    'id',
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name="ID",
+                        verbose_name='ID',
                     ),
                 ),
                 (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="created_at"
-                    ),
+                    'created_at',
+                    models.DateTimeField(auto_now_add=True, verbose_name='created_at'),
                 ),
                 (
-                    "updated_at",
-                    models.DateTimeField(
-                        auto_now=True, verbose_name="updated_at"
-                    ),
+                    'updated_at',
+                    models.DateTimeField(auto_now=True, verbose_name='updated_at'),
                 ),
                 (
-                    "title",
-                    models.CharField(max_length=255, verbose_name="title"),
+                    'title',
+                    models.CharField(max_length=255, verbose_name='title'),
                 ),
                 (
-                    "description",
-                    models.TextField(blank=True, verbose_name="description"),
+                    'description',
+                    models.TextField(blank=True, verbose_name='description'),
                 ),
                 (
-                    "audio",
+                    'audio',
                     models.FileField(
                         upload_to=tasks.models.audio.AudioTask.audio_path,
                         validators=[
                             django.core.validators.FileExtensionValidator(
-                                ["mp3", "wav"]
+                                ['mp3', 'wav']
                             ),
                             core.validators.FileSizeValidator(52428800),
                         ],
-                        verbose_name="audio_file",
+                        verbose_name='audio_file',
                     ),
                 ),
                 (
-                    "client",
+                    'client',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.PROTECT,
-                        related_name="audio_tasks",
-                        related_query_name="audio_task",
+                        related_name='audio_tasks',
+                        related_query_name='audio_task',
                         to=settings.AUTH_USER_MODEL,
-                        verbose_name="client",
+                        verbose_name='client',
                     ),
                 ),
             ],
             options={
-                "verbose_name": "audio_task",
-                "verbose_name_plural": "audio_tasks",
-                "ordering": ["-created_at"],
-                "abstract": False,
+                'verbose_name': 'audio_task',
+                'verbose_name_plural': 'audio_tasks',
+                'ordering': ['-created_at'],
+                'abstract': False,
             },
         ),
         migrations.CreateModel(
-            name="AudioTaskCheck",
+            name='AudioTaskCheck',
             fields=[
                 (
-                    "id",
+                    'id',
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name="ID",
+                        verbose_name='ID',
                     ),
                 ),
                 (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="created_at"
-                    ),
+                    'created_at',
+                    models.DateTimeField(auto_now_add=True, verbose_name='created_at'),
                 ),
                 (
-                    "updated_at",
-                    models.DateTimeField(
-                        auto_now=True, verbose_name="updated_at"
-                    ),
+                    'updated_at',
+                    models.DateTimeField(auto_now=True, verbose_name='updated_at'),
                 ),
                 (
-                    "ai_score",
+                    'ai_score',
                     models.FloatField(
                         validators=[
                             django.core.validators.MinValueValidator(0.0),
                             django.core.validators.MaxValueValidator(100.0),
                         ],
-                        verbose_name="ai_score",
+                        verbose_name='ai_score',
                     ),
                 ),
                 (
-                    "comment",
-                    models.TextField(blank=True, verbose_name="comment"),
+                    'comment',
+                    models.TextField(blank=True, verbose_name='comment'),
                 ),
                 (
-                    "status",
+                    'status',
                     models.CharField(
                         choices=[
-                            ("draft", "draft"),
-                            ("published", "published"),
+                            ('draft', 'draft'),
+                            ('published', 'published'),
                         ],
-                        default="draft",
+                        default='draft',
                         max_length=15,
-                        verbose_name="status",
+                        verbose_name='status',
                     ),
                 ),
                 (
-                    "performer",
+                    'performer',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.PROTECT,
-                        related_name="audio_task_checks",
-                        related_query_name="audio_task_check",
+                        related_name='audio_task_checks',
+                        related_query_name='audio_task_check',
                         to=settings.AUTH_USER_MODEL,
-                        verbose_name="performer",
+                        verbose_name='performer',
                     ),
                 ),
                 (
-                    "task",
+                    'task',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="checks",
-                        related_query_name="check",
-                        to="tasks.audiotask",
-                        verbose_name="task",
+                        related_name='checks',
+                        related_query_name='check',
+                        to='tasks.audiotask',
+                        verbose_name='task',
                     ),
                 ),
             ],
             options={
-                "verbose_name": "audio_task_check",
-                "verbose_name_plural": "audio_task_checks",
-                "ordering": ["-created_at"],
-                "abstract": False,
-                "constraints": [
+                'verbose_name': 'audio_task_check',
+                'verbose_name_plural': 'audio_task_checks',
+                'ordering': ['-created_at'],
+                'abstract': False,
+                'constraints': [
                     models.UniqueConstraint(
-                        fields=("task", "performer"),
-                        name="unique_audiotaskcheck_performer",
+                        fields=('task', 'performer'),
+                        name='unique_audiotaskcheck_performer',
                     )
                 ],
             },

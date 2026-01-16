@@ -10,8 +10,8 @@ import about.views
 
 class AboutRoutesTest(SimpleTestCase):
     def test_about(self):
-        url = reverse("about:about")
-        self.assertEqual(url, "/about/")
+        url = reverse('about:about')
+        self.assertEqual(url, '/about/')
 
         resolver = resolve(url)
         self.assertEqual(resolver.func.view_class, about.views.AboutView)
@@ -21,7 +21,7 @@ class AboutViewsTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.about_url = reverse("about:about")
+        cls.about_url = reverse('about:about')
 
     def test_about_status_code_ok(self):
         response = self.client.get(self.about_url)
@@ -29,4 +29,4 @@ class AboutViewsTests(TestCase):
 
     def test_about_template(self):
         self.client.get(self.about_url)
-        self.assertTemplateUsed("about/about.html")
+        self.assertTemplateUsed('about/about.html')

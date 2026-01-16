@@ -8,20 +8,20 @@ class Migration(migrations.Migration):
 
     dependencies = [
         (
-            "tasks",
-            "0002_alter_texttask_options_alter_texttask_client_and_more_squashed_0004_taskcheck_status_taskcheck_updated_at",
+            'tasks',
+            '0002_alter_texttask_options_alter_texttask_client_and_more_squashed_0004_taskcheck_status_taskcheck_updated_at',
         ),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name="TaskCheck",
-            new_name="TextTaskCheck",
+            old_name='TaskCheck',
+            new_name='TextTaskCheck',
         ),
         migrations.AddField(
-            model_name="texttask",
-            name="description",
-            field=models.TextField(blank=True, verbose_name="description"),
+            model_name='texttask',
+            name='description',
+            field=models.TextField(blank=True, verbose_name='description'),
         ),
     ]

@@ -16,198 +16,196 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Feedback",
+            name='Feedback',
             fields=[
                 (
-                    "id",
+                    'id',
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name="ID",
+                        verbose_name='ID',
                     ),
                 ),
                 (
-                    "text",
+                    'text',
                     models.TextField(
-                        help_text="feedback_text_help_text",
-                        verbose_name="feedback_text",
+                        help_text='feedback_text_help_text',
+                        verbose_name='feedback_text',
                     ),
                 ),
                 (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="created_at"
-                    ),
+                    'created_at',
+                    models.DateTimeField(auto_now_add=True, verbose_name='created_at'),
                 ),
                 (
-                    "status",
+                    'status',
                     models.CharField(
                         choices=[
-                            ("received", "received"),
-                            ("pending", "pending"),
-                            ("answered", "answered"),
+                            ('received', 'received'),
+                            ('pending', 'pending'),
+                            ('answered', 'answered'),
                         ],
-                        default="received",
-                        help_text="status_help_text",
+                        default='received',
+                        help_text='status_help_text',
                         max_length=11,
-                        verbose_name="feedback_status",
+                        verbose_name='feedback_status',
                     ),
                 ),
             ],
             options={
-                "verbose_name": "feedback",
-                "verbose_name_plural": "feedback_plural",
+                'verbose_name': 'feedback',
+                'verbose_name_plural': 'feedback_plural',
             },
         ),
         migrations.CreateModel(
-            name="FeedbackUserProfile",
+            name='FeedbackUserProfile',
             fields=[
                 (
-                    "id",
+                    'id',
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name="ID",
+                        verbose_name='ID',
                     ),
                 ),
                 (
-                    "name",
+                    'name',
                     models.CharField(
                         blank=True,
-                        help_text="max_symbols_help_text",
+                        help_text='max_symbols_help_text',
                         max_length=150,
                         null=True,
-                        verbose_name="name",
+                        verbose_name='name',
                     ),
                 ),
                 (
-                    "mail",
+                    'mail',
                     models.EmailField(
-                        help_text="email_help_text",
+                        help_text='email_help_text',
                         max_length=254,
-                        verbose_name="email",
+                        verbose_name='email',
                     ),
                 ),
             ],
             options={
-                "verbose_name": "sender_contact_data",
-                "verbose_name_plural": "sender_contact_data_plural",
+                'verbose_name': 'sender_contact_data',
+                'verbose_name_plural': 'sender_contact_data_plural',
             },
         ),
         migrations.CreateModel(
-            name="FeedbackFile",
+            name='FeedbackFile',
             fields=[
                 (
-                    "id",
+                    'id',
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name="ID",
+                        verbose_name='ID',
                     ),
                 ),
                 (
-                    "file",
+                    'file',
                     models.FileField(
                         blank=True,
                         null=True,
                         upload_to=feedback.models.FeedbackFile.file_path,
-                        verbose_name="feedback_file",
+                        verbose_name='feedback_file',
                     ),
                 ),
                 (
-                    "feedback",
+                    'feedback',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="files",
-                        to="feedback.feedback",
-                        verbose_name="feedback",
+                        related_name='files',
+                        to='feedback.feedback',
+                        verbose_name='feedback',
                     ),
                 ),
             ],
             options={
-                "verbose_name": "feedback_file",
-                "verbose_name_plural": "feedback_file_plural",
+                'verbose_name': 'feedback_file',
+                'verbose_name_plural': 'feedback_file_plural',
             },
         ),
         migrations.AddField(
-            model_name="feedback",
-            name="author",
+            model_name='feedback',
+            name='author',
             field=models.ForeignKey(
                 blank=True,
                 null=True,
                 on_delete=django.db.models.deletion.SET_NULL,
-                related_name="feedbacks",
-                to="feedback.feedbackuserprofile",
-                verbose_name="author",
+                related_name='feedbacks',
+                to='feedback.feedbackuserprofile',
+                verbose_name='author',
             ),
         ),
         migrations.CreateModel(
-            name="StatusLog",
+            name='StatusLog',
             fields=[
                 (
-                    "id",
+                    'id',
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name="ID",
+                        verbose_name='ID',
                     ),
                 ),
                 (
-                    "timestamp",
-                    models.TimeField(auto_now_add=True, verbose_name="time"),
+                    'timestamp',
+                    models.TimeField(auto_now_add=True, verbose_name='time'),
                 ),
                 (
-                    "status_from",
+                    'status_from',
                     models.CharField(
                         choices=[
-                            ("received", "received"),
-                            ("pending", "pending"),
-                            ("answered", "answered"),
+                            ('received', 'received'),
+                            ('pending', 'pending'),
+                            ('answered', 'answered'),
                         ],
-                        db_column="from",
+                        db_column='from',
                         max_length=11,
-                        verbose_name="status_from",
+                        verbose_name='status_from',
                     ),
                 ),
                 (
-                    "status_to",
+                    'status_to',
                     models.CharField(
                         choices=[
-                            ("received", "received"),
-                            ("pending", "pending"),
-                            ("answered", "answered"),
+                            ('received', 'received'),
+                            ('pending', 'pending'),
+                            ('answered', 'answered'),
                         ],
-                        db_column="to",
+                        db_column='to',
                         max_length=11,
-                        verbose_name="status_to",
+                        verbose_name='status_to',
                     ),
                 ),
                 (
-                    "feedback",
+                    'feedback',
                     models.ForeignKey(
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
-                        to="feedback.feedback",
-                        verbose_name="feedback",
+                        to='feedback.feedback',
+                        verbose_name='feedback',
                     ),
                 ),
                 (
-                    "user",
+                    'user',
                     models.ForeignKey(
                         null=True,
                         on_delete=django.db.models.deletion.SET_NULL,
                         to=settings.AUTH_USER_MODEL,
-                        verbose_name="user",
+                        verbose_name='user',
                     ),
                 ),
             ],
             options={
-                "verbose_name": "status_log",
-                "verbose_name_plural": "status_log_plural",
+                'verbose_name': 'status_log',
+                'verbose_name_plural': 'status_log_plural',
             },
         ),
     ]

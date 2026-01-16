@@ -21,7 +21,7 @@ class SignUpForm(
             normalized_email = User.objects.normalize_email(email)
             if User.objects.filter(email=normalized_email).exists():
                 raise ValidationError(
-                    _("Error_user_with_email_already_exists"),
+                    _('Error_user_with_email_already_exists'),
                 )
 
         return email
@@ -31,8 +31,8 @@ class SignUpForm(
         fields = [
             User.email.field.name,
             User.username.field.name,
-            "password1",
-            "password2",
+            'password1',
+            'password2',
         ]
 
 
@@ -42,7 +42,7 @@ class LoginForm(
 ):
     remember_me = forms.BooleanField(required=False)
     username = forms.CharField(
-        label=_("username_or_email_label"),
+        label=_('username_or_email_label'),
         max_length=254,
     )
 

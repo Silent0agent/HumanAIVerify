@@ -6,11 +6,11 @@ from django.utils.translation import gettext_lazy as _
 
 class TimeStampedModel(models.Model):
     created_at = models.DateTimeField(
-        verbose_name=_("created_at"),
+        verbose_name=_('created_at'),
         auto_now_add=True,
     )
     updated_at = models.DateTimeField(
-        verbose_name=_("updated_at"),
+        verbose_name=_('updated_at'),
         auto_now=True,
     )
 

@@ -10,131 +10,123 @@ class Migration(migrations.Migration):
 
     replaces = [
         (
-            "tasks",
-            "0002_alter_texttask_options_alter_texttask_client_and_more",
+            'tasks',
+            '0002_alter_texttask_options_alter_texttask_client_and_more',
         ),
-        ("tasks", "0003_taskcheck"),
-        ("tasks", "0004_taskcheck_status_taskcheck_updated_at"),
+        ('tasks', '0003_taskcheck'),
+        ('tasks', '0004_taskcheck_status_taskcheck_updated_at'),
     ]
 
     dependencies = [
-        ("tasks", "0001_initial"),
+        ('tasks', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name="texttask",
+            name='texttask',
             options={
-                "ordering": ["-created_at"],
-                "verbose_name": "text_task",
-                "verbose_name_plural": "text_tasks",
+                'ordering': ['-created_at'],
+                'verbose_name': 'text_task',
+                'verbose_name_plural': 'text_tasks',
             },
         ),
         migrations.AlterField(
-            model_name="texttask",
-            name="client",
+            model_name='texttask',
+            name='client',
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.PROTECT,
-                related_name="text_tasks",
-                related_query_name="text_task",
+                related_name='text_tasks',
+                related_query_name='text_task',
                 to=settings.AUTH_USER_MODEL,
-                verbose_name="client",
+                verbose_name='client',
             ),
         ),
         migrations.AlterField(
-            model_name="texttask",
-            name="created_at",
-            field=models.DateTimeField(
-                auto_now_add=True, verbose_name="created_at"
-            ),
+            model_name='texttask',
+            name='created_at',
+            field=models.DateTimeField(auto_now_add=True, verbose_name='created_at'),
         ),
         migrations.AlterField(
-            model_name="texttask",
-            name="updated_at",
-            field=models.DateTimeField(
-                auto_now=True, verbose_name="updated_at"
-            ),
+            model_name='texttask',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, verbose_name='updated_at'),
         ),
         migrations.CreateModel(
-            name="TaskCheck",
+            name='TaskCheck',
             fields=[
                 (
-                    "id",
+                    'id',
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name="ID",
+                        verbose_name='ID',
                     ),
                 ),
                 (
-                    "ai_score",
+                    'ai_score',
                     models.FloatField(
                         validators=[
                             django.core.validators.MinValueValidator(0.0),
                             django.core.validators.MaxValueValidator(100.0),
                         ],
-                        verbose_name="ai_score",
+                        verbose_name='ai_score',
                     ),
                 ),
                 (
-                    "comment",
-                    models.TextField(blank=True, verbose_name="comment"),
+                    'comment',
+                    models.TextField(blank=True, verbose_name='comment'),
                 ),
                 (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="created_at"
-                    ),
+                    'created_at',
+                    models.DateTimeField(auto_now_add=True, verbose_name='created_at'),
                 ),
                 (
-                    "performer",
+                    'performer',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.PROTECT,
-                        related_name="task_checks",
-                        related_query_name="task_check",
+                        related_name='task_checks',
+                        related_query_name='task_check',
                         to=settings.AUTH_USER_MODEL,
-                        verbose_name="performer",
+                        verbose_name='performer',
                     ),
                 ),
                 (
-                    "task",
+                    'task',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="checks",
-                        related_query_name="check",
-                        to="tasks.texttask",
-                        verbose_name="task",
+                        related_name='checks',
+                        related_query_name='check',
+                        to='tasks.texttask',
+                        verbose_name='task',
                     ),
                 ),
                 (
-                    "status",
+                    'status',
                     models.CharField(
                         choices=[
-                            ("draft", "draft"),
-                            ("published", "published"),
+                            ('draft', 'draft'),
+                            ('published', 'published'),
                         ],
-                        default="draft",
+                        default='draft',
                         max_length=15,
-                        verbose_name="status",
+                        verbose_name='status',
                     ),
                 ),
                 (
-                    "updated_at",
-                    models.DateTimeField(
-                        auto_now=True, verbose_name="updated_at"
-                    ),
+                    'updated_at',
+                    models.DateTimeField(auto_now=True, verbose_name='updated_at'),
                 ),
             ],
             options={
-                "verbose_name": "task_check",
-                "verbose_name_plural": "task_checks",
-                "ordering": ["-created_at"],
-                "constraints": [
+                'verbose_name': 'task_check',
+                'verbose_name_plural': 'task_checks',
+                'ordering': ['-created_at'],
+                'constraints': [
                     models.UniqueConstraint(
-                        fields=("task", "performer"),
-                        name="unique_task_performer",
+                        fields=('task', 'performer'),
+                        name='unique_task_performer',
                     )
                 ],
             },

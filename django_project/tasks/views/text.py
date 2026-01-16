@@ -16,7 +16,7 @@ from tasks.views.base import (
 class MyTextTasksListView(BaseMyTasksListView):
     model = tasks.models.TextTask
     check_model = tasks.models.TextTaskCheck
-    template_name = "tasks/text/my_tasks.html"
+    template_name = 'tasks/text/my_tasks.html'
 
 
 class TextTaskCreateView(BaseTaskCreateView):
@@ -27,20 +27,20 @@ class TextTaskCreateView(BaseTaskCreateView):
 class TextTaskDetailView(BaseTaskDetailView):
     model = tasks.models.TextTask
     check_model = tasks.models.TextTaskCheck
-    template_name = "tasks/text/task_detail.html"
+    template_name = 'tasks/text/task_detail.html'
 
 
 class MyTextChecksListView(BaseMyChecksListView):
     model = tasks.models.TextTaskCheck
     task_model = tasks.models.TextTask
-    template_name = "tasks/text/my_checks.html"
+    template_name = 'tasks/text/my_checks.html'
 
 
 class TextTaskCheckPerformView(BaseTaskCheckPerformView):
     task_model = tasks.models.TextTask
     check_model = tasks.models.TextTaskCheck
     form_class = tasks.forms.TextTaskCheckForm
-    template_name = "tasks/text/check_perform.html"
+    template_name = 'tasks/text/check_perform.html'
 
     def get(self, request, *args, **kwargs):
         initial_content = self.task.content
@@ -50,15 +50,15 @@ class TextTaskCheckPerformView(BaseTaskCheckPerformView):
         return super().get(
             request,
             form_attrs={
-                "initial": {
-                    "highlighted_content": initial_content,
-                    "content": self.task.content,
+                'initial': {
+                    'highlighted_content': initial_content,
+                    'content': self.task.content,
                 },
             },
         )
 
     def post(self, request, *args, **kwargs):
-        raw_html = request.POST.getlist("highlighted_content")[0]
+        raw_html = request.POST.getlist('highlighted_content')[0]
 
         if raw_html:
             final_content = core.utils.sanitize_html(raw_html)
@@ -68,7 +68,7 @@ class TextTaskCheckPerformView(BaseTaskCheckPerformView):
         return super().post(
             request,
             check_fields={
-                "annotated_content": final_content,
+                'annotated_content': final_content,
             },
         )
 
@@ -76,4 +76,4 @@ class TextTaskCheckPerformView(BaseTaskCheckPerformView):
 class TextTaskCheckDetailView(BaseTaskCheckDetailView):
     model = tasks.models.TextTaskCheck
     task_model = tasks.models.TextTask
-    template_name = "tasks/text/check_detail.html"
+    template_name = 'tasks/text/check_detail.html'

@@ -7,7 +7,7 @@ from django.conf import settings
 
 def sanitize_html(html_content):
     if not html_content:
-        return ""
+        return ''
 
     css_sanitizer = CSSSanitizer(
         allowed_css_properties=settings.BLEACH_ALLOWED_CSS_PROPERTIES,
