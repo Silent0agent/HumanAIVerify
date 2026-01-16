@@ -43,7 +43,8 @@ class ImageTask(BaseTask):
     def image_tmb(self):
         if self.image:
             return mark_safe(
-                f'<img src="{self.get_image_x150().url}" width="50" height="50"/>',
+                f'<img src=\'{self.get_image_x150().url}\' '
+                'width=\'50\' height=\'50\'/>',
             )
 
         return _('No_image')
