@@ -41,8 +41,7 @@ class AvatarFieldMixin(models.Model):
     def avatar_tmb(self):
         if self.avatar:
             return mark_safe(
-                f'<img src=\'{self.get_avatar_x50().url}\' '
-                'width=\'50\' height=\'50\'/>',
+                f'<img src="{self.get_avatar_x50().url}" width="50" height="50"/>',
             )
 
         return _('No_avatar')
