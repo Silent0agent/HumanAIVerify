@@ -9,16 +9,18 @@ class BootstrapFormMixin:
 
         for field in self.visible_fields():
             widget = field.field.widget
-            current_classes = widget.attrs.get('class', '')
+            current_classes = widget.attrs.get("class", "")
 
             if isinstance(widget, forms.CheckboxInput):
-                if 'form-check-input' not in current_classes:
-                    widget.attrs['class'] = (
-                        current_classes + ' form-check-input'
+                if "form-check-input" not in current_classes:
+                    widget.attrs["class"] = (
+                        current_classes + " form-check-input"
                     ).strip()
             else:
-                if 'form-control' not in current_classes:
-                    widget.attrs['class'] = (current_classes + ' form-control').strip()
+                if "form-control" not in current_classes:
+                    widget.attrs["class"] = (
+                        current_classes + " form-control"
+                    ).strip()
 
-            if not widget.attrs.get('placeholder'):
-                widget.attrs['placeholder'] = field.label
+            if not widget.attrs.get("placeholder"):
+                widget.attrs["placeholder"] = field.label

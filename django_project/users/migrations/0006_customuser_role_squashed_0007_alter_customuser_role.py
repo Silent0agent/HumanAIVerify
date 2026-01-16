@@ -6,26 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     replaces = [
-        ('users', '0006_customuser_role'),
-        ('users', '0007_alter_customuser_role'),
+        ("users", "0006_customuser_role"),
+        ("users", "0007_alter_customuser_role"),
     ]
 
     dependencies = [
         (
-            'users',
-            '0004_alter_customuser_email_squashed_0005_alter_customuser_avatar',
+            "users",
+            "0004_alter_customuser_email_squashed_0005_alter_customuser_avatar",
         ),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='customuser',
-            name='role',
+            model_name="customuser",
+            name="role",
             field=models.CharField(
-                choices=[('customer', 'customer'), ('performer', 'performer')],
-                default='customer',
+                choices=[("customer", "customer"), ("performer", "performer")],
+                default="customer",
                 max_length=9,
-                verbose_name='role',
+                verbose_name="role",
             ),
         ),
     ]

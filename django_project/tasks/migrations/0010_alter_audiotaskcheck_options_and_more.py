@@ -6,32 +6,32 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tasks', '0009_audiotask_audiotaskcheck'),
+        ("tasks", "0009_audiotask_audiotaskcheck"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='audiotaskcheck',
+            name="audiotaskcheck",
             options={
-                'ordering': ['-updated_at'],
-                'verbose_name': 'audio_task_check',
-                'verbose_name_plural': 'audio_task_checks',
+                "ordering": ["-updated_at"],
+                "verbose_name": "audio_task_check",
+                "verbose_name_plural": "audio_task_checks",
             },
         ),
         migrations.AlterModelOptions(
-            name='imagetaskcheck',
+            name="imagetaskcheck",
             options={
-                'ordering': ['-updated_at'],
-                'verbose_name': 'image_task_check',
-                'verbose_name_plural': 'image_task_checks',
+                "ordering": ["-updated_at"],
+                "verbose_name": "image_task_check",
+                "verbose_name_plural": "image_task_checks",
             },
         ),
         migrations.AlterModelOptions(
-            name='texttaskcheck',
+            name="texttaskcheck",
             options={
-                'ordering': ['-updated_at'],
-                'verbose_name': 'text_task_check',
-                'verbose_name_plural': 'text_task_checks',
+                "ordering": ["-updated_at"],
+                "verbose_name": "text_task_check",
+                "verbose_name_plural": "text_task_checks",
             },
         ),
     ]

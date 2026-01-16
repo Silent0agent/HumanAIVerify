@@ -33,7 +33,7 @@ class EmailBackend(auth.backends.ModelBackend):
         if not username:
             return None
 
-        if '@' in username:
+        if "@" in username:
             return User.objects.by_mail(username)
 
         return User.objects.filter(username=username).first()
@@ -60,7 +60,7 @@ class EmailBackend(auth.backends.ModelBackend):
         if request:
             messages.warning(
                 request,
-                _('Account_blocked_due_maxed_attempts'),
+                _("Account_blocked_due_maxed_attempts"),
             )
             self._send_activation_email(request, user)
 
@@ -70,17 +70,17 @@ class EmailBackend(auth.backends.ModelBackend):
 
         activate_link = request.build_absolute_uri(
             reverse(
-                'auth:unlock-account',
-                kwargs={'signed_username': signed_username},
+                "auth:unlock-account",
+                kwargs={"signed_username": signed_username},
             ),
         )
 
         send_mail(
-            subject=_('Profile_activation'),
+            subject=_("Profile_activation"),
             message=render_to_string(
-                'users/subjects/activation_email.txt',
-                {'activate_link': activate_link},
+                "users/subjects/activation_email.txt",
+                {"activate_link": activate_link},
             ),
-            from_email=settings.EMAIL_FROM_DEFAULT,
+            from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[user.email],
         )

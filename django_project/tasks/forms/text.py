@@ -10,7 +10,7 @@ import tasks.models
 class TextTaskForm(BaseTaskForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['content'].label = _('Content') + ' *'
+        self.fields["content"].label = _("Content") + " *"
 
     class Meta(BaseTaskForm.Meta):
         model = tasks.models.TextTask
@@ -29,4 +29,4 @@ class TextTaskCheckForm(BaseTaskCheckForm):
 
     class Meta(BaseTaskCheckForm.Meta):
         model = tasks.models.TextTaskCheck
-        fields = ['highlighted_content'] + BaseTaskCheckForm.Meta.fields
+        fields = ["highlighted_content"] + BaseTaskCheckForm.Meta.fields

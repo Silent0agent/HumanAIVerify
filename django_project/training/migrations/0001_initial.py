@@ -15,106 +15,106 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='TrainingText',
+            name="TrainingText",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
-                ('content', models.TextField(verbose_name='content')),
+                ("content", models.TextField(verbose_name="content")),
                 (
-                    'is_ai_generated',
+                    "is_ai_generated",
                     models.BooleanField(
-                        help_text='Is_the_text_AI_generated',
-                        verbose_name='is_ai_generated',
+                        help_text="Is_the_text_AI_generated",
+                        verbose_name="is_ai_generated",
                     ),
                 ),
                 (
-                    'difficulty',
+                    "difficulty",
                     models.CharField(
                         choices=[
-                            ('easy', 'easy'),
-                            ('medium', 'medium'),
-                            ('hard', 'hard'),
+                            ("easy", "easy"),
+                            ("medium", "medium"),
+                            ("hard", "hard"),
                         ],
-                        default='medium',
+                        default="medium",
                         max_length=10,
-                        verbose_name='difficulty',
+                        verbose_name="difficulty",
                     ),
                 ),
                 (
-                    'explanation',
+                    "explanation",
                     models.TextField(
                         blank=True,
-                        help_text='Explanation_why_text_is_AI_or_human',
-                        verbose_name='explanation',
+                        help_text="Explanation_why_text_is_AI_or_human",
+                        verbose_name="explanation",
                     ),
                 ),
             ],
             options={
-                'verbose_name': 'training_text',
-                'verbose_name_plural': 'training_texts',
-                'ordering': ['difficulty', 'id'],
+                "verbose_name": "training_text",
+                "verbose_name_plural": "training_texts",
+                "ordering": ["difficulty", "id"],
             },
         ),
         migrations.CreateModel(
-            name='UserTrainingProgress',
+            name="UserTrainingProgress",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'training_score',
+                    "training_score",
                     models.IntegerField(
                         default=0,
-                        help_text='Current_training_score',
-                        verbose_name='training_score',
+                        help_text="Current_training_score",
+                        verbose_name="training_score",
                     ),
                 ),
                 (
-                    'last_fail_timestamp',
+                    "last_fail_timestamp",
                     models.DateTimeField(
                         blank=True,
-                        help_text='Timestamp_of_last_failed_attempt',
+                        help_text="Timestamp_of_last_failed_attempt",
                         null=True,
-                        verbose_name='last_fail_timestamp',
+                        verbose_name="last_fail_timestamp",
                     ),
                 ),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
                 (
-                    'completed_texts',
+                    "completed_texts",
                     models.ManyToManyField(
                         blank=True,
-                        related_name='completed_by_users',
-                        to='training.trainingtext',
-                        verbose_name='completed_texts',
+                        related_name="completed_by_users",
+                        to="training.trainingtext",
+                        verbose_name="completed_texts",
                     ),
                 ),
                 (
-                    'user',
+                    "user",
                     models.OneToOneField(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name='training_progress',
+                        related_name="training_progress",
                         to=settings.AUTH_USER_MODEL,
-                        verbose_name='user',
+                        verbose_name="user",
                     ),
                 ),
             ],
             options={
-                'verbose_name': 'user_training_progress',
-                'verbose_name_plural': 'user_training_progresses',
+                "verbose_name": "user_training_progress",
+                "verbose_name_plural": "user_training_progresses",
             },
         ),
     ]

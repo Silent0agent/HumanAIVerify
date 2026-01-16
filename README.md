@@ -1,5 +1,7 @@
 # HumanAIVerify
 
+[![pipeline status](https://gitlab.crja72.ru/django/2025/autumn/course/projects/team-7/badges/develop/pipeline.svg?key_text=lint%20%26%20tests)](https://gitlab.crja72.ru/django/2025/autumn/course/projects/team-7/-/commits/develop)
+
 HumanAIVerify is a service for checking content for signs of AI by humans. Customers can upload text, image, or audio tasks and then performers will check them. To become a performer, a user needs to pass a qualification test. Languages supported: English, Russian.
 
 ## Requirements
@@ -15,13 +17,13 @@ Before starting work, make sure that you have installed:
 ### 1. Clone repository
 
 ```commandline
-git clone https://github.com/Silent0agent/HumanAIVerify.git
+git clone https://gitlab.crja72.ru/django/2025/autumn/course/projects/team-7
 ```
 
 ### 2. Go to the project folder
 
 ```commandline
-cd HumanAIVerify
+cd team-7
 ```
 
 ### 3. Create a virtual environment
@@ -172,10 +174,6 @@ Linux/macOS:
 
 ```bash
 python3 manage.py runserver
-```
-
-```bash
-gunicorn django_project.wsgi
 ```
 
 Windows:

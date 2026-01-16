@@ -23,16 +23,16 @@ class TestHelpers:
         def setUpClass(cls):
             super().setUpClass()
             cls.customer = User.objects.create_user(
-                username='customer',
-                password='password',
-                email='email1@test.com',
+                username="customer",
+                password="password",
+                email="email1@test.com",
             )
             cls.performer = User.objects.create_user(
-                username='performer',
-                password='password',
-                email='email2@test.com',
+                username="performer",
+                password="password",
+                email="email2@test.com",
             )
-            cls.task_title = 'Test task'
+            cls.task_title = "Test task"
 
         def get_task_data(self):
             raise NotImplementedError
@@ -53,10 +53,10 @@ class TestHelpers:
             self.assertEqual(str(self.task), self.task_title)
 
         def test_description_empty(self):
-            self.assertEqual(self.task.description, '')
+            self.assertEqual(self.task.description, "")
 
         def test_setting_description(self):
-            description_example = 'Some description'
+            description_example = "Some description"
             self.task.description = description_example
             self.task.save()
             self.assertEqual(self.task.description, description_example)
@@ -72,9 +72,9 @@ class TestHelpers:
                 status=self.check_model.Status.PUBLISHED,
             )
             new_performer = User.objects.create_user(
-                username='performer_2',
-                password='password',
-                email='email3@test.com',
+                username="performer_2",
+                password="password",
+                email="email3@test.com",
             )
             self.check_model.objects.create(
                 task=self.task,
@@ -88,7 +88,7 @@ class TestHelpers:
         def test_ordering_by_created_at_field(self):
             task_kwargs = {
                 self.model.client.field.name: self.customer,
-                self.model.title.field.name: 'Test title',
+                self.model.title.field.name: "Test title",
                 **self.get_task_data(),
             }
             new_task = self.model.objects.create(**task_kwargs)
@@ -103,13 +103,13 @@ class TestHelpers:
 
         def test_on_delete_client_protect(self):
             new_customer = User.objects.create_user(
-                username='client_2',
-                email='client_2@test.com',
+                username="client_2",
+                email="client_2@test.com",
             )
 
             task_kwargs = {
                 self.model.client.field.name: new_customer,
-                self.model.title.field.name: 'Task 2',
+                self.model.title.field.name: "Task 2",
                 **self.get_task_data(),
             }
             self.model.objects.create(**task_kwargs)
@@ -125,14 +125,14 @@ class TestHelpers:
         def setUpClass(cls):
             super().setUpClass()
             cls.customer = User.objects.create_user(
-                username='customer',
-                password='pass',
-                email='customer@email.com',
+                username="customer",
+                password="pass",
+                email="customer@email.com",
             )
             cls.performer = User.objects.create_user(
-                username='performer',
-                password='pass',
-                email='performer@email.com',
+                username="performer",
+                password="pass",
+                email="performer@email.com",
             )
             cls.check_ai_score = 85.5
 
@@ -142,21 +142,21 @@ class TestHelpers:
         def setUp(self):
             self.task = self.task_model.objects.create(
                 client=self.customer,
-                title='Task Title',
+                title="Task Title",
                 **self.get_task_data(),
             )
             self.check = self.model.objects.create(
                 task=self.task,
                 performer=self.performer,
                 ai_score=self.check_ai_score,
-                comment='Comment',
+                comment="Comment",
             )
 
         def test_check_str(self):
             self.assertEqual(
                 str(self.check),
-                f'{self.task.title} | {self.performer.username} '
-                f'({self.check_ai_score}%)',
+                f"{self.task.title} | {self.performer.username} "
+                f"({self.check_ai_score}%)",
             )
 
         def test_check_timestamps(self):
@@ -185,21 +185,21 @@ class TestHelpers:
                 )
 
         def test_invalid_status(self):
-            self.check.status = 'invalid_status'
+            self.check.status = "invalid_status"
             with self.assertRaises(ValidationError):
                 self.check.full_clean()
 
         def test_ordering_by_updated_at_field(self):
             new_performer = User.objects.create_user(
-                username='performer_2',
-                password='password',
-                email='example3@email.com',
+                username="performer_2",
+                password="password",
+                email="example3@email.com",
             )
             new_check = self.model.objects.create(
                 task=self.task,
                 performer=new_performer,
                 ai_score=35.0,
-                comment='Looks like human',
+                comment="Looks like human",
             )
 
             self.model.objects.filter(id=self.check.id).update(
@@ -215,14 +215,14 @@ class TestHelpers:
         def test_on_delete_task_cascade(self):
             new_task = self.task_model.objects.create(
                 client=self.customer,
-                title='Task 2',
+                title="Task 2",
                 **self.get_task_data(),
             )
             self.model.objects.create(
                 task=new_task,
                 performer=self.performer,
                 ai_score=35.0,
-                comment='Looks like human',
+                comment="Looks like human",
             )
             self.assertEqual(self.model.objects.count(), 2)
             new_task.delete()
@@ -230,15 +230,15 @@ class TestHelpers:
 
         def test_on_delete_performer_protect(self):
             new_performer = User.objects.create_user(
-                username='performer_2',
-                password='password',
-                email='example3@email.com',
+                username="performer_2",
+                password="password",
+                email="example3@email.com",
             )
             self.model.objects.create(
                 task=self.task,
                 performer=new_performer,
                 ai_score=35.0,
-                comment='Looks like human',
+                comment="Looks like human",
             )
             self.assertEqual(User.objects.count(), 3)
             with self.assertRaises(ProtectedError):
@@ -252,23 +252,23 @@ class TextTaskModelTest(TestHelpers.BaseTaskModelTest):
     check_model = tasks.models.TextTaskCheck
 
     def get_task_data(self):
-        return {self.model.content.field.name: 'Some text content'}
+        return {self.model.content.field.name: "Some text content"}
 
     def test_ckeditor_field_save_and_retrieve(self):
         html_content = (
-            '<p>This is some <strong>rich</strong> text content '
+            "<p>This is some <strong>rich</strong> text content "
             "with a <a href='https://example.com'>link</a>.</p>"
         )
 
         task = self.model.objects.create(
             client=self.customer,
-            title='Test Article',
+            title="Test Article",
             content=html_content,
         )
 
         retrieved_task = self.model.objects.get(id=task.id)
         self.assertEqual(retrieved_task.content, html_content)
-        self.assertIn('<strong>rich</strong>', retrieved_task.content)
+        self.assertIn("<strong>rich</strong>", retrieved_task.content)
 
 
 class TextCheckModelTest(TestHelpers.BaseCheckModelTest):
@@ -276,11 +276,12 @@ class TextCheckModelTest(TestHelpers.BaseCheckModelTest):
     task_model = tasks.models.TextTask
 
     def get_task_data(self):
-        return {self.task_model.content.field.name: 'Some text content'}
+        return {self.task_model.content.field.name: "Some text content"}
 
     def test_annotated_content_stores_html_tags(self):
         annotated_html = (
-            "Some <span class='highlight' style='color: red;'>text</span> content"
+            "Some <span class='highlight' style='color: red;'>"
+            "text</span> content"
         )
 
         self.check.annotated_content = annotated_html
@@ -288,14 +289,14 @@ class TextCheckModelTest(TestHelpers.BaseCheckModelTest):
         self.check.refresh_from_db()
 
         self.assertEqual(self.check.annotated_content, annotated_html)
-        self.assertIn('<span', self.check.annotated_content)
-        self.assertIn('</span>', self.check.annotated_content)
+        self.assertIn("<span", self.check.annotated_content)
+        self.assertIn("</span>", self.check.annotated_content)
 
     def test_annotated_content_contains_original_text(self):
         original_content = self.task.content
 
         annotated_version = self.task.content.replace(
-            'text',
+            "text",
             "<span class='haiv-highlight'>text</span>",
         )
 
@@ -306,8 +307,8 @@ class TextCheckModelTest(TestHelpers.BaseCheckModelTest):
             len(original_content),
         )
 
-        self.assertIn('Some', self.check.annotated_content)
-        self.assertIn('content', self.check.annotated_content)
+        self.assertIn("Some", self.check.annotated_content)
+        self.assertIn("content", self.check.annotated_content)
 
 
 class ImageTaskModelTest(TestHelpers.BaseTaskModelTest):
@@ -315,7 +316,7 @@ class ImageTaskModelTest(TestHelpers.BaseTaskModelTest):
     check_model = tasks.models.ImageTaskCheck
 
     def get_task_data(self):
-        image = SimpleUploadedFile('t.jpg', b'123', 'image/jpeg')
+        image = SimpleUploadedFile("t.jpg", b"123", "image/jpeg")
         return {self.model.image.field.name: image}
 
 
@@ -324,7 +325,7 @@ class ImageCheckModelTest(TestHelpers.BaseCheckModelTest):
     task_model = tasks.models.ImageTask
 
     def get_task_data(self):
-        image = SimpleUploadedFile('t.jpg', b'123', 'image/jpeg')
+        image = SimpleUploadedFile("t.jpg", b"123", "image/jpeg")
         return {self.task_model.image.field.name: image}
 
 
@@ -334,18 +335,18 @@ class AudioTaskModelTest(TestHelpers.BaseTaskModelTest):
 
     def get_task_data(self):
         audio = SimpleUploadedFile(
-            name='test_audio.mp3',
-            content=b'\x00\x01',
-            content_type='audio/mpeg',
+            name="test_audio.mp3",
+            content=b"\x00\x01",
+            content_type="audio/mpeg",
         )
         return {self.model.audio.field.name: audio}
 
     def test_file_extension_validation(self):
-        image = SimpleUploadedFile('t.jpg', b'123', 'image/jpeg')
+        image = SimpleUploadedFile("t.jpg", b"123", "image/jpeg")
         with self.assertRaises(ValidationError):
             task = self.model(
                 client=self.customer,
-                title='Some title',
+                title="Some title",
                 audio=image,
             )
             task.full_clean()
@@ -357,8 +358,8 @@ class AudioCheckModelTest(TestHelpers.BaseCheckModelTest):
 
     def get_task_data(self):
         audio = SimpleUploadedFile(
-            name='test_audio.mp3',
-            content=b'\x00\x01',
-            content_type='audio/mpeg',
+            name="test_audio.mp3",
+            content=b"\x00\x01",
+            content_type="audio/mpeg",
         )
         return {self.task_model.audio.field.name: audio}

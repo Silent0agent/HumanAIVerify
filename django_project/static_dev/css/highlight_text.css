@@ -1,6 +1,5 @@
 .haiv-highlight {
     background: #431081;
-    color: white;
     border-radius: 3px;
     padding: 0 2px;
     cursor: pointer;
@@ -43,7 +42,7 @@
     font-weight: 500;
 }
 .haiv-popover::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 50%;
     transform: translateX(-50%);

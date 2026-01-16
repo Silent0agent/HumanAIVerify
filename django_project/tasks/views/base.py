@@ -20,7 +20,7 @@ class BaseMyTasksListView(
     model = None
     check_model = None
     template_name = None
-    context_object_name = 'tasks'
+    context_object_name = "tasks"
 
     def get_queryset(self):
         queryset = self.model.objects.by_client(self.request.user)
@@ -30,7 +30,7 @@ class BaseMyTasksListView(
 
         created_at_field = self.model.created_at.field.name
 
-        return queryset.order_by(f'-{created_at_field}')
+        return queryset.order_by(f"-{created_at_field}")
 
 
 class BaseTaskCreateView(
@@ -40,11 +40,11 @@ class BaseTaskCreateView(
 ):
     model = None
     form_class = None
-    template_name = 'tasks/task_create.html'
+    template_name = "tasks/task_create.html"
 
     def form_valid(self, form):
         form.instance.client = self.request.user
-        messages.success(self.request, _('Task_create_success'))
+        messages.success(self.request, _("Task_create_success"))
         return super().form_valid(form)
 
 
@@ -56,8 +56,8 @@ class BaseTaskDetailView(
     model = None
     check_model = None
     template_name = None
-    pk_url_kwarg = 'task_id'
-    context_object_name = 'task'
+    pk_url_kwarg = "task_id"
+    context_object_name = "task"
 
     def get_queryset(self):
         return (
@@ -71,7 +71,7 @@ class BaseTaskDetailView(
     def get_object(self, queryset=None):
         task = super().get_object(queryset)
         if task.client_id != self.request.user.id:
-            raise PermissionDenied(_('Not_owner_of_task'))
+            raise PermissionDenied(_("Not_owner_of_task"))
 
         return task
 
@@ -84,18 +84,19 @@ class BaseMyChecksListView(
     model = None
     task_model = None
     template_name = None
-    context_object_name = 'checks'
+    context_object_name = "checks"
 
     def get_queryset(self):
         all_needed_models_qs = self.model.objects.with_task_client(
             self.task_model,
         )
         task_title = (
-            f'{self.model.task.field.name}__' f'{self.task_model.title.field.name}'
+            f"{self.model.task.field.name}__"
+            f"{self.task_model.title.field.name}"
         )
         task_client_username = (
-            f'{self.model.task.field.name}__'
-            f'{self.task_model.client.field.name}__{User.username.field.name}'
+            f"{self.model.task.field.name}__"
+            f"{self.task_model.client.field.name}__{User.username.field.name}"
         )
 
         return all_needed_models_qs.by_performer(self.request.user).only(
@@ -109,11 +110,13 @@ class BaseMyChecksListView(
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         client_username = (
-            f'{self.task_model.client.field.name}__{User.username.field.name}'
+            f"{self.task_model.client.field.name}__{User.username.field.name}"
         )
         all_needed_models_qs = self.task_model.objects.with_client()
 
-        context['available_tasks'] = all_needed_models_qs.available_for_performer(
+        context[
+            "available_tasks"
+        ] = all_needed_models_qs.available_for_performer(
             user=self.request.user,
             check_model=self.model,
         ).only(
@@ -138,11 +141,11 @@ class BaseTaskCheckPerformView(
     def dispatch(self, request, *args, **kwargs):
         self.task = get_object_or_404(
             self.task_model,
-            pk=kwargs['task_id'],
+            pk=kwargs["task_id"],
         )
 
         if self.task.client == request.user:
-            raise PermissionDenied(_('You_cant_check_task_created_by_you'))
+            raise PermissionDenied(_("You_cant_check_task_created_by_you"))
 
         self.check_obj = self.check_model.objects.by_task_and_performer(
             self.task,
@@ -152,10 +155,10 @@ class BaseTaskCheckPerformView(
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        if 'form_attrs' in kwargs:
+        if "form_attrs" in kwargs:
             form = self.form_class(
                 instance=self.check_obj,
-                **kwargs['form_attrs'],
+                **kwargs["form_attrs"],
             )
         else:
             form = self.form_class(instance=self.check_obj)
@@ -163,7 +166,7 @@ class BaseTaskCheckPerformView(
         return render(
             request,
             self.template_name,
-            {'form': form, 'task': self.task},
+            {"form": form, "task": self.task},
         )
 
     def post(self, request, *args, **kwargs):
@@ -173,22 +176,22 @@ class BaseTaskCheckPerformView(
             check = form.save(commit=False)
             check.task = self.task
             check.performer = request.user
-            if 'check_fields' in kwargs:
-                for field, val in kwargs['check_fields'].items():
+            if "check_fields" in kwargs:
+                for field, val in kwargs["check_fields"].items():
                     setattr(check, field, val)
 
-            action = request.POST.get('action')
+            action = request.POST.get("action")
 
-            if action == 'publish':
+            if action == "publish":
                 check.status = self.check_model.Status.PUBLISHED
-                message = _('Check_published')
+                message = _("Check_published")
                 check.save()
                 messages.success(request, message)
                 return redirect(check)
 
-            if action == 'save_draft':
+            if action == "save_draft":
                 check.status = self.check_model.Status.DRAFT
-                message = _('Draft_saved')
+                message = _("Draft_saved")
                 check.save()
                 messages.success(request, message)
                 return redirect(request.path)
@@ -196,7 +199,7 @@ class BaseTaskCheckPerformView(
         return render(
             request,
             self.template_name,
-            {'form': form, 'task': self.task},
+            {"form": form, "task": self.task},
         )
 
 
@@ -204,8 +207,8 @@ class BaseTaskCheckDetailView(LoginRequiredMixin, DetailView):
     model = None
     task_model = None
     template_name = None
-    pk_url_kwarg = 'check_id'
-    context_object_name = 'check'
+    pk_url_kwarg = "check_id"
+    context_object_name = "check"
 
     def get_object(self, queryset=None):
         check = super().get_object(queryset)
@@ -215,10 +218,15 @@ class BaseTaskCheckDetailView(LoginRequiredMixin, DetailView):
             and self.request.user != check.performer
         ):
             raise PermissionDenied(
-                _('Not_viewer_of_check'),
+                _("Not_viewer_of_check"),
             )
 
         return check
 
     def get_queryset(self):
-        return super().get_queryset().with_task_client(self.task_model).with_performer()
+        return (
+            super()
+            .get_queryset()
+            .with_task_client(self.task_model)
+            .with_performer()
+        )

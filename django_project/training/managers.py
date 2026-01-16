@@ -30,7 +30,7 @@ class TrainingProgressQuerySet(models.QuerySet):
         )
 
         filter_kwargs = {
-            source_field.name: models.OuterRef('pk'),
+            source_field.name: models.OuterRef("pk"),
             target_field.name: text_id,
         }
 

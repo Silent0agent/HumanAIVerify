@@ -11,7 +11,7 @@ class BaseCheckInline(admin.TabularInline):
     extra = 0
     show_change_link = True
     can_delete = False
-    classes = ('collapse',)
+    classes = ("collapse",)
 
     def __init__(self, parent_model, admin_site):
         super().__init__(parent_model, admin_site)
@@ -23,14 +23,18 @@ class BaseCheckInline(admin.TabularInline):
         self.performer = self.model.performer.field.name
         self.performer_model = self.model.performer.field.related_model
         self.performer_email = self.performer_model.email.field.name
-        self.performer_email_lookup = f'{self.performer}__{self.performer_email}'
+        self.performer_email_lookup = (
+            f"{self.performer}__{self.performer_email}"
+        )
         self.performer_username = self.performer_model.username.field.name
-        self.performer_username_lookup = f'{self.performer}__{self.performer_username}'
+        self.performer_username_lookup = (
+            f"{self.performer}__{self.performer_username}"
+        )
 
         self.task = self.model.task.field.name
         self.task_model = self.model.task.field.related_model
         self.task_title = self.task_model.title.field.name
-        self.task_title_lookup = f'{self.task}__{self.task_title}'
+        self.task_title_lookup = f"{self.task}__{self.task_title}"
 
         self.performer_method = self.get_performer_email.__name__
 
@@ -59,7 +63,7 @@ class BaseCheckInline(admin.TabularInline):
             )
         )
 
-    @admin.display(description=_('Performer'), empty_value='-')
+    @admin.display(description=_("Performer"), empty_value="-")
     def get_performer_email(self, obj):
         user = getattr(obj, self.model.performer.field.name)
         return user.email if user else None
@@ -77,9 +81,9 @@ class BaseTaskAdmin(admin.ModelAdmin):
     def __init__(self, model, admin_site):
         if self.check_model is None or self.unique_content_field is None:
             raise ImproperlyConfigured(
-                _('Error_task_admin_improperly_configured')
+                _("Error_task_admin_improperly_configured")
                 % {
-                    'class_name': self.__class__.__name__,
+                    "class_name": self.__class__.__name__,
                 },
             )
 
@@ -96,7 +100,7 @@ class BaseTaskAdmin(admin.ModelAdmin):
         self.client = self.model.client.field.name
         self.client_model = self.model.client.field.related_model
         self.client_email = self.client_model.email.field.name
-        self.client_email_lookup = f'{self.client}__{self.client_email}'
+        self.client_email_lookup = f"{self.client}__{self.client_email}"
 
         self.content_name = self.unique_content_field.name
 
@@ -104,7 +108,7 @@ class BaseTaskAdmin(admin.ModelAdmin):
             return str(obj)
 
         get_task_str_wrapper.admin_order_field = self.title
-        get_task_str_wrapper.short_description = _('Task')
+        get_task_str_wrapper.short_description = _("Task")
 
         ai_score_method = self.ai_score_display.__name__
         get_task_str_method = get_task_str_wrapper
@@ -148,7 +152,7 @@ class BaseTaskAdmin(admin.ModelAdmin):
             (
                 None,
                 {
-                    'fields': (
+                    "fields": (
                         self.client,
                         self.title,
                         detail_content_fields,
@@ -158,9 +162,9 @@ class BaseTaskAdmin(admin.ModelAdmin):
                 },
             ),
             (
-                _('Timestamps'),
+                _("Timestamps"),
                 {
-                    'fields': (self.created_at, self.updated_at),
+                    "fields": (self.created_at, self.updated_at),
                 },
             ),
         )
@@ -170,7 +174,7 @@ class BaseTaskAdmin(admin.ModelAdmin):
         current_url = request.resolver_match.url_name
 
         opts = self.model._meta
-        changelist_url_name = f'{opts.app_label}_{opts.model_name}_changelist'
+        changelist_url_name = f"{opts.app_label}_{opts.model_name}_changelist"
         qs = qs.with_client()
 
         if current_url == changelist_url_name:
@@ -193,13 +197,13 @@ class BaseTaskAdmin(admin.ModelAdmin):
 
         return qs
 
-    @admin.display(description=_('Average_AI_Score'))
+    @admin.display(description=_("Average_AI_Score"))
     def ai_score_display(self, obj):
         value = obj.ai_score
         if value is None:
-            return _('No_checks')
+            return _("No_checks")
 
-        return f'{value}%'
+        return f"{value}%"
 
 
 class BaseCheckAdmin(admin.ModelAdmin):
@@ -221,14 +225,18 @@ class BaseCheckAdmin(admin.ModelAdmin):
         self.performer = self.model.performer.field.name
         self.performer_model = self.model.performer.field.related_model
         self.performer_email = self.performer_model.email.field.name
-        self.performer_email_lookup = f'{self.performer}__{self.performer_email}'
+        self.performer_email_lookup = (
+            f"{self.performer}__{self.performer_email}"
+        )
         self.performer_username = self.performer_model.username.field.name
-        self.performer_username_lookup = f'{self.performer}__{self.performer_username}'
+        self.performer_username_lookup = (
+            f"{self.performer}__{self.performer_username}"
+        )
 
         self.task = self.model.task.field.name
         self.task_model = self.model.task.field.related_model
         self.task_title = self.task_model.title.field.name
-        self.task_title_lookup = f'{self.task}__{self.task_title}'
+        self.task_title_lookup = f"{self.task}__{self.task_title}"
 
         self.list_display = (
             self.task,
@@ -266,13 +274,15 @@ class BaseCheckAdmin(admin.ModelAdmin):
 
         content_fieldset_fields = (self.comment,)
         if content_field_to_show:
-            content_fieldset_fields = (content_field_to_show,) + content_fieldset_fields
+            content_fieldset_fields = (
+                content_field_to_show,
+            ) + content_fieldset_fields
 
         self.fieldsets = (
             (
                 None,
                 {
-                    'fields': (
+                    "fields": (
                         self.task,
                         self.performer,
                         self.status,
@@ -281,15 +291,15 @@ class BaseCheckAdmin(admin.ModelAdmin):
                 },
             ),
             (
-                _('Content'),
+                _("Content"),
                 {
-                    'fields': content_fieldset_fields,
+                    "fields": content_fieldset_fields,
                 },
             ),
             (
-                _('Timestamps'),
+                _("Timestamps"),
                 {
-                    'fields': (self.created_at, self.updated_at),
+                    "fields": (self.created_at, self.updated_at),
                 },
             ),
         )
@@ -299,7 +309,7 @@ class BaseCheckAdmin(admin.ModelAdmin):
 
         current_url = request.resolver_match.url_name
         opts = self.model._meta
-        changelist_url_name = f'{opts.app_label}_{opts.model_name}_changelist'
+        changelist_url_name = f"{opts.app_label}_{opts.model_name}_changelist"
         qs = qs.with_task().with_performer()
 
         if current_url == changelist_url_name:

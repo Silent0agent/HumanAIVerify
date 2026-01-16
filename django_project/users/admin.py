@@ -66,9 +66,9 @@ class CustomUserAdmin(auth.admin.UserAdmin):
 
     fieldsets = auth.admin.UserAdmin.fieldsets + (
         (
-            _('Security_profile'),
+            _("Security_profile"),
             {
-                'fields': (
+                "fields": (
                     login_attempts_count_field,
                     block_time_field,
                     last_login_attempt_field,
@@ -76,11 +76,11 @@ class CustomUserAdmin(auth.admin.UserAdmin):
             },
         ),
         (
-            _('Additional_information'),
+            _("Additional_information"),
             {
-                'fields': (
+                "fields": (
                     role_field,
-                    (avatar_field, 'avatar_tmb'),
+                    (avatar_field, "avatar_tmb"),
                 ),
             },
         ),
@@ -89,12 +89,12 @@ class CustomUserAdmin(auth.admin.UserAdmin):
         (
             None,
             {
-                'classes': ('wide',),
-                'fields': (
+                "classes": ("wide",),
+                "fields": (
                     email_field,
                     username_field,
-                    'password1',
-                    'password2',
+                    "password1",
+                    "password2",
                 ),
             },
         ),

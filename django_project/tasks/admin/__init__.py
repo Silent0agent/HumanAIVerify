@@ -1,10 +1,10 @@
 __all__ = (
-    'TextTaskAdmin',
-    'TextTaskCheckAdmin',
-    'ImageTaskAdmin',
-    'ImageTaskCheckAdmin',
-    'AudioTaskAdmin',
-    'AudioTaskCheckAdmin',
+    "TextTaskAdmin",
+    "TextTaskCheckAdmin",
+    "ImageTaskAdmin",
+    "ImageTaskCheckAdmin",
+    "AudioTaskAdmin",
+    "AudioTaskCheckAdmin",
 )
 
 from tasks.admin.audio import AudioTaskAdmin, AudioTaskCheckAdmin

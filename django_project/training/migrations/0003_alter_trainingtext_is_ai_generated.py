@@ -7,18 +7,18 @@ class Migration(migrations.Migration):
 
     dependencies = [
         (
-            'training',
-            '0002_trainingtext_created_at_trainingtext_updated_at_and_more',
+            "training",
+            "0002_trainingtext_created_at_trainingtext_updated_at_and_more",
         ),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='trainingtext',
-            name='is_ai_generated',
+            model_name="trainingtext",
+            name="is_ai_generated",
             field=models.BooleanField(
-                help_text='Is_the_text_AI_generated_question',
-                verbose_name='is_ai_generated',
+                help_text="Is_the_text_AI_generated_question",
+                verbose_name="is_ai_generated",
             ),
         ),
     ]

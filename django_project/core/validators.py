@@ -14,9 +14,12 @@ class FileSizeValidator:
         if value.size > self.max_size:
             limit_mb = self.max_size / (1024 * 1024)
             raise ValidationError(
-                _('Error_file_too_big'),
-                params={'max': round(limit_mb, 1)},
+                _("Error_file_too_big"),
+                params={"max": round(limit_mb, 1)},
             )
 
     def __eq__(self, other):
-        return isinstance(other, FileSizeValidator) and self.max_size == other.max_size
+        return (
+            isinstance(other, FileSizeValidator)
+            and self.max_size == other.max_size
+        )

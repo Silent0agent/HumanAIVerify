@@ -18,37 +18,37 @@ class TrainingTextModelTest(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.text = TrainingText.objects.create(
-            content='A' * 100,
+            content="A" * 100,
             is_ai_generated=True,
             difficulty=TrainingText.Difficulty.MEDIUM,
         )
 
     def test_str_representation_truncates_content(self):
-        expected_str = 'A' * 29 + '…'
+        expected_str = "A" * 29 + "…"
         self.assertEqual(str(self.text), expected_str)
 
     def test_default_difficulty(self):
         text = TrainingText.objects.create(
-            content='Short',
+            content="Short",
             is_ai_generated=False,
         )
         self.assertEqual(text.difficulty, TrainingText.Difficulty.MEDIUM)
 
     def test_ordering_by_difficulty(self):
         text1 = TrainingText.objects.create(
-            content='1',
+            content="1",
             is_ai_generated=True,
-            difficulty='medium',
+            difficulty="medium",
         )
         text2 = TrainingText.objects.create(
-            content='2',
+            content="2",
             is_ai_generated=True,
-            difficulty='easy',
+            difficulty="easy",
         )
         text3 = TrainingText.objects.create(
-            content='3',
+            content="3",
             is_ai_generated=True,
-            difficulty='hard',
+            difficulty="hard",
         )
 
         texts = list(TrainingText.objects.all())
@@ -64,9 +64,9 @@ class UserTrainingProgressPropertiesTest(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.user = User.objects.create_user(
-            username='testuser_props',
-            email='testuser_props@email.com',
-            password='pass',
+            username="testuser_props",
+            email="testuser_props@email.com",
+            password="pass",
         )
 
     def setUp(self):
@@ -81,12 +81,13 @@ class UserTrainingProgressPropertiesTest(TestCase):
 
     @parameterized.expand(
         [
-            ('25_hours_ago', datetime.timedelta(hours=25), True),
-            ('23_hours_ago', datetime.timedelta(hours=23), False),
-            ('exact_24_hours', datetime.timedelta(hours=24), True),
+            ("25_hours_ago", datetime.timedelta(hours=25), True),
+            ("23_hours_ago", datetime.timedelta(hours=23), False),
+            ("exact_24_hours", datetime.timedelta(hours=24), True),
         ],
     )
     def test_can_take_test_with_timestamp(self, name, time_delta, expected):
+        """User can take test only if 24 hours passed since fail."""
         self.progress.last_fail_timestamp = timezone.now() - time_delta
         self.progress.save()
 
@@ -94,11 +95,11 @@ class UserTrainingProgressPropertiesTest(TestCase):
 
     @parameterized.expand(
         [
-            ('no_fail', None, 0),
-            ('failed_just_now', datetime.timedelta(seconds=0), 24),
-            ('failed_10_hours_ago', datetime.timedelta(hours=10), 14),
-            ('failed_23_hours_ago', datetime.timedelta(hours=23), 1),
-            ('failed_25_hours_ago', datetime.timedelta(hours=25), 0),
+            ("no_fail", None, 0),
+            ("failed_just_now", datetime.timedelta(seconds=0), 24),
+            ("failed_10_hours_ago", datetime.timedelta(hours=10), 14),
+            ("failed_23_hours_ago", datetime.timedelta(hours=23), 1),
+            ("failed_25_hours_ago", datetime.timedelta(hours=25), 0),
         ],
     )
     def test_remaining_hours(self, name, time_delta, expected_hours):
@@ -114,15 +115,15 @@ class UserTrainingProgressLogicTest(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.user = User.objects.create_user(
-            username='testuser_logic',
-            email='testuser_logic@email.com',
+            username="testuser_logic",
+            email="testuser_logic@email.com",
         )
         cls.text1 = TrainingText.objects.create(
-            content='text1',
+            content="text1",
             is_ai_generated=True,
         )
         cls.text2 = TrainingText.objects.create(
-            content='text2',
+            content="text2",
             is_ai_generated=False,
         )
 
@@ -201,12 +202,12 @@ class UserPromotionTest(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.user = User.objects.create_user(
-            username='testuser_promo',
-            email='testuser_promo',
-            password='pass',
+            username="testuser_promo",
+            email="testuser_promo",
+            password="pass",
         )
         cls.text = TrainingText.objects.create(
-            content='Test',
+            content="Test",
             is_ai_generated=True,
         )
 
@@ -224,7 +225,7 @@ class UserPromotionTest(TestCase):
         self.progress.add_completed_text(self.text, is_correct=True)
 
         self.assertTrue(
-            self.user.groups.filter(name='Performers').exists(),
+            self.user.groups.filter(name="Performers").exists(),
         )
 
     def test_promotion_changes_role(self):
@@ -243,5 +244,5 @@ class UserPromotionTest(TestCase):
         self.progress.add_completed_text(self.text, is_correct=True)
 
         self.assertFalse(
-            self.user.groups.filter(name='Performers').exists(),
+            self.user.groups.filter(name="Performers").exists(),
         )

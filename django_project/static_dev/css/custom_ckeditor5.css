@@ -23,7 +23,7 @@
   border: 1px solid #41464b;
 }
 
-html[data-theme='dark'],
+html[data-theme="dark"],
 .ck-editor.ck-theme-dark {
   --ck-color-base-background: hsl(270, 1%, 29%);
   --ck-color-base-border: hsl(240, 4%, 24%);
@@ -106,7 +106,7 @@ html[data-theme='dark'],
 }
 
 .ck-list__options .ck-list__item,
-.ck-dropdown__panel [role='menuitem'] {
+.ck-dropdown__panel [role="menuitem"] {
   color: var(--ck-color-text);
   background: transparent;
   padding: 0.5rem 0.75rem;
@@ -114,14 +114,14 @@ html[data-theme='dark'],
 }
 
 .ck-list__options .ck-list__item:hover,
-.ck-list__options .ck-list__item[aria-selected='true'],
-.ck-list__options .ck-list__item[aria-current='true'] {
+.ck-list__options .ck-list__item[aria-selected="true"],
+.ck-list__options .ck-list__item[aria-current="true"] {
   background: var(--ck-list-hover-bg) !important;
   color: var(--ck-color-text) !important;
 }
 
 .ck-list__options .ck-list__item:hover .ck-icon,
-.ck-list__options .ck-list__item[aria-selected='true'] .ck-icon {
+.ck-list__options .ck-list__item[aria-selected="true"] .ck-icon {
   color: var(--ck-color-text) !important;
   fill: currentColor !important;
 }
@@ -187,7 +187,7 @@ html[data-theme='dark'],
 }
 
 .ck-tooltip:hover .ck-tooltip__text,
-html[data-theme='dark'] .ck-tooltip:hover .ck-tooltip__text,
+html[data-theme="dark"] .ck-tooltip:hover .ck-tooltip__text,
 .ck-editor.ck-theme-dark .ck-tooltip:hover .ck-tooltip__text {
   color: var(--ck-tooltip-hover-text) !important;
 }

@@ -13,194 +13,208 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     replaces = [
-        ('tasks', '0006_alter_texttaskcheck_options_and_more'),
-        ('tasks', '0007_imagetask_imagetaskcheck_and_more'),
-        ('tasks', '0006_texttaskcheck_annotated_content_and_more'),
-        ('tasks', '0008_merge_20251212_2156'),
+        ("tasks", "0006_alter_texttaskcheck_options_and_more"),
+        ("tasks", "0007_imagetask_imagetaskcheck_and_more"),
+        ("tasks", "0006_texttaskcheck_annotated_content_and_more"),
+        ("tasks", "0008_merge_20251212_2156"),
     ]
 
     dependencies = [
-        ('tasks', '0005_rename_taskcheck_texttaskcheck_texttask_description'),
+        ("tasks", "0005_rename_taskcheck_texttaskcheck_texttask_description"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='texttaskcheck',
+            name="texttaskcheck",
             options={
-                'ordering': ['-created_at'],
-                'verbose_name': 'text_task_check',
-                'verbose_name_plural': 'text_task_checks',
+                "ordering": ["-created_at"],
+                "verbose_name": "text_task_check",
+                "verbose_name_plural": "text_task_checks",
             },
         ),
         migrations.AlterField(
-            model_name='texttaskcheck',
-            name='performer',
+            model_name="texttaskcheck",
+            name="performer",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.PROTECT,
-                related_name='text_task_checks',
-                related_query_name='text_task_check',
+                related_name="text_task_checks",
+                related_query_name="text_task_check",
                 to=settings.AUTH_USER_MODEL,
-                verbose_name='performer',
+                verbose_name="performer",
             ),
         ),
         migrations.CreateModel(
-            name='ImageTask',
+            name="ImageTask",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'created_at',
-                    models.DateTimeField(auto_now_add=True, verbose_name='created_at'),
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="created_at"
+                    ),
                 ),
                 (
-                    'updated_at',
-                    models.DateTimeField(auto_now=True, verbose_name='updated_at'),
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="updated_at"
+                    ),
                 ),
                 (
-                    'title',
-                    models.CharField(max_length=255, verbose_name='title'),
+                    "title",
+                    models.CharField(max_length=255, verbose_name="title"),
                 ),
                 (
-                    'description',
-                    models.TextField(blank=True, verbose_name='description'),
+                    "description",
+                    models.TextField(blank=True, verbose_name="description"),
                 ),
                 (
-                    'image',
+                    "image",
                     sorl.thumbnail.fields.ImageField(
                         upload_to=tasks.models.image.ImageTask.image_path,
-                        validators=[core.validators.FileSizeValidator(52428800)],
-                        verbose_name='image',
+                        validators=[
+                            core.validators.FileSizeValidator(52428800)
+                        ],
+                        verbose_name="image",
                     ),
                 ),
             ],
             options={
-                'verbose_name': 'image_task',
-                'verbose_name_plural': 'image_tasks',
-                'ordering': ['-created_at'],
-                'abstract': False,
+                "verbose_name": "image_task",
+                "verbose_name_plural": "image_tasks",
+                "ordering": ["-created_at"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='ImageTaskCheck',
+            name="ImageTaskCheck",
             fields=[
                 (
-                    'id',
+                    "id",
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name='ID',
+                        verbose_name="ID",
                     ),
                 ),
                 (
-                    'created_at',
-                    models.DateTimeField(auto_now_add=True, verbose_name='created_at'),
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="created_at"
+                    ),
                 ),
                 (
-                    'updated_at',
-                    models.DateTimeField(auto_now=True, verbose_name='updated_at'),
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="updated_at"
+                    ),
                 ),
                 (
-                    'ai_score',
+                    "ai_score",
                     models.FloatField(
                         validators=[
                             django.core.validators.MinValueValidator(0.0),
                             django.core.validators.MaxValueValidator(100.0),
                         ],
-                        verbose_name='ai_score',
+                        verbose_name="ai_score",
                     ),
                 ),
                 (
-                    'comment',
-                    models.TextField(blank=True, verbose_name='comment'),
+                    "comment",
+                    models.TextField(blank=True, verbose_name="comment"),
                 ),
                 (
-                    'status',
+                    "status",
                     models.CharField(
                         choices=[
-                            ('draft', 'draft'),
-                            ('published', 'published'),
+                            ("draft", "draft"),
+                            ("published", "published"),
                         ],
-                        default='draft',
+                        default="draft",
                         max_length=15,
-                        verbose_name='status',
+                        verbose_name="status",
                     ),
                 ),
             ],
             options={
-                'verbose_name': 'image_task_check',
-                'verbose_name_plural': 'image_task_checks',
-                'ordering': ['-created_at'],
-                'abstract': False,
+                "verbose_name": "image_task_check",
+                "verbose_name_plural": "image_task_checks",
+                "ordering": ["-created_at"],
+                "abstract": False,
             },
         ),
         migrations.RemoveConstraint(
-            model_name='texttaskcheck',
-            name='unique_task_performer',
+            model_name="texttaskcheck",
+            name="unique_task_performer",
         ),
         migrations.AddConstraint(
-            model_name='texttaskcheck',
+            model_name="texttaskcheck",
             constraint=models.UniqueConstraint(
-                fields=('task', 'performer'),
-                name='unique_texttaskcheck_performer',
+                fields=("task", "performer"),
+                name="unique_texttaskcheck_performer",
             ),
         ),
         migrations.AddField(
-            model_name='imagetask',
-            name='client',
+            model_name="imagetask",
+            name="client",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.PROTECT,
-                related_name='image_tasks',
-                related_query_name='image_task',
+                related_name="image_tasks",
+                related_query_name="image_task",
                 to=settings.AUTH_USER_MODEL,
-                verbose_name='client',
+                verbose_name="client",
             ),
         ),
         migrations.AddField(
-            model_name='imagetaskcheck',
-            name='performer',
+            model_name="imagetaskcheck",
+            name="performer",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.PROTECT,
-                related_name='image_task_checks',
-                related_query_name='image_task_check',
+                related_name="image_task_checks",
+                related_query_name="image_task_check",
                 to=settings.AUTH_USER_MODEL,
-                verbose_name='performer',
+                verbose_name="performer",
             ),
         ),
         migrations.AddField(
-            model_name='imagetaskcheck',
-            name='task',
+            model_name="imagetaskcheck",
+            name="task",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name='checks',
-                related_query_name='check',
-                to='tasks.imagetask',
-                verbose_name='task',
+                related_name="checks",
+                related_query_name="check",
+                to="tasks.imagetask",
+                verbose_name="task",
             ),
         ),
         migrations.AddConstraint(
-            model_name='imagetaskcheck',
+            model_name="imagetaskcheck",
             constraint=models.UniqueConstraint(
-                fields=('task', 'performer'),
-                name='unique_imagetaskcheck_performer',
+                fields=("task", "performer"),
+                name="unique_imagetaskcheck_performer",
             ),
         ),
         migrations.AddField(
-            model_name='texttaskcheck',
-            name='annotated_content',
-            field=models.TextField(blank=True, verbose_name='annotated_content'),
+            model_name="texttaskcheck",
+            name="annotated_content",
+            field=models.TextField(
+                blank=True, verbose_name="annotated_content"
+            ),
         ),
         migrations.AlterField(
-            model_name='texttask',
-            name='content',
-            field=django_ckeditor_5.fields.CKEditor5Field(verbose_name='content'),
+            model_name="texttask",
+            name="content",
+            field=django_ckeditor_5.fields.CKEditor5Field(
+                verbose_name="content"
+            ),
         ),
     ]
