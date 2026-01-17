@@ -16,13 +16,14 @@ env = environ.Env(
     DJANGO_DEBUG=(str, 'false'),
     DJANGO_EMAIL_FROM_DEFAULT=(str, 'sender@mail'),
     DJANGO_DEFAULT_USER_IS_ACTIVE=(bool, None),
-    DJANGO_EMAIL_BACKEND=(str, 'django.core.mail.backends.filebased.EmailBackend'),
+    DJANGO_EMAIL_BACKEND=(str, 'mailer.backend.DbBackend'),
     DJANGO_EMAIL_HOST=(str, 'localhost'),
     DJANGO_EMAIL_HOST_PASSWORD=(str, 'not_so_secret'),
     DJANGO_EMAIL_HOST_USER=(str, 'user@example.com'),
     DJANGO_EMAIL_PORT=(int, 0),
     DJANGO_EMAIL_USE_SSL=(bool, False),
     DJANGO_EMAIL_USE_TLS=(bool, False),
+    DJANGO_MAILER_EMAIL_BACKEND=(str, 'django.core.mail.backends.smtp.EmailBackend'),
     DJANGO_MAX_AUTH_ATTEMPTS=(int, 6),
     DJANGO_PROJECT_ABSOLUTE_PATH=(str, 'C://'),
     DJANGO_SECRET_KEY=(str, '1234'),
@@ -46,9 +47,11 @@ EMAIL_HOST = env('DJANGO_EMAIL_HOST')
 EMAIL_HOST_PASSWORD = env('DJANGO_EMAIL_HOST_PASSWORD')
 EMAIL_HOST_USER = env('DJANGO_EMAIL_HOST_USER')
 EMAIL_PORT = env('DJANGO_EMAIL_PORT')
+EMAIL_TIMEOUT = 15
 EMAIL_USE_SSL = env('DJANGO_EMAIL_USE_SSL')
 EMAIL_USE_TLS = env('DJANGO_EMAIL_USE_TLS')
 
+MAILER_EMAIL_BACKEND = env('DJANGO_MAILER_EMAIL_BACKEND')
 MAX_AUTH_ATTEMPTS = env('DJANGO_MAX_AUTH_ATTEMPTS')
 
 PROJECT_ABSOLUTE_PATH = env('DJANGO_PROJECT_ABSOLUTE_PATH')
@@ -69,12 +72,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # installed apps
     'django.forms',
+    # third-party apps
     'django_ckeditor_5',
+    'mailer',
     'sorl.thumbnail',
     'tz_detect',
-    # third-party
+    # site apps
     'about.apps.AboutConfig',
     'core.apps.CoreConfig',
     'feedback.apps.FeedbackConfig',
@@ -82,7 +86,7 @@ INSTALLED_APPS = [
     'tasks.apps.TasksConfig',
     'training.apps.TrainingConfig',
     'users.apps.UsersConfig',
-    # bottom installed apps
+    # system / cleanup
     'django_cleanup.apps.CleanupConfig',
 ]
 

@@ -7,7 +7,7 @@
 {% for hidden_field in form.hidden_fields %}{{ hidden_field }}{% endfor %}
 {% for field in form %}
   {% if field.name != "remember_me" %}
-    {% if field.name == "password" or field.name == "password1" or field.name == "old_password" or field.name == "new_password1" %}
+    {% if field.name == "password" or field.name == "password1" or field.name == "password2" or field.name == "old_password" or field.name == "new_password1" or field.name == "new_password2"%}
       <div class="form-floating mx-auto w-75 position-relative">
         {{ field }}
         <label for="{{ field.id_for_label }}">

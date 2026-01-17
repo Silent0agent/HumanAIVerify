@@ -80,10 +80,10 @@ class TestHelpers:
 class TextRoutesTest(TestHelpers.BaseTaskRoutesTest):
     task_type = 'text'
 
-    view_my_tasks = tasks.views.MyTextTasksListView
+    view_my_tasks = tasks.views.CustomerTextTasksListView
     view_task_create = tasks.views.TextTaskCreateView
     view_task_detail = tasks.views.TextTaskDetailView
-    view_my_checks = tasks.views.MyTextChecksListView
+    view_my_checks = tasks.views.PerformerTextChecksListView
     view_check_perform = tasks.views.TextTaskCheckPerformView
     view_check_detail = tasks.views.TextTaskCheckDetailView
 
@@ -91,10 +91,10 @@ class TextRoutesTest(TestHelpers.BaseTaskRoutesTest):
 class ImageRoutesTest(TestHelpers.BaseTaskRoutesTest):
     task_type = 'image'
 
-    view_my_tasks = tasks.views.MyImageTasksListView
+    view_my_tasks = tasks.views.CustomerImageTasksListView
     view_task_create = tasks.views.ImageTaskCreateView
     view_task_detail = tasks.views.ImageTaskDetailView
-    view_my_checks = tasks.views.MyImageChecksListView
+    view_my_checks = tasks.views.PerformerImageChecksListView
     view_check_perform = tasks.views.ImageTaskCheckPerformView
     view_check_detail = tasks.views.ImageTaskCheckDetailView
 
@@ -102,9 +102,9 @@ class ImageRoutesTest(TestHelpers.BaseTaskRoutesTest):
 class AudioRoutesTest(TestHelpers.BaseTaskRoutesTest):
     task_type = 'audio'
 
-    view_my_tasks = tasks.views.MyAudioTasksListView
+    view_my_tasks = tasks.views.CustomerAudioTasksListView
     view_task_create = tasks.views.AudioTaskCreateView
     view_task_detail = tasks.views.AudioTaskDetailView
-    view_my_checks = tasks.views.MyAudioChecksListView
+    view_my_checks = tasks.views.PerformerAudioChecksListView
     view_check_perform = tasks.views.AudioTaskCheckPerformView
     view_check_detail = tasks.views.AudioTaskCheckDetailView

@@ -12,7 +12,7 @@ from tasks.views.base import (
 )
 
 
-class MyAudioTasksListView(BaseMyTasksListView):
+class CustomerAudioTasksListView(BaseMyTasksListView):
     model = tasks.models.AudioTask
     check_model = tasks.models.AudioTaskCheck
     template_name = 'tasks/audio/my_tasks.html'
@@ -29,7 +29,7 @@ class AudioTaskDetailView(BaseTaskDetailView):
     template_name = 'tasks/audio/task_detail.html'
 
 
-class MyAudioChecksListView(BaseMyChecksListView):
+class PerformerAudioChecksListView(BaseMyChecksListView):
     model = tasks.models.AudioTaskCheck
     task_model = tasks.models.AudioTask
     template_name = 'tasks/audio/my_checks.html'

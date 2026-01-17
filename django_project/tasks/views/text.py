@@ -13,7 +13,7 @@ from tasks.views.base import (
 )
 
 
-class MyTextTasksListView(BaseMyTasksListView):
+class CustomerTextTasksListView(BaseMyTasksListView):
     model = tasks.models.TextTask
     check_model = tasks.models.TextTaskCheck
     template_name = 'tasks/text/my_tasks.html'
@@ -30,7 +30,7 @@ class TextTaskDetailView(BaseTaskDetailView):
     template_name = 'tasks/text/task_detail.html'
 
 
-class MyTextChecksListView(BaseMyChecksListView):
+class PerformerTextChecksListView(BaseMyChecksListView):
     model = tasks.models.TextTaskCheck
     task_model = tasks.models.TextTask
     template_name = 'tasks/text/my_checks.html'

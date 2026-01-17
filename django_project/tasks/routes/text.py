@@ -5,7 +5,7 @@ import tasks.views
 urlpatterns = [
     path(
         'my/',
-        tasks.views.MyTextTasksListView.as_view(),
+        tasks.views.CustomerTextTasksListView.as_view(),
         name='my-text-tasks',
     ),
     path(
@@ -20,7 +20,7 @@ urlpatterns = [
     ),
     path(
         'my-checks/',
-        tasks.views.MyTextChecksListView.as_view(),
+        tasks.views.PerformerTextChecksListView.as_view(),
         name='my-text-checks',
     ),
     path(

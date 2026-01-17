@@ -1,5 +1,7 @@
 __all__ = ()
 
+import threading
+
 from django.conf import settings
 from django.contrib import auth
 from django.contrib import messages
@@ -9,6 +11,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+import core.utils
 
 User = auth.get_user_model()
 
@@ -84,3 +88,4 @@ class EmailBackend(auth.backends.ModelBackend):
             from_email=settings.EMAIL_FROM_DEFAULT,
             recipient_list=[user.email],
         )
+        threading.Thread(target=core.utils.send_mail_async).start()

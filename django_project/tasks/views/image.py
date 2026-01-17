@@ -12,7 +12,7 @@ from tasks.views.base import (
 )
 
 
-class MyImageTasksListView(BaseMyTasksListView):
+class CustomerImageTasksListView(BaseMyTasksListView):
     model = tasks.models.ImageTask
     check_model = tasks.models.ImageTaskCheck
     template_name = 'tasks/image/my_tasks.html'
@@ -29,7 +29,7 @@ class ImageTaskDetailView(BaseTaskDetailView):
     template_name = 'tasks/image/task_detail.html'
 
 
-class MyImageChecksListView(BaseMyChecksListView):
+class PerformerImageChecksListView(BaseMyChecksListView):
     model = tasks.models.ImageTaskCheck
     task_model = tasks.models.ImageTask
     template_name = 'tasks/image/my_checks.html'

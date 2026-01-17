@@ -3,6 +3,7 @@ __all__ = ()
 import bleach
 from bleach.css_sanitizer import CSSSanitizer
 from django.conf import settings
+from django.core.management import call_command
 
 
 def sanitize_html(html_content):
@@ -20,3 +21,7 @@ def sanitize_html(html_content):
         strip=settings.BLEACH_STRIP,
         css_sanitizer=css_sanitizer,
     )
+
+
+def send_mail_async():
+    call_command('send_mail', verbosity=0)

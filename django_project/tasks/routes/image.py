@@ -5,7 +5,7 @@ import tasks.views
 urlpatterns = [
     path(
         'my/',
-        tasks.views.MyImageTasksListView.as_view(),
+        tasks.views.CustomerImageTasksListView.as_view(),
         name='my-image-tasks',
     ),
     path(
@@ -20,7 +20,7 @@ urlpatterns = [
     ),
     path(
         'my-checks/',
-        tasks.views.MyImageChecksListView.as_view(),
+        tasks.views.PerformerImageChecksListView.as_view(),
         name='my-image-checks',
     ),
     path(

@@ -5,7 +5,7 @@ import tasks.views
 urlpatterns = [
     path(
         'my/',
-        tasks.views.MyAudioTasksListView.as_view(),
+        tasks.views.CustomerAudioTasksListView.as_view(),
         name='my-audio-tasks',
     ),
     path(
@@ -20,7 +20,7 @@ urlpatterns = [
     ),
     path(
         'my-checks/',
-        tasks.views.MyAudioChecksListView.as_view(),
+        tasks.views.PerformerAudioChecksListView.as_view(),
         name='my-audio-checks',
     ),
     path(

@@ -1,5 +1,7 @@
 __all__ = ()
 
+import threading
+
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -8,6 +10,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
+import core.utils
 import feedback.forms
 import feedback.models
 
@@ -77,6 +80,7 @@ class FeedbackView(TemplateView):
                 [mail],
                 fail_silently=False,
             )
+            threading.Thread(target=core.utils.send_mail_async).start()
 
             messages.success(request, _('Success_feedback_form'))
             return redirect(self.success_url)

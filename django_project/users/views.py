@@ -1,5 +1,7 @@
 __all__ = ()
 
+import threading
+
 from django.conf import settings
 from django.contrib import auth, messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,6 +14,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 import django.views.generic
 
+import core.utils
 import users.forms
 
 User = auth.get_user_model()
@@ -87,6 +90,7 @@ class SignUpView(django.views.generic.FormView):
             from_email=settings.EMAIL_FROM_DEFAULT,
             recipient_list=[user.email],
         )
+        threading.Thread(target=core.utils.send_mail_async).start()
 
 
 class LoginView(auth.views.LoginView):
